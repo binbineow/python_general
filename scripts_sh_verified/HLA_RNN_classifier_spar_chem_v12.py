@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#including chemistry information
 from __future__ import print_function
 from keras.models import Sequential, slice_X
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
@@ -13,43 +14,36 @@ path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
 #model = model_from_json(open('my_model_architecture.json').read())
 #model.load_weights('my_model_weights.h5')
 
+##import coding dictionary
+*path_dict = ''
+#Blosum50_sparse.dict
+#Blosum50_only.dict
+#Sparse_only.dict
+dict_name = 'Blosum50_sparse.dict'
+dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 
-
-class CharacterTable(object):
-    def __init__(self, chars, maxlen):
-        self.chars = sorted(set(chars))
-        self.char_indices = dict((c, i) for i, c in enumerate(self.chars))
-        self.indices_char = dict((i, c) for i, c in enumerate(self.chars))
-        self.maxlen = maxlen
-
-    def encode(self, C, maxlen=None):
-        maxlen = maxlen if maxlen else self.maxlen
-        if maxlen == 1:
-            X = np.zeros(len(self.chars))
-            X[self.char_indices[C]] = 1
-            return X
+#encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
+#char = class, '0' = non-binding (0,1), '1' = binding (1,0)
+def encoding_line(str0,max_len):
+    if len(str0) == 1:
+        coded0 = np.zeros(2)
+        if str0 == '0':
+            coded0[1] = 1
         else:
-            X = np.zeros((maxlen, len(self.chars)))
-            for i, c in enumerate(list(C)):
-                if i >= maxlen: break
-                X[i, self.char_indices[c]] = 1
-        return X
+            coded0[0] = 0
+    else:
+        coded0 = np.zeros(max_len,len(dict_aa['A']))
+        for i,char0 in enumerate(str0):
+            coded0[i,:] = dict_aa[char0] 
+    return coded0
 
-    def decode(self, X, calc_argmax=True, class0=True):
-        if class0:            
-            idxs = [i for i,x in enumerate(X) if x == 1][0]
-            return self.indices_char[idxs]
-        else:
-            if calc_argmax:
-                X = X.argmax(axis=-1)
-            return ''.join(self.indices_char[x] for x in X)
-
-def encoding(matrix0,input0, ctable0,len0):
+def encoding(matrix0, input0, len0):
     for i, sentence in enumerate(input0):
-        matrix0[i] = ctable0.encode(sentence, maxlen=len0)
+        matrix0[i] = encoding_line(sentence, maxlen=len0)
     return matrix0
 
-def output_perf(file_out, file_name0, iteraions,train_pre,train_recall,val_pre,val_recall):
+def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_recall,val_pre,val_recall):
+    file_out.write(file_name0+'_training_n '+training_n)
     file_out.write(file_name0+'_'+'iterations'+'\t')
     for x0 in iterations:
         file_out.write(x0+'\t')
@@ -132,9 +126,11 @@ for file_name0 in open(path_save+'file_names.csv'):
     #creating encoding table
     print(class_set)
     chars = ''.join(char_set) #'0123456789+ '
+    if dict_name == 'Blosum50_sparse.dict':
+        chars = chars + chars
     classes = ''.join(class_set)
-    ctable = CharacterTable(chars, MAXLEN)
-    classtable = CharacterTable(classes, 1)
+    #ctable = CharacterTable(chars, MAXLEN)
+    #classtable = CharacterTable(classes, 1)
 
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)), dtype=np.bool)
@@ -146,14 +142,14 @@ for file_name0 in open(path_save+'file_names.csv'):
     y_val_p_m = np.zeros((len(y_val_p), len(classes)), dtype=np.bool)
     y_val_n_m = np.zeros((len(y_val_n), len(classes)), dtype=np.bool)
     
-    X_train = encoding(X_train_m, X_train,ctable,MAXLEN)
-    X_train_p = encoding(X_train_p_m, X_train_p,ctable,MAXLEN)
-    X_train_n = encoding(X_train_n_m, X_train_n,ctable,MAXLEN)
-    X_val_p = encoding(X_val_p_m, X_val_p,ctable,MAXLEN)
-    X_val_n = encoding(X_val_n_m, X_val_n,ctable,MAXLEN)
-    y_train = encoding(y_train_m, y_train,classtable,1)
-    y_val_p = encoding(y_val_p_m, y_val_p,classtable,1)
-    y_val_n = encoding(y_val_n_m, y_val_n,classtable,1)
+    X_train = encoding(X_train_m, X_train,MAXLEN)
+    X_train_p = encoding(X_train_p_m, X_train_p,MAXLEN)
+    X_train_n = encoding(X_train_n_m, X_train_n,MAXLEN)
+    X_val_p = encoding(X_val_p_m, X_val_p,MAXLEN)
+    X_val_n = encoding(X_val_n_m, X_val_n,MAXLEN)
+    y_train = encoding(y_train_m, y_train,1)
+    y_val_p = encoding(y_val_p_m, y_val_p,1)
+    y_val_n = encoding(y_val_n_m, y_val_n,1)
     
     X_val = np.concatenate((X_val_n,X_val_p))
     y_val = np.concatenate((y_val_n,y_val_p))
@@ -178,20 +174,22 @@ for file_name0 in open(path_save+'file_names.csv'):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    file_out = open(path_save+'model_performance_simplev1.csv','w+')
+    *file_out = open(path_save+'model_performance_chemv1.csv','a')
     iterations = []
     train_pre = []
     train_recall = []
     val_pre = []
     val_recall = []
+    ptotal0 = len(X_train_p)
+    ntotal0 = len(X_train_n)
+    training_n = str(ptotal0+ntotal0)
     for iteration in range(1, n_iteration):
         iterations.append(str(iteration))
         print()
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t},validation_data=(X_val, y_val),show_accuracy=True)
-        
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t},validation_data=(X_val, y_val),show_accuracy=True)      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
@@ -224,5 +222,5 @@ for file_name0 in open(path_save+'file_names.csv'):
         print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
     #save weights and performance info
-    output_perf(file_out,file_name0,iterations,train_pre,train_recall,val_pre,val_recall)
+    output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     model.save_weights(path_save+file_name0+'_weight.h5')

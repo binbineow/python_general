@@ -13,7 +13,7 @@ import cPickle as pickle
 
 #############parameters###################
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-models = {'LSTM':recurrent.LSTM, 'Coolness':recurrent.JZS1}
+#models = {'LSTM':recurrent.LSTM, 'Coolness':recurrent.JZS1}
 RNN = recurrent.JZS1
 # hidden neuron size
 HIDDEN_SIZE = 28
