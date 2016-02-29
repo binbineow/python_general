@@ -199,7 +199,6 @@ for file_name0 in open(path_save+'file_names.csv'):
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
-        training_n.append(str(ptotal0+ntotal0))
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
         tp0 = sum(model.predict_classes(X_train_p))+0.1
