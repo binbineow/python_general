@@ -32,7 +32,7 @@ def encoding_line(str0, max_len):
         else:
             coded0[0] = 0
     else:
-        coded0 = np.zeros(max_len,len(dict_aa['A']))
+        coded0 = np.zeros(max_len,len(list(dict_aa['A'])))
         for i,char0 in enumerate(str0):
             coded0[i,:] = dict_aa[char0] 
     return coded0
@@ -109,7 +109,7 @@ for file_name0 in open(path_save+'file_names2.csv'):
             inputs.append(in_)
             outputs.append(out_)
             
-            for c in in_: char_set.add(c)
+            #for c in in_: char_set.add(c)
             class_set.add(out_)
     file_name0 = file_name0.split('.')[0]      
     # Parameters for the model and dataset
@@ -125,7 +125,7 @@ for file_name0 in open(path_save+'file_names2.csv'):
          
     #creating encoding table
     print(class_set)
-    chars = ''.join(char_set) #'0123456789+ '
+    chars = dict_aa['order']#'0123456789+ '
     if dict_name == 'Blosum50_sparse.dict':
         chars = chars + chars
     classes = ''.join(class_set)
