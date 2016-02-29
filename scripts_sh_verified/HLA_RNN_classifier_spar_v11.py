@@ -49,7 +49,8 @@ def encoding(matrix0,input0, ctable0,len0):
         matrix0[i] = ctable0.encode(sentence, maxlen=len0)
     return matrix0
 
-def output_perf(file_out, file_name0, iteraions,train_pre,train_recall,val_pre,val_recall):
+def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_recall,val_pre,val_recall):
+    file_out.write(file_name0+'_training_n '+training_n)
     file_out.write(file_name0+'_'+'iterations'+'\t')
     for x0 in iterations:
         file_out.write(x0+'\t')
@@ -178,12 +179,15 @@ for file_name0 in open(path_save+'file_names.csv'):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    file_out = open(path_save+'model_performance_simplev1.csv','w+')
+    file_out = open(path_save+'model_performance_simplev1.csv','a')
     iterations = []
     train_pre = []
     train_recall = []
     val_pre = []
     val_recall = []
+    ptotal0 = len(X_train_p)
+    ntotal0 = len(X_train_n)
+    training_n = str(ptotal0+ntotal0)
     for iteration in range(1, n_iteration):
         iterations.append(str(iteration))
         print()
@@ -195,6 +199,7 @@ for file_name0 in open(path_save+'file_names.csv'):
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
+        training_n.append(str(ptotal0+ntotal0))
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
         tp0 = sum(model.predict_classes(X_train_p))+0.1
@@ -224,5 +229,5 @@ for file_name0 in open(path_save+'file_names.csv'):
         print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
     #save weights and performance info
-    output_perf(file_out,file_name0,iterations,train_pre,train_recall,val_pre,val_recall)
+    output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     model.save_weights(path_save+file_name0+'_weight.h5')
