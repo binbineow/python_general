@@ -122,7 +122,7 @@ for file_name0 in open(path_save+'file_names.csv'):
     #TRAINING_SIZE = len(inputs)
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     RNN = recurrent.JZS1
-    n_iteration = 3
+    n_iteration = 36
     HIDDEN_SIZE = 28
     BATCH_SIZE = 20
     LAYERS = 2
