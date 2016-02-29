@@ -31,9 +31,9 @@ def encoding_line(str0, max_len):
     if len(str0) == 1:
         coded0 = np.zeros(2)
         if str0 == '0':
-            coded0[1] = 1
-        else:
             coded0[0] = 1
+        else:
+            coded0[1] = 1
     else:
         coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
         for i,char0 in enumerate(str0):
