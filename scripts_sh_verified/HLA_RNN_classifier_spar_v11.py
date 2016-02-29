@@ -72,7 +72,7 @@ def output_perf(file_out, file_name0, iteraions,train_pre,train_recall,val_pre,v
     file_out.write('\n')
     file_out.close()
 
-for file_name in fileinput.input():
+for file_name0 in fileinput.input():
 
     inputs=[]
     outputs=[]
@@ -122,7 +122,7 @@ for file_name in fileinput.input():
     #TRAINING_SIZE = len(inputs)
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     RNN = recurrent.JZS1
-    n_iteration = 4
+    n_iteration = 31
     HIDDEN_SIZE = 28
     BATCH_SIZE = 20
     LAYERS = 2
