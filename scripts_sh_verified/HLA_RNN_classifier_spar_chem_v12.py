@@ -15,7 +15,7 @@ path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
 #model.load_weights('my_model_weights.h5')
 
 ##import coding dictionary
-*path_dict = ''
+path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_dict'
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
@@ -66,7 +66,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save+'file_names.csv'):
+for file_name0 in open(path_save+'file_names2.csv'):
     file_name0 = file_name0.rstrip()
     inputs=[]
     outputs=[]
@@ -116,7 +116,7 @@ for file_name0 in open(path_save+'file_names.csv'):
     #TRAINING_SIZE = len(inputs)
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     RNN = recurrent.JZS1
-    n_iteration = 36
+    n_iteration = 4
     HIDDEN_SIZE = 28
     BATCH_SIZE = 20
     LAYERS = 2
@@ -174,7 +174,7 @@ for file_name0 in open(path_save+'file_names.csv'):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    *file_out = open(path_save+'model_performance_chemv1.csv','a')
+    file_out = open(path_save+'model_performance_chemv1.csv','a')
     iterations = []
     train_pre = []
     train_recall = []
