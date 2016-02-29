@@ -39,9 +39,8 @@ def get_pep_for_each_hla(dict_hla_pid,MCL_data):
                 for m0 in range(n0+1,len(value)):
                     common0 = get_shared(MCL_data[value[n0]]['MHC2_frag'],MCL_data[value[m0]]['MHC2_frag'])
                     set0 = set0 | common0
+            #consider to add a peptide number cut_off if necessary
             dict_hla_pep[key] = list(set0)
-        else:
-            dict_hla_pep[key] = value
     return dict_hla_pep
 
 def print_d_list(dict0):

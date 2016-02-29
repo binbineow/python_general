@@ -2,8 +2,13 @@
 #code to convert a list into cluster 
 from utilities import *
 #dictRNA_file = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/MCLRNASeq_ave.dict'
+path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
 import math
 import pandas as pd
+import random
+import re
+
+
 
 ##substring between two patients
 def get_shared(listy, listx):
@@ -20,8 +25,9 @@ def get_shared(listy, listx):
 def get_pid_for_each_hla(MCL_data,pid_list):
     dict_hla_pid = dumb()
     for pid0 in pid_list:
-        hla1 = MCL_data[pid0]['HLA_typing'][0]
-        hla2 = MCL_data[pid0]['HLA_typing'][1]
+        #print MCL_data[pid0]['HLA_typing']
+        hla1 = MCL_data[pid0]['HLA_typing'][-1]
+        hla2 = MCL_data[pid0]['HLA_typing'][-2]
         dict_hla_pid[hla1].append(pid0)
         dict_hla_pid[hla2].append(pid0)
     return dict_hla_pid
@@ -44,15 +50,61 @@ def get_pep_for_each_hla(dict_hla_pid,MCL_data):
 
 def print_d_list(dict0):
     for key,value in dict0.iteritems():
-        print(key+str(len(value)))
+        print(key+': '+str(len(value)))
+        
+def make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio):
+    one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
+    onegenestr = pickle.load(open(one_gene_path,'r'))
+    len_one = len(onegenestr)
+    file_out = open(path_save+hla_name0+'_'+list0+'_tr_'+str(t_ratio)+'_val.csv','w+')
+    for pos0 in list0:
+        random.seed(num_seed)
+        if random.random() < v_ratio:
+            #making validation
+            file_out.write(pos0+'\t'+'3')
+            rand0 = random.randint(0,len_one)
+            neg0 = onegenestr[rand0:rand0+len(pos0)]
+            file_out.write(neg0+'\t'+'2')
+            neg0 = ''.join(random.sample(pos0,len(pos0)))
+            file_out.write(neg0+'\t'+'2')
+        else:
+            file_out.write(pos0+'\t'+'1')
+            for i in range(0,v_ratio):
+                rand0 = random.randint(0,len_one)
+                neg0 = onegenestr[rand0:rand0+len(pos0)]
+                file_out.write(neg0+'\t'+'0')
+                neg0 = ''.join(random.sample(pos0,len(pos0)))
+                file_out.write(neg0+'\t'+'0')
+    file_out.close()
+        
+  
+    
 
-MCL_data = pickle.load(open('MCL_data11_18_2015v1.1.dict','r'))
-didct_hla_pid = MCL_data['pid']['pid']
+MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
+pid_list = MCL_data['pid']['pid']
 dict_hla_pid = get_pid_for_each_hla(MCL_data,pid_list)
 print_d_list(dict_hla_pid) 
 dict_hla_pep = get_pep_for_each_hla(dict_hla_pid,MCL_data)
 print_d_list(dict_hla_pep) 
 
+##########making training#########
+#version is an additional string to attach to each HLA type name for the training file
+#t_ratio is an int number, the number of shuffled AND random peptide sequences generated for 
+#each positive sequence (so 2X t_ratio for each positive sequence at the end)
+#v_ratio is a flaat number (<1), the percentage of positive example will be used for validation
+#and the double number of negative example (one shuffled, one random) will be created for validation
+#0 negative training
+#1 positive training
+#2 negative validation
+#3 positive validation
+t_ratio = 1
+v_ratio = 0.2
+num_seed = 1
+version0 = 'simplev1'
+path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data'
+for hla_name0, list0 in dict_hla_pep:
+    hla_name0 = re.sub(r'[^\w]', '', hla_name0)
+    make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio)
 
 
 
