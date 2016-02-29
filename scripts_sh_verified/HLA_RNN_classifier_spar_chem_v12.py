@@ -50,30 +50,30 @@ def encoding(matrix0,input0, ctable0,len0):
     return matrix0
 
 def output_perf(file_out, file_name0, iteraions,train_pre,train_recall,val_pre,val_recall):
-    file_out.write(file_name+'_'+'iterations'+'\t')
+    file_out.write(file_name0+'_'+'iterations'+'\t')
     for x0 in iterations:
         file_out.write(x0+'\t')
-    file_out.write('n')
-    file_out.write(file_name+'_'+'Training_precision'+'\t')
+    file_out.write('\n')
+    file_out.write(file_name0+'_'+'Training_precision'+'\t')
     for x0 in train_pre:
         file_out.write(x0+'\t')
-    file_out.write('n')
-    file_out.write(file_name+'_'+'Training_recall'+'\t')
+    file_out.write('\n')
+    file_out.write(file_name0+'_'+'Training_recall'+'\t')
     for x0 in train_recall:
         file_out.write(x0+'\t')
-    file_out.write('n')
-    file_out.write(file_name+'_'+'Validation_precision'+'\t')
+    file_out.write('\n')
+    file_out.write(file_name0+'_'+'Validation_precision'+'\t')
     for x0 in val_pre:
         file_out.write(x0+'\t')
-    file_out.write('n')
-    file_out.write(file_name+'_'+'Validation_recall'+'\t')
+    file_out.write('\n')
+    file_out.write(file_name0+'_'+'Validation_recall'+'\t')
     for x0 in val_recall:
         file_out.write(x0+'\t')
-    file_out.write('n')
+    file_out.write('\n')
     file_out.close()
 
-for file_name0 in fileinput.input():
-    
+for file_name0 in open(path_save+'file_names.csv'):
+    file_name0 = file_name0.rstrip()
     inputs=[]
     outputs=[]
     char_set = set([' '])
@@ -88,7 +88,7 @@ for file_name0 in fileinput.input():
     y_val_p = []
     y_val_n = []
     
-    
+    #file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
     for line in fileinput.input(path_save+file_name0):
         in_,out_ = [x.rstrip() for x in line.split("\t")]
         if len(out_) != 1:
@@ -122,7 +122,7 @@ for file_name0 in fileinput.input():
     #TRAINING_SIZE = len(inputs)
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     RNN = recurrent.JZS1
-    n_iteration = 30
+    n_iteration = 36
     HIDDEN_SIZE = 28
     BATCH_SIZE = 20
     LAYERS = 2
@@ -135,10 +135,7 @@ for file_name0 in fileinput.input():
     classes = ''.join(class_set)
     ctable = CharacterTable(chars, MAXLEN)
     classtable = CharacterTable(classes, 1)
-    
-    
-    
-    
+
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)), dtype=np.bool)
     X_val_p_m = np.zeros((len(X_val_p), MAXLEN, len(chars)), dtype=np.bool)
@@ -181,24 +178,26 @@ for file_name0 in fileinput.input():
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    file_out = open(path_save+'model_performance_simplev1.csv')
+    file_out = open(path_save+'model_performance_simplev1.csv','w+')
     iterations = []
     train_pre = []
     train_recall = []
     val_pre = []
     val_recall = []
     for iteration in range(1, n_iteration):
-        iterations.append(iteration)
+        iterations.append(str(iteration))
         print()
         print('-' * 50)
         print('Iteration', iteration)
-        #to save weight callbacks=[checkpointer]
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},validation_data=(X_val, y_val),show_accuracy=True)
+        
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t},validation_data=(X_val, y_val),show_accuracy=True)
+        
+        #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p))
+        tp0 = sum(model.predict_classes(X_train_p))+0.1
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         fp0 = sum(model.predict_classes(X_train_n))
@@ -214,7 +213,7 @@ for file_name0 in fileinput.input():
         #print(model.predict_classes(X_val_p)) 
         ptotal0 = len(X_val_p)
         ntotal0 = len(X_val_n)
-        tp0 = sum(model.predict_classes(X_val_p))
+        tp0 = sum(model.predict_classes(X_val_p))+0.1
         #print('Val_Negative')
         #print(model.predict_classes(X_val_n)) 
         fp0 = sum(model.predict_classes(X_val_n))
@@ -222,8 +221,8 @@ for file_name0 in fileinput.input():
         fn0 = ptotal0 - tp0
         val_pre.append(str(float(tp0)/(tp0+fp0)))
         val_recall.append(str(float(tp0)/(tp0+fn0)))
-        print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
-        print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
+        print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
+        print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
     #save weights and performance info
-    output_perf(file_out,file_name0,iteraions,train_pre,train_recall,val_pre,val_recall)
+    output_perf(file_out,file_name0,iterations,train_pre,train_recall,val_pre,val_recall)
     model.save_weights(path_save+file_name0+'_weight.h5')
