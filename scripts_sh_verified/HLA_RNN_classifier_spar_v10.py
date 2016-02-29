@@ -184,7 +184,7 @@ open(path_save+file_name0+'_model.json', 'w').write(json_string)
 #Create checkpoint
 #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
 # Train the model each generation and show predictions against the validation dataset
-file_out = open(path_save+'model_performance_simplev1.csv')
+file_out = open(path_save+'model_performance_simplev1.csv','w+')
 iterations = []
 train_pre = []
 train_recall = []
