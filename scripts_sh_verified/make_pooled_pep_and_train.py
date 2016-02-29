@@ -43,9 +43,8 @@ def get_pep_for_each_hla(dict_hla_pid,MCL_data):
                 for m0 in range(n0+1,len(value)):
                     common0 = get_shared(MCL_data[value[n0]]['MHC2_frag'],MCL_data[value[m0]]['MHC2_frag'])
                     set0 = set0 | common0
+            #consider to add a cut-off
             dict_hla_pep[key] = list(set0)
-        else:
-            dict_hla_pep[key] = value
     return dict_hla_pep
 
 def print_d_list(dict0):
@@ -102,7 +101,7 @@ v_ratio = 0.2
 num_seed = 1
 version0 = 'simplev1'
 path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data'
-for hla_name0, list0 in dict_hla_pep:
+for hla_name0, list0 in dict_hla_pep.iteritems():
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
     make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio)
 
