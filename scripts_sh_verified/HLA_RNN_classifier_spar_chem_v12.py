@@ -24,7 +24,7 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
-def encoding_line(str0,max_len):
+def encoding_line(str0, max_len):
     if len(str0) == 1:
         coded0 = np.zeros(2)
         if str0 == '0':
@@ -39,7 +39,7 @@ def encoding_line(str0,max_len):
 
 def encoding(matrix0, input0, len0):
     for i, sentence in enumerate(input0):
-        matrix0[i] = encoding_line(sentence, maxlen=len0)
+        matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
 def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_recall,val_pre,val_recall):
