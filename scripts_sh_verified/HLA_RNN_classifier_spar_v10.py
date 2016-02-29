@@ -6,6 +6,14 @@ from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 
+# model reconstruction from JSON:
+from keras.models import model_from_json
+path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
+# how to use the model elsewhere...
+#model = model_from_json(open('my_model_architecture.json').read())
+#model.load_weights('my_model_weights.h5')
+
+
 
 class CharacterTable(object):
     def __init__(self, chars, maxlen):
@@ -134,15 +142,19 @@ model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
+#save the model
+json_string = model.to_json()
+open(path_save+file_name0+'_model.json', 'w').write(json_string)
+
 #Create checkpoint
-#checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
+checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
 # Train the model each generation and show predictions against the validation dataset
 for iteration in range(1, n_iteration):
     print()
     print('-' * 50)
     print('Iteration', iteration)
     #to save weight callbacks=[checkpointer]
-    model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t*2},validation_data=(X_val, y_val),show_accuracy=True)
+    model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},validation_data=(X_val, y_val),show_accuracy=True)
     #pickle(model,open(model_name+'.model'+n_version,'w+'))
     print('Postive')
     print(model.predict_classes(X_val_p)) 
@@ -156,6 +168,5 @@ for iteration in range(1, n_iteration):
     fn0 = ptotal0 - tp0
     print('Precision='+str(float(tp0)/(tp0+fp0)))
     print('Recall='+str(float(tp0)/(tp0+fn0)))
-    #for testing on 049
-    #tp0 = sum(model.predict_classes(X_test))
-    #print('Recall on Patient MCL049='+str(float(tp0)/(len(X_test))))
+
+model.save_weights(path_save+file_name0+'_weight.h5')
