@@ -195,8 +195,10 @@ for iteration in range(1, n_iteration):
     print()
     print('-' * 50)
     print('Iteration', iteration)
-    #to save weight callbacks=[checkpointer]
-    model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},validation_data=(X_val, y_val),show_accuracy=True)
+    
+    model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t},validation_data=(X_val, y_val),show_accuracy=True)
+    
+    #####predicting training
     ptotal0 = len(X_train_p)
     ntotal0 = len(X_train_n)
     #print('Train_Postive')
@@ -225,8 +227,8 @@ for iteration in range(1, n_iteration):
     fn0 = ptotal0 - tp0
     val_pre.append(str(float(tp0)/(tp0+fp0)))
     val_recall.append(str(float(tp0)/(tp0+fn0)))
-    print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
-    print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
+    print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
+    print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
 #save weights and performance info
-output_perf(file_out,file_name0,iteraions,train_pre,train_recall,val_pre,val_recall)
+output_perf(file_out,file_name0,iterations,train_pre,train_recall,val_pre,val_recall)
 model.save_weights(path_save+file_name0+'_weight.h5')
