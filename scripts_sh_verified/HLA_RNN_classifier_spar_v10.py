@@ -67,7 +67,7 @@ y_val_p = []
 y_val_n = []
 
 file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
-for line in fileinput.input(path0+file_name0):
+for line in fileinput.input(path_save+file_name0):
     in_,out_ = [x.rstrip() for x in line.split("\t")]
     if len(out_) != 1:
         raise Exception("Output should be single characer")
