@@ -100,7 +100,7 @@ t_ratio = 1
 v_ratio = 0.2
 num_seed = 1
 version0 = 'simplev1'
-path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data'
+path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
 for hla_name0, list0 in dict_hla_pep.iteritems():
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
     make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio)
