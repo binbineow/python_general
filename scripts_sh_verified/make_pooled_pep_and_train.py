@@ -55,7 +55,7 @@ def make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio):
     one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
     onegenestr = pickle.load(open(one_gene_path,'r'))
     len_one = len(onegenestr)
-    file_out = open(path_save+hla_name0+'_'+list0+'_tr_'+str(t_ratio)+'_val.csv','w+')
+    file_out = open(path_save+hla_name0+version0+'_tr_'+str(t_ratio)+'_val.csv','w+')
     for pos0 in list0:
         random.seed(num_seed)
         if random.random() < v_ratio:
