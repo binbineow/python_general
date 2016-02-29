@@ -65,7 +65,7 @@ for line in fileinput.input():
     else:
         if out_ == '0' or out_ == '1':
             X_train.append(in_)
-            y_train.append(in_)
+            y_train.append(out_)
         else:
             out_ = str(int(out_) -2)
             if out_ == '0':
