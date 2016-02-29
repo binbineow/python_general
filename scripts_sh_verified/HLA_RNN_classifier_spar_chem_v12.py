@@ -27,7 +27,7 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 def encoding_line(str0, max_len):
     print(type(dict_aa['A']))
     print(type(list(dict_aa['A'])))
-    print(max_len)
+    print(type(max_len))
     if len(str0) == 1:
         coded0 = np.zeros(2)
         if str0 == '0':
