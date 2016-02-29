@@ -25,9 +25,9 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
 def encoding_line(str0, max_len):
-    print(type(dict_aa['A']))
-    print(type(list(dict_aa['A'])))
-    print(type(max_len))
+    #print(type(dict_aa['A']))
+    #print(type(list(dict_aa['A'])))
+    #print(type(max_len))
     if len(str0) == 1:
         coded0 = np.zeros(2)
         if str0 == '0':
@@ -119,7 +119,7 @@ for file_name0 in open(path_save+'file_names2.csv'):
     #TRAINING_SIZE = len(inputs)
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     RNN = recurrent.JZS1
-    n_iteration = 4
+    n_iteration = 36
     HIDDEN_SIZE = 28
     BATCH_SIZE = 20
     LAYERS = 2
@@ -226,4 +226,4 @@ for file_name0 in open(path_save+'file_names2.csv'):
         print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
     #save weights and performance info
     output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    model.save_weights(path_save+file_name0+'_weight.h5')
+    model.save_weights(path_save+file_name0+'_chemv1_weight.h5')
