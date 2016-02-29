@@ -53,23 +53,23 @@ def output_perf(file_out, file_name0, iteraions,train_pre,train_recall,val_pre,v
     file_out.write(file_name0+'_'+'iterations'+'\t')
     for x0 in iterations:
         file_out.write(x0+'\t')
-    file_out.write('n')
+    file_out.write('\n')
     file_out.write(file_name0+'_'+'Training_precision'+'\t')
     for x0 in train_pre:
         file_out.write(x0+'\t')
-    file_out.write('n')
+    file_out.write('\n')
     file_out.write(file_name0+'_'+'Training_recall'+'\t')
     for x0 in train_recall:
         file_out.write(x0+'\t')
-    file_out.write('n')
+    file_out.write('\n')
     file_out.write(file_name0+'_'+'Validation_precision'+'\t')
     for x0 in val_pre:
         file_out.write(x0+'\t')
-    file_out.write('n')
+    file_out.write('\n')
     file_out.write(file_name0+'_'+'Validation_recall'+'\t')
     for x0 in val_recall:
         file_out.write(x0+'\t')
-    file_out.write('n')
+    file_out.write('\n')
     file_out.close()
 
 # class colors:
@@ -125,7 +125,7 @@ file_name0 = file_name0.split('.')[0]
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 2
+n_iteration = 4
 HIDDEN_SIZE = 28
 BATCH_SIZE = 20
 LAYERS = 2
