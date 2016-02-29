@@ -50,23 +50,23 @@ def encoding(matrix0,input0, ctable0,len0):
     return matrix0
 
 def output_perf(file_out, file_name0, iteraions,train_pre,train_recall,val_pre,val_recall):
-    file_out.write(file_name+'_'+'iterations'+'\t')
+    file_out.write(file_name0+'_'+'iterations'+'\t')
     for x0 in iterations:
         file_out.write(x0+'\t')
     file_out.write('n')
-    file_out.write(file_name+'_'+'Training_precision'+'\t')
+    file_out.write(file_name0+'_'+'Training_precision'+'\t')
     for x0 in train_pre:
         file_out.write(x0+'\t')
     file_out.write('n')
-    file_out.write(file_name+'_'+'Training_recall'+'\t')
+    file_out.write(file_name0+'_'+'Training_recall'+'\t')
     for x0 in train_recall:
         file_out.write(x0+'\t')
     file_out.write('n')
-    file_out.write(file_name+'_'+'Validation_precision'+'\t')
+    file_out.write(file_name0+'_'+'Validation_precision'+'\t')
     for x0 in val_pre:
         file_out.write(x0+'\t')
     file_out.write('n')
-    file_out.write(file_name+'_'+'Validation_recall'+'\t')
+    file_out.write(file_name0+'_'+'Validation_recall'+'\t')
     for x0 in val_recall:
         file_out.write(x0+'\t')
     file_out.write('n')
