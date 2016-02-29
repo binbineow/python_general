@@ -206,7 +206,7 @@ for iteration in range(1, n_iteration):
     ntotal0 = len(X_train_n)
     #print('Train_Postive')
     #print(model.predict_classes(X_val_p)) 
-    tp0 = sum(model.predict_classes(X_train_p))
+    tp0 = sum(model.predict_classes(X_train_p))+0.1
     #print('Train_Negative')
     #print(model.predict_classes(X_val_n)) 
     fp0 = sum(model.predict_classes(X_train_n))
@@ -222,7 +222,7 @@ for iteration in range(1, n_iteration):
     #print(model.predict_classes(X_val_p)) 
     ptotal0 = len(X_val_p)
     ntotal0 = len(X_val_n)
-    tp0 = sum(model.predict_classes(X_val_p))
+    tp0 = sum(model.predict_classes(X_val_p))+0.1
     #print('Val_Negative')
     #print(model.predict_classes(X_val_n)) 
     fp0 = sum(model.predict_classes(X_val_n))
