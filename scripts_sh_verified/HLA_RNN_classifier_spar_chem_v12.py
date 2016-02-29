@@ -15,7 +15,7 @@ path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
 #model.load_weights('my_model_weights.h5')
 
 ##import coding dictionary
-path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_dict'
+path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_dict/'
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
