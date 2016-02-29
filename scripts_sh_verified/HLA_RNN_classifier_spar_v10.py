@@ -120,7 +120,7 @@ for line in fileinput.input(path_save+file_name0):
         
         for c in in_: char_set.add(c)
         class_set.add(out_)
-file_name0 = file_name.split('.')[0]      
+file_name0 = file_name0.split('.')[0]      
 # Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
