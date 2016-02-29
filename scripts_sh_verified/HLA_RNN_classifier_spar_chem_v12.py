@@ -25,6 +25,8 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
 def encoding_line(str0, max_len):
+    print(type(dict_aa['A']))
+    print(type(list(dict_aa['A'])))
     if len(str0) == 1:
         coded0 = np.zeros(2)
         if str0 == '0':
