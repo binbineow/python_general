@@ -56,8 +56,8 @@ def make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio):
     onegenestr = pickle.load(open(one_gene_path,'r'))
     len_one = len(onegenestr)
     file_out = open(path_save+hla_name0+version0+'_tr_'+str(t_ratio)+'_val.csv','w+')
+    random.seed(num_seed)
     for pos0 in list0:
-        random.seed(num_seed)
         if random.random() < v_ratio:
             #making validation
             file_out.write(pos0+'\t'+'3\n')
