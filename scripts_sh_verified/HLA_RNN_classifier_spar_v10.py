@@ -125,7 +125,7 @@ file_name0 = file_name0.split('.')[0]
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 30
+n_iteration = 2
 HIDDEN_SIZE = 28
 BATCH_SIZE = 20
 LAYERS = 2
@@ -191,7 +191,7 @@ train_recall = []
 val_pre = []
 val_recall = []
 for iteration in range(1, n_iteration):
-    iterations.append(iteration)
+    iterations.append(str(iteration))
     print()
     print('-' * 50)
     print('Iteration', iteration)
