@@ -67,13 +67,13 @@ for line in fileinput.input():
             X_train.append(in_)
             y_train.append(in_)
         else:
-            out_0 = str(int(out_) -2)
+            out_ = str(int(out_) -2)
             if out_ == '0':
                 X_val_n.append(in_)
-                y_val_n.append(out_0)
+                y_val_n.append(out_)
             else:
                 X_val_p.append(in_)
-                y_val_p.append(out_0)
+                y_val_p.append(out_)
           
         max_len = max([max_len,len(in_),len(out_)])
         inputs.append(in_)
