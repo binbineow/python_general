@@ -68,7 +68,7 @@ def make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio):
             file_out.write(neg0+'\t'+'2\n')
         else:
             file_out.write(pos0+'\t'+'1\n')
-            for i in range(0,v_ratio):
+            for i in range(0,t_ratio):
                 rand0 = random.randint(0,len_one)
                 neg0 = onegenestr[rand0:rand0+len(pos0)]
                 file_out.write(neg0+'\t'+'0\n')
