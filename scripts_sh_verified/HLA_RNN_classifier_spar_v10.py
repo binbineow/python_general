@@ -36,9 +36,9 @@ class CharacterTable(object):
                 X = X.argmax(axis=-1)
             return ''.join(self.indices_char[x] for x in X)
 
-def encoding(matrix0,input0, ctable0):
+def encoding(matrix0,input0, ctable0,len0):
     for i, sentence in enumerate(input0):
-        matrix0[i] = ctable0.encode(sentence, maxlen=MAXLEN)
+        matrix0[i] = ctable0.encode(sentence, maxlen=len0)
     return matrix0
 
 # class colors:
@@ -111,12 +111,12 @@ y_train_m = np.zeros((len(y_train), len(classes)), dtype=np.bool)
 y_val_p_m = np.zeros((len(y_val_p), len(classes)), dtype=np.bool)
 y_val_n_m = np.zeros((len(y_val_n), len(classes)), dtype=np.bool)
 
-X_train = encoding(X_train_m, X_train,ctable)
-X_val_p = encoding(X_val_p_m, X_val_p,ctable)
-X_val_n = encoding(X_val_n_m, X_val_n,ctable)
-y_train = encoding(y_train_m, y_train,classtable)
-y_val_p = encoding(y_val_p_m, y_val_p,classtable)
-y_val_n = encoding(y_val_n_m, y_val_n,classtable)
+X_train = encoding(X_train_m, X_train,ctable,MAXLEN)
+X_val_p = encoding(X_val_p_m, X_val_p,ctable,MAXLEN)
+X_val_n = encoding(X_val_n_m, X_val_n,ctable,MAXLEN)
+y_train = encoding(y_train_m, y_train,classtable,1)
+y_val_p = encoding(y_val_p_m, y_val_p,classtable,1)
+y_val_n = encoding(y_val_n_m, y_val_n,classtable,1)
 
 X_val = np.concatenate((X_val_n,X_val_p))
 y_val = np.concatenate((y_val_n,y_val_p))
