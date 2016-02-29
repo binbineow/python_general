@@ -66,7 +66,8 @@ y_train = []
 y_val_p = []
 y_val_n = []
 
-for line in fileinput.input():
+file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
+for line in fileinput.input(path0+file_name0):
     in_,out_ = [x.rstrip() for x in line.split("\t")]
     if len(out_) != 1:
         raise Exception("Output should be single characer")
@@ -89,12 +90,12 @@ for line in fileinput.input():
         
         for c in in_: char_set.add(c)
         class_set.add(out_)
-        
+file_name0 = filename.split('.')[0]      
 # Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 40
+n_iteration = 30
 HIDDEN_SIZE = 28
 BATCH_SIZE = 20
 LAYERS = 2
@@ -135,8 +136,8 @@ model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
 model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
-#for _ in xrange(LAYERS-1):
-#    model.add(RNN(HIDDEN_SIZE, HIDDEN_SIZE, return_sequences=True))
+for _ in xrange(LAYERS-1):
+    model.add(RNN(HIDDEN_SIZE, return_sequences=True))
 #    #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
