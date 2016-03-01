@@ -34,6 +34,7 @@ ratio_t = 1
 chars = 'ARNDCQEGHILKMFPSTWYVBZX'#'0123456789+ '
 if dict_name == 'Blosum50_sparse.dict':
     chars = chars + chars
+classes = [0,1]
     
 
 #start a model
