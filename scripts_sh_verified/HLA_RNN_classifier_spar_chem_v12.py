@@ -103,7 +103,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save+'file_names2.csv'):
+for file_name0 in open(path_save+'file_names.csv'):
     model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
