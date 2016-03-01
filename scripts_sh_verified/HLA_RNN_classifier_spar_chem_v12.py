@@ -31,7 +31,7 @@ HIDDEN_SIZE = 28
 BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
-MAXLEN = max_len #DIGITS + 1 + DIGITS
+
     
 
 #start a model
@@ -156,6 +156,7 @@ for file_name0 in open(path_save+'file_names2.csv'):
     classes = ''.join(class_set)
     #ctable = CharacterTable(chars, MAXLEN)
     #classtable = CharacterTable(classes, 1)
+    MAXLEN = max_len #DIGITS + 1 + DIGITS
 
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)), dtype=np.bool)
