@@ -22,6 +22,35 @@ path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_
 dict_name = 'Blosum50_sparse.dict'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 
+# Parameters for the model and dataset
+#TRAINING_SIZE = len(inputs)
+# Try replacing JZS1 with LSTM, GRU, or SimpleRNN
+RNN = recurrent.JZS1
+n_iteration = 36
+HIDDEN_SIZE = 28
+BATCH_SIZE = 20
+LAYERS = 2
+ratio_t = 1
+MAXLEN = max_len #DIGITS + 1 + DIGITS
+    
+
+#start a model
+model = Sequential()
+# "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
+#model.add(Masking())
+model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
+for _ in xrange(LAYERS-1):
+    model.add(RNN(HIDDEN_SIZE, return_sequences=True))
+#    #model.add(Dropout(0.5))
+model.add(RNN(HIDDEN_SIZE, return_sequences=False))
+model.add(Dense(len(classes)))
+model.add(Activation('softmax'))
+model.compile(loss='categorical_crossentropy', optimizer='adam')
+model1 = model
+#save the model
+#json_string = model.to_json()
+#open(path_save+file_name0+'_model.json', 'w').write(json_string)
+
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
 def encoding_line(str0, max_len):
@@ -72,6 +101,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.close()
 
 for file_name0 in open(path_save+'file_names2.csv'):
+    model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
     outputs=[]
@@ -117,17 +147,7 @@ for file_name0 in open(path_save+'file_names2.csv'):
             #for c in in_: char_set.add(c)
             class_set.add(out_)
     file_name0 = file_name0.split('.')[0]      
-    # Parameters for the model and dataset
-    #TRAINING_SIZE = len(inputs)
-    # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-    RNN = recurrent.JZS1
-    n_iteration = 36
-    HIDDEN_SIZE = 28
-    BATCH_SIZE = 20
-    LAYERS = 2
-    ratio_t = 1
-    MAXLEN = max_len #DIGITS + 1 + DIGITS
-         
+     
     #creating encoding table
     print(class_set)
     chars = dict_aa['order']#'0123456789+ '
@@ -161,20 +181,7 @@ for file_name0 in open(path_save+'file_names2.csv'):
     print(len(X_train),len(X_val))
     print("loaded input")
     
-    model = Sequential()
-    # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
-    #model.add(Masking())
-    model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
-    for _ in xrange(LAYERS-1):
-        model.add(RNN(HIDDEN_SIZE, return_sequences=True))
-    #    #model.add(Dropout(0.5))
-    model.add(RNN(HIDDEN_SIZE, return_sequences=False))
-    model.add(Dense(len(classes)))
-    model.add(Activation('softmax'))
-    model.compile(loss='categorical_crossentropy', optimizer='adam')
-    #save the model
-    json_string = model.to_json()
-    open(path_save+file_name0+'_model.json', 'w').write(json_string)
+
     
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
@@ -228,4 +235,4 @@ for file_name0 in open(path_save+'file_names2.csv'):
         print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
     #save weights and performance info
     output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    model.save_weights(path_save+file_name0+'_chemv1_weight.h5')
+    model.save_weights(path_save+file_name0+'_chemv1_weight.h5',overwrite=True)
