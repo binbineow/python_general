@@ -31,7 +31,9 @@ HIDDEN_SIZE = 28
 BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
-
+chars = 'ARNDCQEGHILKMFPSTWYVBZX'#'0123456789+ '
+if dict_name == 'Blosum50_sparse.dict':
+    chars = chars + chars
     
 
 #start a model
@@ -150,9 +152,6 @@ for file_name0 in open(path_save+'file_names2.csv'):
      
     #creating encoding table
     print(class_set)
-    chars = dict_aa['order']#'0123456789+ '
-    if dict_name == 'Blosum50_sparse.dict':
-        chars = chars + chars
     classes = ''.join(class_set)
     #ctable = CharacterTable(chars, MAXLEN)
     #classtable = CharacterTable(classes, 1)
