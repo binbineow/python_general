@@ -80,7 +80,7 @@ def encoding(matrix0, input0, len0):
     return matrix0
 
 def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_recall,val_pre,val_recall):
-    file_out.write(file_name0+'_training_n '+training_n)
+    file_out.write(file_name0+'_training_n '+training_n+'\n')
     file_out.write(file_name0+'_'+'iterations'+'\t')
     for x0 in iterations:
         file_out.write(x0+'\t')
