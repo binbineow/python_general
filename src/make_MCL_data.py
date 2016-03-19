@@ -74,7 +74,7 @@ for line0 in fileinput.input():
             data_MCL[pid][type0+'_frag'] = ms_frag_list
             data_MCL[pid][type0+'_gene'] = ms_gene_list
 
-pickle.dump(data_MCL,open('MCL_data11_18_2015v0.9.dict','wb+'))
+pickle.dump(data_MCL,open('MCL_data11_18_2015v1.2_UP.dict','wb+'))
 
 
     

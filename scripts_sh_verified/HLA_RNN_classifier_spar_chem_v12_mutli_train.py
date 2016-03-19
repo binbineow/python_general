@@ -156,7 +156,6 @@ for file_name0 in open(path_save+'file_names.csv'):
     #ctable = CharacterTable(chars, MAXLEN)
     #classtable = CharacterTable(classes, 1)
     MAXLEN = max_len #DIGITS + 1 + DIGITS
-
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)), dtype=np.bool)
     X_val_p_m = np.zeros((len(X_val_p), MAXLEN, len(chars)), dtype=np.bool)
@@ -184,7 +183,7 @@ for file_name0 in open(path_save+'file_names.csv'):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    file_out = open(path_save+'model_performance_chemv1.csv','a')
+    file_out = open(path_save+'model_performance_chemv2.csv','a')
     iterations = []
     train_pre = []
     train_recall = []
