@@ -103,7 +103,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save+'file_names.csv'):
+for file_name0 in open(path_save+'file_namesv3.csv'):
     #model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
@@ -233,4 +233,4 @@ for file_name0 in open(path_save+'file_names.csv'):
         print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
     #save weights and performance info
     output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    model.save_weights(path_save+file_name0+'_chemv1_weight.h5',overwrite=True)
+    #model.save_weights(path_save+file_name0+'_chemv1_weight.h5',overwrite=True)
