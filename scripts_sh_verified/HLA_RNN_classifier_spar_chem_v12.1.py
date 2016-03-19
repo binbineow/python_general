@@ -19,40 +19,9 @@ path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
-dict_name = 'Blosum50_sparse.dict'
+#dict_name = 'Blosum50_sparse.dict'
+dict_name = 'Blosum50_only.dict'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
-
-# Parameters for the model and dataset
-#TRAINING_SIZE = len(inputs)
-# Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.JZS1
-n_iteration = 36
-HIDDEN_SIZE = 28
-BATCH_SIZE = 20
-LAYERS = 2
-ratio_t = 1
-chars = 'ARNDCQEGHILKMFPSTWYVBZX'#'0123456789+ '
-if dict_name == 'Blosum50_sparse.dict':
-    chars = chars + chars
-classes = [0,1]
-    
-
-#start a model
-model = Sequential()
-# "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
-#model.add(Masking())
-model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
-for _ in xrange(LAYERS-1):
-    model.add(RNN(HIDDEN_SIZE, return_sequences=True))
-#    #model.add(Dropout(0.5))
-model.add(RNN(HIDDEN_SIZE, return_sequences=False))
-model.add(Dense(len(classes)))
-model.add(Activation('softmax'))
-model.compile(loss='categorical_crossentropy', optimizer='adam')
-#model1 = model
-#save the model
-#json_string = model.to_json()
-#open(path_save+file_name0+'_model.json', 'w').write(json_string)
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
@@ -80,7 +49,7 @@ def encoding(matrix0, input0, len0):
     return matrix0
 
 def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_recall,val_pre,val_recall):
-    file_out.write(file_name0+'_training_n '+training_n+'\n')
+    file_out.write(file_name0+'_training_n '+training_n)
     file_out.write(file_name0+'_'+'iterations'+'\t')
     for x0 in iterations:
         file_out.write(x0+'\t')
@@ -103,8 +72,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save+'file_namesv3.csv'):
-    #model = model1
+for file_name0 in open(path_save+'file_names2.csv'):
     file_name0 = file_name0.rstrip()
     inputs=[]
     outputs=[]
@@ -119,6 +87,7 @@ for file_name0 in open(path_save+'file_namesv3.csv'):
     y_train = []
     y_val_p = []
     y_val_n = []
+    
     #file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
     for line in fileinput.input(path_save+file_name0):
         in_,out_ = [x.rstrip() for x in line.split("\t")]
@@ -149,13 +118,26 @@ for file_name0 in open(path_save+'file_namesv3.csv'):
             #for c in in_: char_set.add(c)
             class_set.add(out_)
     file_name0 = file_name0.split('.')[0]      
-     
+    # Parameters for the model and dataset
+    #TRAINING_SIZE = len(inputs)
+    # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
+    RNN = recurrent.JZS1
+    n_iteration = 100
+    HIDDEN_SIZE = 28
+    BATCH_SIZE = 20
+    LAYERS = 2
+    ratio_t = 1
+    MAXLEN = max_len #DIGITS + 1 + DIGITS
+         
     #creating encoding table
     print(class_set)
+    chars = 'ARNDCQEGHILKMFPSTWYVBZX'#0123456789+ '
+    if dict_name == 'Blosum50_sparse.dict':
+        chars = chars + chars
     classes = ''.join(class_set)
     #ctable = CharacterTable(chars, MAXLEN)
     #classtable = CharacterTable(classes, 1)
-    MAXLEN = max_len #DIGITS + 1 + DIGITS
+
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)), dtype=np.bool)
     X_val_p_m = np.zeros((len(X_val_p), MAXLEN, len(chars)), dtype=np.bool)
@@ -179,11 +161,26 @@ for file_name0 in open(path_save+'file_namesv3.csv'):
     y_val = np.concatenate((y_val_n,y_val_p))
     print(len(X_train),len(X_val))
     print("loaded input")
-
+    
+    model = Sequential()
+    # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
+    #model.add(Masking())
+    model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
+    for _ in xrange(LAYERS-1):
+        model.add(RNN(HIDDEN_SIZE, return_sequences=True))
+    #    #model.add(Dropout(0.5))
+    model.add(RNN(HIDDEN_SIZE, return_sequences=False))
+    model.add(Dense(len(classes)))
+    model.add(Activation('softmax'))
+    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    #save the model
+    json_string = model.to_json()
+    open(path_save+file_name0+'_model.json', 'w').write(json_string)
+    
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    file_out = open(path_save+'model_performance_chemv2.csv','a')
+    file_out = open(path_save+'model_performance_chemv1.csv','a')
     iterations = []
     train_pre = []
     train_recall = []
@@ -198,7 +195,7 @@ for file_name0 in open(path_save+'file_namesv3.csv'):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},validation_data=(X_val, y_val),show_accuracy=True)      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t},validation_data=(X_val, y_val),show_accuracy=True)      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
@@ -232,4 +229,4 @@ for file_name0 in open(path_save+'file_namesv3.csv'):
         print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
     #save weights and performance info
     output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    #model.save_weights(path_save+file_name0+'_chemv1_weight.h5',overwrite=True)
+    model.save_weights(path_save+file_name0+'_chemv1_weight.h5')
