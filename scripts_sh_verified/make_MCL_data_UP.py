@@ -90,7 +90,7 @@ for line0 in fileinput.input():
             ms_frag_list = read_col(filename0,',',0,True)
             ms_gene_list = read_col(filename0,',',2,True)
             [ms_frag_list,ms_gene_list] = MS_clean(ms_frag_list,ms_gene_list)
-            ms_gene_list = get_gene_from_ms(ms_gene_list,gene_dict,pid=pid)
+            ms_gene_list = get_gene_from_ms_UP(ms_gene_list,pid='')
             data_MCL[pid][type0+'_frag'] = ms_frag_list
             data_MCL[pid][type0+'_gene'] = ms_gene_list
 
