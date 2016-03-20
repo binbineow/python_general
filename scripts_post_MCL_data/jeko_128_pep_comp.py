@@ -22,7 +22,7 @@ def get_name(str):
 
 #load data
 
-MCL_data = pickle.load(open('MCL_data11_18_2015v1.1.dict','r'))
+MCL_data = pickle.load(open('MCL_data11_18_2015v1.2_UP.dict','r'))
 MCL_data_jeko = list(MCL_data['MCLJeko']['MHC1_gene'])
 
 
