@@ -7,6 +7,7 @@ path_MS = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/MS_11_11/'
 path_Mut = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/Neoantigen_binding_predictions/'
 path_geneFrag = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/FragFromMut/'
 dictRNA_file = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/MCLRNASeq_ave.dict'
+path_gene_analysis = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
 
 from collections import defaultdict
 def dumb(): return defaultdict(list)
@@ -94,7 +95,7 @@ for line0 in fileinput.input():
             data_MCL[pid][type0+'_frag'] = ms_frag_list
             data_MCL[pid][type0+'_gene'] = ms_gene_list
 
-pickle.dump(data_MCL,open('MCL_data11_18_2015v1.2_UP.dict','wb+'))
+pickle.dump(data_MCL,open(path_gene_analysis+'MCL_data11_18_2015v1.2_UP.dict','wb+'))
 
 
     
