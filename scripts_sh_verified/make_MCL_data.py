@@ -43,9 +43,26 @@ def get_HLA_typing (str0):
                 alle2 = part1+part2
         return [True,pid,alle1,alle2]
 
+def get_gene_from_ms_UP(list0,pid=''):
+    list_return = []
+    #if idiotype, return IGHM (P01871)
+    #extract uniprot ID if appropriate format
+    #or return No_gene
+    for x in list0:
+        if 'idiotype' in x and pid in x:
+            list_return.append('P01871')
+        elif len(x.split('|'))==3:
+            list_return.append(x.split('|')[0])
+                #print x
+        elif len(x.split('|'))==4:
+            list_return.append(x.split('|')[1])
+        else:
+            list_return.append('No_gene')
+    return list_return
+
                       
 #load dictionary
-gene_dict = pickle.load(open(dict_file,'r'))
+#gene_dict = pickle.load(open(dict_file,'r'))
 #dictRNA=pickle.load(open(dictRNA_file,'r'))
 
 for line0 in fileinput.input():
@@ -77,7 +94,7 @@ for line0 in fileinput.input():
             data_MCL[pid][type0+'_frag'] = ms_frag_list
             data_MCL[pid][type0+'_gene'] = ms_gene_list
 
-pickle.dump(data_MCL,open('MCL_data11_18_2015v1.1.dict','wb+'))
+pickle.dump(data_MCL,open('MCL_data11_18_2015v1.2_UP.dict','wb+'))
 
 
     
