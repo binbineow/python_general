@@ -17,7 +17,7 @@ def get_name(str0,str1):
         name0 = str0
         name1 = str1.split('|')[0]
         name2 = str1.split('|')[3].split('_')[0]
-        return(name0,name1,name3)
+        return(name0,name1,name2)
 
 #main
 for line in fileinput.input():
