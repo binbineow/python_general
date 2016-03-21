@@ -43,9 +43,10 @@ for name0,value0 in dict1.iteritems():
     if name0 in dict2:
         x0.append(float(value0))
         y0.append(float(dict2[name0]))
-print(pearsonr(x0,y0))
+r0 = str(pearsonr(x0,y0)[0])
+print(r0)
 
-plot_scatter(x0,y0,dict1_name,dict2_name,title,path0)        
+plot_scatter(x0,y0,dict1_name+' (R='+r0+')',dict2_name,title,path0)        
 
 
 
