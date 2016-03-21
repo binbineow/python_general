@@ -23,15 +23,15 @@ def plot_scatter(x,y,x_name,y_name,title,path0=''):
 for line0 in fileinput.input():
     line0 = line0.rstrip().split(';')
     if line0[0] == 'dict1':
-        dict1 = pickle.load(open(line[1]))
-    if line[0] == 'dict1_name':
-        dict1_name = line[1]
-    if line[0] == 'dict2_name':
-        dict2_name = line[1]
-    if line[0] == 'title':
-        title = line[1]
+        dict1 = pickle.load(open(line0[1]))
+    if line0[0] == 'dict1_name':
+        dict1_name = line0[1]
+    if line0[0] == 'dict2_name':
+        dict2_name = line0[1]
+    if line0[0] == 'title':
+        title = line0[1]
     if line0[0] == 'dict2':
-        dict2 = pickle.load(open(line[1]))
+        dict2 = pickle.load(open(line0[1]))
 
 #plot correlation scatter
 #x is dict1
