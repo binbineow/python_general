@@ -1,5 +1,6 @@
  #importing
 from utilities import *
+from scipy.stats import pearsonr
 path0 = '../images/'
 def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.figure()
@@ -42,6 +43,7 @@ for name0,value0 in dict1.iteritems():
     if name0 in dict2:
         x0.append(float(value0))
         y0.append(float(dict2[name0]))
+print(pearsonr(x0,y0))
 
 plot_scatter(x0,y0,dict1_name,dict2_name,title,path0)        
 
