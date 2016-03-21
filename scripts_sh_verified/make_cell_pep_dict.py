@@ -35,5 +35,6 @@ for line in fileinput.input():
 
 #save
 print dict_cell
-pickle.dump(dict_cell,open(path_gene_analysis+'jeko_pep_countv3.dict','w+'))
+#pickle.dump(dict_cell,open(path_gene_analysis+'jeko_pep_countv3.dict','w+'))
+pickle.dump(dict_cell,open(path_gene_analysis+'L128_pep_countv3.dict','w+'))
 #pickle.dump(dict_gene_to_uni,open('dict_gene_to_uni.dict','w+'))

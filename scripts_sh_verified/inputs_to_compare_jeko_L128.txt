@@ -1,0 +1,5 @@
+dict1;/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/jeko_pep_countv3.dict
+dict1_name;Jeko proteome emPAI values
+dict2;/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/L128_pep_countv3.dict
+dict2_name;L128 proteome emPAI values
+title;Correlation_between_Jeko_and_L128_peptide_abundance
