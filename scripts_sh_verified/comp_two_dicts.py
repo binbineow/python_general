@@ -1,6 +1,6 @@
  #importing
 from utilities import *
-path0 = '../images'
+path0 = '../images/'
 def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.figure()
     plt.plot(x,y,'bo')
