@@ -4,7 +4,7 @@ from scipy.stats import pearsonr
 path0 = '../images/'
 def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.figure()
-    plt.plot(x,y,'bo')
+    plt.plot(x,y,'b.')
     plt.ylabel(y_name)
     plt.xlabel(x_name)
     plt.ylim([0,max(y)+1])
