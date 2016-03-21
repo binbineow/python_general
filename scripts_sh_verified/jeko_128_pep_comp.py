@@ -2,8 +2,6 @@
 import fileinput
 from utilities import *
 
-#initial the dictionary
-import cPickle as pickle
 #dict_g_u = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/dict_gene_to_uni.dict'))
 #dict_u_g = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/dict_uni_to_gene.dict'))
 dict_jeko = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/jeko_pep_countv2.dict'))
