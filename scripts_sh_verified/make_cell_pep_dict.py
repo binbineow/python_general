@@ -26,7 +26,7 @@ for line in fileinput.input():
     #if length0 == 0:
     #    length0 = len(line)
     if (not line[0] == 'Checked') and (line[1] == 'High'):
-        [name0,name1,name2] = get_name(lien[3],line[4])
+        [name0,name1,name2] = get_name(line[3],line[4])
         if float(line[-3]) < 300:
             dict_cell[name0] = float(line[-3])
             dict_cell[name1] = float(line[-3])
