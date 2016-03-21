@@ -23,8 +23,8 @@ def get_name(str0,str1):
 for line in fileinput.input():
     line = line.rstrip()
     line = line.split(',')
-    if length0 == 0:
-        length0 = len(line)
+    #if length0 == 0:
+    #    length0 = len(line)
     if (not line[0] == 'Checked') and (line[1] == 'High'):
         [name0,name1,name2] = get_name(lien[3],line[4])
         if float(line[-3]) < 300:
@@ -34,5 +34,6 @@ for line in fileinput.input():
 
 
 #save
+print dict_cell
 pickle.dump(dict_cell,open(path_gene_analysis+'jeko_pep_countv3.dict','w+'))
 #pickle.dump(dict_gene_to_uni,open('dict_gene_to_uni.dict','w+'))
