@@ -177,6 +177,9 @@ model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
+#rsgd
+#224D
+#kgran
 #save the model
 json_string = model.to_json()
 open(path_save+file_name0+'_model.json', 'w').write(json_string)

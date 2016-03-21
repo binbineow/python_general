@@ -38,6 +38,7 @@ for gene0 in MCL_data_jeko:
            
 plot_counter(hist_num,filename,filename+' Histgram','Gene frequency','peptide abundance in Jeko',True,200)
 
+
 MCL_data_jeko = list(MCL_data['MCLJeko']['MHC2_gene'])
 
 

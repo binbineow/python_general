@@ -5,6 +5,7 @@ import fileinput
 import cPickle as pickle
 #dict_g_u =pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/dict_gene_to_uni.dict'))
 #dict_u_g = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/dict_uni_to_gene.dict'))
+path_gene_analysis = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
 dict_cell = dict()
 
 
@@ -24,7 +25,7 @@ for line in fileinput.input():
     line = line.split(',')
     if length0 == 0:
         length0 = len(line)
-    if not line[0] == 'Checked':
+    if (not line[0] == 'Checked') and (line[1] == 'High'):
         [name0,name1,name2] = get_name(lien[3],line[4])
         if float(line[-3]) < 300:
             dict_cell[name0] = float(line[-3])
@@ -33,5 +34,5 @@ for line in fileinput.input():
 
 
 #save
-pickle.dump(dict_cell,open('jeko_pep_countv2.dict','w+'))
+pickle.dump(dict_cell,open(path_gene_analysis+'jeko_pep_countv3.dict','w+'))
 #pickle.dump(dict_gene_to_uni,open('dict_gene_to_uni.dict','w+'))
