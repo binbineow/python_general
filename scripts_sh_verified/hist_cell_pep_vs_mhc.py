@@ -40,7 +40,7 @@ def plot_hist_pep(pid0,mhc0):
         else:
             hist_num.append(label_value)
                
-    plot_counter2(hist_num,filename,'peptide abundance in Jeko whole cells',mhc0+' Gene frequency',path0)
+    plot_counter2(hist_num,filename,'peptide emPAI in Jeko whole cells',mhc0+' Gene frequency',path0)
 
 #main
 plot_hist_pep('Jeko','MHC1')
