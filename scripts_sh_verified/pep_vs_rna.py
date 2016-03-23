@@ -5,6 +5,9 @@ from scipy.stats import pearsonr
 path0 = '../images/'
 import math 
 
+def square0(list):
+    return [i ** 2 for i in list]
+
 def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.figure()
     plt.plot(x,y,'b.')
@@ -44,13 +47,13 @@ for line0 in fileinput.input():
 x_name = 'RNASeq log10(RPKM) of Jeko Gene'
 y_name = 'Peptide emPIA of Jeko Gene'
 title0 = 'Regression_between_RNA_expression_and_peptide_abundance_\nin_Jeko_cell_line_(gene_emPIA_>0)'
-r0 = str(pearsonr(jeko_rna_no0,jeko_pep_no0)[0])
+r0 = str(pearsonr(jeko_rna_no0,square0(jeko_pep_no0))[0])
 print('Regression R without adding zero peptide='+r0)
 plot_scatter(jeko_rna_no0,jeko_pep_no0,x_name+' (R='+r0+')',y_name,title0,path0)   
 #0
-x_name = 'RNASeq RPKM of Jeko Gene'
+x_name = 'RNASeq log10(RPKM) of Jeko Gene'
 y_name = 'Peptide emPIA of Jeko Gene'
 title0 = 'Regression_between_RNA_expression_and_peptide_abundance_\nin_Jeko_cell_line'
-r0 = str(pearsonr(jeko_rna_0,jeko_pep_0)[0])
+r0 = str(pearsonr(jeko_rna_0,square0(jeko_pep_0))[0])
 print('Regression R without adding zero peptide='+r0)
 plot_scatter(jeko_rna_0,jeko_pep_0,x_name+' (R='+r0+')',y_name,title0,path0)   
