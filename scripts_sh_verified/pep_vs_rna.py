@@ -24,7 +24,7 @@ jeko_rna_no0 = []
 jeko_pep_0 = []
 jeko_pep_no0 = []
 
-for line0 in file_input.input():
+for line0 in fileinput.input():
     line0 = line0.rstrip().split(',')
     if not 'Gene name' in line0[0]:
         if line0[0] in dict_g_u:
