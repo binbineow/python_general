@@ -30,14 +30,14 @@ for line0 in fileinput.input():
         if line0[0] in dict_g_u:
             rna_gene0 = dict_g_u[line[0]]
             rna_value0 = float(line0[1])
-        if rna_gene0 in dict_jeko:
-            jeko_rna_no0.append(rna_value0)
-            jeko_pep_no0.append(dict_jeko[rna_gene0])
-            jeko_rna_0.append(rna_value0)
-            jeko_pep_0.append(dict_jeko[rna_gene0])
-        else:
-            jeko_rna_0.append(rna_value0)
-            jeko_pep_0.append(0.0)
+            if rna_gene0 in dict_jeko:
+                jeko_rna_no0.append(rna_value0)
+                jeko_pep_no0.append(dict_jeko[rna_gene0])
+                jeko_rna_0.append(rna_value0)
+                jeko_pep_0.append(dict_jeko[rna_gene0])
+            else:
+                jeko_rna_0.append(rna_value0)
+                jeko_pep_0.append(0.0)
             
 #no0
 x_name = 'RNASeq RPKM of Jeko Gene'
