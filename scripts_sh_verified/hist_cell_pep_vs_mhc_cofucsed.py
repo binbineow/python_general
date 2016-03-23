@@ -50,7 +50,8 @@ def plot_hist_pep_norm(pid0):
     if pid0 == '128':
         dict_sub = dict_L128
     for gene0,value0 in dict_sub.iteritems():
-        hist_num.append(value0)
+        if value0<cap_value:
+            hist_num.append(value0)
     filename = 'Histogram_of_MCL'+pid0+'_proteome_distribution'
     plot_counter2(hist_num,filename,'peptide emPAI in Jeko whole cells','Gene frequency',path0)
 
