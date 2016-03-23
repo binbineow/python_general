@@ -3,6 +3,7 @@
 from utilities import *
 from scipy.stats import pearsonr
 path0 = '../images/'
+import math.log as log
 
 def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.figure()
@@ -29,7 +30,7 @@ for line0 in fileinput.input():
     if not 'Gene name' in line0[0]:
         if line0[0] in dict_g_u:
             rna_gene0 = dict_g_u[line0[0]]
-            rna_value0 = float(line0[1])
+            rna_value0 = log(float(line0[1])+0.0001,10)
             if rna_gene0 in dict_jeko:
                 jeko_rna_no0.append(rna_value0)
                 jeko_pep_no0.append(dict_jeko[rna_gene0])
@@ -40,16 +41,16 @@ for line0 in fileinput.input():
                 jeko_pep_0.append(0.0)
             
 #no0
-x_name = 'RNASeq RPKM of Jeko Gene'
+x_name = 'RNASeq log10(RPKM) of Jeko Gene'
 y_name = 'Peptide emPIA of Jeko Gene'
-title0 = 'Regression_between_RNA_expression_and_peptide_abundance_in_Jeko_cell_line_(gene_emPIA_>0)'
+title0 = 'Regression_between_RNA_expression_and_peptide_abundance_\nin_Jeko_cell_line_(gene_emPIA_>0)'
 r0 = str(pearsonr(jeko_rna_no0,jeko_pep_no0)[0])
 print('Regression R without adding zero peptide='+r0)
 plot_scatter(jeko_rna_no0,jeko_pep_no0,x_name+' (R='+r0+')',y_name,title0,path0)   
 #0
 x_name = 'RNASeq RPKM of Jeko Gene'
 y_name = 'Peptide emPIA of Jeko Gene'
-title0 = 'Regression_between_RNA_expression_and_peptide_abundance_in_Jeko_cell_line'
+title0 = 'Regression_between_RNA_expression_and_peptide_abundance_\nin_Jeko_cell_line'
 r0 = str(pearsonr(jeko_rna_0,jeko_pep_0)[0])
 print('Regression R without adding zero peptide='+r0)
 plot_scatter(jeko_rna_0,jeko_pep_0,x_name+' (R='+r0+')',y_name,title0,path0)   
