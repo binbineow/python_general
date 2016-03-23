@@ -6,7 +6,8 @@ path0 = '../images/'
 import math 
 
 def square0(list):
-    return [i ** 2 for i in list]
+    #add 4 before square
+    return [(i+4) ** 2 for i in list]
 
 def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.figure()
