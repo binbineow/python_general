@@ -3,7 +3,7 @@
 from utilities import *
 from scipy.stats import pearsonr
 path0 = '../images/'
-import math.log as log
+import math 
 
 def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.figure()
@@ -30,7 +30,7 @@ for line0 in fileinput.input():
     if not 'Gene name' in line0[0]:
         if line0[0] in dict_g_u:
             rna_gene0 = dict_g_u[line0[0]]
-            rna_value0 = log(float(line0[1])+0.0001,10)
+            rna_value0 = math.log(float(line0[1])+0.0001,10)
             if rna_gene0 in dict_jeko:
                 jeko_rna_no0.append(rna_value0)
                 jeko_pep_no0.append(dict_jeko[rna_gene0])
