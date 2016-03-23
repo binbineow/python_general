@@ -37,8 +37,8 @@ def plot_hist_pep(pid0,mhc0):
             num0 = dict_sub[gene0]
             if num0 < cap_value:
                 hist_num.append(num0)
-        else:
-            hist_num.append(label_value)
+        #else:
+            #hist_num.append(label_value)
                
     plot_counter2(hist_num,filename,'peptide emPAI in Jeko whole cells',mhc0+' Gene frequency',path0)
 
