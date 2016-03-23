@@ -1,7 +1,7 @@
  #importing
 import fileinput
 from utilities import *
-path0 = '../images/'
+path0 = '../images/v2'
 label_value = -10
 cap_value = 50
 
