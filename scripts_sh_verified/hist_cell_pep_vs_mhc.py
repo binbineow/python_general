@@ -2,6 +2,8 @@
 import fileinput
 from utilities import *
 path0 = '../images/'
+label_value = -50
+cap_value = 200
 
 #dict_g_u = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/dict_gene_to_uni.dict'))
 #dict_u_g = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/dict_uni_to_gene.dict'))
@@ -33,9 +35,10 @@ def plot_hist_pep(pid0,mhc0):
     for gene0 in MCL_data_sub:
         if gene0 in dict_sub:
             num0 = dict_sub[gene0]
-            hist_num.append(num0)
+            if num0 < cap_value:
+                hist_num.append(num0)
         else:
-            hist_num.append(-10)
+            hist_num.append(label_value)
                
     plot_counter2(hist_num,filename,'peptide abundance in Jeko whole cells',mhc0+' Gene frequency',path0)
 
