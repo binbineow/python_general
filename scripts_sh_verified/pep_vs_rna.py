@@ -28,7 +28,7 @@ for line0 in fileinput.input():
     line0 = line0.rstrip().split(',')
     if not 'Gene name' in line0[0]:
         if line0[0] in dict_g_u:
-            rna_gene0 = dict_g_u[line[0]]
+            rna_gene0 = dict_g_u[line0[0]]
             rna_value0 = float(line0[1])
             if rna_gene0 in dict_jeko:
                 jeko_rna_no0.append(rna_value0)
