@@ -2,7 +2,7 @@
 import fileinput
 from utilities import *
 path0 = '../images/v2'
-label_value = -10
+label_value = -20
 cap_value = 50
 
 #dict_g_u = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/dict_gene_to_uni.dict'))
@@ -42,8 +42,22 @@ def plot_hist_pep(pid0,mhc0):
                
     plot_counter2(hist_num,filename,'peptide emPAI in Jeko whole cells',mhc0+' Gene frequency',path0)
 
+def plot_hist_pep_norm(pid0):
+    #load data
+    hist_num = []
+    if pid0 == 'Jeko':
+        dict_sub = dict_jeko
+    if pid0 == '128':
+        dict_sub = dict_L128
+    for gene0,value0 in dict_sub.iteritem():
+        hist_num.append(value0)
+    filename = 'Histogram_of_MCL'+pid0+'_proteome_distribution'
+    plot_counter2(hist_num,filename,'peptide emPAI in Jeko whole cells','Gene frequency',path0)
+
 #main
 plot_hist_pep('Jeko','MHC1')
 plot_hist_pep('Jeko','MHC2')
 plot_hist_pep('128','MHC1')    
 plot_hist_pep('128','MHC2')
+plot_hist_pep_normal('Jeko')
+plot_hist_pep_normal('128')
