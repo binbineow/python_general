@@ -8,7 +8,7 @@ path0 = '../images/'
 dict_jeko = pickle.load(open('/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/jeko_pep_countv3.dict'))
 dict_L128 = pickle.load(open('/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/L128_pep_countv3.dict'))
 #dict_L128 = pickle.load(open('/scratch/users/bchen45/HLA_prediction/Uniprot/L128_pep_countv2.dict'))
-MCL_data = pickle.load(open('MCL_data11_18_2015v1.2_UP.dict','r'))
+MCL_data = pickle.load(open('/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/MCL_data11_18_2015v1.2_UP.dict','r'))
 
 
 def plot_counter2(gene_list0,title0,x0,y0,path0):
