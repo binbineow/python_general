@@ -88,7 +88,7 @@ def del_sameHLA(MCL_data0):
         pid0 = pid[i]
         hla1 = MCL_data0[pid0]['HLA_typing'][-1]
         hla2 = MCL_data0[pid0]['HLA_typing'][-2]
-        for j in range(i,len(pid)):
+        for j in range(i+1,len(pid)):
             pid1 = pid[j]
             hla1_1 = MCL_data0[pid1]['HLA_typing'][-1]
             hla2_1 = MCL_data0[pid1]['HLA_typing'][-2]
@@ -101,6 +101,7 @@ def del_sameHLA(MCL_data0):
             if set0 == set1:
                 MCL_data0[pid0]['MHC2_frag'].extend(MCL_data[pid1]['MHC2_frag'])
                 to_del0.add(pid1)
+    print(to_del0)
     for x in to_del0:
         del MCL_data0[x]
     MCL_data0['pid']['pid'] = list(set(MCL_data0['pid']['pid'])- to_del0)
