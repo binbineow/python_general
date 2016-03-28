@@ -21,6 +21,9 @@ def get_shared(listy, listx):
                 common0.add(fragy)
     return common0
 
+
+
+
 #make a dictionary = HLA-type to list of patient IDs
 def get_pid_for_each_hla(MCL_data,pid_list):
     dict_hla_pid = dumb()
