@@ -180,7 +180,11 @@ for file_name0 in open(path_save+'file_names2.csv'):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    file_out = open(path_save+'model_performance_chemv1.csv','a')
+    version = '_chem_fixedv1'
+    if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
+        file_out = open(path_save+'model_performance'+version+'.csv','a')
+    else:
+        file_out = open(path_save+'model_performance'+version+'.csv','w+')
     iterations = []
     train_pre = []
     train_recall = []
