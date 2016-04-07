@@ -2,10 +2,12 @@ import fileinput
 import Levenshtein
 
 #initialize the lists
+#n_train is actually not used
 p_train = []
 p_val = []
 n_train = []
 n_val = []
+
 
 
 #input format
@@ -39,14 +41,15 @@ for x in n_val:
         if Levenshtein.ratio(x,y)>score0:
             score0 = Levenshtein.ratio(x,y)
     n_score.append(score0)
-t_score = []
-for x in t_list:
-    score0 = 0
-    for y in p_train:
-        if Levenshtein.ratio(x,y)>score0:
-            score0 = Levenshtein.ratio(x,y)
-    t_score.append(score0)
-print(t_score)
+# t_score = []
+# for x in p_train:
+#     score0 = 0
+#     for y in p_train:
+#         if Levenshtein.ratio(x,y)>score0:
+#             score0 = Levenshtein.ratio(x,y)
+#     t_score.append(score0)
+    
+#print(t_score)
 best_i = 0
 best_accuracy = 0
 test_at_best_i = 0
@@ -77,16 +80,16 @@ for _ in range(0,n_iterations):
         recall = 0
         precision = 0
     accuracy = float(tp+tn)/(tp+tn+fp+fn)
-    tp_t = 0
-    for x in t_score:
-        if x>i:
-            tp_t +=1
-    recall_t = float(tp_t)/len(t_score)
+#     tp_t = 0
+#     for x in t_score:
+#         if x>i:
+#             tp_t +=1
+#     recall_t = float(tp_t)/len(t_score)
     if accuracy>best_accuracy:
         best_accuracy = accuracy
         best_i = i
-        test_at_best_i = recall_t
+        #test_at_best_i = recall_t
 
     print('precision='+str(precision)+'\trecall='+str(recall)+'\taccuarcy='+str(accuracy)+'\tTest_recall='+str(recall_t))
 print('best accuracy='+str(best_accuracy)+' achieved at cut_off='+str(best_i))  
-print('best test recall at best i ='+str(test_at_best_i))      
+#print('best test recall at best i ='+str(test_at_best_i))      
