@@ -54,7 +54,7 @@ def get_pep_for_each_hla(dict_hla_pid,MCL_data):
 def print_d_list(dict0):
     for key,value in dict0.iteritems():
         print(key+': '+str(len(value)))
-        
+#0 - negative training 1 - positive training 2 - negative validation 3 - positive validation        
 def make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio):
     one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
     onegenestr = pickle.load(open(one_gene_path,'r'))
