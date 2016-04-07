@@ -90,6 +90,6 @@ for _ in range(0,n_iterations):
         best_i = i
         #test_at_best_i = recall_t
 
-    print('precision='+str(precision)+'\trecall='+str(recall)+'\taccuarcy='+str(accuracy)+'\tTest_recall='+str(recall_t))
+    print('precision='+str(precision)+'\trecall='+str(recall)+'\taccuarcy='+str(accuracy))
 print('best accuracy='+str(best_accuracy)+' achieved at cut_off='+str(best_i))  
 #print('best test recall at best i ='+str(test_at_best_i))      
