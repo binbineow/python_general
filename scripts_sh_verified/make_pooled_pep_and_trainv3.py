@@ -194,7 +194,7 @@ path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
 random.seed(num_seed)
 for hla_name0, list0 in dict_hla_pep.iteritems():
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
-    list0 = shunffle_list(list0)
+    list0 = shuffle_list(list0)
     culster_list = make_culster(list0)
     make_training(path_save,hla_name0,len(list0),cluster_list,version0,t_ratio,v_ratio)
 
