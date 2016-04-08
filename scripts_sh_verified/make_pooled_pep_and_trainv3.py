@@ -8,7 +8,42 @@ import random
 import re
 
 #not allow substring or meta-string to be added into validation set
-#def check_val(pep_list0, pep0):
+def check_val(pep_train, pep0):
+    return0 = True
+    for pep_t0 in pep_train0:
+        if pep0 in pep_t0 or pep_t0 in pep0:
+            return0 = False
+            break
+    return return0
+
+#make a list of lists/culsters, within each cluster, strings are substring among each other within a cluster
+def make_cluster(list0):
+    list2 = list(list0)
+    len2 = []
+    for x in list2:
+        len2.append(len(x))
+    list_len_2 = zip(list2,len2)
+    list2,len2 = zip(*sorted(list_len_2,key=lambda x: x[1]))
+    #print list2
+    list2_tested = [True]*len(list2)
+    cluster_list = []
+    len_d_ave = []
+    len_d_max = []
+    len_std = []
+    for n0 in range(0,len(list2)):
+        if list2_tested[n0]:
+            list0 = []
+            len_d0 = []
+            len_l0 = []
+            list0.append(list2[n0])
+            for m0 in range(n0+1,len(list2)):
+                if list2_tested[m0]:
+                    if list2[n0] in list2[m0]:
+                        list2_tested[m0] = False
+                        list0.append(list2[m0])
+                        len_d0.append(len(list2[m0])-len(list2[n0]))
+            cluster_list.append(list0)
+    return culster_list
 
 
 #return a dictionary of d' which is d without key
@@ -57,30 +92,51 @@ def get_pep_for_each_hla(dict_hla_pid,MCL_data):
 def print_d_list(dict0):
     for key,value in dict0.iteritems():
         print(key+': '+str(len(value)))
+
+def shuffle_list(list0):
+    list0 = random.sample(list0,len(list0))
+    return list0
+        
 #0 - negative training 1 - positive training 2 - negative validation 3 - positive validation        
-def make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio):
+def make_training(path_save,hla_name0,list_len,cluster_list,version0,t_ratio,v_ratio):
     one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
     onegenestr = pickle.load(open(one_gene_path,'r'))
     len_one = len(onegenestr)
     file_out = open(path_save+hla_name0+version0+'_tr_'+str(t_ratio)+'_val.csv','w+')
-    random.seed(num_seed)
-    for pos0 in list0:
-        if random.random() < v_ratio:
-            #making validation
-            file_out.write(pos0+'\t'+'3\n')
+    train_list = []
+    val_list = []
+    val_goal = list_len*v_ratio
+    #split training and validation data based on clusters
+    cluster_num_train = 0
+    cluster_num_val = 0
+    cluster_list = shuffle_list(culster_list)
+    for cluster0 in cluster_list:
+        if len(val_list) < val_goal:
+            cluster_num_train += 1
+            val_list.extend(cluster0)
+        else:
+            cluster_num_val += 1
+            train_list.extend(cluster0)
+    #report training and validation split
+    print(hla_name0+' training cluster_n: '+str(cluster_num_train)+' validation cluster_n: '+str(cluster_num_val))
+    print(hla_name0+' training pep_n: '+str(len(train_list))+' validation pep_n: '+str(len(val_list)))
+    #generate negative for each positive peptides in both training and validation
+    for pos0 in val_list:
+        #making validation
+        file_out.write(pos0+'\t'+'3\n')
+        rand0 = random.randint(0,len_one)
+        neg0 = onegenestr[rand0:rand0+len(pos0)]
+        file_out.write(neg0+'\t'+'2\n')
+        neg0 = ''.join(random.sample(pos0,len(pos0)))
+        file_out.write(neg0+'\t'+'2\n')
+    for pos0 in train_list:
+        file_out.write(pos0+'\t'+'1\n')
+        for i in range(0,t_ratio):
             rand0 = random.randint(0,len_one)
             neg0 = onegenestr[rand0:rand0+len(pos0)]
-            file_out.write(neg0+'\t'+'2\n')
+            file_out.write(neg0+'\t'+'0\n')
             neg0 = ''.join(random.sample(pos0,len(pos0)))
-            file_out.write(neg0+'\t'+'2\n')
-        else:
-            file_out.write(pos0+'\t'+'1\n')
-            for i in range(0,t_ratio):
-                rand0 = random.randint(0,len_one)
-                neg0 = onegenestr[rand0:rand0+len(pos0)]
-                file_out.write(neg0+'\t'+'0\n')
-                neg0 = ''.join(random.sample(pos0,len(pos0)))
-                file_out.write(neg0+'\t'+'0\n')
+            file_out.write(neg0+'\t'+'0\n')
     file_out.close()
         
 #this process merge patient MHC2_frag into the first patient scanned and delete the redundant pid
@@ -108,7 +164,6 @@ def del_sameHLA(MCL_data0):
     for x in to_del0:
         del MCL_data0[x]
     MCL_data0['pid']['pid'] = list(set(MCL_data0['pid']['pid'])- to_del0)
-    print(MCL_data0['pid']['pid'])
     return MCL_data0
 
 
@@ -134,46 +189,20 @@ print_d_list(dict_hla_pep)
 t_ratio = 1
 v_ratio = 0.2
 num_seed = 1
-version0 = 'simplev2_fix_HLA'
+version0 = 'val_check_fix_HLA'
 path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
+random.seed(num_seed)
 for hla_name0, list0 in dict_hla_pep.iteritems():
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
-    make_training(path_save,hla_name0,list0,version0,t_ratio,v_ratio)
+    list0 = shunffle_list(list0)
+    culster_list = make_culster(list0)
+    make_training(path_save,hla_name0,len(list0),cluster_list,version0,t_ratio,v_ratio)
 
 
 
 
 
-#print(len(set_04_01))
 
-'''
-############make clusters
-list2 = list(set_04_01)
-len2 = []
-for x in list2:
-    len2.append(len(x))
-list_len_2 = zip(list2,len2)
-list2,len2 = zip(*sorted(list_len_2,key=lambda x: x[1]))
-#print list2
-list2_tested = [True]*len(list2)
-cluster_list = []
-len_d_ave = []
-len_d_max = []
-len_std = []
-for n0 in range(0,len(list2)):
-    if list2_tested[n0]:
-        list0 = []
-        len_d0 = []
-        len_l0 = []
-        list0.append(list2[n0])
-        for m0 in range(n0+1,len(list2)):
-            if list2_tested[m0]:
-                if list2[n0] in list2[m0]:
-                    list2_tested[m0] = False
-                    list0.append(list2[m0])
-                    len_d0.append(len(list2[m0])-len(list2[n0]))
-        cluster_list.append(list0)
-'''
         
 #print('total classII peptides='+str(len(list2)))
 
