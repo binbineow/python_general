@@ -4,9 +4,12 @@ from utilities import *
 #dictRNA_file = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/MCLRNASeq_ave.dict'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
 import math
-import pandas as pd
 import random
 import re
+
+#not allow substring or meta-string to be added into validation set
+#def check_val(pep_list0, pep0):
+
 
 #return a dictionary of d' which is d without key
 def removekey(d, key):
