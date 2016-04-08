@@ -26,7 +26,7 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 36
+n_iteration = 16
 HIDDEN_SIZE = 28
 BATCH_SIZE = 20
 LAYERS = 2
@@ -184,7 +184,7 @@ for file_name0 in open(path_save+'file_namesv3.csv'):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     #file_out = open(path_save+'model_performance_chemv2.csv','a')
-    version = '_chem_fixedv1'
+    version = '_chem_fixedv2'
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
