@@ -109,7 +109,7 @@ def make_training(path_save,hla_name0,list_len,cluster_list,version0,t_ratio,v_r
     #split training and validation data based on clusters
     cluster_num_train = 0
     cluster_num_val = 0
-    cluster_list = shuffle_list(culster_list)
+    cluster_list = shuffle_list(cluster_list)
     for cluster0 in cluster_list:
         if len(val_list) < val_goal:
             cluster_num_train += 1
