@@ -43,7 +43,7 @@ def make_cluster(list0):
                         list0.append(list2[m0])
                         len_d0.append(len(list2[m0])-len(list2[n0]))
             cluster_list.append(list0)
-    return culster_list
+    return cluster_list
 
 
 #return a dictionary of d' which is d without key
