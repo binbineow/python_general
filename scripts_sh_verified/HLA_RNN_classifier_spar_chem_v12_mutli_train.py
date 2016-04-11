@@ -26,8 +26,10 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 30
-HIDDEN_SIZE = 8
+first_run = True
+#default iteration 20 for the first run, iteration 40
+n_iteration = 20
+HIDDEN_SIZE = 16
 BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
@@ -197,6 +199,11 @@ for file_name0 in open(path_save+'file_namesv4.csv'):
     ptotal0 = len(X_train_p)
     ntotal0 = len(X_train_n)
     training_n = str(ptotal0+ntotal0)
+    if first_run :
+        n_iteration = 40
+    else:
+        first_run = False
+        n_iteration = 20
     for iteration in range(1, n_iteration):
         iterations.append(str(iteration))
         print()
