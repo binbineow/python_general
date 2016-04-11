@@ -26,8 +26,8 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 35
-HIDDEN_SIZE = 28
+n_iteration = 30
+HIDDEN_SIZE = 8
 BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
