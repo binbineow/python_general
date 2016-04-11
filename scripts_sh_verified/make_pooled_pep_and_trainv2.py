@@ -108,6 +108,7 @@ def del_sameHLA(MCL_data0):
     for x in to_del0:
         del MCL_data0[x]
     MCL_data0['pid']['pid'] = list(set(MCL_data0['pid']['pid'])- to_del0)
+    print(MCL_data0['pid']['pid'])
     return MCL_data0
 
 
