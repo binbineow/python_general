@@ -26,10 +26,8 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-first_run = True
-#default iteration 20 for the first run, iteration 40
-n_iteration = 20
-HIDDEN_SIZE = 16
+n_iteration = 30
+HIDDEN_SIZE = 8
 BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
@@ -186,7 +184,7 @@ for file_name0 in open(path_save+'file_namesv4.csv'):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     #file_out = open(path_save+'model_performance_chemv2.csv','a')
-    version = '_chem_fixed_neuron8'
+    version = '_chem_fixedv2'
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
@@ -199,11 +197,6 @@ for file_name0 in open(path_save+'file_namesv4.csv'):
     ptotal0 = len(X_train_p)
     ntotal0 = len(X_train_n)
     training_n = str(ptotal0+ntotal0)
-    if first_run :
-        n_iteration = 40
-    else:
-        first_run = False
-        n_iteration = 20
     for iteration in range(1, n_iteration):
         iterations.append(str(iteration))
         print()
