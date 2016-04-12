@@ -114,10 +114,10 @@ def make_training(path_save,hla_name0,list_len,cluster_list,version0,t_ratio,v_r
     for cluster0 in cluster_list:
         if len(val_list) < val_goal:
             cluster_num_val += 1
-            val_list.append(cluster0[0])
+            val_list.append(cluster0)
         else:
             cluster_num_train += 1
-            train_list.append(cluster0[0])
+            train_list.append(cluster0)
     #report training and validation split
     print(hla_name0+' training cluster_n: '+str(cluster_num_train)+' validation cluster_n: '+str(cluster_num_val))
     print(hla_name0+' training pep_n: '+str(len(train_list))+' validation pep_n: '+str(len(val_list)))
