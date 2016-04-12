@@ -29,8 +29,8 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 RNN = recurrent.JZS1
 first_run = True
 #default iteration 20 for the first run, iteration 40
-n_iteration_1 = 17
-n_iteration_2 = 9
+n_iteration_1 = 26
+n_iteration_2 = 16
 HIDDEN_SIZE = 16
 BATCH_SIZE = 20
 LAYERS = 2
@@ -213,7 +213,7 @@ for file_name0 in open(path_save_train+'file_namesv4.csv'):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/4},validation_data=(X_val, y_val),show_accuracy=True)      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/3},validation_data=(X_val, y_val),show_accuracy=True)      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)

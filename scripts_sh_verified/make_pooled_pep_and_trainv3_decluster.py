@@ -113,11 +113,11 @@ def make_training(path_save,hla_name0,list_len,cluster_list,version0,t_ratio,v_r
     cluster_list = shuffle_list(cluster_list)
     for cluster0 in cluster_list:
         if len(val_list) < val_goal:
-            cluster_num_train += 1
-            val_list.extend(cluster0)
-        else:
             cluster_num_val += 1
-            train_list.extend(cluster0)
+            val_list.append(cluster0[0])
+        else:
+            cluster_num_train += 1
+            train_list.append(cluster0[0])
     #report training and validation split
     print(hla_name0+' training cluster_n: '+str(cluster_num_train)+' validation cluster_n: '+str(cluster_num_val))
     print(hla_name0+' training pep_n: '+str(len(train_list))+' validation pep_n: '+str(len(val_list)))
@@ -191,7 +191,7 @@ t_ratio = 1
 v_ratio = 0.2
 num_seed = 1
 version0 = 'val_check_fix_HLA_decluster'
-path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_file/'
+path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_files/'
 random.seed(num_seed)
 for hla_name0, list0 in dict_hla_pep.iteritems():
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
