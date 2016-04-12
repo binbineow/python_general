@@ -24,7 +24,7 @@ def make_cluster(list0):
         len2.append(len(x))
     list_len_2 = zip(list2,len2)
     list2,len2 = zip(*sorted(list_len_2,key=lambda x: x[1]))
-    print list2
+    #print list2
     #print list2
     list2_tested = [True]*len(list2)
     cluster_list = []
@@ -43,7 +43,7 @@ def make_cluster(list0):
                         list2_tested[m0] = False
                         list0.append(list2[m0])
                         len_d0.append(len(list2[m0])-len(list2[n0]))
-            cluster_list.append(list0)
+            cluster_list.append(list0[0])
     return cluster_list
 
 
@@ -187,7 +187,7 @@ print_d_list(dict_hla_pep)
 #1 positive training
 #2 negative validation
 #3 positive validation
-t_ratio = 2
+t_ratio = 1
 v_ratio = 0.2
 num_seed = 1
 version0 = 'val_check_fix_HLA_decluster'
@@ -197,7 +197,7 @@ for hla_name0, list0 in dict_hla_pep.iteritems():
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
     list0 = shuffle_list(list0)
     cluster_list = make_cluster(list0)
-    make_training(path_save,hla_name0,len(list0),cluster_list,version0,t_ratio,v_ratio)
+    make_training(path_save,hla_name0,len(cluster_list),cluster_list,version0,t_ratio,v_ratio)
 
 
 
