@@ -108,7 +108,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save_train+'file_namesv4.csv'):
+for file_name0 in open(path_save_train+'file_names_decluster.csv'):
     #model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
@@ -189,7 +189,7 @@ for file_name0 in open(path_save_train+'file_namesv4.csv'):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     #file_out = open(path_save+'model_performance_chemv2.csv','a')
-    version = '_chem_fixed_neuron16'
+    version = '_chem_fixed_decluster_16'
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
