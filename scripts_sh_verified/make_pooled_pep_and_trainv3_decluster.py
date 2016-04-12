@@ -187,7 +187,7 @@ print_d_list(dict_hla_pep)
 #1 positive training
 #2 negative validation
 #3 positive validation
-t_ratio = 1
+t_ratio = 2
 v_ratio = 0.2
 num_seed = 1
 version0 = 'val_check_fix_HLA_decluster'
