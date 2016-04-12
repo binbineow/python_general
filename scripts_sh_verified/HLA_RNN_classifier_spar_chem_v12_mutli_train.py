@@ -29,8 +29,8 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 RNN = recurrent.JZS1
 first_run = True
 #default iteration 20 for the first run, iteration 40
-n_iteration_1 = 20
-n_iteration_2 = 10
+n_iteration_1 = 40
+n_iteration_2 = 20
 HIDDEN_SIZE = 16
 BATCH_SIZE = 20
 LAYERS = 2
