@@ -9,7 +9,8 @@ from utilities import *
 
 # model reconstruction from JSON:
 from keras.models import model_from_json
-path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
+path_save_train = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_files/'
+path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/performance/'
 # how to use the model elsewhere...
 #model = model_from_json(open('my_model_architecture.json').read())
 #model.load_weights('my_model_weights.h5')
@@ -28,7 +29,8 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 RNN = recurrent.JZS1
 first_run = True
 #default iteration 20 for the first run, iteration 40
-n_iteration = 20
+n_iteration_1 = 20
+n_iteration_2 = 10
 HIDDEN_SIZE = 16
 BATCH_SIZE = 20
 LAYERS = 2
@@ -46,11 +48,12 @@ model = Sequential()
 model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
 for _ in xrange(LAYERS-1):
     model.add(RNN(HIDDEN_SIZE, return_sequences=True))
-#    #model.add(Dropout(0.5))
+    #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
-model.compile(loss='categorical_crossentropy', optimizer='adam')
+model.compile(loss='categorical_crossentropy', optimizer='RMSprop')
+#adam
 #model1 = model
 #save the model
 #json_string = model.to_json()
@@ -105,7 +108,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save+'file_namesv4.csv'):
+for file_name0 in open(path_save_trian+'file_namesv4.csv'):
     #model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
@@ -122,7 +125,7 @@ for file_name0 in open(path_save+'file_namesv4.csv'):
     y_val_p = []
     y_val_n = []
     #file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
-    for line in fileinput.input(path_save+file_name0):
+    for line in fileinput.input(path_save_train+file_name0):
         in_,out_ = [x.rstrip() for x in line.split("\t")]
         if len(out_) != 1:
             raise Exception("Output should be single characer")
@@ -200,10 +203,10 @@ for file_name0 in open(path_save+'file_namesv4.csv'):
     ntotal0 = len(X_train_n)
     training_n = str(ptotal0+ntotal0)
     if first_run :
-        n_iteration = 40
+        n_iteration = n_iteration_1
         first_run = False
     else:        
-        n_iteration = 20
+        n_iteration = n_iteration_2
     for iteration in range(1, n_iteration):
         iterations.append(str(iteration))
         print()
