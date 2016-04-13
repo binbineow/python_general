@@ -14,6 +14,7 @@ path_IEDB = ''
 def get_IEDB_pep_set():
     #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
     list0 = []
+    print path_IEDB
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
         line0=line0.rstrip()
         line0=line0.split('"')      
