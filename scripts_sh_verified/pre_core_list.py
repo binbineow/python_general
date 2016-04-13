@@ -8,7 +8,7 @@ import pandas as pd
 from numpy import mean
 from numpy import std
 target_mhc = 'HLA-DRB1'
-path_IEDB = ''
+
 
 ###########get peptides from IEDB ############
 def get_IEDB_pep_set():
