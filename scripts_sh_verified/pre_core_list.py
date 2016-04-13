@@ -22,7 +22,7 @@ def get_IEDB_pep_set():
             #print line0[127]
             if target_mhc in line0[127]:
                 print line0[127]
-                list0.append(line0[127])
+                list0.append(line0[23])
     return set(list0)
 
 
@@ -39,7 +39,7 @@ set_iedb = get_IEDB_pep_set()
 print('IEDB peptide number='+str(len(set_iedb)))
 print('MCL peptide number='+str(len(set2)))
 print('Overlap number='+str(len(set2.intersection(set_iedb))))
-set2 =set3  #stop here
+#set2 =set3  #stop here
 set2 = set2 | set_iedb
 list2 = list(set2)
 len2 = []
