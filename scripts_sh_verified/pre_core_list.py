@@ -35,6 +35,10 @@ set2 = set()
 for x in pid_list:
     set2 = set2 | set(MCL_data[x]['MHC2_frag'])
 set_iedb = get_IEDB_pep_set()
+print('IEDB peptide number='+str(len(set_iedb)))
+print('MCL peptide number='+str(len(set2)))
+print('Overlap number='+str(len(set2.intersection(set_iedb))))
+set2 =set3
 set2 = set2 | set_iedb
 list2 = list(set2)
 len2 = []
