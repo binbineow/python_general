@@ -25,6 +25,15 @@ def get_IEDB_pep_set():
                 list0.append(line0[23])
     return set(list0)
 
+def get_shared(listy, listx):
+    n_shared = 0
+    common0=set()
+    for fragx in listx:
+        for fragy in listy:
+            if fragx in fragy or fragy in fragx:
+                common0.add(fragx)
+                common0.add(fragy)
+    return common0
 
 ##########get peptides from MCL##############
 MCL_data = pickle.load(open(path_MCL+'MCL_data11_18_2015v1.1.dict','r'))
@@ -38,8 +47,9 @@ for x in pid_list:
 set_iedb = get_IEDB_pep_set()
 print('IEDB peptide number='+str(len(set_iedb)))
 print('MCL peptide number='+str(len(set2)))
-print('Overlap number='+str(len(set2.intersection(set_iedb))))
-#set2 =set3  #stop here
+overlap0 = get_shared(list(set2),list(set_iedb))
+print('Overlap number='+str(len(set2.intersection(overlap0))))
+set2 =set3  #stop here
 set2 = set2 | set_iedb
 list2 = list(set2)
 len2 = []
