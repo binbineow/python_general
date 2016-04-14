@@ -1,8 +1,8 @@
 import fileinput
 from utilities import *
 target_mhc = ['HLA-DRB1*04:01','HLA-DRB1*07:01','HLA-DRB1*15:01']
-path_IEDB = ''
-path_MCL = ''
+path_MCL = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
+path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
 path_core = '/scratch/users/bchen45/HLA_prediction/RNN_data/core/'
 
 #master format

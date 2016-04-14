@@ -41,7 +41,7 @@ def get_shared(listy, listx):
 #the format: Row X, and Column Y is percentage of patient X is shared with patient Y
 #mhc1 vs. mhc2
 #MCL_data[x]['MHC1_frag'][i]
-#set2 = set()
+set2 = set()
 #for x in pid_list:
 #    set2 = set2 | set(MCL_data[x]['MHC2_frag'])
 set_iedb = get_IEDB_pep_set()
