@@ -36,19 +36,19 @@ def get_shared(listy, listx):
     return common0
 
 ##########get peptides from MCL##############
-MCL_data = pickle.load(open(path_MCL+'MCL_data11_18_2015v1.1.dict','r'))
-pid_list = MCL_data['pid']['pid']
+#MCL_data = pickle.load(open(path_MCL+'MCL_data11_18_2015v1.1.dict','r'))
+#pid_list = MCL_data['pid']['pid']
 #the format: Row X, and Column Y is percentage of patient X is shared with patient Y
 #mhc1 vs. mhc2
 #MCL_data[x]['MHC1_frag'][i]
-set2 = set()
-for x in pid_list:
-    set2 = set2 | set(MCL_data[x]['MHC2_frag'])
+#set2 = set()
+#for x in pid_list:
+#    set2 = set2 | set(MCL_data[x]['MHC2_frag'])
 set_iedb = get_IEDB_pep_set()
 print('IEDB peptide number='+str(len(set_iedb)))
-print('MCL peptide number='+str(len(set2)))
-overlap0 = get_shared(list(set2),list(set_iedb))
-print('Overlap number='+str(len(overlap0)))
+#print('MCL peptide number='+str(len(set2)))
+#overlap0 = get_shared(list(set2),list(set_iedb))
+#print('Overlap number='+str(len(overlap0)))
 #set2 =set3  #stop here
 set2 = set2 | set_iedb
 list2 = list(set2)
