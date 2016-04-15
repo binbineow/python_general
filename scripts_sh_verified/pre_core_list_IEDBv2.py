@@ -14,7 +14,7 @@ target_mhc = 'HLA-DRB1'
 def get_IEDB_pep_set():
     #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
     list0 = []
-    print path_IEDB
+    #print path_IEDB
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
         line0=line0.rstrip()
         line0=line0.split('"')      
@@ -84,8 +84,8 @@ for n0 in range(0,len(list2)):
 core_list = []
 for list0 in cluster_list:
     core_list.append(list0[0])
-pickle.dump(cluster_list,open(path_train+'drb1_MCL_IEDB_cluster.list','w+'))
-pickle.dump(core_list,open(path_train+'drb1_MCL_IEDB_core.list','w+'))
+pickle.dump(cluster_list,open(path_train+'drb1_IEDB_cluster.list','w+'))
+pickle.dump(core_list,open(path_train+'drb1_IEDB_core.list','w+'))
 print(str(len(core_list)))
     
     
