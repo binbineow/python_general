@@ -21,7 +21,7 @@ def get_IEDB_pep_set():
         if len(line0) > 127:
             #print line0[127]
             if target_mhc in line0[127]:
-                print line0[127]
+                #print line0[127]
                 list0.append(line0[23])
     return set(list0)
 
