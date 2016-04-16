@@ -197,6 +197,8 @@ pickle.dump(dict_hla_pep,open(path0+'MCL_pep_by_allele.dict','w+'))
 
 ###make IEDB peptide dictionary
 dict_IEDB = get_IEDB_pep_dict()
+for key,value in dict_IEDB.iteritems():
+    print(key+str(len(value)))
 pickle.dump(dict_IEDB,open(path0+'IEDB_pep_by_allele.dict','w+'))
 
 
