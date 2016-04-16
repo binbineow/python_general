@@ -74,11 +74,28 @@ def get_pid_for_each_hla(MCL_data,pid_list):
         dict_hla_pid[hla2].append(pid0)
     return dict_hla_pid
 
+#get IEDB peptides
+def get_IEDB_pep_dict():
+    #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
+    dict0 = dict()
+    #print path_IEDB
+    for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
+        line0=line0.rstrip()
+        line0=line0.split('"')      
+        if len(line0) > 127:
+            #print line0[127]
+            if line0[127] in dict0:
+                #print line0[127]
+                dict0[line0[127]].append(line0[23])
+            else:
+                dict0[line0[127]] = [line0[23]]
+    return dict0
 
 #make peptide list from a set of pids
 def get_pep_for_each_hla(dict_hla_pid,MCL_data):
     dict_hla_pep = dumb()
     for key, value in dict_hla_pid.iteritems():
+        print key
         if len(value) > 1:
             set0 = set()
             for n0 in range(0,len(value)):
@@ -167,7 +184,7 @@ def del_sameHLA(MCL_data0):
     return MCL_data0
 
 
-
+####make MCL peptide dictionary
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 MCL_data = del_sameHLA(MCL_data)
 pid_list = MCL_data['pid']['pid']
@@ -175,43 +192,10 @@ dict_hla_pid = get_pid_for_each_hla(MCL_data,pid_list)
 print_d_list(dict_hla_pid) 
 dict_hla_pep = get_pep_for_each_hla(dict_hla_pid,MCL_data)
 print_d_list(dict_hla_pep) 
+pickle.dump(dict_hla_pep,open(path0+'MCL_pep_by_allele.dict','w+'))
 
-##########making training#########
-#version is an additional string to attach to each HLA type name for the training file
-#t_ratio is an int number, the number of shuffled AND random peptide sequences generated for 
-#each positive sequence (so 2X t_ratio for each positive sequence at the end)
-#v_ratio is a flaat number (<1), the percentage of positive example will be used for validation
-#and the double number of negative example (one shuffled, one random) will be created for validation
-#0 negative training
-#1 positive training
-#2 negative validation
-#3 positive validation
-t_ratio = 1
-v_ratio = 0.2
-num_seed = 1
-version0 = 'val_check_fix_HLA'
-path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_files/'
-random.seed(num_seed)
-for hla_name0, list0 in dict_hla_pep.iteritems():
-    hla_name0 = re.sub(r'[^\w]', '', hla_name0)
-    list0 = shuffle_list(list0)
-    cluster_list = make_cluster(list0)
-    make_training(path_save,hla_name0,len(list0),cluster_list,version0,t_ratio,v_ratio)
+###make IEDB peptide dictionary
+dict_IEDB = get_IEDB_pep_dict()
+pickle.dump(dict_IEDB,open(path0+'IEDB_pep_by_allele.dict','w+'))
 
 
-
-
-
-
-        
-#print('total classII peptides='+str(len(list2)))
-
-'''
-print('total classII pep clusterings='+str(len(cluster_list)))
-n0 = 0
-for x in cluster_list:
-    if len(x)>1:
-        n0 += 1
-print('total classII pep Non-singular clusterings='+str(n0))
-print cluster_list
-'''
