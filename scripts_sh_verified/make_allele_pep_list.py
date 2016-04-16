@@ -3,7 +3,6 @@
 from utilities import *
 #dictRNA_file = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/MCLRNASeq_ave.dict'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
-path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
 import math
 import random
 import re
@@ -79,6 +78,7 @@ def get_pid_for_each_hla(MCL_data,pid_list):
 def get_IEDB_pep_dict():
     #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
     dict0 = dict()
+    path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
     #print path_IEDB
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
         line0=line0.rstrip()
