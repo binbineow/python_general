@@ -3,6 +3,7 @@
 from utilities import *
 #dictRNA_file = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/MCLRNASeq_ave.dict'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
+path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
 import math
 import random
 import re
