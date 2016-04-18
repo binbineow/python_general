@@ -44,7 +44,7 @@ def get_IEDB_pep(hla0,file0):
                 line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                 #print line0[127]
                 if line0[127] == hla0:
-                    list0=[line0[23],'IEDB',line0[1],line0[105],line0[109],line0[111],line0[106],str(len(line0[23])),discover_core(line0[23])]
+                    list0=[line0[23],'IEDB',line0[1],line0[109],line0[101],line0[111],line0[106],str(len(line0[23])),discover_core(line0[23])]
                     print_result(file0,list0)
     
 
@@ -99,7 +99,7 @@ def get_lisa_pep(hla0,file0):
 for hla0 in target_mhc:
     hla0_name = re.sub(r'[^\w]', '', hla0)
     file0 = open(path_MCL+hla0_name+'peplist_NimblGen.csv','w+')
-    file0.write('Sequence,Type,ID,Qualitative Measurement,Assay,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note\n')
+    file0.write('Sequence,Type,ID,Qualitative Measurement,Assay type,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note\n')
     get_IEDB_pep(hla0,file0)
     get_MCL_pep(hla0,file0)
     get_lisa_pep(hla0,file0)
