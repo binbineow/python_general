@@ -47,7 +47,7 @@ def get_IEDB_pep(hla0,file0):
                     line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                     #print line0[127]
                     if line0[127] == hla0:
-                        list0=[line0[23],'IEDB',line0[1],line0[109],line0[101],line0[111],line0[105],str(len(line0[23])),discover_core(line0[23])]
+                        list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),discover_core(line0[23])]
                         print_result(file0,list0)
     
 
