@@ -81,6 +81,7 @@ def get_lisa_pep(hla0,file0):
     #my hla0 input:HLA-DRB1*07:01'
     for line0  in open(path_Lisa+'Lisa_assay_results.csv','r'):
         line0 = line0.rstrip().split(',')
+        print line0
         print(line0[2].split('DRB1')[1])
         print(hla0.split('DRB1')[1])
         if not line0[0] == 'peptideName' and line0[2].split('DRB1')[1] == hla0.split('DRB1')[1]:
