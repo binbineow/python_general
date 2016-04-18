@@ -79,7 +79,7 @@ def get_lisa_pep(hla0,file0):
     #example line
     #DR4_pp65CMVpep2,FCEDVPSGKLFMHVTLGSDV,DRB1*04:01,y,
     #my hla0 input:HLA-DRB1*07:01'
-    for line0  in open(path_Lisa+'Lisa_assay_results.csv','r'):
+    for line0  in open(path_Lisa+'Lisa_testedv2.csv','r'):
         line0 = line0.rstrip().split(',')
         print line0
         print(line0[2].split('DRB1')[1])
