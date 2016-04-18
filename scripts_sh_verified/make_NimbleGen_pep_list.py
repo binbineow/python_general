@@ -30,6 +30,7 @@ def print_result(file0,line0):
         file0.write(element0+',')
     if (not line0[-1] ==  'N/A') and float(line0[-2])>16 and len(line0[-1])<=16:
         file0.write('Try core sequence since the original sequence is > 16AAs')
+    file0.write('\n')
         
 #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
 def get_IEDB_pep(hla0,file0):
@@ -62,7 +63,7 @@ def get_IEDB_pep(hla0,file0):
 
 def get_MCL_pep(hla0,file0):
     list_pep = dict_MCL[hla0]
-    print list_pep
+    #print list_pep
     if len(list_pep) < 10:
         print('too few peptides in '+hla0)
     for pep0 in list_pep:
@@ -97,7 +98,7 @@ def get_lisa_pep(hla0,file0):
 for hla0 in target_mhc:
     hla0_name = re.sub(r'[^\w]', '', hla0)
     file0 = open(path_MCL+hla0_name+'peplist_NimblGen.csv','w+')
-    file0.write('Sequence,Type,ID,Qualitative,Measurement,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note')
+    file0.write('Sequence,Type,ID,Qualitative,Measurement,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note\n')
     get_IEDB_pep(hla0,file0)
     get_MCL_pep(hla0,file0)
     get_lisa_pep(hla0,file0)
