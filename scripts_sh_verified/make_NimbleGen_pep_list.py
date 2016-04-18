@@ -37,17 +37,35 @@ def get_IEDB_pep(hla0,file0):
         list0 = []
         if len(line0) > 127:
             if 'HLA-DRB1' in line0[127] and not '/' in line0 [127]:
-                line0[127] = line0[0:len('HLA-DRB1*08:02')+1]
+                line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                 #print line0[127]
                 if line0[127] == hla0:
                     list0=[line0[23],'IEDB',line0[1],line0[109],line0[111],line0[107],str(len(line0[23])),discover_core(line0[23])]
-                    print_result(file0,line0)
+                    print_result(file0,list0)
     
 
-def get_MCL_pep(hla0):
-    
+#master format
+#in the output csv file, each peptide has the following information
+#0Sequence
+#1Type   (assigned)
+#2ID    (IEDB 1)
+#3Qualitative Measurement   (IEDB-109) 
+#4Quantitative Measurement    (IEDB-111)
+#5Measurement Unit (IEDB-107)
+#6peptide length
+#7Predicted binding core    (using my list)
+#8Note (mannually added)
 
-def get_lisa_pep(hla0):
+
+def get_MCL_pep(file0,hla0):
+    list_pep = dict_MCL(hla0)
+    if len(list_pep) < 10:
+        print('too few peptides in '+hla0)
+    for pep0 in list_pep:
+        list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','N/A','N/A',str(len(pep0)),discover_core(pep0)]
+        print_result(file0,list0)
+
+def get_lisa_pep(file0,hla0):
     
     
 
