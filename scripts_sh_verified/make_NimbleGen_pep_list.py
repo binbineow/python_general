@@ -76,7 +76,7 @@ def get_lisa_pep(hla0,file0):
     #DR4_pp65CMVpep2,FCEDVPSGKLFMHVTLGSDV,DRB1*04:01,y,
     #my hla0 input:HLA-DRB1*07:01'
     for line0  in open(path_Lisa+'Lisa_assay_results.csv','r'):
-        line0 = line0.rstrip().slipt(',')
+        line0 = line0.rstrip().split(',')
         if not line0[0] == 'peptideName' and line0[2].split('DRB1')[1] == hla0.split('DRB1')[1]:
             if line0[3] == 'y':
                 line0[3] = 'Positive'
