@@ -87,7 +87,7 @@ def get_IEDB_pep_dict():
             #print line0[127]
             #process the HLA allele name
             if 'HLA-DRB1' in line0[127] and not '/' in line0 [127]:
-                line0[127] = line0[0:len('HLA-DRB1*08:02')+1]
+                line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                 if line0[127] in dict0:
                     #print line0[127]
                     dict0[line0[127]].append(line0[23])

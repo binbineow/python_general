@@ -10,22 +10,10 @@ path_core = '/scratch/users/bchen45/HLA_prediction/RNN_data/core/'
 list_core = pickle.load(open(path_core+'drb1_MCL_IEDB_core.list'))
 
 #########loading MCL peptides
-dict_MCL = pickle. load(open(path_MCL+'MCL_pep_by_DRB1.dict'))
+dict_MCL = pickle.load(open(path_MCL+'MCL_pep_by_DRB1.dict'))
 
 
 
-
-#master format
-#in the output csv file, each peptide has the following information
-#0Sequence
-#1Type   (assigned)
-#2ID    (IEDB 1)
-#3Qualitative Measurement   (IEDB-109) 
-#4Quantitative Measurement    (IEDB-111)
-#5Measurement Unit (IEDB-107)
-#6peptide length
-#7Predicted binding core    (using my list)
-#8Note (mannually added)
 
 def discover_core(pep0):
     found0 = False
