@@ -79,7 +79,7 @@ def get_lisa_pep(hla0,file0):
     #example line
     #DR4_pp65CMVpep2,FCEDVPSGKLFMHVTLGSDV,DRB1*04:01,y,
     #my hla0 input:HLA-DRB1*07:01'
-    for line0  in open(path_Lisa+'Lisa_testedv2.csv','r'):
+    for line0  in open(path_Lisa+'Lisa_pep_testedv2.csv','r'):
         line0 = line0.rstrip().split(',')
         print line0
         print(line0[2].split('DRB1')[1])
@@ -104,8 +104,8 @@ for hla0 in target_mhc:
     hla0_name = re.sub(r'[^\w]', '', hla0)
     file0 = open(path_MCL+hla0_name+'peplist_NimblGen.csv','w+')
     file0.write('Sequence,Type,ID,Qualitative Measurement,Assay type,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note\n')
-    get_IEDB_pep(hla0,file0)
-    get_MCL_pep(hla0,file0)
+    #get_IEDB_pep(hla0,file0)
+    #get_MCL_pep(hla0,file0)
     get_lisa_pep(hla0,file0)
     file0.close()
     
