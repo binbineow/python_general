@@ -44,7 +44,7 @@ def get_IEDB_pep(hla0,file0):
                 line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                 #print line0[127]
                 if line0[127] == hla0:
-                    list0=[line0[23],'IEDB',line0[1],line0[109],line0[111],line0[107],str(len(line0[23])),discover_core(line0[23])]
+                    list0=[line0[23],'IEDB',line0[1],line[15],line0[109],line0[111],line0[106],str(len(line0[23])),discover_core(line0[23])]
                     print_result(file0,list0)
     
 
@@ -67,11 +67,12 @@ def get_MCL_pep(hla0,file0):
     if len(list_pep) < 10:
         print('too few peptides in '+hla0)
     for pep0 in list_pep:
-        list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','N/A','N/A',str(len(pep0)),discover_core(pep0)]
+        list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','Mass spect','N/A','N/A',str(len(pep0)),discover_core(pep0)]
         print_result(file0,list0)
         pep0_original = pep0
         pep0 = ''.join(random.sample(pep0,len(pep0)))
-        list0 = [pep0,'MCL_shuffled',pep0_original,'Negative','N/A','N/A',str(len(pep0)),'N/A']
+        list0 = [pep0,'MCL_shuffled',pep0_original,'Negative','sequence shuffled','N/A','N/A',str(len(pep0)),'N/A']
+        print_result(file0,list0)
 
 def get_lisa_pep(hla0,file0):
     #example line
@@ -86,11 +87,11 @@ def get_lisa_pep(hla0,file0):
                 line0[3] = "Negative"
             if line0[3] == 'weak':
                 line0[3] = 'Positive-Low'
-            list0 = [line0[1],'Tested',line0[0],line0[3],'N/A','N/A',str(len(line0[1])),discover_core(line0[1])]
+            list0 = [line0[1],'Tested',line0[0],line0[3],'Tetramer binding','N/A','N/A',str(len(line0[1])),discover_core(line0[1])]
             print_result(file0,list0)
             line0[1] = ''.join(random.sample(line0[1],len(line0[1])))
-            list0 = [line0[1],'Tested_shuffled',line0[0]+'_shuffled','Negative','N/A','N/A',str(len(line0[1])),'N/A']
-            
+            list0 = [line0[1],'Tested_shuffled',line0[0]+'_shuffled','Negative','sequence shuffled','N/A','N/A',str(len(line0[1])),'N/A']
+            print_result(file0,list0)
     
     
 
@@ -98,7 +99,7 @@ def get_lisa_pep(hla0,file0):
 for hla0 in target_mhc:
     hla0_name = re.sub(r'[^\w]', '', hla0)
     file0 = open(path_MCL+hla0_name+'peplist_NimblGen.csv','w+')
-    file0.write('Sequence,Type,ID,Qualitative,Measurement,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note\n')
+    file0.write('Sequence,Type,ID,Qualitative Measurement,Assay,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note\n')
     get_IEDB_pep(hla0,file0)
     get_MCL_pep(hla0,file0)
     get_lisa_pep(hla0,file0)
