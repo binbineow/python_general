@@ -95,7 +95,7 @@ def get_lisa_pep(file0,hla0):
 #open the output file and run grabbing processings
 for hla0 in target_mhc:
     hla0_name = re.sub(r'[^\w]', '', hla0)
-    file0 = open(hla_MCL+hla0_name+'peplist_NimblGen.csv','w+')
+    file0 = open(path_MCL+hla0_name+'peplist_NimblGen.csv','w+')
     file0.write('Sequence,Type,ID,Qualitative,Measurement,Quantitative measurement,Measurement unit,Peptide length,Predicted binding core,Note')
     get_IEDB_pep(hla0,file0)
     get_MCL_pep(hla0,file0)
