@@ -85,11 +85,15 @@ def get_IEDB_pep_dict():
         line0=line0.split('"')      
         if len(line0) > 127:
             #print line0[127]
-            if line0[127] in dict0:
-                #print line0[127]
-                dict0[line0[127]].append(line0[23])
-            else:
-                dict0[line0[127]] = [line0[23]]
+            #process the HLA allele name
+            if 'HLA-DRB1' in line0[127] and not '/' in line0 [127]:
+                line0[127] = line0[0:len('HLA-DRB1*08:02')+1]
+                if line0[127] in dict0:
+                    #print line0[127]
+                    dict0[line0[127]].append(line0[23])
+                else:
+                    dict0[line0[127]] = [line0[23]]
+                    print line0[127]
     return dict0
 
 #make peptide list from a set of pids
@@ -193,12 +197,12 @@ dict_hla_pid = get_pid_for_each_hla(MCL_data,pid_list)
 print_d_list(dict_hla_pid) 
 dict_hla_pep = get_pep_for_each_hla(dict_hla_pid,MCL_data)
 print_d_list(dict_hla_pep) 
-pickle.dump(dict_hla_pep,open(path0+'MCL_pep_by_allele.dict','w+'))
+pickle.dump(dict_hla_pep,open(path0+'MCL_pep_by_DRB1.dict','w+'))
 
 ###make IEDB peptide dictionary
 dict_IEDB = get_IEDB_pep_dict()
 for key,value in dict_IEDB.iteritems():
-    print(key+str(len(value)))
-pickle.dump(dict_IEDB,open(path0+'IEDB_pep_by_allele.dict','w+'))
+    print(key+'\t'+str(len(value)))
+pickle.dump(dict_IEDB,open(path0+'IEDB_pep_by_DRB1.dict','w+'))
 
 
