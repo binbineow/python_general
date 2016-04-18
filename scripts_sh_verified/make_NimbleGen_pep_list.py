@@ -60,7 +60,7 @@ def get_IEDB_pep(hla0,file0):
 #8Note (mannually added)
 
 
-def get_MCL_pep(file0,hla0):
+def get_MCL_pep(hla0,file0):
     list_pep = dict_MCL[hla0]
     if len(list_pep) < 10:
         print('too few peptides in '+hla0)
@@ -71,7 +71,7 @@ def get_MCL_pep(file0,hla0):
         pep0 = ''.join(random.sample(pep0,len(pep0)))
         list0 = [pep0,'MCL_shuffled',pep0_original,'Negative','N/A','N/A',str(len(pep0)),'N/A']
 
-def get_lisa_pep(file0,hla0):
+def get_lisa_pep(hla0,file0):
     #example line
     #DR4_pp65CMVpep2,FCEDVPSGKLFMHVTLGSDV,DRB1*04:01,y,
     #my hla0 input:HLA-DRB1*07:01'
