@@ -27,7 +27,7 @@ def discover_core(pep0):
 
 def print_result(file0,line0):
     for element0 in line0:
-        file0.write(element+',')
+        file0.write(element0+',')
     if (not line0[-1] ==  'N/A') and float(line0[-2])>16 and len(line0[-1])<=16:
         file0.write('Try core sequence since the original sequence is > 16AAs')
         
