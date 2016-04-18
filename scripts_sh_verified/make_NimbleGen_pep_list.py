@@ -40,12 +40,13 @@ def get_IEDB_pep(hla0,file0):
         line0=line0.split('"')
         list0 = []
         if len(line0) > 127:
-            if 'HLA-DRB1' in line0[127] and not '/' in line0 [127]:
-                line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
-                #print line0[127]
-                if line0[127] == hla0:
-                    list0=[line0[23],'IEDB',line0[1],line0[109],line0[101],line0[111],line0[106],str(len(line0[23])),discover_core(line0[23])]
-                    print_result(file0,list0)
+            if not '(' in line0[23]:
+                if 'HLA-DRB1' in line0[127] and not '/' in line0 [127]:
+                    line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
+                    #print line0[127]
+                    if line0[127] == hla0:
+                        list0=[line0[23],'IEDB',line0[1],line0[109],line0[101],line0[111],line0[106],str(len(line0[23])),discover_core(line0[23])]
+                        print_result(file0,list0)
     
 
 #master format
@@ -80,6 +81,8 @@ def get_lisa_pep(hla0,file0):
     #my hla0 input:HLA-DRB1*07:01'
     for line0  in open(path_Lisa+'Lisa_assay_results.csv','r'):
         line0 = line0.rstrip().split(',')
+        print(line0[2].split('DRB1')[1])
+        print(hla0.split('DRB1')[1])
         if not line0[0] == 'peptideName' and line0[2].split('DRB1')[1] == hla0.split('DRB1')[1]:
             if line0[3] == 'y':
                 line0[3] = 'Positive'
