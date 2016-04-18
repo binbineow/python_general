@@ -62,6 +62,7 @@ def get_IEDB_pep(hla0,file0):
 
 def get_MCL_pep(hla0,file0):
     list_pep = dict_MCL[hla0]
+    print list_pep
     if len(list_pep) < 10:
         print('too few peptides in '+hla0)
     for pep0 in list_pep:
