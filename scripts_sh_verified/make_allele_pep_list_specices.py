@@ -223,5 +223,5 @@ human_allele_common = get_shared_v2('human+allele',MCL_pep,set_IEDB_MCL_human)
 
 non_human_general = general_common - human_common
 for item0 in non_human_general:
-    print(dict_IEDB_s[non_human_general])
+    print(dict_IEDB_s[item0])
 
