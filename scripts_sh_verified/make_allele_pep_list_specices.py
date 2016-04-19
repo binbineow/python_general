@@ -86,6 +86,7 @@ def get_IEDB_pep_dict():
     total_c = 0
     any_total_c = 0
     any_human_c = 0
+    not_allele_c = 0
     path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
     #print path_IEDB
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
@@ -104,6 +105,7 @@ def get_IEDB_pep_dict():
                     list_IEDB_MCL.append(line0[23])
                 else:
                     print line0[127]
+                    not_allelel_c +=1
                 dict_s[line0[23]] = line0[37]
                 list_IEDB.append(line0[23])
                 if line0[37] == '9606':
@@ -113,6 +115,7 @@ def get_IEDB_pep_dict():
                         list_IEDB_MCL_human.append(line0[23])
                 #else:
                     #print line0[37]
+    print('Not our allele= '+str(not_allele_c))
     print('Total human='+str(any_human_c))
     print('Total pep='+str(any_total_c))
     print('For DRB1')                   
