@@ -197,5 +197,6 @@ allele_common = get_shared_v2('Allele_common',MCL_pep,set_IEDB_MCL)
 human_allele_common = get_shared_v2('human+allele',MCL_pep,set_IEDB_MCL_human)
 
 for item0 in human_common:
-    print(item0+'\t'+dict_IEDB_s[item0])
+    if item0 in dict_IEDB_s:
+        print(dict_IEDB_s[item0])
 
