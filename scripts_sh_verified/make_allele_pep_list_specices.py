@@ -64,15 +64,15 @@ def get_shared(listy, listx):
     return common0
 
 #make a dictionary = HLA-type to list of patient IDs
-def get_pid_for_each_hla(MCL_data,pid_list):
-    dict_hla_pid = dumb()
+def get_hla_set(MCL_data,pid_list):
+    hla_set = set()
     for pid0 in pid_list:
         #print MCL_data[pid0]['HLA_typing']
         hla1 = MCL_data[pid0]['HLA_typing'][-1]
         hla2 = MCL_data[pid0]['HLA_typing'][-2]
-        dict_hla_pid[hla1].append(pid0)
-        dict_hla_pid[hla2].append(pid0)
-    return dict_hla_pid
+        hla_set = hla_set | hla1
+        hla_set = hla_set | hla2
+    return hla_set
 
 #get IEDB peptides
 def get_IEDB_pep_dict():
@@ -182,6 +182,8 @@ set2 = set()
 for x in pid_list:
     set2 = set2 | set(MCL_data[x]['MHC2_frag'])
 MCL_pep = set2
+hla_set0 = get_hla_set(MCL_data, pid_list)
+list_MCL_hla = list(hla_set0)
 
 
 #####set up MCL peptides
