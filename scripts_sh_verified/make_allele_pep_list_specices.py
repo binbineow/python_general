@@ -104,6 +104,8 @@ def get_IEDB_pep_dict():
                     list_human.append(line0[23])
                     if line0[127] in list_MCL_hla:
                         list_IEDB_MCL_human.append(line0[23])
+                else:
+                    print line0[37]
                        
     print('Total human='+str(human_c))
     print('Total pep='+str(total_c))           
