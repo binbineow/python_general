@@ -204,7 +204,7 @@ tell_me_length('All MCL DRB1 peptides',MCL_pep)
 tell_me_length('All IEDB DRB1 peptides',set_IEDB)
 tell_me_length('All IEDB DRB1 with human peptides',set_human)
 tell_me_length('All IEDB with alleles in our MCL patients (DRB1)',set_IEDB_MCL)
-tell_me_length('All IEDB with human peptides plus MCL-specific alleles')
+tell_me_length('All IEDB with human peptides plus MCL-specific alleles',set_IEDB_MCL_human)
 
 #general common = not restricted to human
 #human common = restricted to common
