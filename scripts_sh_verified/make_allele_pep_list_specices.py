@@ -173,22 +173,24 @@ def tell_me_length(str0,list0):
     print(str0+' N='+str(len(list0)))
 
 ####make MCL peptide dictionary
-# MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
-# MCL_data = del_sameHLA(MCL_data)
-# pid_list = MCL_data['pid']['pid']
-# dict_hla_pid = get_pid_for_each_hla(MCL_data,pid_list)
-# print_d_list(dict_hla_pid) 
-# dict_hla_pep = get_pep_for_each_hla(dict_hla_pid,MCL_data)
-# print_d_list(dict_hla_pep) 
-# pickle.dump(dict_hla_pep,open(path0+'MCL_pep_by_DRB1.dict','w+'))
+MCL_data = pickle.load(open(path_MCL+'MCL_data11_18_2015v1.1.dict','r'))
+pid_list = MCL_data['pid']['pid']
+#the format: Row X, and Column Y is percentage of patient X is shared with patient Y
+#mhc1 vs. mhc2
+#MCL_data[x]['MHC1_frag'][i]
+set2 = set()
+for x in pid_list:
+    set2 = set2 | set(MCL_data[x]['MHC2_frag'])
+MCL_pep = set2
+
 
 #####set up MCL peptides
-dict_MCL = pickle.load(open(path0+'MCL_pep_by_DRB1.dict','r'))
-list_MCL_hla = []
-MCL_pep = set()
-for key,value in dict_MCL.iteritems():
-    list_MCL_hla.append(key)
-    MCL_pep = MCL_pep | set(value)
+# dict_MCL = pickle.load(open(path0+'MCL_pep_by_DRB1.dict','r'))
+# list_MCL_hla = []
+# MCL_pep = set()
+# for key,value in dict_MCL.iteritems():
+#     list_MCL_hla.append(key)
+#     MCL_pep = MCL_pep | set(value)
 #MCL_pep = list(MCL_pep)
 ###MCL_pep now is a set containing all peptides from our patients
 ###list_MCL_hla contains all HLA types in our patients
