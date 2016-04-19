@@ -105,7 +105,7 @@ def get_IEDB_pep_dict():
                     list_IEDB_MCL.append(line0[23])
                 else:
                     print line0[127]
-                    not_allelel_c +=1
+                    not_allele_c +=1
                 dict_s[line0[23]] = line0[37]
                 list_IEDB.append(line0[23])
                 if line0[37] == '9606':
