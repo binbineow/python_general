@@ -167,7 +167,7 @@ def get_shared_v2(str0,listy, listx):
         for fragy in listy:
             if fragx in fragy or fragy in fragx:
                 common0.add(fragx)
-                common0.add(fragy)
+                #common0.add(fragy)
     print(str0+' N='+str(len(common0)))
     print(str0+' Percentage of 2nd List='+str(float(len(common0))/len(listx)))
     return common0
@@ -188,21 +188,6 @@ MCL_pep = set2
 hla_set0 = get_hla_set(MCL_data, pid_list)
 list_MCL_hla = list(hla_set0)
 
-
-#####set up MCL peptides
-# dict_MCL = pickle.load(open(path0+'MCL_pep_by_DRB1.dict','r'))
-# list_MCL_hla = []
-# MCL_pep = set()
-# for key,value in dict_MCL.iteritems():
-#     list_MCL_hla.append(key)
-#     MCL_pep = MCL_pep | set(value)
-#MCL_pep = list(MCL_pep)
-###MCL_pep now is a set containing all peptides from our patients
-###list_MCL_hla contains all HLA types in our patients
-###THis program will:
-##create a dictionary from sequence to organism specices ID
-##what percentage of human peptides in IEDB appear in our MCL peptides
-##what percenate of human peptides with the correct alleles appear in our MCL peptides
 
 
 ###make IEDB peptide dictionary
