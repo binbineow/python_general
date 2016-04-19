@@ -80,6 +80,7 @@ def get_IEDB_pep_dict():
     list_IEDB= []
     list_IEDB_MCL = []
     list_human = []
+    list_IEDB_MCL_human = []
     dict_s = dict()
     human_c = 0
     path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
@@ -96,12 +97,14 @@ def get_IEDB_pep_dict():
                     list_IEDB_MCL.append(line0[23])
                 dict_s[line0[23]] = line0[37]
                 list_IEDB.append(line0[23])
-                if line0[37] == '9606':
-                    human_c += 1
+                if not line0[37] == '9606':
+                    human_c +=1
                     list_human.append(line0[23])
+                    if line0[127] in list_MCL_hla:
+                        list_IEDB_MCL_human.append(line0[23])
                        
     print('Total human='+str(human_c))           
-    return [list_IEDB,list_human, list_IEDB_MCL,dict_s]
+    return [set(list_IEDB),set(list_human), set(list_IEDB_MCL), set(list_IEDB_MCL_human), dict_s]
 
 #make peptide list from a set of pids
 def get_pep_for_each_hla(dict_hla_pid,MCL_data):
@@ -166,6 +169,9 @@ def get_shared_v2(str0,listy, listx):
     print(str0+' Percentage of 2nd List='+str(float(len(common0))/len(listx)))
     return common0
 
+def tell_me_length(str0,list0):
+    print(str0+' N='+str(len(list0)))
+
 ####make MCL peptide dictionary
 # MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 # MCL_data = del_sameHLA(MCL_data)
@@ -183,7 +189,7 @@ MCL_pep = set()
 for key,value in dict_MCL.iteritems():
     list_MCL_hla.append(key)
     MCL_pep = MCL_pep | set(value)
-MCL_pep = list(MCL_pep)
+#MCL_pep = list(MCL_pep)
 ###MCL_pep now is a set containing all peptides from our patients
 ###list_MCL_hla contains all HLA types in our patients
 ###THis program will:
@@ -193,11 +199,18 @@ MCL_pep = list(MCL_pep)
 
 
 ###make IEDB peptide dictionary
-[list_IEDB, list_human, list_IEDB_MCL, dict_IEDB_s] = get_IEDB_pep_dict()
+[set_IEDB, set_human, set_IEDB_MCL, set_IEDB_MCL_human, dict_IEDB_s] = get_IEDB_pep_dict()
+tell_me_length('All MCL DRB1 peptides',MCL_pep)
+tell_me_length('All IEDB DRB1 peptides',set_IEDB)
+tell_me_length('All IEDB DRB1 with human peptides',set_human)
+tell_me_length('All IEDB with alleles in our MCL patients (DRB1)',set_IEDB_MCL)
+tell_me_length('All IEDB with human peptides plus MCL-specific alleles')
+
 #general common = not restricted to human
 #human common = restricted to common
 #allele common = restricted to specific alleles
-general_common = get_shared_v2('general_common',MCL_pep,list_IEDB)
-human_common = get_shared_v2('human_common',MCL_pep,list_human)
-allele_common = get_shared_v2('Allele_common',MCL_pep,list_IEDB_MCL)
+general_common = get_shared_v2('general_common',MCL_pep,set_IEDB)
+human_common = get_shared_v2('human_common',MCL_pep,set_human)
+allele_common = get_shared_v2('Allele_common',MCL_pep,set_IEDB_MCL)
+human_allele_common = get_shared_v2('human+allele',MCL_pep,set_IEDB_MCL_human)
 
