@@ -104,7 +104,7 @@ def get_IEDB_pep_dict():
                 if line0[127] in list_MCL_hla:
                     list_IEDB_MCL.append(line0[23])
                 else:
-                    print line0[127]
+                    #print line0[127]
                     not_allele_c +=1
                 if ':' in line0[33]:
                 #print line0[33]
