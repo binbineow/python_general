@@ -102,6 +102,8 @@ def get_IEDB_pep_dict():
                 line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                 if line0[127] in list_MCL_hla:
                     list_IEDB_MCL.append(line0[23])
+                else:
+                    print line0[127]
                 dict_s[line0[23]] = line0[37]
                 list_IEDB.append(line0[23])
                 if line0[37] == '9606':
@@ -109,8 +111,8 @@ def get_IEDB_pep_dict():
                     list_human.append(line0[23])
                     if line0[127] in list_MCL_hla:
                         list_IEDB_MCL_human.append(line0[23])
-                else:
-                    print line0[37]
+                #else:
+                    #print line0[37]
     print('Total human='+str(any_human_c))
     print('Total pep='+str(any_total_c))
     print('For DRB1')                   
