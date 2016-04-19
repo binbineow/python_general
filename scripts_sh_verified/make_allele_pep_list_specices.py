@@ -133,32 +133,6 @@ def shuffle_list(list0):
     return list0
         
 
-#this process merge patient MHC2_frag into the first patient scanned and delete the redundant pid
-def del_sameHLA(MCL_data0):
-    pid = MCL_data0['pid']['pid']
-    to_del0 = set()
-    for i in range(0,len(pid)):
-        pid0 = pid[i]
-        hla1 = MCL_data0[pid0]['HLA_typing'][-1]
-        hla2 = MCL_data0[pid0]['HLA_typing'][-2]
-        for j in range(i+1,len(pid)):
-            pid1 = pid[j]
-            hla1_1 = MCL_data0[pid1]['HLA_typing'][-1]
-            hla2_1 = MCL_data0[pid1]['HLA_typing'][-2]
-            set0 = set()
-            set0.add(hla1)
-            set0.add(hla2)
-            set1 = set()
-            set1.add(hla1_1)
-            set1.add(hla2_1)
-            if set0 == set1:
-                MCL_data0[pid0]['MHC2_frag'].extend(MCL_data[pid1]['MHC2_frag'])
-                to_del0.add(pid1)
-    print(to_del0)
-    for x in to_del0:
-        del MCL_data0[x]
-    MCL_data0['pid']['pid'] = list(set(MCL_data0['pid']['pid'])- to_del0)
-    return MCL_data0
 
 def get_shared_v2(str0,listy, listx):
     n_shared = 0
@@ -208,5 +182,5 @@ human_allele_common = get_shared_v2('human+allele',MCL_pep,set_IEDB_MCL_human)
 
 non_human_general = general_common - human_common
 for item0 in non_human_general:
-    print(dict_IEDB_s[item0])
+    print(item0+'\t'+dict_IEDB_s[item0])
 
