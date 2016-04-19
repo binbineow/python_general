@@ -84,6 +84,8 @@ def get_IEDB_pep_dict():
     dict_s = dict()
     human_c = 0
     total_c = 0
+    any_total_c = 0
+    any_human_c = 0
     path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
     #print path_IEDB
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
@@ -92,6 +94,9 @@ def get_IEDB_pep_dict():
         if len(line0) > 127:
             #print line0[127]
             #process the HLA allele name
+            any_total_c +=1
+            if line0[37] == '9606':
+                any_human_c +=1
             if 'HLA-DRB1' in line0[127] and (not '(' in line0[23]) :
                 total_c +=1
                 line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
@@ -106,7 +111,9 @@ def get_IEDB_pep_dict():
                         list_IEDB_MCL_human.append(line0[23])
                 else:
                     print line0[37]
-                       
+    print('Total human='+str(any_human_c))
+    print('Total pep='+str(any_total_c))
+    print('For DRB1')                   
     print('Total human='+str(human_c))
     print('Total pep='+str(total_c))           
     return [set(list_IEDB),set(list_human), set(list_IEDB_MCL), set(list_IEDB_MCL_human), dict_s]
