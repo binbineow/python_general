@@ -100,7 +100,7 @@ def get_IEDB_pep_dict():
                     human_c += 1
                     list_human.append(line0[23])
                        
-    print('Total human='+str(huamn_c))           
+    print('Total human='+str(human_c))           
     return [list_IEDB,list_human, list_IEDB_MCL,dict_s]
 
 #make peptide list from a set of pids
