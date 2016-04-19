@@ -97,7 +97,7 @@ def get_IEDB_pep_dict():
             any_total_c +=1
             if line0[37] == '9606':
                 any_human_c +=1
-            if 'HLA-DRB1' in line0[127] and (not '(' in line0[23]) :
+            if 'HLA-DRB1' in line0[127] and (not '(' in line0[23]) and (not '/' in line0[23]):
                 total_c +=1
                 line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                 if line0[127] in list_MCL_hla:
