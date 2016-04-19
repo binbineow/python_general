@@ -83,6 +83,7 @@ def get_IEDB_pep_dict():
     list_IEDB_MCL_human = []
     dict_s = dict()
     human_c = 0
+    total_c = 0
     path_IEDB = '/scratch/users/bchen45/HLA_prediction/IEDB/raw_data/'
     #print path_IEDB
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
@@ -91,7 +92,8 @@ def get_IEDB_pep_dict():
         if len(line0) > 127:
             #print line0[127]
             #process the HLA allele name
-            if 'HLA-DRB1' in line0[127] and (not '/' in line0 [127]) and (not '(' in line0[23]) :
+            if 'HLA-DRB1' in line0[127] and (not '(' in line0[23]) :
+                total_c +=1
                 line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                 if line0[127] in list_MCL_hla:
                     list_IEDB_MCL.append(line0[23])
@@ -103,7 +105,8 @@ def get_IEDB_pep_dict():
                     if line0[127] in list_MCL_hla:
                         list_IEDB_MCL_human.append(line0[23])
                        
-    print('Total human='+str(human_c))           
+    print('Total human='+str(human_c))
+    print('Total pep='+str(total_c))           
     return [set(list_IEDB),set(list_human), set(list_IEDB_MCL), set(list_IEDB_MCL_human), dict_s]
 
 #make peptide list from a set of pids
@@ -220,5 +223,5 @@ human_allele_common = get_shared_v2('human+allele',MCL_pep,set_IEDB_MCL_human)
 
 non_human_general = general_common - human_common
 for item0 in non_human_general:
-    print(dict_IEDB_s(non_human_general))
+    print(dict_IEDB_s[non_human_general])
 
