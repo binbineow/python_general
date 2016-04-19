@@ -106,8 +106,9 @@ def get_IEDB_pep_dict():
                 else:
                     print line0[127]
                     not_allele_c +=1
+                if ':' in line0[33]:
                 #print line0[33]
-                dict_s[line0[23]] = line0[33]
+                    dict_s[line0[23]] = line0[33].split(':')[1]
                 list_IEDB.append(line0[23])
                 if line0[37] == '9606':
                     human_c +=1
