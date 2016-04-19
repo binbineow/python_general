@@ -173,7 +173,7 @@ def tell_me_length(str0,list0):
     print(str0+' N='+str(len(list0)))
 
 ####make MCL peptide dictionary
-MCL_data = pickle.load(open(path_MCL+'MCL_data11_18_2015v1.1.dict','r'))
+MCL_data = pickle.load(open(path_0+'MCL_data11_18_2015v1.1.dict','r'))
 pid_list = MCL_data['pid']['pid']
 #the format: Row X, and Column Y is percentage of patient X is shared with patient Y
 #mhc1 vs. mhc2
