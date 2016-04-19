@@ -106,7 +106,7 @@ def get_IEDB_pep_dict():
                 else:
                     print line0[127]
                     not_allele_c +=1
-                dict_s[line0[23]] = line0[37]
+                dict_s[line0[23]] = line0[33].split(':')[1]
                 list_IEDB.append(line0[23])
                 if line0[37] == '9606':
                     human_c +=1
@@ -194,7 +194,6 @@ human_common = get_shared_v2('human_common',MCL_pep,set_human)
 allele_common = get_shared_v2('Allele_common',MCL_pep,set_IEDB_MCL)
 human_allele_common = get_shared_v2('human+allele',MCL_pep,set_IEDB_MCL_human)
 
-non_human_general = general_common - human_common
-for item0 in non_human_general:
+for item0 in human_common:
     print(item0+'\t'+dict_IEDB_s[item0])
 
