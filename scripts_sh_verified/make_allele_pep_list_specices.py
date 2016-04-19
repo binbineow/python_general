@@ -70,8 +70,8 @@ def get_hla_set(MCL_data,pid_list):
         #print MCL_data[pid0]['HLA_typing']
         hla1 = MCL_data[pid0]['HLA_typing'][-1]
         hla2 = MCL_data[pid0]['HLA_typing'][-2]
-        hla_set = hla_set | hla1
-        hla_set = hla_set | hla2
+        hla_set = hla_set.add(hla1)
+        hla_set = hla_set.add(hla2)
     return hla_set
 
 #get IEDB peptides
