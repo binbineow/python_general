@@ -50,6 +50,7 @@ for _ in xrange(LAYERS-1):
     model.add(RNN(HIDDEN_SIZE, return_sequences=True))
     #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
+model.add(Dropout(0.5))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='RMSprop')
@@ -190,7 +191,7 @@ for file_name0 in open(path_save_train+'file_names_IEDB_MCL_1to1.csv'):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     #file_out = open(path_save+'model_performance_chemv2.csv','a')
-    version = '_new_withIEDBv1_n20_1to1'
+    version = '_new_withIEDBv1_n20_1to1_DP_output'
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
