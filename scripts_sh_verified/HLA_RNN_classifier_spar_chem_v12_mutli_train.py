@@ -31,7 +31,7 @@ first_run = True
 #default iteration 20 for the first run, iteration 40
 n_iteration_1 = 26
 n_iteration_2 = 20
-HIDDEN_SIZE = 32
+HIDDEN_SIZE = 20
 BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
@@ -190,7 +190,7 @@ for file_name0 in open(path_save_train+'file_names_IEDBv1.csv'):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     #file_out = open(path_save+'model_performance_chemv2.csv','a')
-    version = '_new_withIEDBv1_n32_1to1'
+    version = '_new_withIEDBv1_n20_1to1'
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
