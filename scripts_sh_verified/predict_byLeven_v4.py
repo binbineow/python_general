@@ -1,5 +1,6 @@
 import fileinput
 import Levenshtein
+from utilities import *
 #from matplotlib.dviread import fPrev
 
 #path /scratch/users/bchen45/HLA_prediction/RNN_data/training_files/
