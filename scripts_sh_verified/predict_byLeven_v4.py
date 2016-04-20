@@ -1,6 +1,6 @@
 import fileinput
 import Levenshtein
-from matplotlib.dviread import fPrev
+#from matplotlib.dviread import fPrev
 
 #path /scratch/users/bchen45/HLA_prediction/RNN_data/training_files/
 # HLADRB10101fix_val_withIEDB_1to1_tr_1_val.csv
