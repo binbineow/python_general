@@ -123,7 +123,7 @@ print('best F1 score='+str(best_accuracy)+' achieved at cut_off='+str(best_i))
 from sklearn import metrics
 #print fpr
 #print tpr
-plot_scatter(fpr, tpr, '1-specificity', 'Sensitivity', AUC, '')
+plot_scatter(fpr, tpr, '1-specificity', 'Sensitivity', 'AUC', '')
 auc0 = metrics.auc(fpr,tpr,reorder=True)
 print('AUC= '+str(auc0)) 
 #print('best test recall at best i ='+str(test_at_best_i))      
