@@ -126,33 +126,34 @@ for file_name0 in open(path_save_train+'file_names_IEDBv1.csv'):
     y_val_n = []
     #file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
     for line in fileinput.input(path_save_train+file_name0):
-        in_,out_ = [x.rstrip() for x in line.split("\t")]
-        if len(out_) != 1:
-            raise Exception("Output should be single characer")
-        else:
-            if out_ == '0' :
-                X_train_n.append(in_)
-                X_train.append(in_)
-                y_train.append(out_)
-            elif out_ == '1':
-                X_train_p.append(in_)
-                X_train.append(in_)
-                y_train.append(out_)
+        if not '-' in line:
+            in_,out_ = [x.rstrip() for x in line.split("\t")]
+            if len(out_) != 1:
+                raise Exception("Output should be single characer")
             else:
-                out_ = str(int(out_) -2)
-                if out_ == '0':
-                    X_val_n.append(in_)
-                    y_val_n.append(out_)
+                if out_ == '0' :
+                    X_train_n.append(in_)
+                    X_train.append(in_)
+                    y_train.append(out_)
+                elif out_ == '1':
+                    X_train_p.append(in_)
+                    X_train.append(in_)
+                    y_train.append(out_)
                 else:
-                    X_val_p.append(in_)
-                    y_val_p.append(out_)
-              
-            max_len = max([max_len,len(in_),len(out_)])
-            inputs.append(in_)
-            outputs.append(out_)
-            
-            #for c in in_: char_set.add(c)
-            class_set.add(out_)
+                    out_ = str(int(out_) -2)
+                    if out_ == '0':
+                        X_val_n.append(in_)
+                        y_val_n.append(out_)
+                    else:
+                        X_val_p.append(in_)
+                        y_val_p.append(out_)
+                  
+                max_len = max([max_len,len(in_),len(out_)])
+                inputs.append(in_)
+                outputs.append(out_)
+                
+                #for c in in_: char_set.add(c)
+                class_set.add(out_)
     file_name0 = file_name0.split('.')[0]      
      
     #creating encoding table
