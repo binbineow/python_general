@@ -247,8 +247,8 @@ path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_files/'
 random.seed(num_seed)
 
 for hla_name0, list0 in dict_hla_pep.iteritems():
+    [IEDB_p, IEDB_n] = get_IEDB_pep_set(hla_name0)
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
-    [IEDB_p, IEDB_n] = get_IEDB_pep_set(hla0)
     tell_me_length(hla0+' IEDB positive=', IEDB_p)
     tell_me_length(hla0+' IEDB negative=', IEDB_n)
     IEDB_n = list(IEDB_n)
