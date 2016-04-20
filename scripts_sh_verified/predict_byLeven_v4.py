@@ -25,6 +25,8 @@ def plot_scatter(x,y,x_name,y_name,title,path0=''):
     plt.ylabel(y_name)
     plt.xlabel(x_name)
     plt.ylim([0,max(y)+1])
+    axes.set_ylim([0,1])
+    axes.set_xlim([0,1])
     plt.title(title)
     save(path0+title)
 
