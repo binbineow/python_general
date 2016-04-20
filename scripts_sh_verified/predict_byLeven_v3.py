@@ -88,7 +88,10 @@ for _ in range(0,n_iterations):
         recall = 0
         precision = 0
     #accuracy = F1 score
-    accuracy = 2*recall*precision/(recall+precision)
+    if precision > 0 and recall >0:
+        accuracy = 2*recall*precision/(recall+precision)
+    else:
+        accuracy = 0
 #     tp_t = 0
 #     for x in t_score:
 #         if x>i:
