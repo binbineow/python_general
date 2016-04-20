@@ -44,11 +44,11 @@ def get_IEDB_pep_set(hla0):
                     #and labels don't fall into four terms defined
                     if line0[109] in negative_words:
                         IEDB_n.add(line0[23])
-                    elif line0[109] in positive_words:
+                    elif line0[109] in positive_words and (len(line0[111])<2 or float(line0[111])<1000):
                         IEDB_p.add(line0[23])
                         if line0[109] == 'Positive-Intermediate':
                             interm_list.append(line0[111])
-                    else:
+                    elif not line0[109] == 'Positive-Low':
                         print(line0[109])
     print interm_list                   
     return [IEDB_p,IEDB_n]
@@ -249,8 +249,8 @@ random.seed(num_seed)
 for hla_name0, list0 in dict_hla_pep.iteritems():
     [IEDB_p, IEDB_n] = get_IEDB_pep_set(hla_name0)
     hla_name0 = re.sub(r'[^\w]', '', hla_name0)
-    tell_me_length(hla0+' IEDB positive=', IEDB_p)
-    tell_me_length(hla0+' IEDB negative=', IEDB_n)
+    tell_me_length(hla_name0+' IEDB positive=', IEDB_p)
+    tell_me_length(hla_name0+' IEDB negative=', IEDB_n)
     IEDB_n = list(IEDB_n)
     list0 = list(set(list0) | IEDB_p)
     list0 = shuffle_list(list0)
