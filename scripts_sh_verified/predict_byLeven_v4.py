@@ -97,7 +97,7 @@ for _ in range(0,n_iterations):
         recall = float(tp)/(tp+fn)
         precision = float(tp)/(tp+fp)
         tpr.append(float(tp)/(tp+fn))
-        fpr.append(float(fp)/(fp+tp))
+        fpr.append(float(fp)/(fp+tn))
 
     else:
         recall = 0
