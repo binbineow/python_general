@@ -29,8 +29,8 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 RNN = recurrent.JZS1
 first_run = True
 #default iteration 20 for the first run, iteration 40
-n_iteration_1 = 26
-n_iteration_2 = 16
+n_iteration_1 = 36
+n_iteration_2 = 26
 HIDDEN_SIZE = 16
 BATCH_SIZE = 20
 LAYERS = 2
@@ -108,7 +108,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save_train+'file_names_decluster.csv'):
+for file_name0 in open(path_save_train+'file_names_IEDBv1.csv'):
     #model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
@@ -189,7 +189,7 @@ for file_name0 in open(path_save_train+'file_names_decluster.csv'):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     #file_out = open(path_save+'model_performance_chemv2.csv','a')
-    version = '_chem_fixed_decluster_16'
+    version = '_new_withIEDBv1_n16'
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
