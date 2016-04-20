@@ -21,7 +21,7 @@ def check_val(pep_train, pep0):
 # for each hla0 reuturn positive and negative peptides
 # Positive-Intermediate, Positive, Positive-High
 # Negative
-def get_IEDB_pep_dict(hla0):
+def get_IEDB_pep_set(hla0):
     #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
     IEDB_p = set()
     IEDB_n = set()
@@ -251,7 +251,8 @@ for hla_name0, list0 in dict_hla_pep.iteritems():
     [IEDB_p, IEDB_n] = get_IEDB_pep_set(hla0)
     tell_me_length(hla0+' IEDB positive=', IEDB_p)
     tell_me_length(hla0+' IEDB negative=', IEDB_n)
-    list0.extend(IEDB_p)
+    IEDB_n = list(IEDB_n)
+    list0 = list(set(list0) | IEDB_p)
     list0 = shuffle_list(list0)
     IEDB_n = shuffle_list(IEDB_n)
     cluster_list = make_cluster(list0)
