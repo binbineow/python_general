@@ -18,7 +18,14 @@ p_val = []
 n_train = []
 n_val = []
 
-
+def plot_scatter(x,y,x_name,y_name,title,path0=''):
+    plt.figure()
+    plt.plot(x,y,'b.')
+    plt.ylabel(y_name)
+    plt.xlabel(x_name)
+    plt.ylim([0,max(y)+1])
+    plt.title(title)
+    save(path0+title)
 
 #input format
 #0 - negative training 1 - positive training 2 - negative validation 3 - positive validation        
@@ -114,8 +121,9 @@ print('best F1 score='+str(best_accuracy)+' achieved at cut_off='+str(best_i))
 
 #AUC
 from sklearn import metrics
-print fpr
-print tpr
+#print fpr
+#print tpr
+plot_scatter(fpr, tpr, '1-specificity', 'Sensitivity', AUC, '')
 auc0 = metrics.auc(fpr,tpr,reorder=True)
 print('AUC= '+str(auc0)) 
 #print('best test recall at best i ='+str(test_at_best_i))      
