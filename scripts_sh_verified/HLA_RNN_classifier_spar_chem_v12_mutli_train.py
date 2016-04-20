@@ -108,7 +108,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save_train+'file_names_IEDBv1.csv'):
+for file_name0 in open(path_save_train+'file_names_IEDB_MCL_1to1.csv'):
     #model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
