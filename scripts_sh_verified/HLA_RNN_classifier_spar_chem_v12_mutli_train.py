@@ -190,7 +190,7 @@ for file_name0 in open(path_save_train+'file_names_IEDBv1.csv'):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     #file_out = open(path_save+'model_performance_chemv2.csv','a')
-    version = '_new_withIEDBv1_n32'
+    version = '_new_withIEDBv1_n32_1to1'
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
@@ -214,7 +214,7 @@ for file_name0 in open(path_save_train+'file_names_IEDBv1.csv'):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},validation_data=(X_val, y_val),show_accuracy=True)      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t},validation_data=(X_val, y_val),show_accuracy=True)      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
