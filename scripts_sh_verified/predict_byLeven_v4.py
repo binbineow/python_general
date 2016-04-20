@@ -1,5 +1,6 @@
 import fileinput
 import Levenshtein
+from matplotlib.dviread import fPrev
 
 #path /scratch/users/bchen45/HLA_prediction/RNN_data/training_files/
 # HLADRB10101fix_val_withIEDB_1to1_tr_1_val.csv
@@ -113,6 +114,8 @@ print('best F1 score='+str(best_accuracy)+' achieved at cut_off='+str(best_i))
 
 #AUC
 from sklearn import metrics
-auc0 = metrics.auc(fpr,tpr)
+print fpr
+print tpr
+auc0 = metrics.auc(fpr,tpr,reorder=True)
 print('AUC= '+str(auc)) 
 #print('best test recall at best i ='+str(test_at_best_i))      
