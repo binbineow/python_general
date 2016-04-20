@@ -159,9 +159,7 @@ def make_training(path_save,hla_name0,list_len,cluster_list,negative_list,versio
         else:
             cluster_num_train += 1
             train_list.extend(cluster0)
-    neg_t_num = round(negative_list*(1-v_ratio)) 
-    print('IEDB negative in training ='+str(neg_t_num))
-    neg_v_num = len(negative_list)- neg_t_num
+
     #report training and validation split
     print(hla_name0+' training cluster_n: '+str(cluster_num_train)+' validation cluster_n: '+str(cluster_num_val))
     print(hla_name0+' training pep_n: '+str(len(train_list)+neg_t_num)+' validation pep_n: '+str(len(val_list)+neg_v_num))
