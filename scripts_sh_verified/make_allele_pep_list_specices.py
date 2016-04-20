@@ -74,7 +74,8 @@ def get_hla_set(MCL_data,pid_list):
         hla_set.add(hla2)
     return hla_set
 
-#get IEDB peptides
+#get IEDB peptides given a hla allele 
+
 def get_IEDB_pep_dict():
     #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
     list_IEDB= []
