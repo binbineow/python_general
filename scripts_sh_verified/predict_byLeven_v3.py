@@ -1,6 +1,14 @@
 import fileinput
 import Levenshtein
 
+#path /scratch/users/bchen45/HLA_prediction/RNN_data/training_files/
+# HLADRB10101fix_val_withIEDB_1to1_tr_1_val.csv
+# HLADRB10101fix_val_withIEDB_tr_1_val.csv
+# HLADRB10101simplev1_tr_1_val.csv
+# HLADRB10101simplev2_fix_HLA_tr_1_val.csv
+# HLADRB10101val_check_fix_HLA_decluster_tr_1_val.csv
+# HLADRB10101val_check_fix_HLA_tr_1_val.csv
+
 #initialize the lists
 #n_train is actually not used
 p_train = []
@@ -79,7 +87,8 @@ for _ in range(0,n_iterations):
     else:
         recall = 0
         precision = 0
-    accuracy = float(tp+tn)/(tp+tn+fp+fn)
+    #accuracy = F1 score
+    accuracy = 2*recall*precision/(recall+precision)
 #     tp_t = 0
 #     for x in t_score:
 #         if x>i:
@@ -90,6 +99,6 @@ for _ in range(0,n_iterations):
         best_i = i
         #test_at_best_i = recall_t
 
-    print('precision='+str(precision)+'\trecall='+str(recall)+'\taccuarcy='+str(accuracy))
-print('best accuracy='+str(best_accuracy)+' achieved at cut_off='+str(best_i))  
+    print('precision='+str(precision)+'\trecall='+str(recall)+'\tF1 score='+str(accuracy))
+print('best F1 score='+str(best_accuracy)+' achieved at cut_off='+str(best_i))  
 #print('best test recall at best i ='+str(test_at_best_i))      
