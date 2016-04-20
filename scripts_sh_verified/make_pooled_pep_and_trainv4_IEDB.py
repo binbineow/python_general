@@ -145,7 +145,7 @@ def make_training(path_save,hla_name0,list_len,cluster_list,negative_list,versio
     val_list = []
     val_goal = list_len*v_ratio
     ##how split IEDB negative
-    neg_t_num = round(negative_list*(1-v_ratio)) 
+    neg_t_num = round(len(negative_list)*(1-v_ratio)) 
     print('IEDB negative in training ='+str(neg_t_num))
     neg_v_num = len(negative_list)- neg_t_num
     #split training and validation data based on clusters
