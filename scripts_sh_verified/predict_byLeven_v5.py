@@ -31,7 +31,8 @@ def plot_scatter(x,y,x_name,y_name,title,filename1,path0=''):
     plt.title(title)
     save(path0+filename1)
 
-for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv'):
+for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv','r'):
+    filename0 = filename0.rstrip()
     #input format
     #0 - negative training 1 - positive training 2 - negative validation 3 - positive validation        
     for line0 in open(path_train+filename0,'r'):
