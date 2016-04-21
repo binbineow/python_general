@@ -123,8 +123,9 @@ for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv','r'):
             best_accuracy = accuracy
             best_i = i
             #test_at_best_i = recall_t
-        if abs(i-0.65)<0.1 and not report0:
-            print('F1 socre='+str(accuracy)+' at cut-off=0.65')
+        if abs(i-0.65)<0.005 and not report0:
+            print('F1 socre='+str(accuracy)+' at cut-off='+str(i))
+            report0
     
         #print('precision='+str(precision)+'\trecall='+str(recall)+'\tF1 score='+str(accuracy))
     print('best F1 score='+str(best_accuracy)+' achieved at cut_off='+str(best_i))
