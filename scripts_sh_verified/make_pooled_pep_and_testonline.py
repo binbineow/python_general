@@ -166,37 +166,37 @@ def make_training(path_save,hla_name0,list_len,cluster_list,positive_list,negati
     #print out IEDB negative examples
     #print IEDB positive
     for pos1 in positive_list:
-        file_out.write('>pos')
-        file_out.write(pos1+'\t'+'IEDB_pos\n')
+        file_out.write('>pos'+'IEDB_pos\n')
+        file_out.write(pos1+'\n')
     #IEDB negative IEDB_neg
     for n0 in range(0,len(negative_list)):
         if n0 < neg_t_num:
-            file_out.write('>neg')
-            file_out.write(negative_list[n0]+'\t'+'IEDB_neg\n')
+            file_out.write('>neg'+'IEDB_neg\n')
+            file_out.write(negative_list[n0]+'\n')
         else:
-            file_out.write('>neg')
-            file_out.write(negative_list[n0]+'\t'+'IEDB_pos\n')
+            file_out.write('>neg'+'IEDB_neg\n')
+            file_out.write(negative_list[n0]+'\n')
     #generate negative for each positive peptides in both training and validation            
     for pos0 in val_list:
         #making validation
-        file_out.write('>pos')
-        file_out.write(pos0+'\t'+'3\n')
+        file_out.write('>posMCL\n')
+        file_out.write(pos0+'\n')
         #rand0 = random.randint(0,len_one)
         #neg0 = onegenestr[rand0:rand0+len(pos0)]
         #file_out.write(neg0+'\t'+'2\n')
         neg0 = ''.join(random.sample(pos0,len(pos0)))
-        file_out.write('>neg')
-        file_out.write(neg0+'\t'+'2\n')
+        file_out.write('>negMCL\n')
+        file_out.write(neg0+'\n')
     for pos0 in train_list:
-        file_out.write('>pos')
-        file_out.write(pos0+'\t'+'1\n')
+        file_out.write('>posMCL\n')
+        file_out.write(pos0+'\n')
         for i in range(0,t_ratio):
             #rand0 = random.randint(0,len_one)
             #eg0 = onegenestr[rand0:rand0+len(pos0)]
             #file_out.write(neg0+'\t'+'0\n')
             neg0 = ''.join(random.sample(pos0,len(pos0)))
-            file_out.write('>neg')
-            file_out.write(neg0+'\t'+'0\n')
+            file_out.write('>negMCL\n')
+            file_out.write(neg0+'\n')
     file_out.close()
         
 #this process merge patient MHC2_frag into the first patient scanned and delete the redundant pid
