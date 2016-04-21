@@ -159,7 +159,8 @@ def make_training(path_save,hla_name0,list_len,cluster_list,positive_list,negati
         else:
             cluster_num_train += 1
             train_list.extend(cluster0)
-
+    train_list = shuffle_list(train_list)
+    val_list = shuffle_list(val_list)
     #report training and validation split
     print(hla_name0+' training cluster_n: '+str(cluster_num_train)+' validation cluster_n: '+str(cluster_num_val))
     print(hla_name0+' training pep_n: '+str(len(train_list)+neg_t_num)+' validation pep_n: '+str(len(val_list)+neg_v_num))
