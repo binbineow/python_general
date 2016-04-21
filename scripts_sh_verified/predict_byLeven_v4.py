@@ -1,6 +1,8 @@
 import fileinput
 import Levenshtein
 from utilities import *
+path_training = ''
+path_AUC = '/scratch/users/bchen45/code/python_general/python_general/images/'
 #from matplotlib.dviread import fPrev
 
 #path /scratch/users/bchen45/HLA_prediction/RNN_data/training_files/
@@ -31,7 +33,7 @@ def plot_scatter(x,y,x_name,y_name,title,path0=''):
 
 #input format
 #0 - negative training 1 - positive training 2 - negative validation 3 - positive validation        
-for line0 in fileinput.input():
+for line0 in fileinput():
     line0 = line0.rstrip()
     str0 = line0.split('\t')[0]
     if line0.split('\t')[1] == '1':
