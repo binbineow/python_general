@@ -48,9 +48,8 @@ def get_IEDB_pep_set(hla0):
                         IEDB_p.add(line0[23])
                         if line0[109] == 'Positive-Intermediate':
                             interm_list.append(line0[111])
-                    elif not line0[109] == 'Positive-Low':
-                        print(line0[109])
-    print interm_list                   
+
+    #print interm_list                   
     return [IEDB_p,IEDB_n]
 
 #make a list of lists/culsters, within each cluster, strings are substring among each other within a cluster
