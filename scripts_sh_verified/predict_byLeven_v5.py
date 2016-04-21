@@ -16,10 +16,7 @@ path_AUC = '/scratch/users/bchen45/code/python_general/python_general/images/'
 
 #initialize the lists
 #n_train is actually not used
-p_train = []
-p_val = []
-n_train = []
-n_val = []
+
 
 def plot_scatter(x,y,x_name,y_name,title,filename1,path0=''):
     plt.figure()
@@ -33,6 +30,10 @@ def plot_scatter(x,y,x_name,y_name,title,filename1,path0=''):
 
 for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv','r'):
     filename0 = filename0.rstrip()
+    p_train = []
+    p_val = []
+    n_train = []
+    n_val = []
     #input format
     #0 - negative training 1 - positive training 2 - negative validation 3 - positive validation        
     for line0 in open(path_train+filename0,'r'):
@@ -80,6 +81,7 @@ for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv','r'):
     n_iterations = 100
     tpr = []
     fpr = []
+    report0 = False
     for _ in range(0,n_iterations):
         i += 0.9/n_iterations
         #print('cut_off='+str(i))
@@ -121,6 +123,8 @@ for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv','r'):
             best_accuracy = accuracy
             best_i = i
             #test_at_best_i = recall_t
+        if abs(i-0.65)<0.1 and not report0:
+            print('F1 socre='+str(accuarcy)+' at cut-off=0.65')
     
         #print('precision='+str(precision)+'\trecall='+str(recall)+'\tF1 score='+str(accuracy))
     print('best F1 score='+str(best_accuracy)+' achieved at cut_off='+str(best_i))
