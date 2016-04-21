@@ -82,7 +82,7 @@ for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv','r'):
     fpr = []
     for _ in range(0,n_iterations):
         i += 0.9/n_iterations
-        print('cut_off='+str(i))
+        #print('cut_off='+str(i))
         tp = 0
         tn = 0
         fp = 0
@@ -124,7 +124,7 @@ for filename0 in open(path_train+'file_names_IEDB_MCL_1to1.csv','r'):
     
         #print('precision='+str(precision)+'\trecall='+str(recall)+'\tF1 score='+str(accuracy))
     print('best F1 score='+str(best_accuracy)+' achieved at cut_off='+str(best_i))
-    name1 = filename.split('_')[0]
+    name1 = filename0.split('_')[0]
     #AUC
     from sklearn import metrics
     #print fpr
