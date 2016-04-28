@@ -55,12 +55,13 @@ def get_IEDB_pep(hla0,file0):
                     line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                     #print line0[127]
                     pep0_core= discover_core(line0[23])
+                    pep0 = line0[23]
                     if line0[127] == hla0:                        
                         if len(line0[23]) <= len_cut_off:
-                            pep_set.add(line0[23])
-                            core_set.add(pep0_core)
                             list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,test_repeat(line0[23])]
                             print_result(file0,list0)
+                            pep_set.add(pep0)
+                            core_set.add(pep0_core)
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
@@ -111,7 +112,7 @@ def get_MCL_pep(hla0,file0):
             core_set.add(pep0_core)
             
                
-    if len(MCL_set) == 0:
+    if len(MCL_set) == 0 and not '15:01' in hla0:
         MCL_set = set0
     else:
         MCL_set = MCL_set.intersection(set0)
