@@ -46,7 +46,7 @@ def print_result(file0,line0):
 #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
 def get_IEDB_pep(hla0,file0):
     list_target = []
-    set0 = []
+    set0 = set()
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
         line0=line0.rstrip()
         line0=line0.split('"')
@@ -64,7 +64,7 @@ def get_IEDB_pep(hla0,file0):
                             print_result(file0,list0)
                             pep_set.add(pep0)
                             core_set.add(pep0_core)
-                            set0.adde(pep0)
+                            set0.add(pep0)
                             set0.add(pep0_core)
 
                         elif len(pep0_core) <= len_cut_off:
@@ -172,6 +172,7 @@ set2 = pep_set | core_set
 print('Total unique peptides='+str(len(set2)))
 print('Total core peptides='+str(len(core_set)))
 print('Total MCL pep overlapping'+str(len(MCL_set)))
+print('Total IEDB pep overlapping'+str(len(IEDB_set)))
     
     
     
