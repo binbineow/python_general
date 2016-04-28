@@ -200,7 +200,7 @@ for x in single_set:
         output.write(str(non_core_counter[x])+'\n')
     else:
         print(x)
-        output.write('\n')        
+        output.write('Negative_control\n')        
 output.close()
 
 #########print peptides for single experiments
