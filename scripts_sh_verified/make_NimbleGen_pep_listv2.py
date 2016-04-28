@@ -159,6 +159,7 @@ output.close()
 set2 = pep_set | core_set
 print('Total unique peptides='+str(len(set2)))
 print('Total core peptides='+str(len(core_set)))
+print('Total MCL pep overlapping'+str(len(MCL_set)))
     
     
     
