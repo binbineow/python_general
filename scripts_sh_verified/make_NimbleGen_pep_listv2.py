@@ -14,7 +14,15 @@ list_core = pickle.load(open(path_core+'drb1_MCL_IEDB_core.list'))
 dict_MCL = pickle.load(open(path_MCL+'MCL_pep_by_DRB1.dict'))
 
 
-
+#################open the output file and run grabbing processings
+#This version will only include peptides or their core shorter than 13AA
+len_cut_off = 12
+#Label repeat peptides with a repeat
+#Label peptides length > 12 but core < 13 with Use_core
+pep_set = set()
+core_set = set()
+#collect intersection of MCL peptides
+MCL_set = set()
 
 def discover_core(pep0):
     found0 = False
@@ -47,11 +55,15 @@ def get_IEDB_pep(hla0,file0):
                     line0[127] = line0[127][0:len('HLA-DRB1*08:02')+1]
                     #print line0[127]
                     pep0_core= discover_core(line0[23])
-                    if line0[127] == hla0:
+                    if line0[127] == hla0:                        
                         if len(line0[23]) <= len_cut_off:
+                            pep_set.add(line0[23])
+                            core_set.add(pep0_core)
                             list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,test_repeat(line0[23])]
                             print_result(file0,list0)
+
                         elif len(pep0_core) <= len_cut_off:
+                            core_set.add(pep0_core)
                             list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,'Use_core']
                             print_result(file0,list0)                            
 
@@ -86,6 +98,8 @@ def get_MCL_pep(hla0,file0):
         if len(pep0) <= len_cut_off:
             list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','Mass spect','N/A','N/A',str(len(pep0)),pep0_core,test_repeat(pep0)]
             print_result(file0,list0)
+            pep_set.add(pep0)
+            core_set.add(pep0_core)
             #pep0_original = pep0
             #pep0 = ''.join(random.sample(pep0,len(pep0)))
             #list0 = [pep0,'MCL_shuffled',pep0_original,'Negative','sequence shuffled','N/A','N/A',str(len(pep0)),'N/A']
@@ -93,6 +107,8 @@ def get_MCL_pep(hla0,file0):
         elif len(pep0_core) <= len_cut_off:
             list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','Mass spect','N/A','N/A',str(len(pep0)),pep0_core,'Use_core']
             print_result(file0,list0)
+            core_set.add(pep0_core)
+            
                
     if len(MCL_set) == 0:
         MCL_set = set0
@@ -121,18 +137,12 @@ def get_lisa_pep(hla0,file0):
                 line0[1] = ''.join(random.sample(line0[1],len(line0[1])))
                 list0 = [line0[1],'Tested_shuffled',line0[0]+'_shuffled','Negative','sequence shuffled','N/A','N/A',str(len(line0[1])),'N/A']
                 print_result(file0,list0)
+                pep_set.add(pep0)
+                core_set.add(pep0_core)
     
     
 
-#open the output file and run grabbing processings
-#This version will only include peptides or their core shorter than 13AA
-len_cut_off = 12
-#Label repeat peptides with a repeat
-#Label peptides length > 12 but core < 13 with Use_core
-pep_set = set()
-core_set = set()
-#collect intersection of MCL peptides
-MCL_set = set()
+
 for hla0 in target_mhc:
     hla0_name = re.sub(r'[^\w]', '', hla0)
     file0 = open(path_MCL+hla0_name+'peplist_NimblGenv2.csv','w+')
