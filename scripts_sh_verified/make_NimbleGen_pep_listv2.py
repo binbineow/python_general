@@ -70,7 +70,7 @@ def get_IEDB_pep(hla0,file0):
                             core_set.add(pep0_core)
                             set0.add(pep0)
                             set0.add(pep0_core)
-                            core_counter[pep_core] +=1
+                            core_counter[pep0_core] +=1
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
