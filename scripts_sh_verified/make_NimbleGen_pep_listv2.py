@@ -45,6 +45,7 @@ def print_result(file0,line0):
         
 #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
 def get_IEDB_pep(hla0,file0):
+    global IEDB_set
     list_target = []
     set0 = set()
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
