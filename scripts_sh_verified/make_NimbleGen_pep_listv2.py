@@ -23,6 +23,7 @@ pep_set = set()
 core_set = set()
 #collect intersection of MCL peptides
 MCL_set = set()
+IEDB_set = set()
 
 def discover_core(pep0):
     found0 = False
@@ -45,6 +46,7 @@ def print_result(file0,line0):
 #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
 def get_IEDB_pep(hla0,file0):
     list_target = []
+    set0 = []
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
         line0=line0.rstrip()
         line0=line0.split('"')
@@ -62,11 +64,18 @@ def get_IEDB_pep(hla0,file0):
                             print_result(file0,list0)
                             pep_set.add(pep0)
                             core_set.add(pep0_core)
+                            set0.adde(pep0)
+                            set0.add(pep0_core)
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
                             list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,'Use_core']
-                            print_result(file0,list0)                            
+                            print_result(file0,list0)
+                            set0.add(pep0_core)
+    if IEDB_set == set():
+        IEDB_set = set0
+    else:
+        IEDB_set = IEDB_set.intersection(set0)                            
 
 #master format
 #in the output csv file, each peptide has the following information
@@ -111,11 +120,11 @@ def get_MCL_pep(hla0,file0):
             print_result(file0,list0)
             core_set.add(pep0_core)
             
-               
-    if len(MCL_set) == 0 and not '15:01' in hla0:
-        MCL_set = set0
-    else:
-        MCL_set = MCL_set.intersection(set0)
+    if not '15:01'  in hla0:
+        if len(MCL_set) == 0 :
+            MCL_set = set0
+        else:
+            MCL_set = MCL_set.intersection(set0)
 
 def get_lisa_pep(hla0,file0):
     #example line
