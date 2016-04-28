@@ -49,10 +49,10 @@ def get_IEDB_pep(hla0,file0):
                     pep0_core= discover_core(line0[23])
                     if line0[127] == hla0:
                         if len(line0[23]) <= len_cut_off:
-                            list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep_core,test_repeat(line0[23])]
+                            list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,test_repeat(line0[23])]
                             print_result(file0,list0)
                         elif len(pep0_core) <= len_cut_off:
-                            list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep_core,'Use_core']
+                            list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,'Use_core']
                             print_result(file0,list0)                            
 
 #master format
