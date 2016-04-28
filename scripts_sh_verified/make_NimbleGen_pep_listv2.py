@@ -75,7 +75,7 @@ def get_IEDB_pep(hla0,file0):
                             if  not (('Negative' in line0[109]) or ('Low' in line0[109])):
                                 core_counter[pep0_core] +=1
                                 if len(pep0) > len(pep0_core):
-                                    non_core_set[pep0] +=1
+                                    non_core_counter[pep0] +=1
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
