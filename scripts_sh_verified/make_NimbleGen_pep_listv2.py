@@ -188,7 +188,7 @@ for key0, value0 in core_counter.iteritems():
     if value0 > 1:
         single_set.add(key0)
 for key0, value0 in non_core_counter.iteritems():
-    if value0 > 1:
+    if value0 > 0:
         single_set.add(key0)
         non_c_c += 1
 print('Total substitution candidates= '+str(len(single_set)))
