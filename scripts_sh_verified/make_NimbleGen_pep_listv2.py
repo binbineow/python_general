@@ -23,8 +23,9 @@ pep_set = set()
 core_set = set()
 core_counter = Counter()
 #collect intersection of MCL peptides
-MCL_set = set()
+non_core_set = set()
 IEDB_set = set()
+
 
 
 def discover_core(pep0):
@@ -49,6 +50,7 @@ def print_result(file0,line0):
 def get_IEDB_pep(hla0,file0):
     global IEDB_set
     global core_counter
+    global non_core_set
     list_target = []
     set0 = set()
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
@@ -71,6 +73,7 @@ def get_IEDB_pep(hla0,file0):
                             set0.add(pep0)
                             set0.add(pep0_core)
                             core_counter[pep0_core] +=1
+                            non_core_set.add(pep0)
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
@@ -118,8 +121,9 @@ def get_MCL_pep(hla0,file0):
             print_result(file0,list0)
             pep_set.add(pep0)
             core_set.add(pep0_core)
-            core_counter[pep0_core] +=1   
-            if not uniqe0 == '':
+            core_counter[pep0_core] +=1
+            non_core_set.add(pep0)   
+            if uniqe0 == '':
                 pep0_original = pep0
                 pep0 = ''.join(random.sample(pep0,len(pep0)))
                 list0 = [pep0,'MCL_shuffled',pep0_original,'Negative','sequence shuffled','N/A','N/A',str(len(pep0)),'N/A']
@@ -177,13 +181,16 @@ for hla0 in target_mhc:
     file0.close()
 output = open(path_MCL+'NimbleGen_core.csv','w+')
 for x in core_set:
-    output.write(x)
+    if core_counter[x] > 1:
+        output.write(x)
 output.close()
 set2 = pep_set | core_set
 print('Total unique peptides='+str(len(set2)))
 print('Total core peptides='+str(len(core_set)))
 #print('Total MCL pep overlapping'+str(len(MCL_set)))
 print('Total IEDB pep overlapping'+str(len(IEDB_set)))
-print core_counter
+#print core_counter
+print non_core_set
+print('Total non core peptides='+str(len(non_core_set)))
     
     
