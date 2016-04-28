@@ -106,7 +106,6 @@ def test_repeat(str0):
         
 
 def get_MCL_pep(hla0,file0):
-    global MCL_set
     list_pep = dict_MCL[hla0]
     #build a set of short peptides for this allele 
     set0 = set()
@@ -135,11 +134,7 @@ def get_MCL_pep(hla0,file0):
             core_set.add(pep0_core)
             core_counter[pep0_core] +=1
             
-    if not '15:01'  in hla0:
-        if len(MCL_set) == 0 :
-            MCL_set = set0
-        else:
-            MCL_set = MCL_set.intersection(set0)
+
 
 def get_lisa_pep(hla0,file0):
     #example line
