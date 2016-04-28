@@ -23,7 +23,7 @@ pep_set = set()
 core_set = set()
 core_counter = Counter()
 #collect intersection of MCL peptides
-non_core_set = set()
+non_core_counter = Counter()
 IEDB_set = set()
 
 
@@ -50,7 +50,7 @@ def print_result(file0,line0):
 def get_IEDB_pep(hla0,file0):
     global IEDB_set
     global core_counter
-    global non_core_set
+    global non_core_counter
     list_target = []
     set0 = set()
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
@@ -72,16 +72,18 @@ def get_IEDB_pep(hla0,file0):
                             core_set.add(pep0_core)
                             set0.add(pep0)
                             set0.add(pep0_core)
-                            core_counter[pep0_core] +=1
-                            if len(pep0) > len(pep0_core):
-                                non_core_set.add(pep0)  
+                            if  not (('Negative' in line0[109]) or ('Low' in line0[109])):
+                                core_counter[pep0_core] +=1
+                                if len(pep0) > len(pep0_core):
+                                    non_core_set[pep0] +=1
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
                             list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,'Use_core']
                             print_result(file0,list0)
                             set0.add(pep0_core)
-                            core_counter[pep0_core] +=1
+                            if  not (('Negative' in line0[109]) or ('Low' in line0[109])):
+                                core_counter[pep0_core] +=1
     if IEDB_set == set():
         IEDB_set = set0
     else:
@@ -123,7 +125,7 @@ def get_MCL_pep(hla0,file0):
             core_set.add(pep0_core)
             core_counter[pep0_core] +=1
             if len(pep0) > len(pep0_core):
-                non_core_set.add(pep0)   
+                non_core_counter[pep0] +=1
             if uniqe0 == '':
                 pep0_original = pep0
                 pep0 = ''.join(random.sample(pep0,len(pep0)))
@@ -190,6 +192,6 @@ print('Total core peptides='+str(c_core))
 print('Total IEDB pep overlapping'+str(len(IEDB_set)))
 #print core_counter
 #print non_core_set
-print('Total non core peptides='+str(len(non_core_set)))
+print('Total non core peptides='+str(len(non_core_counter)))
     
     
