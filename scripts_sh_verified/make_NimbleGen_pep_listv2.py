@@ -73,7 +73,8 @@ def get_IEDB_pep(hla0,file0):
                             set0.add(pep0)
                             set0.add(pep0_core)
                             core_counter[pep0_core] +=1
-                            non_core_set.add(pep0)
+                            if len(pep0) > len(pep0_core):
+                                non_core_set.add(pep0)  
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
@@ -121,7 +122,8 @@ def get_MCL_pep(hla0,file0):
             pep_set.add(pep0)
             core_set.add(pep0_core)
             core_counter[pep0_core] +=1
-            non_core_set.add(pep0)   
+            if len(pep0) > len(pep0_core):
+                non_core_set.add(pep0)   
             if uniqe0 == '':
                 pep0_original = pep0
                 pep0 = ''.join(random.sample(pep0,len(pep0)))
@@ -175,17 +177,19 @@ for hla0 in target_mhc:
     get_lisa_pep(hla0,file0)
     file0.close()
 output = open(path_MCL+'NimbleGen_core.csv','w+')
+c_core = 0
 for x in core_set:
     if core_counter[x] > 1:
         output.write(x)
+        c_core +=1
 output.close()
 set2 = pep_set | core_set
 print('Total unique peptides='+str(len(set2)))
-print('Total core peptides='+str(len(core_set)))
+print('Total core peptides='+str(c_core))
 #print('Total MCL pep overlapping'+str(len(MCL_set)))
 print('Total IEDB pep overlapping'+str(len(IEDB_set)))
 #print core_counter
-print non_core_set
+#print non_core_set
 print('Total non core peptides='+str(len(non_core_set)))
     
     
