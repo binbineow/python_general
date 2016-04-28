@@ -87,6 +87,7 @@ def test_repeat(str0):
         
 
 def get_MCL_pep(hla0,file0):
+    global MCL_set
     list_pep = dict_MCL[hla0]
     #build a set of short peptides for this allele 
     set0 = set()
