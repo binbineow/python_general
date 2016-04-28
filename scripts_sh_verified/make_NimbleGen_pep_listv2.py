@@ -21,9 +21,11 @@ len_cut_off = 12
 #Label peptides length > 12 but core < 13 with Use_core
 pep_set = set()
 core_set = set()
+core_counter = Counter()
 #collect intersection of MCL peptides
 MCL_set = set()
 IEDB_set = set()
+
 
 def discover_core(pep0):
     found0 = False
@@ -46,6 +48,7 @@ def print_result(file0,line0):
 #1 ligand ID; 8 pubmedID; 23 sequence; 101 Assay; 109 result category; 111 EC50; 127 MHC type
 def get_IEDB_pep(hla0,file0):
     global IEDB_set
+    global core_counter
     list_target = []
     set0 = set()
     for line0 in open(path_IEDB+'mhc_ligand_full.csv','r'):
@@ -67,12 +70,14 @@ def get_IEDB_pep(hla0,file0):
                             core_set.add(pep0_core)
                             set0.add(pep0)
                             set0.add(pep0_core)
+                            core_counter[pep_core] +=1
 
                         elif len(pep0_core) <= len_cut_off:
                             core_set.add(pep0_core)
                             list0=[line0[23],'IEDB',line0[1],line0[109],line0[103],line0[111],line0[105],str(len(line0[23])),pep0_core,'Use_core']
                             print_result(file0,list0)
                             set0.add(pep0_core)
+                            core_counter[pep0_core] +=1
     if IEDB_set == set():
         IEDB_set = set0
     else:
@@ -108,18 +113,23 @@ def get_MCL_pep(hla0,file0):
     for pep0 in list_pep:
         pep0_core = discover_core(pep0)
         if len(pep0) <= len_cut_off:
-            list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','Mass spect','N/A','N/A',str(len(pep0)),pep0_core,test_repeat(pep0)]
+            uniqe0 = test_repeat(pep0)
+            list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','Mass spect','N/A','N/A',str(len(pep0)),pep0_core,uniqe0]
             print_result(file0,list0)
             pep_set.add(pep0)
             core_set.add(pep0_core)
-            #pep0_original = pep0
-            #pep0 = ''.join(random.sample(pep0,len(pep0)))
-            #list0 = [pep0,'MCL_shuffled',pep0_original,'Negative','sequence shuffled','N/A','N/A',str(len(pep0)),'N/A']
-            #print_result(file0,list0)
+            core_counter[pep0_core] +=1   
+            if not uniqe0 == '':
+                pep0_original = pep0
+                pep0 = ''.join(random.sample(pep0,len(pep0)))
+                list0 = [pep0,'MCL_shuffled',pep0_original,'Negative','sequence shuffled','N/A','N/A',str(len(pep0)),'N/A']
+                print_result(file0,list0)
+                pep_set.add(pep0)
         elif len(pep0_core) <= len_cut_off:
             list0 = [pep0,'MCL_patient','MCL_patient','Patient_positive','Mass spect','N/A','N/A',str(len(pep0)),pep0_core,'Use_core']
             print_result(file0,list0)
             core_set.add(pep0_core)
+            core_counter[pep0_core] +=1
             
     if not '15:01'  in hla0:
         if len(MCL_set) == 0 :
@@ -172,8 +182,8 @@ output.close()
 set2 = pep_set | core_set
 print('Total unique peptides='+str(len(set2)))
 print('Total core peptides='+str(len(core_set)))
-print('Total MCL pep overlapping'+str(len(MCL_set)))
+#print('Total MCL pep overlapping'+str(len(MCL_set)))
 print('Total IEDB pep overlapping'+str(len(IEDB_set)))
-    
+print core_counter
     
     
