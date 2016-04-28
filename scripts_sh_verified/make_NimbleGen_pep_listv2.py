@@ -133,7 +133,9 @@ def get_lisa_pep(hla0,file0):
             if line0[3] == 'weak':
                 line0[3] = 'Positive-Low'
             if len(line0[1]) <= len_cut_off:
-                list0 = [line0[1],'Tested',line0[0],line0[3],'Tetramer binding','N/A','N/A',str(len(line0[1])),discover_core(line0[1]),test_repeat(line0[1])]
+                pep0 = line0[1]
+                pep0_core = discover_core(pep0)
+                list0 = [line0[1],'Tested',line0[0],line0[3],'Tetramer binding','N/A','N/A',str(len(line0[1])),pep0_core,test_repeat(line0[1])]
                 print_result(file0,list0)
                 line0[1] = ''.join(random.sample(line0[1],len(line0[1])))
                 list0 = [line0[1],'Tested_shuffled',line0[0]+'_shuffled','Negative','sequence shuffled','N/A','N/A',str(len(line0[1])),'N/A']
