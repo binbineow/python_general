@@ -178,20 +178,45 @@ for hla0 in target_mhc:
     get_MCL_pep(hla0,file0)
     get_lisa_pep(hla0,file0)
     file0.close()
-output = open(path_MCL+'NimbleGen_core.csv','w+')
-c_core = 0
-for x in core_set:
-    if core_counter[x] > 1:
-        output.write(x)
-        c_core +=1
+
+#####peptides for substitution
+output = open(path_MCL+'NimbleGen_substitution_pep.csv','w+')
+single_set = IEDB_set
+non_c_c =0
+output.write('Peptide sequence,Frequency in the database')
+for key0, value0 in core_counter.iteritems():
+    if value0 > 1:
+        single_set.add(key0)
+for key0, value0 in non_core_counter.iteritems():
+    if value0 > 1:
+        single_set.add(key0)
+        non_c_c += 1
+print('Total substitution candidates= '+str(len(single)))
+for x in single_set:
+    output.write(x+',')
+    if x in core_counter:
+        output.write(str(core_counter[x])+'\n')
+    elif x in non_core_counter:
+        output.write(str(non_core_counter[x])+'\n')
+    else:
+        print(x)
+        output.write('\n')        
 output.close()
+
+#########print peptides for single experiments
 set2 = pep_set | core_set
 print('Total unique peptides='+str(len(set2)))
-print('Total core peptides='+str(c_core))
+output = open(path_MCL+'NimbleGen_single_test.csv','w+')
+for x in set2:
+    output.write(x+'\n')
+output.close()
+
+#######
+#print('Total core peptides='+str(c_core))
 #print('Total MCL pep overlapping'+str(len(MCL_set)))
-print('Total IEDB pep overlapping'+str(len(IEDB_set)))
+#print('Total IEDB pep overlapping'+str(len(IEDB_set)))
 #print core_counter
 #print non_core_set
-print('Total non core peptides='+str(len(non_core_counter)))
+print('Total non core peptides='+str(non_c_c))
     
     
