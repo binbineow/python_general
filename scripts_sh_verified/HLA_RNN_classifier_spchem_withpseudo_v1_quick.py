@@ -204,7 +204,7 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2})      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},show_accuracy=True)      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
