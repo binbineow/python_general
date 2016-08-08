@@ -4,7 +4,7 @@
 import cPickle as pickle
 path_in = '/scratch/users/bchen45/HLA_prediction/IEDB/netMHCIIpan-3.1/data/'
 file_in = 'pseudosequences.dat'
-path_out = '/scratch/users/bchen45/HLA_prediction/RNN_data/dict_supp/'
+path_out = '/scratch/users/bchen45/code/python_general/python_general/encoding_dict/'
 file_out = 'DRB1_pseudo_seq.dict'
 
 def format_hla(str0):
