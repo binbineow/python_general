@@ -23,15 +23,15 @@ path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_
 #Blosum50_only.dict
 #Sparse_only.dict
 dict_name = 'Blosum50_sparse.dict'
-version = '_psedu_seqv1'
+version = '_psedu_seqv1_quick'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 
 # Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 10
-HIDDEN_SIZE = 60
+n_iteration = 6
+HIDDEN_SIZE = 30
 BATCH_SIZE = 128
 LAYERS = 2
 ratio_t = 1
@@ -211,8 +211,9 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2})      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},show_accuracy=True)      
         #####predicting training
+        '''
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
@@ -227,7 +228,9 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         train_recall.append(str(float(tp0)/(tp0+fn0)))
         print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
         print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
-        
+        '''
+        train_pre.append('1')
+        train_recall.append('1')
         ######predicting validation
         #print('Val_Postive')
         #print(model.predict_classes(X_val_p)) 
