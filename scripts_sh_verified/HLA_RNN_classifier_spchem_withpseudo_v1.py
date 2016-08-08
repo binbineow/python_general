@@ -23,7 +23,7 @@ path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_
 #Blosum50_only.dict
 #Sparse_only.dict
 dict_name = 'Blosum50_sparse.dict'
-version0 = '_psedu_seqv1'
+version = '_psedu_seqv1'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 
 # Parameters for the model and dataset
@@ -107,7 +107,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save+'file_names'+version0+'.txt'):
+for file_name0 in open(path_save+'file_names'+version+'.txt'):
     model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
@@ -246,4 +246,4 @@ for file_name0 in open(path_save+'file_names'+version0+'.txt'):
         
     #save weights and performance info
     output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    model.save_weights(path_save+file_name0+version0+'_weight.h5',overwrite=True)
+    model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
