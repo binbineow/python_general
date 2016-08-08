@@ -58,10 +58,10 @@ def val_judge(type0,pos0):
 def make_val2(path_save,version0,pid0):        
     #set up file
     for type0 in ['all','identical','substring']:
-        cmd = path_save+'hla_ii_val'+type0+'_'+version0+'.txt'
+        cmd = path_save+'hla_ii_val_'+type0+'_'+version0+'.txt'
         cmd0 = subprocess.Popen(cmd,shell=True)      
         cmd0.wait() 
-        file_out = open(path_save+'hla_ii_training'+version0+'.txt','a')
+        file_out = open(path_save+'hla_ii_val_'+type0+'_'+version0+'.txt','a')
         #generate the hla type sequence
         hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
         #write in training file line by line
