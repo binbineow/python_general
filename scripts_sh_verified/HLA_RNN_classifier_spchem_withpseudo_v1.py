@@ -12,7 +12,7 @@ from utilities import *
 
 # model reconstruction from JSON:
 from keras.models import model_from_json
-path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
+path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_files/psedu_seq_train/'
 # how to use the model elsewhere...
 #model = model_from_json(open('my_model_architecture.json').read())
 #model.load_weights('my_model_weights.h5')
@@ -23,7 +23,7 @@ path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_
 #Blosum50_only.dict
 #Sparse_only.dict
 dict_name = 'Blosum50_sparse.dict'
-version0 = '_spchemv1'
+version0 = '_psedu_seqv1'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 
 # Parameters for the model and dataset
@@ -31,7 +31,7 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
 n_iteration = 20
-HIDDEN_SIZE = 28
+HIDDEN_SIZE = 60
 BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
@@ -107,7 +107,7 @@ def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_reca
     file_out.write('\n')
     file_out.close()
 
-for file_name0 in open(path_save+'file_names'+version0+'.csv'):
+for file_name0 in open(path_save+'file_names'+version0+'.txt'):
     model = model1
     file_name0 = file_name0.rstrip()
     inputs=[]
