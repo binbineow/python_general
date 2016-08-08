@@ -25,17 +25,17 @@ def make_training2(path_save,version0,pid0,set_train):
     cmd0.wait() 
     file_out = open(path_save+'hla_ii_training'+version0+'.txt','a')
     #generate the hla type sequence
-    hla_seq = dict_hla[MCL_data[pid0]['HLA_type'][-1]] + dict_hla[MCL_data[pid0]['HLA_type'][-2]]
+    hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
     #write in training file line by line
     for pos0 in MCL_data[pid0]['MHC2_frag']:
         set_train.add(pos0)
-        file_out.write(pos0+'\t'+'1\n')
+        file_out.write(hla_seq+pos0+'\t'+'1\n')
         for i in range(0,t_ratio):
             rand0 = random.randint(0,len_one)
             neg0 = onegenestr[rand0:rand0+len(pos0)]
-            file_out.write(neg0+'\t'+'0\n')
+            file_out.write(hla_seq+neg0+'\t'+'0\n')
             neg0 = ''.join(random.sample(pos0,len(pos0)))
-            file_out.write(neg0+'\t'+'0\n')
+            file_out.write(hla_seq+neg0+'\t'+'0\n')
     file_out.close()
     
 def val_judge(type0,pos0):
@@ -67,13 +67,13 @@ def make_val2(path_save,version0,pid0):
         #write in training file line by line
         for pos0 in MCL_data[pid0]['MHC2_frag']:
             if val_judge(type0,pos0):               
-                file_out.write(pos0+'\t'+'3\n')
+                file_out.write(hla_seq+pos0+'\t'+'3\n')
                 for i in range(0,t_ratio):
                     rand0 = random.randint(0,len_one)
                     neg0 = onegenestr[rand0:rand0+len(pos0)]
-                    file_out.write(neg0+'\t'+'2\n')
+                    file_out.write(hla_seq+neg0+'\t'+'2\n')
                     neg0 = ''.join(random.sample(pos0,len(pos0)))
-                    file_out.write(neg0+'\t'+'2\n')
+                    file_out.write(hla_seq+neg0+'\t'+'2\n')
         file_out.close()
     
     
