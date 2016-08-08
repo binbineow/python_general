@@ -20,9 +20,9 @@ dict0 = dict()
 for line0 in open(path_in+file_in):
     line0 = line0.rstrip().split('\t')
     if 'DRB1_' in line0[0]:
-        line0[0] = format_hla(line[0])
-        line0[1] = get_seq(line[1])
-        dict0[line[0]] = line0[1]
+        line0[0] = format_hla(line0[0])
+        line0[1] = get_seq(line0[1])
+        dict0[line0[0]] = line0[1]
         
 #output
 pickle.dump(dict0,open(path_out+file_out,'w+'))
