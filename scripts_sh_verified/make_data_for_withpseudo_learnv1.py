@@ -20,7 +20,7 @@ import subprocess
         
 def make_training2(path_save,version0,pid0,set_train):        
     #set up file
-    cmd = path_save+'hla_ii_training_'+version0+'.txt'
+    cmd = 'touch '+path_save+'hla_ii_training_'+version0+'.txt'
     cmd0 = subprocess.Popen(cmd,shell=True)      
     cmd0.wait() 
     file_out = open(path_save+'hla_ii_training'+version0+'.txt','a')
@@ -58,7 +58,7 @@ def val_judge(type0,pos0):
 def make_val2(path_save,version0,pid0):        
     #set up file
     for type0 in ['all','identical','substring']:
-        cmd = path_save+'hla_ii_val_'+type0+'_'+version0+'.txt'
+        cmd = 'touch '+path_save+'hla_ii_val_'+type0+'_'+version0+'.txt'
         cmd0 = subprocess.Popen(cmd,shell=True)      
         cmd0.wait() 
         file_out = open(path_save+'hla_ii_val_'+type0+'_'+version0+'.txt','a')
