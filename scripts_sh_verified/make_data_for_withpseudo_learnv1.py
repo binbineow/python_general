@@ -63,7 +63,7 @@ def make_val2(path_save,version0,pid0):
         cmd0.wait() 
         file_out = open(path_save+'hla_ii_training'+version0+'.txt','a')
         #generate the hla type sequence
-        hla_seq = dict_hla[MCL_data[pid0]['HLA_type'][-1]] + dict_hla[MCL_data[pid0]['HLA_type'][-2]]
+        hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
         #write in training file line by line
         for pos0 in MCL_data[pid0]['MHC2_frag']:
             if val_judge(type0,pos0):               
