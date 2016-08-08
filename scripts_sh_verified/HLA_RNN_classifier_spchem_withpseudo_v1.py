@@ -30,9 +30,9 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 20
+n_iteration = 10
 HIDDEN_SIZE = 60
-BATCH_SIZE = 20
+BATCH_SIZE = 32
 LAYERS = 2
 ratio_t = 1
 chars = 'ARNDCQEGHILKMFPSTWYVBZX'#'0123456789+ '
@@ -211,7 +211,7 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},validation_data=(X_val, y_val),show_accuracy=True)      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
