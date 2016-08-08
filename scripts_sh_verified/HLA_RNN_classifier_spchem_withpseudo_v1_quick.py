@@ -83,7 +83,7 @@ def encoding(matrix0, input0, len0):
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
-def output_perf2(iterations, train_pre,train_recall,val_pre,val_recall):
+def output_perf2(iterations, train_pre,train_recall,train_f1,val_pre,val_recall,train_f2):
     if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
@@ -219,8 +219,9 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         train_pre = str(float(tp0)/(tp0+fp0))
         train_recall = str(float(tp0)/(tp0+fn0))
         train_f1 = calf1(train_pre, train_recall)
-        #print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
-        #print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
+        print('Train_Precision='+train_pre)
+        print('Train_Recall='+train_recall)
+        print('Train_f1='+train_f1)
         
         ######predicting validation
         #print('Val_Postive')
@@ -236,8 +237,9 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         val_pre=str(float(tp0)/(tp0+fp0))
         val_recall=str(float(tp0)/(tp0+fn0))
         val_f1 = calf1(val_pre,val_recall)
-        #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
-        #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
+        print('Val_Precision='+val_pre)
+        print('Val_Recall='+val_recall)
+        print('Val_f1='+val_f1)
         output_perf2(iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1)        
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
