@@ -83,29 +83,22 @@ def encoding(matrix0, input0, len0):
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
-def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_recall,val_pre,val_recall):
-    file_out.write(file_name0+'_training_n '+training_n+'\n')
-    file_out.write(file_name0+'_'+'iterations'+'\t')
-    for x0 in iterations:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Training_precision'+'\t')
-    for x0 in train_pre:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Training_recall'+'\t')
-    for x0 in train_recall:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Validation_precision'+'\t')
-    for x0 in val_pre:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Validation_recall'+'\t')
-    for x0 in val_recall:
-        file_out.write(x0+'\t')
+def output_perf2(iterations, train_pre,train_recall,val_pre,val_recall):
+    if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
+        file_out = open(path_save+'model_performance'+version+'.csv','a')
+    else:
+        file_out = open(path_save+'model_performance'+version+'.csv','w+')
+    for x in [iterations, train_pre,train_recall,val_pre,val_recall]:
+        file_out.write(x+'\t')
     file_out.write('\n')
     file_out.close()
+    
+
+def calf1(str1,str2):
+    pre0 = float(str1)
+    recall0 = float(str2)
+    f1_out = 2.0*pre0*recall0/(pre0+recall0)
+    return str(f1_out)
 
 for file_name0 in open(path_save+'file_names'+version+'.txt'):
     model = model1
@@ -211,9 +204,8 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},show_accuracy=True)      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
-        '''
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
@@ -224,13 +216,12 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         fp0 = sum(model.predict_classes(X_train_n))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
-        train_pre.append(str(float(tp0)/(tp0+fp0)))
-        train_recall.append(str(float(tp0)/(tp0+fn0)))
-        print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
-        print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
-        '''
-        train_pre.append('1')
-        train_recall.append('1')
+        train_pre = str(float(tp0)/(tp0+fp0))
+        train_recall = str(float(tp0)/(tp0+fn0))
+        train_f1 = calf1(train_pre, train_recall)
+        #print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
+        #print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
+        
         ######predicting validation
         #print('Val_Postive')
         #print(model.predict_classes(X_val_p)) 
@@ -242,11 +233,12 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         fp0 = sum(model.predict_classes(X_val_n))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
-        val_pre.append(str(float(tp0)/(tp0+fp0)))
-        val_recall.append(str(float(tp0)/(tp0+fn0)))
-        print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
-        print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
-        
+        val_pre=str(float(tp0)/(tp0+fp0))
+        val_recall=str(float(tp0)/(tp0+fn0))
+        val_f1 = calf1(val_pre,val_recall)
+        #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
+        #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
+        output_perf2(iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1)        
     #save weights and performance info
-    output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
+    #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
+    #model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)

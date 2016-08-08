@@ -3,6 +3,8 @@
 #for v13, iterations will be reduced to 20 and the best non-overfit performance will be recorded
 #non-overfit is defiend as iteration > 10, F1(training)-F1(Validation)<5% (5% is working approximation)
 
+#####This learning script is built upon the previous HLA_RNN v13
+
 from __future__ import print_function
 from keras.models import Sequential, slice_X
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
@@ -23,16 +25,16 @@ path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_
 #Blosum50_only.dict
 #Sparse_only.dict
 dict_name = 'Blosum50_sparse.dict'
-version = '_psedu_seqv1_quick'
+version = '_psedu_seqv2'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 
 # Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.JZS1
-n_iteration = 10
-HIDDEN_SIZE = 40
-BATCH_SIZE = 128
+n_iteration = 20
+HIDDEN_SIZE = 60
+BATCH_SIZE = 20
 LAYERS = 2
 ratio_t = 1
 chars = 'ARNDCQEGHILKMFPSTWYVBZX'#'0123456789+ '
@@ -83,29 +85,22 @@ def encoding(matrix0, input0, len0):
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
-def output_perf(file_out, file_name0, iteraions,training_n, train_pre,train_recall,val_pre,val_recall):
-    file_out.write(file_name0+'_training_n '+training_n+'\n')
-    file_out.write(file_name0+'_'+'iterations'+'\t')
-    for x0 in iterations:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Training_precision'+'\t')
-    for x0 in train_pre:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Training_recall'+'\t')
-    for x0 in train_recall:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Validation_precision'+'\t')
-    for x0 in val_pre:
-        file_out.write(x0+'\t')
-    file_out.write('\n')
-    file_out.write(file_name0+'_'+'Validation_recall'+'\t')
-    for x0 in val_recall:
-        file_out.write(x0+'\t')
+def output_perf2(iterations, train_pre,train_recall,val_pre,val_recall):
+    if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
+        file_out = open(path_save+'model_performance'+version+'.csv','a')
+    else:
+        file_out = open(path_save+'model_performance'+version+'.csv','w+')
+    for x in [iterations, train_pre,train_recall,val_pre,val_recall]:
+        file_out.write(x+'\t')
     file_out.write('\n')
     file_out.close()
+    
+
+def calf1(str1,str2):
+    pre0 = float(str1)
+    recall0 = float(str2)
+    f1_out = 2.0*pre0*recall0/(pre0+recall0)
+    return str(f1_out)
 
 for file_name0 in open(path_save+'file_names'+version+'.txt'):
     model = model1
@@ -195,25 +190,20 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
         file_out = open(path_save+'model_performance'+version+'.csv','w+')
-    iterations = []
-    train_pre = []
-    train_recall = []
-    val_pre = []
-    val_recall = []
+    #iterations = []
     f2_val_best = []
     n_best = []
     ptotal0 = len(X_train_p)
     ntotal0 = len(X_train_n)
     training_n = str(ptotal0+ntotal0)
     for iteration in range(1, n_iteration):
-        iterations.append(str(iteration))
+        #iterations.append(str(iteration))
         print()
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2},show_accuracy=True)      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
-        '''
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
@@ -224,13 +214,12 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         fp0 = sum(model.predict_classes(X_train_n))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
-        train_pre.append(str(float(tp0)/(tp0+fp0)))
-        train_recall.append(str(float(tp0)/(tp0+fn0)))
-        print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
-        print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
-        '''
-        train_pre.append('1')
-        train_recall.append('1')
+        train_pre = str(float(tp0)/(tp0+fp0))
+        train_recall = str(float(tp0)/(tp0+fn0))
+        train_f1 = calf1(train_pre, train_recall)
+        #print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
+        #print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
+        
         ######predicting validation
         #print('Val_Postive')
         #print(model.predict_classes(X_val_p)) 
@@ -242,11 +231,12 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         fp0 = sum(model.predict_classes(X_val_n))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
-        val_pre.append(str(float(tp0)/(tp0+fp0)))
-        val_recall.append(str(float(tp0)/(tp0+fn0)))
-        print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
-        print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
-        
+        val_pre=str(float(tp0)/(tp0+fp0))
+        val_recall=str(float(tp0)/(tp0+fn0))
+        val_f1 = calf1(val_pre,val_recall)
+        #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
+        #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
+        output_perf2(iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1)
     #save weights and performance info
-    output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
+    #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
+    #model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
