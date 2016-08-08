@@ -9,6 +9,7 @@ encoding//scripts_sh_verified/HLA_RNN_classifier_spar_v10.loading.py=utf-8
 encoding//scripts_sh_verified/HLA_RNN_classifier_spar_v10.py=utf-8
 encoding//scripts_sh_verified/HLA_RNN_classifier_spar_v11.py=utf-8
 encoding//scripts_sh_verified/HLA_RNN_classifier_spchem_v13.py=utf-8
+encoding//scripts_sh_verified/HLA_RNN_classifier_spchem_withpseudo_v1.py=utf-8
 encoding//src/RNN_classifier_v8_dict.py=utf-8
 encoding//src/RNN_classifierv4.py=utf-8
 encoding//src/RNN_classifierv7.py=utf-8
