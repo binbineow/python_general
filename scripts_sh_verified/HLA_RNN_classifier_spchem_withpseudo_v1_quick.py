@@ -88,7 +88,7 @@ def output_perf2(iterations, train_pre,train_recall,train_f1,val_pre,val_recall,
         file_out = open(path_save+'model_performance'+version+'.csv','a')
     else:
         file_out = open(path_save+'model_performance'+version+'.csv','w+')
-    for x in [iterations, train_pre,train_recall,val_pre,val_recall]:
+    for x in [str(iterations), train_pre,train_recall,train_f1,val_pre,val_recall,train_f2]:
         file_out.write(x+'\t')
     file_out.write('\n')
     file_out.close()
