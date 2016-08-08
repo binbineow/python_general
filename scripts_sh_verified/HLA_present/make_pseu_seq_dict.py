@@ -8,7 +8,7 @@ path_out = '/scratch/users/bchen45/HLA_prediction/RNN_data/dict_supp/'
 file_out = 'DRB1_pseudo_seq.dict'
 
 def format_hla(str0):
-    str_out = 'HLA-DRB1*'+str0[-4:-2]+str0[-2:]
+    str_out = 'HLA-DRB1*'+str0[-4:-2]+':'+str0[-2:]
     return str_out
 
 def get_seq(str0):
