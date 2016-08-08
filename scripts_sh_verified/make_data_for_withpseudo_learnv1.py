@@ -3,134 +3,32 @@
 from utilities import *
 #dictRNA_file = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/MCLRNASeq_ave.dict'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
+path_encoding = '/scratch/users/bchen45/code/python_general/python_general/encoding_dict/'
+one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
+path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_files/psedu_seq_train/'
+hla_dict_file = 'DRB1_pseudo_seq.dict'
+version0 = 'psedo_seqv1'
+t_ratio = 1
+
 import math
 import random
 import re
-
-#not allow substring or meta-string to be added into validation set
-def check_val(pep_train, pep0):
-    return0 = True
-    for pep_t0 in pep_train0:
-        if pep0 in pep_t0 or pep_t0 in pep0:
-            return0 = False
-            break
-    return return0
-
-#make a list of lists/culsters, within each cluster, strings are substring among each other within a cluster
-def make_cluster(list0):
-    list2 = list(list0)
-    len2 = []
-    for x in list2:
-        len2.append(len(x))
-    list_len_2 = zip(list2,len2)
-    list2,len2 = zip(*sorted(list_len_2,key=lambda x: x[1]))
-    #print list2
-    #print list2
-    list2_tested = [True]*len(list2)
-    cluster_list = []
-    len_d_ave = []
-    len_d_max = []
-    len_std = []
-    for n0 in range(0,len(list2)):
-        if list2_tested[n0]:
-            list0 = []
-            len_d0 = []
-            len_l0 = []
-            list0.append(list2[n0])
-            for m0 in range(n0+1,len(list2)):
-                if list2_tested[m0]:
-                    if list2[n0] in list2[m0]:
-                        list2_tested[m0] = False
-                        list0.append(list2[m0])
-                        len_d0.append(len(list2[m0])-len(list2[n0]))
-            cluster_list.append(list0[0])
-    return cluster_list
+import subprocess
 
 
-#return a dictionary of d' which is d without key
-def removekey(d, key):
-    r = dict(d)
-    del r[key]
-    return r
 
-##substring between two patients
-def get_shared(listy, listx):
-    n_shared = 0
-    common0=set()
-    for fragx in listx:
-        for fragy in listy:
-            if fragx in fragy or fragy in fragx:
-                common0.add(fragx)
-                common0.add(fragy)
-    return common0
-
-#make a dictionary = HLA-type to list of patient IDs
-def get_pid_for_each_hla(MCL_data,pid_list):
-    dict_hla_pid = dumb()
-    for pid0 in pid_list:
-        #print MCL_data[pid0]['HLA_typing']
-        hla1 = MCL_data[pid0]['HLA_typing'][-1]
-        hla2 = MCL_data[pid0]['HLA_typing'][-2]
-        dict_hla_pid[hla1].append(pid0)
-        dict_hla_pid[hla2].append(pid0)
-    return dict_hla_pid
-
-
-#make peptide list from a set of pids
-def get_pep_for_each_hla(dict_hla_pid,MCL_data):
-    dict_hla_pep = dumb()
-    for key, value in dict_hla_pid.iteritems():
-        if len(value) > 1:
-            set0 = set()
-            for n0 in range(0,len(value)):
-                for m0 in range(n0+1,len(value)):
-                    common0 = get_shared(MCL_data[value[n0]]['MHC2_frag'],MCL_data[value[m0]]['MHC2_frag'])
-                    set0 = set0 | common0
-            #consider to add a cut-off
-            dict_hla_pep[key] = list(set0)
-    return dict_hla_pep
-
-def print_d_list(dict0):
-    for key,value in dict0.iteritems():
-        print(key+': '+str(len(value)))
-
-def shuffle_list(list0):
-    list0 = random.sample(list0,len(list0))
-    return list0
         
-#0 - negative training 1 - positive training 2 - negative validation 3 - positive validation        
-def make_training(path_save,hla_name0,list_len,cluster_list,version0,t_ratio,v_ratio):
-    one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
-    onegenestr = pickle.load(open(one_gene_path,'r'))
-    len_one = len(onegenestr)
-    file_out = open(path_save+hla_name0+version0+'_tr_'+str(t_ratio)+'_val.csv','w+')
-    train_list = []
-    val_list = []
-    val_goal = list_len*v_ratio
-    #split training and validation data based on clusters
-    cluster_num_train = 0
-    cluster_num_val = 0
-    cluster_list = shuffle_list(cluster_list)
-    for cluster0 in cluster_list:
-        if len(val_list) < val_goal:
-            cluster_num_val += 1
-            val_list.append(cluster0)
-        else:
-            cluster_num_train += 1
-            train_list.append(cluster0)
-    #report training and validation split
-    print(hla_name0+' training cluster_n: '+str(cluster_num_train)+' validation cluster_n: '+str(cluster_num_val))
-    print(hla_name0+' training pep_n: '+str(len(train_list))+' validation pep_n: '+str(len(val_list)))
-    #generate negative for each positive peptides in both training and validation
-    for pos0 in val_list:
-        #making validation
-        file_out.write(pos0+'\t'+'3\n')
-        rand0 = random.randint(0,len_one)
-        neg0 = onegenestr[rand0:rand0+len(pos0)]
-        file_out.write(neg0+'\t'+'2\n')
-        neg0 = ''.join(random.sample(pos0,len(pos0)))
-        file_out.write(neg0+'\t'+'2\n')
-    for pos0 in train_list:
+def make_training2(path_save,version0,pid0,set_train):        
+    #set up file
+    cmd = path_save+'hla_ii_training_'+version0+'.txt'
+    cmd0 = subprocess.Popen(cmd,shell=True)      
+    cmd0.wait() 
+    file_out = open(path_save+'hla_ii_training'+version0+'.txt','a')
+    #generate the hla type sequence
+    hla_seq = dict_hla[MCL_data[pid0]['HLA_type'][-1]] + dict_hla[MCL_data[pid0]['HLA_type'][-2]]
+    #write in training file line by line
+    for pos0 in MCL_data[pid0]['MHC2_frag']:
+        set_train.add(pos0)
         file_out.write(pos0+'\t'+'1\n')
         for i in range(0,t_ratio):
             rand0 = random.randint(0,len_one)
@@ -139,40 +37,66 @@ def make_training(path_save,hla_name0,list_len,cluster_list,version0,t_ratio,v_r
             neg0 = ''.join(random.sample(pos0,len(pos0)))
             file_out.write(neg0+'\t'+'0\n')
     file_out.close()
-        
-#this process merge patient MHC2_frag into the first patient scanned and delete the redundant pid
-def del_sameHLA(MCL_data0):
-    pid = MCL_data0['pid']['pid']
-    to_del0 = set()
-    for i in range(0,len(pid)):
-        pid0 = pid[i]
-        hla1 = MCL_data0[pid0]['HLA_typing'][-1]
-        hla2 = MCL_data0[pid0]['HLA_typing'][-2]
-        for j in range(i+1,len(pid)):
-            pid1 = pid[j]
-            hla1_1 = MCL_data0[pid1]['HLA_typing'][-1]
-            hla2_1 = MCL_data0[pid1]['HLA_typing'][-2]
-            set0 = set()
-            set0.add(hla1)
-            set0.add(hla2)
-            set1 = set()
-            set1.add(hla1_1)
-            set1.add(hla2_1)
-            if set0 == set1:
-                MCL_data0[pid0]['MHC2_frag'].extend(MCL_data[pid1]['MHC2_frag'])
-                to_del0.add(pid1)
-    print(to_del0)
-    for x in to_del0:
-        del MCL_data0[x]
-    MCL_data0['pid']['pid'] = list(set(MCL_data0['pid']['pid'])- to_del0)
-    return MCL_data0
+    
+def val_judge(type0,pos0):
+    b_return = False
+    if type0 == 'all':
+        b_return = True
+    if type0 == 'identical' and not pos0 in set_train:
+        b_return = True
+    if type0 == 'substring':
+        b_sub = False
+        for x in set_train:
+            if pos0 in x:
+                b_sub = True
+                break
+        if not b_sub:
+            b_return = True
+    return b_return
+    
+
+def make_val2(path_save,version0,pid0):        
+    #set up file
+    for type0 in ['all','identical','substring']:
+        cmd = path_save+'hla_ii_val'+type0+'_'+version0+'.txt'
+        cmd0 = subprocess.Popen(cmd,shell=True)      
+        cmd0.wait() 
+        file_out = open(path_save+'hla_ii_training'+version0+'.txt','a')
+        #generate the hla type sequence
+        hla_seq = dict_hla[MCL_data[pid0]['HLA_type'][-1]] + dict_hla[MCL_data[pid0]['HLA_type'][-2]]
+        #write in training file line by line
+        for pos0 in MCL_data[pid0]['MHC2_frag']:
+            if val_judge(type0,pos0):               
+                file_out.write(pos0+'\t'+'3\n')
+                for i in range(0,t_ratio):
+                    rand0 = random.randint(0,len_one)
+                    neg0 = onegenestr[rand0:rand0+len(pos0)]
+                    file_out.write(neg0+'\t'+'2\n')
+                    neg0 = ''.join(random.sample(pos0,len(pos0)))
+                    file_out.write(neg0+'\t'+'2\n')
+        file_out.close()
+    
+    
 
 
 
+
+onegenestr = pickle.load(open(one_gene_path,'r'))
+len_one = len(onegenestr)
+patient_val = ['MCL041','MCL128','MCL019']
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
-MCL_data = del_sameHLA(MCL_data)
+dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
+set_train = set()
+#MCL_data = del_sameHLA(MCL_data)
 pid_list = MCL_data['pid']['pid']
-dict_hla_pid = get_pid_for_each_hla(MCL_data,pid_list)
-print_d_list(dict_hla_pid) 
-dict_hla_pep = get_pep_for_each_hla(dict_hla_pid,MCL_data)
-print_d_list(dict_hla_pep) 
+for pid0 in pid_list:
+    if not pid0 in patient_val:
+        make_training2(path_save,version0,pid0,set_train)
+for pid0 in patient_val:
+    make_val2(path_save, version0, pid0)
+    
+        
+#dict_hla_pid = get_pid_for_each_hla(MCL_data,pid_list)
+#print_d_list(dict_hla_pid) 
+#dict_hla_pep = get_pep_for_each_hla(dict_hla_pid,MCL_data)
+#print_d_list(dict_hla_pep) 
