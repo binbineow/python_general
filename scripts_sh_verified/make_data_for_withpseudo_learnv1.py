@@ -23,7 +23,7 @@ def make_training2(path_save,version0,pid0,set_train):
     cmd = 'touch '+path_save+'hla_ii_training_'+version0+'.txt'
     cmd0 = subprocess.Popen(cmd,shell=True)      
     cmd0.wait() 
-    file_out = open(path_save+'hla_ii_training'+version0+'.txt','a')
+    file_out = open(path_save+'hla_ii_training_'+version0+'.txt','a')
     #generate the hla type sequence
     hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
     #write in training file line by line
