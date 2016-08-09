@@ -4,7 +4,7 @@
 #non-overfit is defiend as iteration > 10, F1(training)-F1(Validation)<5% (5% is working approximation)
 
 from __future__ import print_function
-from keras.models import Sequential, slice_X
+from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
