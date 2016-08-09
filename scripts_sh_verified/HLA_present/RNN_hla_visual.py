@@ -27,7 +27,7 @@ from keras.models import model_from_json
 # Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.JZS1
+RNN = recurrent.LSTM
 n_iteration = 20
 HIDDEN_SIZE = 30
 BATCH_SIZE = 20
