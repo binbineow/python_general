@@ -38,6 +38,7 @@ ratio_t = 1
 chars = '1234567890'
 #start a model
 model = Sequential()
+classes = [1,0]
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
 model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
