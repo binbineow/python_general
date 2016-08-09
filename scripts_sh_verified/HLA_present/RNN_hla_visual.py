@@ -31,7 +31,7 @@ RNN = recurrent.LSTM
 n_iteration = 20
 HIDDEN_SIZE = 30
 BATCH_SIZE = 20
-LAYERS = 2
+LAYERS = 1
 ratio_t = 1
 
     
@@ -54,5 +54,5 @@ model1 = model
 path_save = '/home/stanford/rbaltman/users/bchen45/code/test/'
 
 from keras.utils.visualize_util import plot
-plot(model, to_file=path_save+'hla_rnn_model_nodropout_layer_real2.png')
+plot(model, to_file=path_save+'hla_rnn_model_nodropout_layer_real1.png')
 
