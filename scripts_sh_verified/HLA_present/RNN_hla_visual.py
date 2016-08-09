@@ -35,7 +35,7 @@ LAYERS = 2
 ratio_t = 1
 
     
-
+chars = '1234567890'
 #start a model
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
