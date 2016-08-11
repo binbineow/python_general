@@ -79,7 +79,7 @@ def make_val2(path_save,version0,pid0):
     touch_file(path_save+out_file_name+version0+'val_note.txt')
     note_out = open(path_save+out_file_name+version0+note_label,'a')
     # continue writing into the train and val output file
-    file_out = open(path_save+out_file_name+type0+'_'+version0+'.txt','a')
+    file_out = open(path_save+out_file_name+version0+'.txt','a')
     #generate the hla type sequence
     hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
     #write in training file line by line
