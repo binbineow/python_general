@@ -40,7 +40,7 @@ shuffle=False
 '''
 
 b_shuffle = True
-for line0 in fileinput():
+for line0 in fileinput.input():
     line0 = line0.rstrip()
     #ideally add a line to remove spaces in each line
     part1 = line0.split('=')[0]
