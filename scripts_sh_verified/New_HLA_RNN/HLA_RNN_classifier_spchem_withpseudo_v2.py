@@ -15,7 +15,7 @@
 
 #####################import#################################
 from __future__ import print_function
-from keras.models import Sequential, slice_X
+from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
