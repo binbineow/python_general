@@ -8,9 +8,14 @@ from collections import Counter
 from collections import defaultdict
 from matplotlib import pyplot as plt
 import numpy as np
-
+import subprocess
 
 def dumb(): return defaultdict(list)
+
+def touch_file(path_file0):
+    cmd = 'touch '+path_file0
+    cmd0 = subprocess.Popen(cmd,shell=True)      
+    cmd0.wait() 
 
 def remove_merged(list0):
     for i in range(0,len(list0)):

@@ -2,7 +2,7 @@
 #each letters
 
 def count_aa(list0):
-    str0 = list0.join('')
+    str0 = ''.join(list0)
     alpha_list = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     print len(alpha_list)
     for let0 in alpha_list:

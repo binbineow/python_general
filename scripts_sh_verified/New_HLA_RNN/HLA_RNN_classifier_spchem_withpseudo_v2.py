@@ -4,37 +4,96 @@
 #non-overfit is defiend as iteration > 10, F1(training)-F1(Validation)<5% (5% is working approximation)
 
 #####This learning script is built upon the previous HLA_RNN v13
+#####Each iteration, the scirpt will calculate precision and recall of the training and whole validation set (also F1)
+#####and non_identical peptide recall and non_substring peptide recall in the validation set (compared to training)
+#####The performance writes into a file each iteration
+#####
 
+# how to use the model elsewhere...
+#model = model_from_json(open('my_model_architecture.json').read())
+#model.load_weights('my_model_weights.h5')
+
+#####################import#################################
 from __future__ import print_function
 from keras.models import Sequential, slice_X
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
 from utilities import *
-
-# model reconstruction from JSON:
 from keras.models import model_from_json
-path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/training_files/psedu_seq_train/'
-# how to use the model elsewhere...
-#model = model_from_json(open('my_model_architecture.json').read())
-#model.load_weights('my_model_weights.h5')
 
-##import coding dictionary
-path_dict = '/scratch/users/bchen45/code/python_general/python_general/encoding_dict/'
+######Path for data as well as performance output are read in from fileinput ###
+#no space
+
+path_data=''
+path_save=''
+data_file_name='hla_ii_train_val'
+performance_file_name='model_performance'
+version='_generalv1_x'
+shuffle=False
+
+
+b_shuffle = True
+for line0 in fileinput():
+    line0 = line0.rstrip()
+    #ideally add a line to remove spaces in each line
+    part1 = line0.split('=')[0]
+    part2 = line0.split('=')[1]
+    if 'path_data' in part1:
+        path_data = part2
+    if 'path_save' in part1:
+        path_save = part2
+    if 'data_file_name' in part1:
+        data_file_name = part2
+    if 'performance_file_name' in part1:
+        path_save = part2
+    if 'version' in part1:
+        verison = part2
+    if 'shuffle' in part1:
+        if 'alse' in part2:
+            b_shuffle = False
+ 
+##################import coding path and dictionaries#####################
+path_dict = ''
+#dictionary avaialbe:
+#aa_21_sparse_encoding.dict
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
-dict_name = 'Blosum50_sparse.dict'
-version = '_psedu_seqv2'
+note_label = 'val_note.txt'
+dict_name = 'aa_21_sparse_encoding.dict'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
+   
+##########################construct input file name####################  
+file_name0 = data_file_name+version+'.txt'
+note_file0 = data_file_name+version+note_label
 
-# Parameters for the model and dataset
+#########################construct note label############################
+list0 = []
+for line0 in open(path_data+note_file0,'r'):
+    num0 = float(line0)
+    list0.append(num0)
+#this array has 1,2,3 to distinghish three types of positive peptides 
+val_lab0 = np.array(list0)
+
+mask_non_i = list_val >= 2
+# non_i includes non_sub
+len_non_i = sum(mask_non_i)
+mask_non_sub = list_val == 3
+len_non_sub = sum(mask_non_sub)
+
+
+
+
+
+##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.JZS1
-n_iteration = 20
+RNN = recurrent.LSTM
+n_iteration = 30
 HIDDEN_SIZE = 60
-BATCH_SIZE = 20
+BATCH_SIZE = 64
+#will play with Layers 
 LAYERS = 2
 ratio_t = 1
 chars = 'ARNDCQEGHILKMFPSTWYVBZX'#'0123456789+ '
@@ -43,7 +102,7 @@ if dict_name == 'Blosum50_sparse.dict':
 classes = [0,1]
     
 
-#start a model
+##########################start a model
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
@@ -55,7 +114,6 @@ model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
-model1 = model
 #save the model
 #json_string = model.to_json()
 #open(path_save+file_name0+'_model.json', 'w').write(json_string)
@@ -85,13 +143,11 @@ def encoding(matrix0, input0, len0):
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
-def output_perf2(iterations, train_pre,train_recall,val_pre,val_recall):
-    if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
-        file_out = open(path_save+'model_performance'+version+'.csv','a')
-    else:
-        file_out = open(path_save+'model_performance'+version+'.csv','w+')
-    for x in [iterations, train_pre,train_recall,val_pre,val_recall]:
-        file_out.write(x+'\t')
+def output_perf2(iterations, list0):
+    touch_file(path_save+performance_file_name+version+'.txt')     
+    file_out = open(path_save+performance_file_name+version+'.txt','a')
+    for x in list0:
+        file_out.write(str(x)+'\t')
     file_out.write('\n')
     file_out.close()
     
@@ -102,9 +158,10 @@ def calf1(str1,str2):
     f1_out = 2.0*pre0*recall0/(pre0+recall0)
     return str(f1_out)
 
-for file_name0 in open(path_save+'file_names'+version+'.txt'):
-    model = model1
-    file_name0 = file_name0.rstrip()
+  
+#main function
+for _ in range(0,1):
+    #initiate 
     inputs=[]
     outputs=[]
     char_set = set([' '])
@@ -120,7 +177,7 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
     y_val_n = []
     
     #file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
-    for line in fileinput.input(path_save+file_name0):
+    for line in open(path_save+file_name0,'r'):
         in_,out_ = [x.rstrip() for x in line.split("\t")]
         if len(out_) != 1:
             raise Exception("Output should be single characer")
@@ -178,8 +235,8 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
     
     X_val = np.concatenate((X_val_n,X_val_p))
     y_val = np.concatenate((y_val_n,y_val_p))
-    print(len(X_train),len(X_val))
-    print("loaded input")
+    print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
+    print("Input loaded ")
     
 
     
@@ -225,7 +282,13 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         #print(model.predict_classes(X_val_p)) 
         ptotal0 = len(X_val_p)
         ntotal0 = len(X_val_n)
-        tp0 = sum(model.predict_classes(X_val_p))+0.1
+        #predict
+        p_predicted = model.predict_classes(X_train_p)
+        #overall true positive
+        tp0 = sum(p_predicted)+0.1
+        #recall = tp/(total positive by gold standard)
+        recall_non_i = sum(p_predicted[mask_non_i])/float(len_non_i)
+        recall_non_sub = sum(p_predicted[mask_non_sub])/float(len_non_sub)
         #print('Val_Negative')
         #print(model.predict_classes(X_val_n)) 
         fp0 = sum(model.predict_classes(X_val_n))
@@ -236,7 +299,8 @@ for file_name0 in open(path_save+'file_names'+version+'.txt'):
         val_f1 = calf1(val_pre,val_recall)
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
-        output_perf2(iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1)
+        output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
+        model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
