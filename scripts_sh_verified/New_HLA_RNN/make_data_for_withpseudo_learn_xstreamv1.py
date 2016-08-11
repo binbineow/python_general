@@ -8,13 +8,13 @@ import subprocess
 
 
 #folder for the main peptide data
-path0 = ''
+path0 = '/home/stanford/rbaltman/users/bchen45/data/MCL_data'
 #folder for encoding dictionary
-path_encoding = ''
+path_encoding = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
 #file for random peptide sequence
-one_gene_path = path0+''
+one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/human_proteinome_oneline.str'
 #training and validation data save path
-path_save = ''
+path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 hla_dict_file = 'DRB1_pseudo_seq.dict'
