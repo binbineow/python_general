@@ -25,8 +25,8 @@ from keras.models import model_from_json
 ######Path for data as well as performance output are read in from fileinput ###
 #no space
 
-path_data=''
-path_save=''
+path_data='/home/stanford/rbaltman/users/bchen45/data/MCL_data/'
+path_save='/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
 data_file_name='hla_ii_train_val'
 performance_file_name='model_performance'
 version='_generalv1_x'
@@ -54,7 +54,7 @@ for line0 in fileinput():
             b_shuffle = False
  
 ##################import coding path and dictionaries#####################
-path_dict = ''
+path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
 #dictionary avaialbe:
 #aa_21_sparse_encoding.dict
 #Blosum50_sparse.dict
