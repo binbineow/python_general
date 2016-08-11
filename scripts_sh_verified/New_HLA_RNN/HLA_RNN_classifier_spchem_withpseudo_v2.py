@@ -24,14 +24,20 @@ from keras.models import model_from_json
 
 ######Path for data as well as performance output are read in from fileinput ###
 #no space
-
+'''
 path_data='/home/stanford/rbaltman/users/bchen45/data/MCL_data/'
 path_save='/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
-data_file_name='hla_ii_train_val'
+data_file_name='hla_ii_train_val_'
 performance_file_name='model_performance'
 version='_generalv1_x'
 shuffle=False
-
+path_data=/home/stanford/rbaltman/users/bchen45/data/MCL_data/
+path_save=/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/
+data_file_name=hla_ii_train_val
+performance_file_name=model_performance
+version=_generalv1_x_
+shuffle=False
+'''
 
 b_shuffle = True
 for line0 in fileinput():
