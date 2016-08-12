@@ -261,9 +261,9 @@ for _ in range(0,1):
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
     if os.path.isfile(path_save+performance_file_name+v1+out_name+'.csv'):     
-        file_out = open(path_save+formance_file_name+v1+out_name+'.csv','a')
+        file_out = open(path_save+performance_file_name+v1+out_name+'.csv','a')
     else:
-        file_out = open(path_save+formance_file_name+v1+out_name+'.csv','w+')
+        file_out = open(path_save+performance_file_name+v1+out_name+'.csv','w+')
     #iterations = []
     f2_val_best = []
     n_best = []
