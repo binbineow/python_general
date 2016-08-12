@@ -69,7 +69,7 @@ for line0 in fileinput.input():
     if 'nb' == part1:
         nb0 = int(part2)
     if 'vb' == part1:
-        vb = int(part2)
+        vb0 = int(part2)
  
 ##################import coding path and dictionaries#####################
 path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
