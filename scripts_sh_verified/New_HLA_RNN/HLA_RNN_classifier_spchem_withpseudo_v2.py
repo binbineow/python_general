@@ -255,7 +255,7 @@ for _ in range(0,1):
     if os.path.isfile(path_save+'model_performance'+v1+'.csv'):     
         file_out = open(path_save+'model_performance'+v1+'.csv','a')
     else:
-        file_out = open(path_save+'model_performance'+version+'.csv','w+')
+        file_out = open(path_save+'model_performance'+v1+'.csv','w+')
     #iterations = []
     f2_val_best = []
     n_best = []
