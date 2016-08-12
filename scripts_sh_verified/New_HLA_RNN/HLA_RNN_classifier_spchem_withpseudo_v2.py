@@ -57,11 +57,15 @@ for line0 in fileinput.input():
         #print(data_file_name)
     if 'performance_file_name' in part1:
         path_save = part2
-    if 'version' == part1:
+    if 'version' in part1:
         v1 = part2
     if 'shuffle' in part1:
         if 'alse' in part2:
             b_shuffle = False
+    if  'neuron' in part1:
+        node0 = int(part2)
+    if 'out_name' in part1:
+        out_name = part2
  
 ##################import coding path and dictionaries#####################
 path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
@@ -100,7 +104,7 @@ len_non_sub = sum(mask_non_sub)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
 n_iteration = 30
-HIDDEN_SIZE = 60
+HIDDEN_SIZE = node0
 BATCH_SIZE = 64
 #will play with Layers 
 LAYERS = 2
@@ -252,10 +256,10 @@ for _ in range(0,1):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    if os.path.isfile(path_save+'model_performance'+v1+'.csv'):     
-        file_out = open(path_save+'model_performance'+v1+'.csv','a')
+    if os.path.isfile(path_save+'model_performance'+v1+out_name+'.csv'):     
+        file_out = open(path_save+'model_performance'+v1+out_name+'.csv','a')
     else:
-        file_out = open(path_save+'model_performance'+v1+'.csv','w+')
+        file_out = open(path_save+'model_performance'+v1+out_name+'.csv','w+')
     #iterations = []
     f2_val_best = []
     n_best = []
@@ -309,7 +313,7 @@ for _ in range(0,1):
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
         output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
-        model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
+        model.save_weights(path_save+file_name0+v1+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
