@@ -161,8 +161,8 @@ def encoding(matrix0, input0, len0):
     return matrix0
 
 def output_perf2(list0):
-    touch_file(path_save+performance_file_name+v1+'.txt')     
-    file_out = open(path_save+performance_file_name+v1+'.txt','a')
+    touch_file(path_save+performance_file_name+'.txt')     
+    file_out = open(path_save+performance_file_name+'.txt','a')
     for x in list0:
         file_out.write(str(x)+'\t')
     file_out.write('\n')
@@ -260,10 +260,12 @@ for _ in range(0,1):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
+    '''
     if os.path.isfile(path_save+performance_file_name+v1+out_name+'.csv'):     
         file_out = open(path_save+performance_file_name+v1+out_name+'.csv','a')
     else:
         file_out = open(path_save+performance_file_name+v1+out_name+'.csv','w+')
+    '''
     #iterations = []
     f2_val_best = []
     n_best = []
@@ -322,7 +324,7 @@ for _ in range(0,1):
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
         output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
-        model.save_weights(path_save+file_name0+v1+out_name+'_weight.h5',overwrite=True)
+        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
