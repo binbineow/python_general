@@ -66,6 +66,8 @@ for line0 in fileinput.input():
         node0 = int(part2)
     if 'out_name' in part1:
         out_name = part2
+    if 'nb' == part1:
+        out_name = int(part2)
  
 ##################import coding path and dictionaries#####################
 path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
@@ -156,7 +158,7 @@ def encoding(matrix0, input0, len0):
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
-def output_perf2(iterations, list0):
+def output_perf2(list0):
     touch_file(path_save+performance_file_name+v1+'.txt')     
     file_out = open(path_save+performance_file_name+v1+'.txt','a')
     for x in list0:
@@ -272,7 +274,7 @@ for _ in range(0,1):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, class_weight={1:1,0:1.0/ratio_t/2})      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
