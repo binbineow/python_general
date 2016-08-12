@@ -56,7 +56,7 @@ for line0 in fileinput.input():
         data_file_name = part2
         #print(data_file_name)
     if 'performance_file_name' in part1:
-        path_save = part2
+        performance_file_name = part2
     if 'version' in part1:
         v1 = part2
     if 'shuffle' in part1:
@@ -68,6 +68,8 @@ for line0 in fileinput.input():
         out_name = part2
     if 'nb' == part1:
         nb0 = int(part2)
+    if 'vb' == part1:
+        vb = int(part2)
  
 ##################import coding path and dictionaries#####################
 path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
@@ -105,7 +107,7 @@ len_non_sub = sum(mask_non_sub)
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
-n_iteration = 30
+n_iteration = 200
 HIDDEN_SIZE = node0
 BATCH_SIZE = 64
 #will play with Layers 
@@ -258,10 +260,10 @@ for _ in range(0,1):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    if os.path.isfile(path_save+'model_performance'+v1+out_name+'.csv'):     
-        file_out = open(path_save+'model_performance'+v1+out_name+'.csv','a')
+    if os.path.isfile(path_save+performance_file_name+v1+out_name+'.csv'):     
+        file_out = open(path_save+formance_file_name+v1+out_name+'.csv','a')
     else:
-        file_out = open(path_save+'model_performance'+v1+out_name+'.csv','w+')
+        file_out = open(path_save+formance_file_name+v1+out_name+'.csv','w+')
     #iterations = []
     f2_val_best = []
     n_best = []
@@ -274,7 +276,7 @@ for _ in range(0,1):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
         ptotal0 = len(X_train_p)
         ntotal0 = len(X_train_n)
@@ -302,6 +304,8 @@ for _ in range(0,1):
         #overall true positive
         tp0 = sum(p_predicted)+0.1
         #recall = tp/(total positive by gold standard)
+        print('p_predicted='+str(len(p_predicted)))
+        print('mask_non_i='+str(len(mask_non_i)))
         recall_non_i = sum(p_predicted[mask_non_i])/float(len_non_i)
         recall_non_sub = sum(p_predicted[mask_non_sub])/float(len_non_sub)
         #print('Val_Negative')
