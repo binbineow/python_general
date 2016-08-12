@@ -85,6 +85,7 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 ##########################construct input file name####################  
 file_name0 = data_file_name+v1+'.txt'
 note_file0 = data_file_name+v1+note_label
+performance_file_name= performance_file_name +v1+out_name
 
 #########################construct note label############################
 list0 = []
@@ -109,7 +110,7 @@ len_non_sub = sum(mask_non_sub)
 RNN = recurrent.LSTM
 n_iteration = 200
 HIDDEN_SIZE = node0
-BATCH_SIZE = 64
+BATCH_SIZE = 8000
 #will play with Layers 
 LAYERS = 2
 ratio_t = 1
