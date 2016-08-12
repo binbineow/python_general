@@ -55,7 +55,7 @@ for line0 in fileinput.input():
         data_file_name = part2
     if 'performance_file_name' in part1:
         path_save = part2
-    if 'version' in part1:
+    if 'version' == part1:
         verison0 = part2
         print(version0)
         print('Hiiii')
