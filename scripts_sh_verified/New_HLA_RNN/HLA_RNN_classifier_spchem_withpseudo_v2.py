@@ -300,12 +300,14 @@ for _ in range(0,1):
         ptotal0 = len(X_val_p)
         ntotal0 = len(X_val_n)
         #predict
-        p_predicted = model.predict_classes(X_train_p)
+        p_predicted = model.predict_classes(X_val_p)
         #overall true positive
         tp0 = sum(p_predicted)+0.1
         #recall = tp/(total positive by gold standard)
-        print('p_predicted='+str(len(p_predicted)))
-        print('mask_non_i='+str(len(mask_non_i)))
+        #print('\n')
+        #print('X_train')
+        #print('p_predicted='+str(len(p_predicted)))
+        #print('mask_non_i='+str(len(mask_non_i)))
         recall_non_i = sum(p_predicted[mask_non_i])/float(len_non_i)
         recall_non_sub = sum(p_predicted[mask_non_sub])/float(len_non_sub)
         #print('Val_Negative')
