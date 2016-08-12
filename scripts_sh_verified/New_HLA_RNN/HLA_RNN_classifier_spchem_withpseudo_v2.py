@@ -53,6 +53,7 @@ for line0 in fileinput.input():
         path_save = part2
     if 'data_file_name' in part1:
         data_file_name = part2
+        print(data_file_name)
     if 'performance_file_name' in part1:
         path_save = part2
     if 'version' == part1:
