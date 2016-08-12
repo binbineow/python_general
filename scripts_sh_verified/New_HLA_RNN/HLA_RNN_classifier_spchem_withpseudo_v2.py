@@ -285,7 +285,7 @@ for _ in range(0,1):
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p),verbose=vb0)+0.1
+        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0))+0.1
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         fp0 = sum(model.predict_classes(X_train_n,verbose=vb0))
@@ -315,7 +315,7 @@ for _ in range(0,1):
         recall_non_sub = sum(p_predicted[mask_non_sub])/float(len_non_sub)
         #print('Val_Negative')
         #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_val_n),verbose=vb0)
+        fp0 = sum(model.predict_classes(X_val_n,verbose=vb0))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
         val_pre=str(float(tp0)/(tp0+fp0))
@@ -323,6 +323,9 @@ for _ in range(0,1):
         val_f1 = calf1(val_pre,val_recall)
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
+        print('\n')
+        print('[iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub]')
+        print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
