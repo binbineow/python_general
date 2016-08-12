@@ -279,13 +279,14 @@ for _ in range(0,1):
         model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
         ptotal0 = len(X_train_p)
+        print('p_training='+str(ptotal0))
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p))+0.1
+        tp0 = sum(model.predict_classes(X_train_p),verbose=vb0)+0.1
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_train_n))
+        fp0 = sum(model.predict_classes(X_train_n,verbose=vb0))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
         train_pre = str(float(tp0)/(tp0+fp0))
@@ -300,7 +301,7 @@ for _ in range(0,1):
         ptotal0 = len(X_val_p)
         ntotal0 = len(X_val_n)
         #predict
-        p_predicted = model.predict_classes(X_val_p)
+        p_predicted = model.predict_classes(X_val_p,verbose=vb0)
         #overall true positive
         tp0 = sum(p_predicted)+0.1
         #recall = tp/(total positive by gold standard)
@@ -312,7 +313,7 @@ for _ in range(0,1):
         recall_non_sub = sum(p_predicted[mask_non_sub])/float(len_non_sub)
         #print('Val_Negative')
         #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_val_n))
+        fp0 = sum(model.predict_classes(X_val_n),verbose=vb0)
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
         val_pre=str(float(tp0)/(tp0+fp0))
