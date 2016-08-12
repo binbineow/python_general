@@ -57,8 +57,8 @@ for line0 in fileinput.input():
     if 'performance_file_name' in part1:
         path_save = part2
     if 'version' == part1:
-        verison0 = part2
-        print(version0)
+        verison1 = part2
+        print(version1)
         print('Hiiii')
     if 'shuffle' in part1:
         if 'alse' in part2:
@@ -76,8 +76,8 @@ dict_name = 'aa_21_sparse_encoding.dict'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
    
 ##########################construct input file name####################  
-file_name0 = data_file_name+version0+'.txt'
-note_file0 = data_file_name+version0+note_label
+file_name0 = data_file_name+version1+'.txt'
+note_file0 = data_file_name+version1+note_label
 
 #########################construct note label############################
 list0 = []
