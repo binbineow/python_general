@@ -54,8 +54,8 @@ for line0 in fileinput.input():
     if 'performance_file_name' in part1:
         path_save = part2
     if 'version' in part1:
-        verison = part2
-        print(version)
+        verison0 = part2
+        print(version0)
     if 'shuffle' in part1:
         if 'alse' in part2:
             b_shuffle = False
@@ -72,8 +72,8 @@ dict_name = 'aa_21_sparse_encoding.dict'
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
    
 ##########################construct input file name####################  
-file_name0 = data_file_name+version+'.txt'
-note_file0 = data_file_name+version+note_label
+file_name0 = data_file_name+version0+'.txt'
+note_file0 = data_file_name+version0+note_label
 
 #########################construct note label############################
 list0 = []
@@ -151,8 +151,8 @@ def encoding(matrix0, input0, len0):
     return matrix0
 
 def output_perf2(iterations, list0):
-    touch_file(path_save+performance_file_name+version+'.txt')     
-    file_out = open(path_save+performance_file_name+version+'.txt','a')
+    touch_file(path_save+performance_file_name+version0+'.txt')     
+    file_out = open(path_save+performance_file_name+version0+'.txt','a')
     for x in list0:
         file_out.write(str(x)+'\t')
     file_out.write('\n')
@@ -250,8 +250,8 @@ for _ in range(0,1):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    if os.path.isfile(path_save+'model_performance'+version+'.csv'):     
-        file_out = open(path_save+'model_performance'+version+'.csv','a')
+    if os.path.isfile(path_save+'model_performance'+version0+'.csv'):     
+        file_out = open(path_save+'model_performance'+version0+'.csv','a')
     else:
         file_out = open(path_save+'model_performance'+version+'.csv','w+')
     #iterations = []
@@ -307,7 +307,7 @@ for _ in range(0,1):
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
         output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
-        model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
+        model.save_weights(path_save+file_name0+version0+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    #model.save_weights(path_save+file_name0+version+'_weight.h5',overwrite=True)
+    #model.save_weights(path_save+file_name0+version0+'_weight.h5',overwrite=True)
