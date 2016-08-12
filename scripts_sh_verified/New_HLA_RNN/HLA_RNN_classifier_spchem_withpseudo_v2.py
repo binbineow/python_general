@@ -42,18 +42,19 @@ shuffle=False
 b_shuffle = True
 for line0 in fileinput.input():
     line0 = line0.rstrip()
+    print(line0)
     #ideally add a line to remove spaces in each line
     part1 = line0.split('=')[0]
     #print(type(part1))
     part2 = line0.split('=')[1]
-    print(part2)
+    #print(part2)
     if 'path_data' in part1:
         path_data = part2
     if 'path_save' in part1:
         path_save = part2
     if 'data_file_name' in part1:
         data_file_name = part2
-        print(data_file_name)
+        #print(data_file_name)
     if 'performance_file_name' in part1:
         path_save = part2
     if 'version' == part1:
@@ -84,11 +85,10 @@ for line0 in open(path_data+note_file0,'r'):
     list0.append(num0)
 #this array has 1,2,3 to distinghish three types of positive peptides 
 val_lab0 = np.array(list0)
-
-mask_non_i = list_val >= 2
+mask_non_i = list_val0 >= 2
 # non_i includes non_sub
 len_non_i = sum(mask_non_i)
-mask_non_sub = list_val == 3
+mask_non_sub = list_val0 == 3
 len_non_sub = sum(mask_non_sub)
 
 
