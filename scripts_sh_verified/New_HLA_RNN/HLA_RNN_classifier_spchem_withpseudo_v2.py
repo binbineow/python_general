@@ -44,7 +44,7 @@ for line0 in fileinput.input():
     line0 = line0.rstrip()
     #ideally add a line to remove spaces in each line
     part1 = line0.split('=')[0]
-    print(part1)
+    print(type(part1))
     part2 = line0.split('=')[1]
     #print(part2)
     if 'path_data' in part1:
