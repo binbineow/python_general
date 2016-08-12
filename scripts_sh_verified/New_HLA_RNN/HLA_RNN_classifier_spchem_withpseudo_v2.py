@@ -57,10 +57,7 @@ for line0 in fileinput.input():
     if 'performance_file_name' in part1:
         path_save = part2
     if 'version' == part1:
-        test1 = part2
-        print(part2)
-        print(test1)
-        print('Hiiii')
+        v1 = part2
     if 'shuffle' in part1:
         if 'alse' in part2:
             b_shuffle = False
