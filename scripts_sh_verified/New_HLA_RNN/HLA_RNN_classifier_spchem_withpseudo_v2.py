@@ -55,6 +55,7 @@ for line0 in fileinput.input():
         path_save = part2
     if 'version' in part1:
         verison = part2
+        print(version)
     if 'shuffle' in part1:
         if 'alse' in part2:
             b_shuffle = False
