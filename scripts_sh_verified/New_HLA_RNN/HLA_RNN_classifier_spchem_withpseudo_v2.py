@@ -58,6 +58,7 @@ for line0 in fileinput.input():
         path_save = part2
     if 'version' == part1:
         verison1 = part2
+        print(part2)
         print(version1)
         print('Hiiii')
     if 'shuffle' in part1:
