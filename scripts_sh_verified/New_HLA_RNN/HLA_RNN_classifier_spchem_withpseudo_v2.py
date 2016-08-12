@@ -110,7 +110,7 @@ len_non_sub = sum(mask_non_sub)
 RNN = recurrent.LSTM
 n_iteration = 200
 HIDDEN_SIZE = node0
-BATCH_SIZE = 8000
+BATCH_SIZE = 128
 #will play with Layers 
 LAYERS = 2
 ratio_t = 1
