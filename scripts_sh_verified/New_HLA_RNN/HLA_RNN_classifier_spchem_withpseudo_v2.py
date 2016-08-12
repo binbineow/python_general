@@ -84,7 +84,7 @@ for line0 in open(path_data+note_file0,'r'):
     num0 = float(line0)
     list0.append(num0)
 #this array has 1,2,3 to distinghish three types of positive peptides 
-val_lab0 = np.array(list0)
+list_val0 = np.array(list0)
 mask_non_i = list_val0 >= 2
 # non_i includes non_sub
 len_non_i = sum(mask_non_i)
