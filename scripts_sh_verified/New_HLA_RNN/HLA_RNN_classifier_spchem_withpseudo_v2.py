@@ -110,7 +110,7 @@ len_non_sub = sum(mask_non_sub)
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
-n_iteration = 200
+n_iteration = 80
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
 #will play with Layers 
@@ -239,8 +239,8 @@ for _ in range(0,1):
     
     #shuffle if indicated
     if b_shuffle:
-        [x_train,y_train] = shuffle_train(x_train, y_train)
-        print('after shuffling, len(x)='+str(len(x_train)))      
+        [X_train,Y_train] = shuffle_train(X_train, Y_train)
+        print('after shuffling, len(x)='+str(len(X_train)))      
      
     #creating encoding table
     print(class_set)
