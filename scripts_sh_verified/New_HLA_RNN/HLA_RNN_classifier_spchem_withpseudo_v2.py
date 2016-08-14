@@ -110,7 +110,7 @@ len_non_sub = sum(mask_non_sub)
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
-n_iteration = 80
+n_iteration = 60
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
 #will play with Layers 
