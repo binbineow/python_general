@@ -70,6 +70,8 @@ for line0 in fileinput.input():
         nb0 = int(part2)
     if 'vb' == part1:
         vb0 = int(part2)
+    if 'layer' in part1:
+        LAYERS = int(part2)
  
 ##################import coding path and dictionaries#####################
 path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
@@ -112,7 +114,6 @@ n_iteration = 200
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
 #will play with Layers 
-LAYERS = 2
 ratio_t = 1
 chars = 'ACDEFGHIKLMNPQRSTVWXY'#'0123456789+ '
 if dict_name == 'Blosum50_sparse.dict':
@@ -168,7 +169,18 @@ def output_perf2(list0):
         file_out.write(str(x)+'\t')
     file_out.write('\n')
     file_out.close()
-    
+
+def shuffle_train(list1,list2):
+    from random import shuffle
+    # Given list1 and list2
+    list1_shuf = []
+    list2_shuf = []
+    index_shuf = range(len(list1))
+    shuffle(index_shuf)
+    for i in index_shuf:
+        list1_shuf.append(list1[i])
+        list2_shuf.append(list2[i])
+    return [list1_shuf,list2_shuf]
 
 def calf1(str1,str2):
     pre0 = float(str1)
@@ -223,7 +235,12 @@ for _ in range(0,1):
             
             #for c in in_: char_set.add(c)
             class_set.add(out_)
-    file_name0 = file_name0.split('.')[0]      
+    #
+    
+    #shuffle if indicated
+    if b_shuffle:
+        [x_train,y_train] = shuffle_train(x_train, y_train)
+        print('after shuffling, len(x)='+str(len(x_train)))      
      
     #creating encoding table
     print(class_set)
