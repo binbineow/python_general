@@ -239,7 +239,7 @@ for _ in range(0,1):
     
     #shuffle if indicated
     if b_shuffle:
-        [X_train,Y_train] = shuffle_train(X_train, Y_train)
+        [X_train,y_train] = shuffle_train(X_train, y_train)
         print('after shuffling, len(x)='+str(len(X_train)))      
      
     #creating encoding table
