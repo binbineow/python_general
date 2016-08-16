@@ -21,6 +21,7 @@ from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
+#from keras.regularizers import l1,activity_l1
 
 ######Path for data as well as performance output are read in from fileinput ###
 #no space
@@ -40,6 +41,7 @@ shuffle=False
 '''
 
 b_shuffle = True
+loss_function0 = 'categorical_crossentropy'
 for line0 in fileinput.input():
     line0 = line0.rstrip()
     print(line0)
@@ -72,6 +74,8 @@ for line0 in fileinput.input():
         vb0 = int(part2)
     if 'layer' in part1:
         LAYERS = int(part2)
+    if 'loss_function' in part1:
+        loss_function0 = part2
  
 ##################import coding path and dictionaries#####################
 path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
@@ -110,7 +114,7 @@ len_non_sub = sum(mask_non_sub)
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
-n_iteration = 60
+n_iteration = 50
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
 #will play with Layers 
@@ -132,7 +136,7 @@ for _ in xrange(LAYERS-1):
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
-model.compile(loss='categorical_crossentropy', optimizer='adam')
+model.compile(loss=loss_function0, optimizer='adam')
 #save the model
 #json_string = model.to_json()
 #open(path_save+file_name0+'_model.json', 'w').write(json_string)
