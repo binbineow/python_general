@@ -30,7 +30,7 @@ dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 ##############main###################################
 ###########use command line file input###############
 for line0 in fileinput.input():
-    [seq0,aff0,hla0] = line0.split('\t')
+    [seq0,aff0,hla0] = line0.rstrip().split('\t')
     if 'DRB1' in hla0:
         #only use DRB1 for this model
         hla0 = format_hla(hla0)
