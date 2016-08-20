@@ -202,7 +202,7 @@ def main():
     y_val = np.array(y_val)
     MAXLEN = max(MAXLEN,maxlen0)
     
-    for n0 in n_iteration:
+    for n0 in range(0,n_iteration+1):
         #fit
         model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
         #calculate the performance
