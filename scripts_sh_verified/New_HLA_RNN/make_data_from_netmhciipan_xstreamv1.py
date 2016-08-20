@@ -20,9 +20,9 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 path_encoding = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
 hla_dict_file = 'DRB1_pseudo_seq.dict'
 ###initiate the output file
-file_name0 = ''
+file_name0 = 'netMHCIIpan_train1'
 touch_file(path_save+file_name0)
-file_out = open(path_save+file_name,'a')
+file_out = open(path_save+file_name0,'a')
 
 ############import dictionary for hla -> pseudosequence
 dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))

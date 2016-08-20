@@ -101,9 +101,11 @@ for _ in xrange(LAYERS-1):
     model.add(RNN(HIDDEN_SIZE, return_sequences=True))
 #    #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
-model.add(Dense(len(classes)))
-model.add(Activation('softmax'))
-model.compile(loss=loss_function0, optimizer='adam')
+model.add(Dense(1))
+model.compile(loss="MSE", optimizer="adam")
+# model.add(Dense(len(classes)))
+# model.add(Activation('softmax'))
+# model.compile(loss=loss_function0, optimizer='adam')
 #save the model
 #json_string = model.to_json()
 #open(path_save+file_name0+'_model.json', 'w').write(json_string)
@@ -184,6 +186,7 @@ def encoding_data(list0):
 
 def main():
     [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
+    y_train =np.array(y_train)
     MAXLEN = max(MAXLEN,maxlen0)
         #shuffle if indicated
     if b_shuffle:
@@ -192,6 +195,7 @@ def main():
     else:
         print('without shuffling, len(x)='+str(len(X_train)))
     [X_val, y_val] = read_data(path_data+val_file0)
+    y_val = np.array(y_val)
     MAXLEN = max(MAXLEN,maxlen0)
     
     for n0 in n_iteration:
