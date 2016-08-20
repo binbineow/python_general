@@ -165,7 +165,7 @@ def calf1(str1,str2):
     f1_out = 2.0*pre0*recall0/(pre0+recall0)
     return str(f1_out)
 
-def read_and_data(path_file0):
+def read_data(path_file0):
     #read
     X_0 = []
     y_0 = []
