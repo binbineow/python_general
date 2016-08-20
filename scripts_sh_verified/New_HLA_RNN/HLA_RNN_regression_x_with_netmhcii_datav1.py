@@ -207,6 +207,7 @@ def main():
     
     ########encoding
     X_train = encoding_data(X_train,MAXLEN)
+    print(X_train)
     X_val = encoding_data(X_val,MAXLEN)
     
     for n0 in range(0,n_iteration+1):
