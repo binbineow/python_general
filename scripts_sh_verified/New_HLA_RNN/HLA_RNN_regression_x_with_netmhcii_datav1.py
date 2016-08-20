@@ -207,7 +207,7 @@ def main():
     
     ########encoding
     X_train = encoding_data(X_train,MAXLEN)
-    print(X_train)
+    #print(X_train)
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
     
@@ -218,6 +218,7 @@ def main():
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
         y_predicted = model.predict(X_val)
+        y_predicted = y_predicted.reshape(y_predicted.shape[0])
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
         #save performance
