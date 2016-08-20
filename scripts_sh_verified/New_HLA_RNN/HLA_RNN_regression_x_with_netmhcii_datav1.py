@@ -43,9 +43,11 @@ for line0 in fileinput.input():
         path_data = part2
     if 'path_save' in part1:
         path_save = part2
-    if 'data_file_name' in part1:
-        data_file_name = part2
+    if 'train_file_name' in part1:
+        train_file0 = part2
         #print(data_file_name)
+    if 'val_file_name' in part1:
+        val_file0 = part2
     if 'performance_file_name' in part1:
         performance_file_name = part2
     if 'version' in part1:
@@ -102,7 +104,7 @@ for _ in xrange(LAYERS-1):
 #    #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(1))
-model.compile(loss="MSE", optimizer="adam")
+model.compile(loss=loss_function0, optimizer="adam")
 # model.add(Dense(len(classes)))
 # model.add(Activation('softmax'))
 # model.compile(loss=loss_function0, optimizer='adam')
@@ -216,164 +218,3 @@ def main():
         #save the model
         model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
 
-'''  
-#main function
-for _ in range(0,1):
-    #initiate 
-    inputs=[]
-    outputs=[]
-    char_set = set([' '])
-    class_set = set()
-    max_len = 0
-    X_train = []
-    X_train_p = []
-    X_train_n = []
-    X_val_p = []
-    X_val_n = []
-    y_train = []
-    y_val_p = []
-    y_val_n = []
-    
-    #file_name0 ='HLADRB10401simplev1_tr_1_val.csv'
-    for line in open(path_data+file_name0,'r'):
-        in_,out_ = [x.rstrip() for x in line.split("\t")]
-        if len(out_) != 1:
-            raise Exception("Output should be single characer")
-        else:
-            if out_ == '0' :
-                X_train_n.append(in_)
-                X_train.append(in_)
-                y_train.append(out_)
-            elif out_ == '1':
-                X_train_p.append(in_)
-                X_train.append(in_)
-                y_train.append(out_)
-            else:
-                out_ = str(int(out_) -2)
-                if out_ == '0':
-                    X_val_n.append(in_)
-                    y_val_n.append(out_)
-                else:
-                    X_val_p.append(in_)
-                    y_val_p.append(out_)
-              
-            max_len = max([max_len,len(in_),len(out_)])
-            inputs.append(in_)
-            outputs.append(out_)
-            
-            #for c in in_: char_set.add(c)
-            class_set.add(out_)
-    #
-    
-    #shuffle if indicated
-    if b_shuffle:
-        [X_train,y_train] = shuffle_train(X_train, y_train)
-        print('after shuffling, len(x)='+str(len(X_train)))      
-     
-    #creating encoding table
-    print(class_set)
-    classes = ''.join(class_set)
-    #ctable = CharacterTable(chars, MAXLEN)
-    #classtable = CharacterTable(classes, 1)
-    MAXLEN = max_len #DIGITS + 1 + DIGITS
-
-    #create training or validation matrix
-    X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)), dtype=np.bool)
-    X_val_p_m = np.zeros((len(X_val_p), MAXLEN, len(chars)), dtype=np.bool)
-    X_val_n_m = np.zeros((len(X_val_n), MAXLEN, len(chars)), dtype=np.bool)
-    X_train_p_m = np.zeros((len(X_train_p), MAXLEN, len(chars)), dtype=np.bool)
-    X_train_n_m = np.zeros((len(X_train_n), MAXLEN, len(chars)), dtype=np.bool)
-    y_train_m = np.zeros((len(y_train), len(classes)), dtype=np.bool)
-    y_val_p_m = np.zeros((len(y_val_p), len(classes)), dtype=np.bool)
-    y_val_n_m = np.zeros((len(y_val_n), len(classes)), dtype=np.bool)
-    
-    X_train = encoding(X_train_m, X_train,MAXLEN)
-    X_train_p = encoding(X_train_p_m, X_train_p,MAXLEN)
-    X_train_n = encoding(X_train_n_m, X_train_n,MAXLEN)
-    X_val_p = encoding(X_val_p_m, X_val_p,MAXLEN)
-    X_val_n = encoding(X_val_n_m, X_val_n,MAXLEN)
-    y_train = encoding(y_train_m, y_train,1)
-    y_val_p = encoding(y_val_p_m, y_val_p,1)
-    y_val_n = encoding(y_val_n_m, y_val_n,1)
-    
-    X_val = np.concatenate((X_val_n,X_val_p))
-    y_val = np.concatenate((y_val_n,y_val_p))
-    print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
-    print("Input loaded ")
-    
-
-    
-    #Create checkpoint
-    #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
-    # Train the model each generation and show predictions against the validation dataset
-
-    if os.path.isfile(path_save+performance_file_name+v1+out_name+'.csv'):     
-        file_out = open(path_save+performance_file_name+v1+out_name+'.csv','a')
-    else:
-        file_out = open(path_save+performance_file_name+v1+out_name+'.csv','w+')
-
-    #iterations = []
-    f2_val_best = []
-    n_best = []
-    ptotal0 = len(X_train_p)
-    ntotal0 = len(X_train_n)
-    training_n = str(ptotal0+ntotal0)
-    for iteration in range(1, n_iteration):
-        #iterations.append(str(iteration))
-        print()
-        print('-' * 50)
-        print('Iteration', iteration)
-        
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
-        #####predicting training
-        ptotal0 = len(X_train_p)
-        print('p_training='+str(ptotal0))
-        ntotal0 = len(X_train_n)
-        #print('Train_Postive')
-        #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0))+0.1
-        #print('Train_Negative')
-        #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_train_n,verbose=vb0))
-        tn0 = ntotal0 - fp0
-        fn0 = ptotal0 - tp0
-        train_pre = str(float(tp0)/(tp0+fp0))
-        train_recall = str(float(tp0)/(tp0+fn0))
-        train_f1 = calf1(train_pre, train_recall)
-        #print('Train_Precision='+str(float(tp0)/(tp0+fp0)))
-        #print('Train_Recall='+str(float(tp0)/(tp0+fn0)))
-        
-        ######predicting validation
-        #print('Val_Postive')
-        #print(model.predict_classes(X_val_p)) 
-        ptotal0 = len(X_val_p)
-        ntotal0 = len(X_val_n)
-        #predict
-        p_predicted = model.predict_classes(X_val_p,verbose=vb0)
-        #overall true positive
-        tp0 = sum(p_predicted)+0.1
-        #recall = tp/(total positive by gold standard)
-        #print('\n')
-        #print('X_train')
-        #print('p_predicted='+str(len(p_predicted)))
-        #print('mask_non_i='+str(len(mask_non_i)))
-        recall_non_i = sum(p_predicted[mask_non_i])/float(len_non_i)
-        recall_non_sub = sum(p_predicted[mask_non_sub])/float(len_non_sub)
-        #print('Val_Negative')
-        #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_val_n,verbose=vb0))
-        tn0 = ntotal0 - fp0
-        fn0 = ptotal0 - tp0
-        val_pre=str(float(tp0)/(tp0+fp0))
-        val_recall=str(float(tp0)/(tp0+fn0))
-        val_f1 = calf1(val_pre,val_recall)
-        #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
-        #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
-        print('\n')
-        print('[iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub]')
-        print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
-        output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
-        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
-    #save weights and performance info
-    #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-'''
