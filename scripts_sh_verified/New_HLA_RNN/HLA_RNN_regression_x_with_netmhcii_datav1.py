@@ -191,8 +191,8 @@ def main():
     MAXLEN = 0
     [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
     
-    y_train =np.array(y_train).reshape((len(y_train),1))
-    print(y_train)
+    y_train =np.array(y_train)#.reshape((len(y_train),1))
+    
     MAXLEN = max(MAXLEN,maxlen0)
         #shuffle if indicated
     if b_shuffle:
@@ -212,6 +212,8 @@ def main():
     
     for n0 in range(0,n_iteration+1):
         #fit
+        print(y_train)
+
         model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
