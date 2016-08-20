@@ -198,7 +198,7 @@ def main():
         print('after shuffling, len(x)='+str(len(X_train))) 
     else:
         print('without shuffling, len(x)='+str(len(X_train)))
-    [X_val, y_val] = read_data(path_data+val_file0)
+    [X_val, y_val,maxlen0] = read_data(path_data+val_file0)
     y_val = np.array(y_val)
     MAXLEN = max(MAXLEN,maxlen0)
     
