@@ -190,7 +190,7 @@ def encoding_data(list0):
 def main():
     MAXLEN = 0
     [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
-    X_train = encoding(X_train)
+    X_train = encoding_data(X_train)
     y_train =np.array(y_train)
     MAXLEN = max(MAXLEN,maxlen0)
         #shuffle if indicated
@@ -200,7 +200,7 @@ def main():
     else:
         print('without shuffling, len(x)='+str(len(X_train)))
     [X_val, y_val,maxlen0] = read_data(path_data+val_file0)
-    X_val = encoding(X_val)
+    X_val = encoding_data(X_val)
     y_val = np.array(y_val)
     MAXLEN = max(MAXLEN,maxlen0)
     
