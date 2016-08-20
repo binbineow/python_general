@@ -191,7 +191,7 @@ def main():
     MAXLEN = 0
     [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
     
-    y_train =np.array(y_train)
+    y_train =np.array(y_train).reshape((len(y_train),1))
     print(y_train)
     MAXLEN = max(MAXLEN,maxlen0)
         #shuffle if indicated
