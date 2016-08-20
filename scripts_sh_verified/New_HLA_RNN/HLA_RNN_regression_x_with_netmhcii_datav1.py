@@ -88,7 +88,7 @@ performance_file_name= performance_file_name +v1+out_name
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
-MAXLEN = 0
+
 #ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 #classes = [0,1]
@@ -188,7 +188,7 @@ def encoding_data(list0):
     
 
 def main():
-
+    MAXLEN = 0
     [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
     y_train =np.array(y_train)
     MAXLEN = max(MAXLEN,maxlen0)
