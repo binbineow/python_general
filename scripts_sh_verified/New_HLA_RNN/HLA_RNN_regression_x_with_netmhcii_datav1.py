@@ -77,7 +77,7 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 chars = dict_aa['A']
    
 ##########################construct input file name################ 
-file_name0 = data_file_name+v1+'.txt'
+file_name0 = train_file0+v1+'.txt'
 #note_label = 'val_note.txt'
 #note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
