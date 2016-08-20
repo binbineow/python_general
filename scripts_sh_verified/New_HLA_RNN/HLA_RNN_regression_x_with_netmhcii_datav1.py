@@ -26,7 +26,7 @@ path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_
 #Sparse_only.dict
 dict_name = 'aa_21_sparse_encoding.dict'
 b_shuffle = True
-loss_function0 = 'SOMETHING'
+loss_function0 = 'mse'
 vb0 = 0
 nb = 3
 n_iteration = 30
