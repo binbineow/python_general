@@ -174,7 +174,7 @@ def read_data(path_file0):
         line0 = line0.rstrip().split('\t')
         X_0.append(line0[0])
         y_0.append(float(line0[1]))
-        max_len0 = max(len(max_len0),len(line0[0]))
+        max_len0 = max(max_len0,len(line0[0]))
     return [X_0,y_0,max_len0]
 
 def encoding_data(list0):
