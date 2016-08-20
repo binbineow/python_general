@@ -1,4 +1,4 @@
-#template for general purposes
+#######this script takes in .codingchange file and output netmhcpan (class I) prediction
 import fileinput
 import subprocess
 import os

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-#does not include chemistry information
+#Compared to v2 in the same folder
+#this version enables the user to specify the desired encoding dictionary (in a pickle form)
 
 #####This learning script is built upon the previous HLA_RNN v13
 #####Each iteration, the scirpt will calculate precision and recall of the training and whole validation set (also F1)
@@ -38,7 +39,15 @@ version=_generalv1_x_
 shuffle=False
 '''
 
-#default value
+############################default value##############################
+##################import coding path and dictionaries#####################
+path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
+#dictionary avaialbe:
+#aa_21_sparse_encoding.dict
+#Blosum50_sparse.dict
+#Blosum50_only.dict
+#Sparse_only.dict
+dict_name = 'aa_21_sparse_encoding.dict'
 b_shuffle = True
 loss_function0 = 'categorical_crossentropy'
 vb0 = 0
@@ -83,19 +92,14 @@ for line0 in fileinput.input():
         n_iteration = int(part2)
         
  
-##################import coding path and dictionaries#####################
-path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
-#dictionary avaialbe:
-#aa_21_sparse_encoding.dict
-#Blosum50_sparse.dict
-#Blosum50_only.dict
-#Sparse_only.dict
-note_label = 'val_note.txt'
-dict_name = 'aa_21_sparse_encoding.dict'
+
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
+###determine the encoding size
+chars = dict_aa['A']
    
 ##########################construct input file name####################  
 file_name0 = data_file_name+v1+'.txt'
+note_label = 'val_note.txt'
 note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
 
@@ -124,9 +128,7 @@ HIDDEN_SIZE = node0
 BATCH_SIZE = 128
 #will play with Layers 
 ratio_t = 1
-chars = 'ACDEFGHIKLMNPQRSTVWXY'#'0123456789+ '
-if dict_name == 'Blosum50_sparse.dict':
-    chars = chars + chars
+###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]
     
 

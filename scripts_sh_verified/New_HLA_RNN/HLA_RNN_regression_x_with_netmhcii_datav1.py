@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-#does not include chemistry information
-
-#####This learning script is built upon the previous HLA_RNN v13
-#####Each iteration, the scirpt will calculate precision and recall of the training and whole validation set (also F1)
-#####and non_identical peptide recall and non_substring peptide recall in the validation set (compared to training)
-#####The performance writes into a file each iteration
-#####
+#
 
 # how to use the model elsewhere...
 #model = model_from_json(open('my_model_architecture.json').read())
@@ -19,28 +13,20 @@ from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
+from scipy.stats import pearsonr
 #from keras.regularizers import l1,activity_l1
 
-######Path for data as well as performance output are read in from fileinput ###
-#no space
-'''
-path_data='/home/stanford/rbaltman/users/bchen45/data/MCL_data/'
-path_save='/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
-data_file_name='hla_ii_train_val_'
-performance_file_name='model_performance'
-version='_generalv1_x'
-shuffle=False
-path_data=/home/stanford/rbaltman/users/bchen45/data/MCL_data/
-path_save=/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/
-data_file_name=hla_ii_train_val
-performance_file_name=model_performance
-version=_generalv1_x_
-shuffle=False
-'''
-
-#default value
+############################default value##############################
+##################import coding path and dictionaries#####################
+path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
+#dictionary avaialbe:
+#aa_21_sparse_encoding.dict
+#Blosum50_sparse.dict
+#Blosum50_only.dict
+#Sparse_only.dict
+dict_name = 'aa_21_sparse_encoding.dict'
 b_shuffle = True
-loss_function0 = 'categorical_crossentropy'
+loss_function0 = 'SOMETHING'
 vb0 = 0
 nb = 3
 n_iteration = 30
@@ -83,38 +69,16 @@ for line0 in fileinput.input():
         n_iteration = int(part2)
         
  
-##################import coding path and dictionaries#####################
-path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
-#dictionary avaialbe:
-#aa_21_sparse_encoding.dict
-#Blosum50_sparse.dict
-#Blosum50_only.dict
-#Sparse_only.dict
-note_label = 'val_note.txt'
-dict_name = 'aa_21_sparse_encoding.dict'
+
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
+###determine the encoding size
+chars = dict_aa['A']
    
-##########################construct input file name####################  
+##########################construct input file name################ 
 file_name0 = data_file_name+v1+'.txt'
-note_file0 = data_file_name+v1+note_label
+#note_label = 'val_note.txt'
+#note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
-
-#########################construct note label############################
-list0 = []
-for line0 in open(path_data+note_file0,'r'):
-    num0 = float(line0)
-    list0.append(num0)
-#this array has 1,2,3 to distinghish three types of positive peptides 
-list_val0 = np.array(list0)
-mask_non_i = list_val0 >= 2
-# non_i includes non_sub
-len_non_i = sum(mask_non_i)
-mask_non_sub = list_val0 == 3
-len_non_sub = sum(mask_non_sub)
-
-
-
-
 
 ##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
@@ -122,15 +86,13 @@ len_non_sub = sum(mask_non_sub)
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
-#will play with Layers 
-ratio_t = 1
-chars = 'ACDEFGHIKLMNPQRSTVWXY'#'0123456789+ '
-if dict_name == 'Blosum50_sparse.dict':
-    chars = chars + chars
-classes = [0,1]
+#ratio_t = 1
+###class number = binder or non-binder (1 = binder, 0 = non-binder)
+#classes = [0,1]
     
 
-##########################start a model
+##########################start a model##########################
+'Need to fix the model for regression here'
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
@@ -191,13 +153,66 @@ def shuffle_train(list1,list2):
         list2_shuf.append(list2[i])
     return [list1_shuf,list2_shuf]
 
+#you probably don't need this
+#AUC evaluation is potentially dsired
 def calf1(str1,str2):
     pre0 = float(str1)
     recall0 = float(str2)
     f1_out = 2.0*pre0*recall0/(pre0+recall0)
     return str(f1_out)
 
-  
+def read_and_data(path_file0):
+    #read
+    X_0 = []
+    y_0 = []
+    max_len0 = 0
+    for line0 in open(path_file0,'r'):
+        line0 = line0.rstrip().split('\t')
+        X_0.append(line0[0])
+        y_0.append(float(line0[1]))
+        max_len0 = max(len(max_len0),len(line0[0]))
+    return [X_0,y_0,max_len0]
+
+def encoding_data(list0):
+    #encoding   
+    X_0_m = np.zeros((len(list0), MAXLEN, len(chars)))
+    X_encoded = encoding(X_0_m,list0,MAXLEN)
+    return X_encoded
+
+        
+    
+
+def main():
+    [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
+    MAXLEN = max(MAXLEN,maxlen0)
+        #shuffle if indicated
+    if b_shuffle:
+        [X_train,y_train] = shuffle_train(X_train, y_train)
+        print('after shuffling, len(x)='+str(len(X_train))) 
+    else:
+        print('without shuffling, len(x)='+str(len(X_train)))
+    [X_val, y_val] = read_data(path_data+val_file0)
+    MAXLEN = max(MAXLEN,maxlen0)
+    
+    for n0 in n_iteration:
+        #fit
+        model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
+        #calculate the performance
+        #calculate Pearson Correltion Coeficient 
+        y_predicted = model.predict(X_val)
+        [r0, pval0] = pearsonr(y_predicted,y_val)
+        #save performance
+        outputperf2([n0,r0,pval0])
+        #print performance
+        print([n0,r0,pval0])
+        print('Predicted binding aff')
+        print(y_predicted[0:100])
+        print('Measured binding aff')
+        print(y_val[0:100])
+        #save the model
+        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+
+'''  
 #main function
 for _ in range(0,1):
     #initiate 
@@ -287,12 +302,12 @@ for _ in range(0,1):
     #Create checkpoint
     #checkpointer = ModelCheckpoint(filepath=model_name+'.weight', verbose=1, save_best_only=True)
     # Train the model each generation and show predictions against the validation dataset
-    '''
+
     if os.path.isfile(path_save+performance_file_name+v1+out_name+'.csv'):     
         file_out = open(path_save+performance_file_name+v1+out_name+'.csv','a')
     else:
         file_out = open(path_save+performance_file_name+v1+out_name+'.csv','w+')
-    '''
+
     #iterations = []
     f2_val_best = []
     n_best = []
@@ -357,4 +372,4 @@ for _ in range(0,1):
         model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
-    #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
+'''
