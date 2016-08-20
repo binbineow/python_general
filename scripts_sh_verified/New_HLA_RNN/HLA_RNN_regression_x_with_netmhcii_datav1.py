@@ -192,6 +192,7 @@ def main():
     [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
     
     y_train =np.array(y_train)
+    print(y_train)
     MAXLEN = max(MAXLEN,maxlen0)
         #shuffle if indicated
     if b_shuffle:
