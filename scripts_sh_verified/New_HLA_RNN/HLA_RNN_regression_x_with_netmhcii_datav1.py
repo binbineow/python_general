@@ -218,6 +218,7 @@ def main():
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
         y_predicted = model.predict(X_val)
+        print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
         #save performance
         outputperf2([n0,r0,pval0])
