@@ -222,7 +222,7 @@ def main():
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
         #save performance
-        outputperf2([n0,r0,pval0])
+        output_perf2([n0,r0,pval0])
         #print performance
         print([n0,r0,pval0])
         print('Predicted binding aff')
