@@ -209,11 +209,11 @@ def main():
     X_train = encoding_data(X_train,MAXLEN)
     print(X_train)
     X_val = encoding_data(X_val,MAXLEN)
+    y_train = np.array(y_train)
     
     for n0 in range(0,n_iteration+1):
-        #fit
+        #fit    
         print(y_train)
-
         model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
