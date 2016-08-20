@@ -34,7 +34,7 @@ for line0 in fileinput.input():
     if 'DRB1' in hla0:
         #only use DRB1 for this model
         hla0 = format_hla(hla0)
-        hla_seq0 = hla2seq(hla0)
+        hla_seq0 = dict_hla[hla0]
         write_list(file_out,[hla_seq0+seq0,aff0],'\t')
     
     
