@@ -112,7 +112,10 @@ for _ in xrange(LAYERS-1):
 #    #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 
-final_model = Merge([model_fixed, model], mode='concat')
+merged = Merge([model_fixed, model], mode='concat')
+
+final_model = Sequential()
+final_model.add(merged)
 
 final_model.add(Dense(1))
 final_model.compile(loss=loss_function0, optimizer="adam")
