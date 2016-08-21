@@ -227,7 +227,7 @@ def main():
     
     x_train_fixed = X_train[:,:19].reshape((X_train.shape[0],19*len(chars)))
     
-    x_train_variable = X_train[19:]
+    x_train_variable = X_train[:,19:]
     
     print(x_train_fixed.shape, x_train_variable.shape)
     
