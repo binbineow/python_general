@@ -224,11 +224,11 @@ def main():
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
     
+    x_train_fixed = X_train[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
     
-    x_train_fixed = X_train[:,:19].reshape((X_train.shape[0],19*len(chars)))
+    x_train_variable = X_train[:,19:,:]
     
-    x_train_variable = X_train[:,19:]
-    
+    print(X_train.shape)
     print(x_train_fixed.shape, x_train_variable.shape)
     
     for n0 in range(0,n_iteration+1):
