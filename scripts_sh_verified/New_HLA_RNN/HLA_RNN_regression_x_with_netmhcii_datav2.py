@@ -99,6 +99,10 @@ BATCH_SIZE = 128
 
 ##########################start a model##########################
 'Need to fix the model for regression here'
+
+model_fixed = Sequential()
+model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars)))
+
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
@@ -107,8 +111,11 @@ for _ in xrange(LAYERS-1):
     model.add(RNN(HIDDEN_SIZE, return_sequences=True))
 #    #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
-model.add(Dense(1))
-model.compile(loss=loss_function0, optimizer="adam")
+
+final_model = Merge([model_fixed, model], mode='concat')
+
+final_model.add(Dense(1))
+final_model.compile(loss=loss_function0, optimizer="adam")
 # model.add(Dense(len(classes)))
 # model.add(Activation('softmax'))
 # model.compile(loss=loss_function0, optimizer='adam')
@@ -214,10 +221,17 @@ def main():
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
     
+    
+    x_train_fixed = X_train[:,:19].reshape((X_train.shape[0],19*len(chars)))
+    
+    x_train_variable = X_train[19:]
+    
+    print(x_train_fixed.shape, x_train_variable.shape)
+    
     for n0 in range(0,n_iteration+1):
         #fit    
         print(y_train)
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
+        final_model.fit([x_train_fixed, x_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
         y_predicted = model.predict(X_val)
