@@ -102,16 +102,18 @@ BATCH_SIZE = 128
 
 model_fixed = Sequential()
 model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars)))
+model_fixed.add(Dropout(0.5))
 
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
 model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
-for _ in xrange(LAYERS-1):
-    model.add(RNN(HIDDEN_SIZE, return_sequences=True))
+model.add(Dropout(0.5))
+# for _ in xrange(LAYERS-1):
+#     model.add(RNN(HIDDEN_SIZE, return_sequences=True))
 #    #model.add(Dropout(0.5))
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
-
+model.add(Dropout(0.5))
 merged = Merge([model_fixed, model], mode='concat')
 
 final_model = Sequential()
