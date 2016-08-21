@@ -225,8 +225,10 @@ def main():
     y_train = np.array(y_train)
     
     x_train_fixed = X_train[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
-    
     x_train_variable = X_train[:,19:,:]
+    
+    x_val_fixed = X_val[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
+    x_val_variable = X_val[:,19:,:]
     
     print(X_train.shape)
     print(x_train_fixed.shape, x_train_variable.shape)
@@ -234,7 +236,7 @@ def main():
     for n0 in range(0,n_iteration+1):
         #fit    
         print(y_train)
-        final_model.fit([x_train_fixed, x_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
+        final_model.fit([x_train_fixed, x_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=([x_val_fixed,x_val_variable], y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
         y_predicted = model.predict(X_val)
