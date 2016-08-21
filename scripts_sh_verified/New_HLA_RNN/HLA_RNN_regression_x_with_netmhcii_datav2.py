@@ -9,7 +9,7 @@
 from __future__ import print_function
 from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
-from keras.layers import recurrent
+from keras.layers import recurrent, Merge
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
