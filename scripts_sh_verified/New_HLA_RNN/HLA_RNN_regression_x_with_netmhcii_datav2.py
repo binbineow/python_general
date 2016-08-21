@@ -239,7 +239,7 @@ def main():
         final_model.fit([x_train_fixed, x_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=([x_val_fixed,x_val_variable], y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
-        y_predicted = model.predict([x_val_fixed,x_val_variable])
+        y_predicted = final_model.predict([x_val_fixed,x_val_variable])
         y_predicted = y_predicted.reshape(y_predicted.shape[0])
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
