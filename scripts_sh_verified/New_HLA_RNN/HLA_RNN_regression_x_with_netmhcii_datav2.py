@@ -102,7 +102,7 @@ BATCH_SIZE = 128
 'Need to fix the model for regression here'
 
 model_fixed = Sequential()
-model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars), activate="tanh", W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
+model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars), activation="tanh", W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
 model_fixed.add(Dropout(0.5))
 
 model = Sequential()
