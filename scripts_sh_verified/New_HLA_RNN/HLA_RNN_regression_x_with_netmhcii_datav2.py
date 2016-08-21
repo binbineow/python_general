@@ -14,6 +14,7 @@ from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
 from scipy.stats import pearsonr
+from keras.regularizers import l2, activity_l2
 #from keras.regularizers import l1,activity_l1
 
 ############################default value##############################
@@ -101,7 +102,7 @@ BATCH_SIZE = 128
 'Need to fix the model for regression here'
 
 model_fixed = Sequential()
-model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars)))
+model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars), W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
 model_fixed.add(Dropout(0.5))
 
 model = Sequential()
@@ -119,7 +120,7 @@ merged = Merge([model_fixed, model], mode='concat')
 final_model = Sequential()
 final_model.add(merged)
 
-final_model.add(Dense(1))
+final_model.add(Dense(1,W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
 final_model.compile(loss=loss_function0, optimizer="adam")
 # model.add(Dense(len(classes)))
 # model.add(Activation('softmax'))
