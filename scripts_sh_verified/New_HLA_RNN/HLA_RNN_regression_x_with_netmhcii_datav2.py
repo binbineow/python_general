@@ -120,7 +120,7 @@ merged = Merge([model_fixed, model], mode='concat')
 final_model = Sequential()
 final_model.add(merged)
 
-final_model.add(Dense(1,W_regularizer=l2(0.01)))
+final_model.add(Dense(1))
 final_model.compile(loss=loss_function0, optimizer="adam")
 # model.add(Dense(len(classes)))
 # model.add(Activation('softmax'))
