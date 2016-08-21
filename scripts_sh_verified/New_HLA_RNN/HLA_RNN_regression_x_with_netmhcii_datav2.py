@@ -102,7 +102,7 @@ BATCH_SIZE = 128
 'Need to fix the model for regression here'
 
 model_fixed = Sequential()
-model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars), W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
+model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars), activate="tanh", W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
 model_fixed.add(Dropout(0.5))
 
 model = Sequential()
@@ -121,7 +121,7 @@ final_model = Sequential()
 final_model.add(merged)
 
 final_model.add(Dense(1))
-final_model.compile(loss=loss_function0, optimizer="adam")
+final_model.compile(loss="MSE", optimizer="adam")
 # model.add(Dense(len(classes)))
 # model.add(Activation('softmax'))
 # model.compile(loss=loss_function0, optimizer='adam')
