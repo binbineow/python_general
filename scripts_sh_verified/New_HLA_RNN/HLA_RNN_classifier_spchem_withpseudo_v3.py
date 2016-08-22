@@ -90,6 +90,8 @@ for line0 in fileinput.input():
         loss_function0 = part2
     if 'iteration' in part1:
         n_iteration = int(part2)
+    if 'encoding' in part1:
+        dict_name = part2
         
  
 
