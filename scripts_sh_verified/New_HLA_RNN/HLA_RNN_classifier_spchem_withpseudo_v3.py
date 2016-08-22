@@ -139,9 +139,11 @@ model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
 model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
-for _ in xrange(LAYERS-1):
-    model.add(RNN(HIDDEN_SIZE, return_sequences=True))
-#    #model.add(Dropout(0.5))
+if LAYERS>2:
+    for _ in xrange(LAYERS-2):
+        model.add(RNN(HIDDEN_SIZE, return_sequences=True))
+        #    #model.add(Dropout(0.5))
+
 model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
