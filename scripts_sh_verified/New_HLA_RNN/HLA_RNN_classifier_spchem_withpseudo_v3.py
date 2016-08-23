@@ -145,7 +145,7 @@ if LAYERS>1:
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
 else:
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False))
-    model.add(Dense(len(help_nn)))
+    model.add(Dense(help_nn))
 if LAYERS>2:
     for _ in xrange(LAYERS-2):
         model.add(RNN(HIDDEN_SIZE, return_sequences=True))

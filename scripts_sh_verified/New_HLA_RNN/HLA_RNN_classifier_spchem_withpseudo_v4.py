@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #Compared to v2 in the same folder
 #this version enables the user to specify the desired encoding dictionary (in a pickle form)
+####this model uses a hybrid model of fixed length NN and RNN
+
 
 #####This learning script is built upon the previous HLA_RNN v13
 #####Each iteration, the scirpt will calculate precision and recall of the training and whole validation set (also F1)
@@ -130,6 +132,7 @@ len_non_sub = sum(mask_non_sub)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
+help_nn = 10
 BATCH_SIZE = 128
 #will play with Layers 
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
@@ -144,6 +147,7 @@ if LAYERS>1:
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
 else:
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False))
+    model.add(Dense(help_nn))
 if LAYERS>2:
     for _ in xrange(LAYERS-2):
         model.add(RNN(HIDDEN_SIZE, return_sequences=True))
