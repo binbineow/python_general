@@ -85,6 +85,7 @@ def make_val2(path_save,version0,pid0):
     file_out = open(path_save+out_file_name+version0+'.txt','a')
     #generate the hla type sequence
     hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
+    hla_seq = ''
     #write in training file line by line
     for pos0 in MCL_data[pid0]['MHC2_frag']:
         #output sequence and classes
