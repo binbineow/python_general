@@ -39,6 +39,7 @@ def make_training2(path_save,version0,pid0,set_train):
         for i in range(0,t_ratio):
             rand0 = random.randint(0,len_one)
             neg0 = onegenestr[rand0:rand0+len(pos0)]
+            neg0 = neg0.upper()
             if random.random() > 0.5:
                 hla_seq0 = hla_seq
             else:
@@ -100,6 +101,7 @@ def make_val2(path_save,version0,pid0):
         for i in range(0,t_ratio):
             rand0 = random.randint(0,len_one)
             neg0 = onegenestr[rand0:rand0+len(pos0)]
+            neg0 = neg0.upper()
             file_out.write(hla_seq+neg0+'\t'+'2\n')
             neg0 = ''.join(random.sample(pos0,len(pos0)))
             file_out.write(hla_seq+neg0+'\t'+'2\n')

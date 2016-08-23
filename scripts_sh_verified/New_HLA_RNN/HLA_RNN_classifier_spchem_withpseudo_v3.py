@@ -174,7 +174,7 @@ def encoding_line(str0, max_len):
         if 'a' in str0:
             print(str0)
         for i,char0 in enumerate(str0):
-            coded0[i,:] = dict_aa[char0] 
+            coded0[i,:] = dict_aa[char0.upper()] 
     #print(str0)
     #print(coded0)
     return coded0
