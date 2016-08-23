@@ -18,7 +18,7 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_generalv1_x_'
+version0 = '_generalv2_x_'
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 note_label = 'val_note.txt'
@@ -30,17 +30,26 @@ def make_training2(path_save,version0,pid0,set_train):
     file_out = open(path_save+out_file_name+version0+'.txt','a')
     #generate the hla type sequence
     hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
-    
+    hla_seq2 = dict_hla[MCL_data[pid0]['HLA_typing'][-2]] + dict_hla[MCL_data[pid0]['HLA_typing'][-1]]
     #write in training file line by line
     for pos0 in MCL_data[pid0]['MHC2_frag']:
         set_train.add(pos0)
         file_out.write(hla_seq+pos0+'\t'+'1\n')
+        file_out.write(hla_seq2+pos0+'\t'+'1\n')
         for i in range(0,t_ratio):
             rand0 = random.randint(0,len_one)
             neg0 = onegenestr[rand0:rand0+len(pos0)]
-            file_out.write(hla_seq+neg0+'\t'+'0\n')
+            if random.random() > 0.5:
+                hla_seq0 = hla_seq
+            else:
+                hla_seq0 = hla_seq2
+            file_out.write(hla_seq0+neg0+'\t'+'0\n')
             neg0 = ''.join(random.sample(pos0,len(pos0)))
-            file_out.write(hla_seq+neg0+'\t'+'0\n')
+            if random.random() > 0.5:
+                hla_seq0 = hla_seq
+            else:
+                hla_seq0 = hla_seq2
+            file_out.write(hla_seq0+neg0+'\t'+'0\n')
     file_out.close()
 
 #generating validation examples using all peptides
