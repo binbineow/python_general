@@ -53,6 +53,7 @@ loss_function0 = 'categorical_crossentropy'
 vb0 = 0
 nb = 3
 n_iteration = 30
+ratio_t = 1
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     line0 = line0.rstrip()
@@ -92,6 +93,8 @@ for line0 in fileinput.input():
         n_iteration = int(part2)
     if 'encoding' in part1:
         dict_name = part2
+    if 'ratio' in part1:
+        ratio_t = float(part2)
         
  
 
@@ -129,7 +132,6 @@ RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
 #will play with Layers 
-ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]
     
