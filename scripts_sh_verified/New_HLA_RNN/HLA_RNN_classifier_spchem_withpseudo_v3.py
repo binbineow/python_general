@@ -54,6 +54,7 @@ vb0 = 0
 nb = 3
 n_iteration = 30
 ratio_t = 1
+help_nn = 10
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     line0 = line0.rstrip()
@@ -95,6 +96,8 @@ for line0 in fileinput.input():
         dict_name = part2
     if 'ratio' in part1:
         ratio_t = float(part2)
+    if 'help_nn' in part1:
+        help_nn = int(part2)
         
  
 
@@ -130,7 +133,7 @@ len_non_sub = sum(mask_non_sub)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
-help_nn = 10
+
 BATCH_SIZE = 128
 #will play with Layers 
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
