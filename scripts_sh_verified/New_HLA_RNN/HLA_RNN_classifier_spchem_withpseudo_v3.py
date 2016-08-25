@@ -134,7 +134,7 @@ len_non_sub = sum(mask_non_sub)
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
 
-BATCH_SIZE = 128
+BATCH_SIZE = 1280
 #will play with Layers 
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]
@@ -144,6 +144,7 @@ classes = [0,1]
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
+print(str(LAYERS))
 if LAYERS>1:
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
 else:
