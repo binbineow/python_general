@@ -94,7 +94,7 @@ for line0 in fileinput.input():
         n_iteration = int(part2)
     if 'encoding' in part1:
         dict_name = part2
-    if 'ratio' in part1:
+    if 'ratio' == part1:
         ratio_t = float(part2)
         print(str(ratio_t))
     if 'help_nn' in part1:
