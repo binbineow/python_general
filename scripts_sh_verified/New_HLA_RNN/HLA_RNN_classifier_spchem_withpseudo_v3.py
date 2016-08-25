@@ -96,6 +96,7 @@ for line0 in fileinput.input():
         dict_name = part2
     if 'ratio' in part1:
         ratio_t = float(part2)
+        print(str(ratio_t))
     if 'help_nn' in part1:
         help_nn = int(part2)
         
@@ -185,7 +186,7 @@ def encoding_line(str0, max_len):
         if 'a' in str0:
             print(str0)
         for i,char0 in enumerate(str0):
-            coded0[i,:] = dict_aa[char0.upper()] 
+            coded0[i,:] = dict_aa[char0] 
     #print(str0)
     #print(coded0)
     return coded0
