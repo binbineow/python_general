@@ -144,18 +144,22 @@ classes = [0,1]
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
-print(str(LAYERS))
+#print(str(LAYERS))
 if LAYERS>1:
+    print('1')
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
 else:
+    print('2')
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False))
     model.add(Dense(help_nn))
     model.add(Activation('tanh'))
 if LAYERS>2:
     for _ in xrange(LAYERS-2):
+        print('3')
         model.add(RNN(HIDDEN_SIZE, return_sequences=True))
         #    #model.add(Dropout(0.5))
 if LAYERS>1:
+    print('4')
     model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
