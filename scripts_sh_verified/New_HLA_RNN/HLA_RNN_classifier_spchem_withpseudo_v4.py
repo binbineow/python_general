@@ -325,16 +325,16 @@ for _ in range(0,1):
     x_val_fixed = X_val[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
     x_val_variable = X_val[:,19:,:]
     
-    x_train_p_fixed = X_train_p[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
+    x_train_p_fixed = X_train_p[:,:19,:].reshape((X_train_p.shape[0],19*len(chars)))
     x_train_p_variable = X_train_p[:,19:,:]
     
-    x_val_p_fixed = X_val_p[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
+    x_val_p_fixed = X_val_p[:,:19,:].reshape((X_val_p.shape[0],19*len(chars)))
     x_val_p_variable = X_val_p[:,19:,:]
     
-    x_train_n_fixed = X_train_p[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
+    x_train_n_fixed = X_train_p[:,:19,:].reshape((X_train_n.shape[0],19*len(chars)))
     x_train_n_variable = X_train_p[:,19:,:]
     
-    x_val_n_fixed = X_val_p[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
+    x_val_n_fixed = X_val_p[:,:19,:].reshape((X_val_n.shape[0],19*len(chars)))
     x_val_n_variable = X_val_p[:,19:,:]
     
    
