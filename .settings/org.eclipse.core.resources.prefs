@@ -18,6 +18,7 @@ encoding//scripts_sh_verified/New_HLA_RNN/HLA_RNN_classifier_spchem_withpseudo_v
 encoding//scripts_sh_verified/New_HLA_RNN/HLA_RNN_classifier_spchem_withpseudo_v4.py=utf-8
 encoding//scripts_sh_verified/New_HLA_RNN/HLA_RNN_regression_x_with_netmhcii_datav1.py=utf-8
 encoding//scripts_sh_verified/New_HLA_RNN/HLA_RNN_regression_x_with_netmhcii_datav2.py=utf-8
+encoding//scripts_sh_verified/New_HLA_RNN/HLA_classifier_withpseudo_v3test.py=utf-8
 encoding//src/RNN_classifier_v8_dict.py=utf-8
 encoding//src/RNN_classifierv4.py=utf-8
 encoding//src/RNN_classifierv7.py=utf-8

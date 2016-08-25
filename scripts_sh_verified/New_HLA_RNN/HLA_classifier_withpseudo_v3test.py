@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 #Compared to v2 in the same folder
 #this version enables the user to specify the desired encoding dictionary (in a pickle form)
-####this model uses a hybrid model of fixed length NN and RNN
-
 
 #####This learning script is built upon the previous HLA_RNN v13
 #####Each iteration, the scirpt will calculate precision and recall of the training and whole validation set (also F1)
@@ -18,12 +16,10 @@
 from __future__ import print_function
 from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
-from keras.layers import recurrent, Merge
+from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
-#from scipy.stats import pearsonr
-from keras.regularizers import l2, activity_l2
 #from keras.regularizers import l1,activity_l1
 
 ######Path for data as well as performance output are read in from fileinput ###
@@ -57,7 +53,6 @@ loss_function0 = 'categorical_crossentropy'
 vb0 = 0
 nb = 3
 n_iteration = 30
-ratio_t = 1
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     line0 = line0.rstrip()
@@ -97,8 +92,6 @@ for line0 in fileinput.input():
         n_iteration = int(part2)
     if 'encoding' in part1:
         dict_name = part2
-    if 'ratio' in part1:
-        ratio_t = float(part2)
         
  
 
@@ -134,9 +127,9 @@ len_non_sub = sum(mask_non_sub)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
-help_nn = 10
 BATCH_SIZE = 128
 #will play with Layers 
+ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]
     
@@ -145,17 +138,11 @@ classes = [0,1]
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
-if LAYERS>1:
-    model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
-else:
-    model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False))
-    model.add(Dense(help_nn))
-if LAYERS>2:
-    for _ in xrange(LAYERS-2):
-        model.add(RNN(HIDDEN_SIZE, return_sequences=True))
-        #    #model.add(Dropout(0.5))
-if LAYERS>1:
-    model.add(RNN(HIDDEN_SIZE, return_sequences=False))
+model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
+for _ in xrange(LAYERS-1):
+    model.add(RNN(HIDDEN_SIZE, return_sequences=True))
+#    #model.add(Dropout(0.5))
+model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
 model.compile(loss=loss_function0, optimizer='adam')
@@ -177,10 +164,8 @@ def encoding_line(str0, max_len):
             coded0[1] = 1
     else:
         coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
-        if 'a' in str0:
-            print(str0)
         for i,char0 in enumerate(str0):
-            coded0[i,:] = dict_aa[char0.upper()] 
+            coded0[i,:] = dict_aa[char0] 
     #print(str0)
     #print(coded0)
     return coded0
