@@ -140,6 +140,9 @@ BATCH_SIZE = 128
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]
     
+####Fixed part
+model_fixed = Sequential()
+model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars), activation="tanh"))
 
 ##########################start a model
 model = Sequential()
@@ -156,9 +159,24 @@ if LAYERS>2:
         #    #model.add(Dropout(0.5))
 if LAYERS>1:
     model.add(RNN(HIDDEN_SIZE, return_sequences=False))
-model.add(Dense(len(classes)))
-model.add(Activation('softmax'))
-model.compile(loss=loss_function0, optimizer='adam')
+#model.add(Dense(len(classes)))
+#model.add(Activation('softmax'))
+#model.compile(loss=loss_function0, optimizer='adam')
+
+
+merged = Merge([model_fixed, model], mode='concat')
+
+final_model = Sequential()
+final_model.add(merged)
+final_model.add(Dense(help_nn))
+final_model.add(Activation('tanh'))
+final_model.add(Dense(len(classes)))
+final_model.add(Activation('softmax'))
+final_model.compile(loss=loss_function0, optimizer="adam")
+
+model = final_model
+
+
 #save the model
 #json_string = model.to_json()
 #open(path_save+file_name0+'_model.json', 'w').write(json_string)
@@ -301,6 +319,26 @@ for _ in range(0,1):
     print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
     print("Input loaded ")
     
+    x_train_fixed = X_train[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
+    x_train_variable = X_train[:,19:,:]
+    
+    x_val_fixed = X_val[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
+    x_val_variable = X_val[:,19:,:]
+    
+    x_train_p_fixed = X_train_p[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
+    x_train_p_variable = X_train_p[:,19:,:]
+    
+    x_val_p_fixed = X_val_p[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
+    x_val_p_variable = X_val_p[:,19:,:]
+    
+    x_train_n_fixed = X_train_p[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
+    x_train_n_variable = X_train_p[:,19:,:]
+    
+    x_val_n_fixed = X_val_p[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
+    x_val_n_variable = X_val_p[:,19:,:]
+    
+   
+    
 
     
     #Create checkpoint
@@ -324,17 +362,17 @@ for _ in range(0,1):
         print('-' * 50)
         print('Iteration', iteration)
         
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
+        model.fit([x_train_fixed,x_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
         ptotal0 = len(X_train_p)
         print('p_training='+str(ptotal0))
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0))+0.1
+        tp0 = sum(model.predict_classes([x_train_p_fixed,x_train_p_variable],verbose=vb0))+0.1
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_train_n,verbose=vb0))
+        fp0 = sum(model.predict_classes([x_train_n_fixed,x_train_n_variable],verbose=vb0))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
         train_pre = str(float(tp0)/(tp0+fp0))
@@ -349,7 +387,7 @@ for _ in range(0,1):
         ptotal0 = len(X_val_p)
         ntotal0 = len(X_val_n)
         #predict
-        p_predicted = model.predict_classes(X_val_p,verbose=vb0)
+        p_predicted = model.predict_classes([x_val_p_fixed,x_val_p_variable],verbose=vb0)
         #overall true positive
         tp0 = sum(p_predicted)+0.1
         #recall = tp/(total positive by gold standard)
@@ -361,7 +399,7 @@ for _ in range(0,1):
         recall_non_sub = sum(p_predicted[mask_non_sub])/float(len_non_sub)
         #print('Val_Negative')
         #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_val_n,verbose=vb0))
+        fp0 = sum(model.predict_classes([X_val_n_fixed,x_val_n_variable],verbose=vb0))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
         val_pre=str(float(tp0)/(tp0+fp0))

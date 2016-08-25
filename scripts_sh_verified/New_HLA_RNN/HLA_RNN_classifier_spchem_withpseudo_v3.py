@@ -147,20 +147,20 @@ model = Sequential()
 #model.add(Masking())
 #print(str(LAYERS))
 if LAYERS>1:
-    print('1')
+    #print('1')
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
 else:
-    print('2')
+    #print('2')
     model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False))
     model.add(Dense(help_nn))
     model.add(Activation('tanh'))
 if LAYERS>2:
     for _ in xrange(LAYERS-2):
-        print('3')
+        #print('3')
         model.add(RNN(HIDDEN_SIZE, return_sequences=True))
         #    #model.add(Dropout(0.5))
 if LAYERS>1:
-    print('4')
+    #print('4')
     model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
@@ -379,7 +379,7 @@ for _ in range(0,1):
         print('[iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub]')
         print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
-        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+        #model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
