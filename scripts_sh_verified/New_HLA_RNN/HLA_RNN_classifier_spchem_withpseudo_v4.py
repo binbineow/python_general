@@ -142,7 +142,7 @@ classes = [0,1]
     
 ####Fixed part
 model_fixed = Sequential()
-model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars), activation="tanh"))
+model_fixed.add(Dense(HIDDEN_SIZE,input_dim=38*len(chars), activation="tanh"))
 
 ##########################start a model
 model = Sequential()
@@ -319,23 +319,23 @@ for _ in range(0,1):
     print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
     print("Input loaded ")
     
-    x_train_fixed = X_train[:,:19,:].reshape((X_train.shape[0],19*len(chars)))
-    x_train_variable = X_train[:,19:,:]
+    x_train_fixed = X_train[:,:38,:].reshape((X_train.shape[0],38*len(chars)))
+    x_train_variable = X_train[:,38:,:]
     
-    x_val_fixed = X_val[:,:19,:].reshape((X_val.shape[0],19*len(chars)))
-    x_val_variable = X_val[:,19:,:]
+    x_val_fixed = X_val[:,:38,:].reshape((X_val.shape[0],38*len(chars)))
+    x_val_variable = X_val[:,38:,:]
     
-    x_train_p_fixed = X_train_p[:,:19,:].reshape((X_train_p.shape[0],19*len(chars)))
-    x_train_p_variable = X_train_p[:,19:,:]
+    x_train_p_fixed = X_train_p[:,:38,:].reshape((X_train_p.shape[0],38*len(chars)))
+    x_train_p_variable = X_train_p[:,38:,:]
     
-    x_val_p_fixed = X_val_p[:,:19,:].reshape((X_val_p.shape[0],19*len(chars)))
-    x_val_p_variable = X_val_p[:,19:,:]
+    x_val_p_fixed = X_val_p[:,:38,:].reshape((X_val_p.shape[0],38*len(chars)))
+    x_val_p_variable = X_val_p[:,38:,:]
     
-    x_train_n_fixed = X_train_n[:,:19,:].reshape((X_train_n.shape[0],19*len(chars)))
-    x_train_n_variable = X_train_n[:,19:,:]
+    x_train_n_fixed = X_train_n[:,:38,:].reshape((X_train_n.shape[0],38*len(chars)))
+    x_train_n_variable = X_train_n[:,38:,:]
     
-    x_val_n_fixed = X_val_n[:,:19,:].reshape((X_val_n.shape[0],19*len(chars)))
-    x_val_n_variable = X_val_n[:,19:,:]
+    x_val_n_fixed = X_val_n[:,:38,:].reshape((X_val_n.shape[0],38*len(chars)))
+    x_val_n_variable = X_val_n[:,38:,:]
     
    
     
