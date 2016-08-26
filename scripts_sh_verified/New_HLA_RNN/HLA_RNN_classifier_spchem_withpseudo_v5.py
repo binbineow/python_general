@@ -104,7 +104,7 @@ for line0 in fileinput.input():
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 ###determine the encoding size
-chars = dict_aa['A']
+chars = dict_aa['AAA']
    
 ##########################construct input file name####################  
 file_name0 = data_file_name+v1+'.txt'
@@ -135,7 +135,7 @@ len_non_sub = sum(mask_non_sub)
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
 
-BATCH_SIZE = 1280
+BATCH_SIZE = 128
 #will play with Layers 
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]

@@ -135,7 +135,7 @@ len_non_sub = sum(mask_non_sub)
 RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
 
-BATCH_SIZE = 1280
+BATCH_SIZE = 128
 #will play with Layers 
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]
