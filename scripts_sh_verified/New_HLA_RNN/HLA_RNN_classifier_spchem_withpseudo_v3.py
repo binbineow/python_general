@@ -302,6 +302,8 @@ for _ in range(0,1):
     y_val_p = encoding(y_val_p_m, y_val_p,1)
     y_val_n = encoding(y_val_n_m, y_val_n,1)
     
+    print(X_train[1,1,:])
+    
     X_val = np.concatenate((X_val_n,X_val_p))
     y_val = np.concatenate((y_val_n,y_val_p))
     print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
