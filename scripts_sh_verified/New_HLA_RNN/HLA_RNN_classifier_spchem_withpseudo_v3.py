@@ -284,14 +284,14 @@ for _ in range(0,1):
     MAXLEN = max_len #DIGITS + 1 + DIGITS
 
     #create training or validation matrix
-    X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)), dtype=np.bool)
-    X_val_p_m = np.zeros((len(X_val_p), MAXLEN, len(chars)), dtype=np.bool)
-    X_val_n_m = np.zeros((len(X_val_n), MAXLEN, len(chars)), dtype=np.bool)
-    X_train_p_m = np.zeros((len(X_train_p), MAXLEN, len(chars)), dtype=np.bool)
-    X_train_n_m = np.zeros((len(X_train_n), MAXLEN, len(chars)), dtype=np.bool)
-    y_train_m = np.zeros((len(y_train), len(classes)), dtype=np.bool)
-    y_val_p_m = np.zeros((len(y_val_p), len(classes)), dtype=np.bool)
-    y_val_n_m = np.zeros((len(y_val_n), len(classes)), dtype=np.bool)
+    X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)))
+    X_val_p_m = np.zeros((len(X_val_p), MAXLEN, len(chars)))
+    X_val_n_m = np.zeros((len(X_val_n), MAXLEN, len(chars)))
+    X_train_p_m = np.zeros((len(X_train_p), MAXLEN, len(chars)))
+    X_train_n_m = np.zeros((len(X_train_n), MAXLEN, len(chars)))
+    y_train_m = np.zeros((len(y_train), len(classes)))
+    y_val_p_m = np.zeros((len(y_val_p), len(classes)))
+    y_val_n_m = np.zeros((len(y_val_n), len(classes)))
     
     X_train = encoding(X_train_m, X_train,MAXLEN)
     X_train_p = encoding(X_train_p_m, X_train_p,MAXLEN)
