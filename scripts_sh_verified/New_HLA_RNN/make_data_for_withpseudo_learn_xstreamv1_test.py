@@ -33,15 +33,16 @@ def make_training2(path_save,version0,pid0,set_train):
     hla_seq = ''
     #write in training file line by line
     for pos0 in MCL_data[pid0]['MHC2_frag']:
-        set_train.add(pos0)
-        file_out.write(hla_seq+pos0+'\t'+'1\n')
-        for i in range(0,t_ratio):
-            rand0 = random.randint(0,len_one)
-            neg0 = onegenestr[rand0:rand0+len(pos0)]
-            neg0 = neg0.upper()
-            file_out.write(hla_seq+neg0+'\t'+'0\n')
-            neg0 = ''.join(random.sample(pos0,len(pos0)))
-            file_out.write(hla_seq+neg0+'\t'+'0\n')
+        if not 'X' in pos0:
+            set_train.add(pos0)
+            file_out.write(hla_seq+pos0+'\t'+'1\n')
+            for i in range(0,t_ratio):
+                rand0 = random.randint(0,len_one)
+                neg0 = onegenestr[rand0:rand0+len(pos0)]
+                neg0 = neg0.upper()
+                file_out.write(hla_seq+neg0+'\t'+'0\n')
+                neg0 = ''.join(random.sample(pos0,len(pos0)))
+                file_out.write(hla_seq+neg0+'\t'+'0\n')
     file_out.close()
 
 #generating validation examples using all peptides
@@ -89,16 +90,17 @@ def make_val2(path_save,version0,pid0):
     #write in training file line by line
     for pos0 in MCL_data[pid0]['MHC2_frag']:
         #output sequence and classes
-        file_out.write(hla_seq+pos0+'\t'+'3\n')
-        for i in range(0,t_ratio):
-            rand0 = random.randint(0,len_one)
-            neg0 = onegenestr[rand0:rand0+len(pos0)]
-            neg0 = neg0.upper()
-            file_out.write(hla_seq+neg0+'\t'+'2\n')
-            neg0 = ''.join(random.sample(pos0,len(pos0)))
-            file_out.write(hla_seq+neg0+'\t'+'2\n')
-        #output label in order
-        note_out.write(str(val_judge(pos0))+'\n')
+        if not 'X' in pos0:
+            file_out.write(hla_seq+pos0+'\t'+'3\n')
+            for i in range(0,t_ratio):
+                rand0 = random.randint(0,len_one)
+                neg0 = onegenestr[rand0:rand0+len(pos0)]
+                neg0 = neg0.upper()
+                file_out.write(hla_seq+neg0+'\t'+'2\n')
+                neg0 = ''.join(random.sample(pos0,len(pos0)))
+                file_out.write(hla_seq+neg0+'\t'+'2\n')
+            #output label in order
+            note_out.write(str(val_judge(pos0))+'\n')
     file_out.close()
     note_out.close()
 
