@@ -58,8 +58,11 @@ vb0 = 0
 nb = 3
 n_iteration = 30
 ratio_t = 1
+help_nn = 10
+input_info = ''
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
+    input_info = input_info + line0
     line0 = line0.rstrip()
     print(line0)
     #ideally add a line to remove spaces in each line
@@ -97,8 +100,12 @@ for line0 in fileinput.input():
         n_iteration = int(part2)
     if 'encoding' in part1:
         dict_name = part2
-    if 'ratio'==part1:
+    if 'ratio' == part1:
         ratio_t = float(part2)
+        print(str(ratio_t))
+    if 'help_nn' in part1:
+        help_nn = int(part2)
+        
         
  
 
@@ -234,6 +241,8 @@ def calf1(str1,str2):
     f1_out = 2.0*pre0*recall0/(pre0+recall0)
     return str(f1_out)
 
+#output training parameters
+output_perf2([input_info])
   
 #main function
 for _ in range(0,1):
