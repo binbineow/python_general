@@ -32,7 +32,7 @@ vb0 = 0
 nb = 3
 n_iteration = 30
 l1_value = 0
-drop_out_c
+drop_out_c = 0
 help_nn = 0
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
