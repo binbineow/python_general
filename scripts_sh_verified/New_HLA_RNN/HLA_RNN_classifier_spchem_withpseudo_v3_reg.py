@@ -59,6 +59,11 @@ help_nn = 0
 input_info = ''
 l1_c = 0
 drop_out_c = 0
+HIDDEN_SIZE = 64
+BATCH_SIZE = 128
+#will play with Layers 
+###class number = binder or non-binder (1 = binder, 0 = non-binder)
+classes = [0,1]
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     input_info = input_info + line0
@@ -84,7 +89,7 @@ for line0 in fileinput.input():
         if 'alse' in part2:
             b_shuffle = False
     if  'neuron' in part1:
-        node0 = int(part2)
+        HIDDEN_SIZE = int(part2)
     if 'out_name' in part1:
         out_name = part2
     if 'nb' == part1:
@@ -142,12 +147,7 @@ len_non_sub = sum(mask_non_sub)
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l1(l1_c),b_regularizer=l1(l1_c),drop_out_W=drop_out_c,drop_out_U=drop_out_c)
-HIDDEN_SIZE = node0
 
-BATCH_SIZE = 128
-#will play with Layers 
-###class number = binder or non-binder (1 = binder, 0 = non-binder)
-classes = [0,1]
     
 
 ##########################start a model
