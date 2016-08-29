@@ -146,7 +146,7 @@ len_non_sub = sum(mask_non_sub)
 ##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l1(l1_c),b_regularizer=l1(l1_c),drop_out_W=drop_out_c,drop_out_U=drop_out_c)
+RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l1(l1_c),b_regularizer=l1(l1_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
     
 
