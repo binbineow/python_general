@@ -231,6 +231,7 @@ def main():
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
     output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
+    print('start training')
     for n0 in range(0,n_iteration+1):
         #fit    
         print(y_train)
@@ -239,7 +240,7 @@ def main():
         #calculate Pearson Correltion Coeficient 
         y_train_pred = model.predict(X_train)
         y_train_pred = y_train_pred.reshape(y_train_pred.shape[0])
-        [r0_train,pval0_train] = pearsonr(y_train_pred)
+        [r0_train,pval0_train] = pearsonr(y_train_pred,y_train)
         
         y_predicted = model.predict(X_val)
         y_predicted = y_predicted.reshape(y_predicted.shape[0])
