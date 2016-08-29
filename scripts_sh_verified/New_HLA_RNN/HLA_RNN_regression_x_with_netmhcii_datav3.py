@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-
+###with regulizer and drop out
 # how to use the model elsewhere...
 #model = model_from_json(open('my_model_architecture.json').read())
 #model.load_weights('my_model_weights.h5')
@@ -9,12 +9,13 @@
 from __future__ import print_function
 from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
-from keras.layers import recurrent
+from keras.layers import recurrent, Merge
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
 from scipy.stats import pearsonr
-from keras.regularizers import l1,activity_l1
+from keras.regularizers import l1, activity_l1
+#from keras.regularizers import l1,activity_l1
 
 ############################default value##############################
 ##################import coding path and dictionaries#####################
@@ -30,6 +31,9 @@ loss_function0 = 'mse'
 vb0 = 0
 nb = 3
 n_iteration = 30
+l1_value = 0
+drop_out_c
+help_nn = 0
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     line0 = line0.rstrip()
@@ -71,6 +75,12 @@ for line0 in fileinput.input():
         n_iteration = int(part2)
     if 'encoding' in part1:
         dict_name = part2
+    if 'help_nn' in part1:
+        help_nn = int(part2)
+    if 'l1_value' in part1:
+        l1_c = float(part2)
+    if 'drop_out' in part1:
+        drop_out_c = float(part2)
         
         
  
@@ -88,9 +98,10 @@ performance_file_name= performance_file_name +v1+out_name
 ##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.LSTM
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
+RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l1(l1_c),b_regularizer=l1(l1_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+
 
 #ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
@@ -99,14 +110,17 @@ BATCH_SIZE = 128
 
 ##########################start a model##########################
 'Need to fix the model for regression here'
+
 model = Sequential()
+'''
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
 model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
 for _ in xrange(LAYERS-1):
     model.add(RNN(HIDDEN_SIZE, return_sequences=True))
 #    #model.add(Dropout(0.5))
-model.add(RNN(HIDDEN_SIZE, return_sequences=False))
+'''
+model.add(RNN)
 model.add(Dense(1))
 model.compile(loss=loss_function0, optimizer="adam")
 # model.add(Dense(len(classes)))
@@ -233,6 +247,6 @@ def main():
         print('Measured binding aff')
         print(y_val[0:100])
         #save the model
-        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+        #model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
 
 main()
