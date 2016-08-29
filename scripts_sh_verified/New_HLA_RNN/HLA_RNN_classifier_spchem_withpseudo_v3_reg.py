@@ -20,8 +20,8 @@ from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
-from keras.regularizers import l1, activity_l1
-#from keras.regularizers import l1,activity_l1
+from keras.regularizers import l2, activity_l2
+#from keras.regularizers import l2,activity_l2
 
 ######Path for data as well as performance output are read in from fileinput ###
 #no space
@@ -57,7 +57,7 @@ n_iteration = 30
 ratio_t = 1
 help_nn = 0
 input_info = ''
-l1_c = 0
+l2_c = 0
 drop_out_c = 0
 HIDDEN_SIZE = 64
 BATCH_SIZE = 128
@@ -109,8 +109,8 @@ for line0 in fileinput.input():
         print(str(ratio_t))
     if 'help_nn' in part1:
         help_nn = int(part2)
-    if 'l1_value' in part1:
-        l1_c = float(part2)
+    if 'l2_value' in part1:
+        l2_c = float(part2)
     if 'drop_out' in part1:
         drop_out_c = float(part2)
         
@@ -146,7 +146,7 @@ len_non_sub = sum(mask_non_sub)
 ##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l1(l1_c),b_regularizer=l1(l1_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
     
 
@@ -155,11 +155,11 @@ model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
 #print(str(LAYERS))
-#keras.layers.core.ActivityRegularization(l1=0.0, l2=0.0)
+#keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
 
 if LAYERS>1:
     #print('1')
-    model.add(RNN)
+    model.add(RNN(return_sequences=True))
     
 else:
     #print('2')

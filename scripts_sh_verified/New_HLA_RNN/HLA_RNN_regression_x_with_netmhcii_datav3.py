@@ -14,8 +14,8 @@ from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
 from scipy.stats import pearsonr
-from keras.regularizers import l1, activity_l1
-#from keras.regularizers import l1,activity_l1
+from keras.regularizers import l2, activity_l2
+#from keras.regularizers import l2,activity_l2
 
 ############################default value##############################
 ##################import coding path and dictionaries#####################
@@ -31,7 +31,7 @@ loss_function0 = 'mse'
 vb0 = 0
 nb = 3
 n_iteration = 30
-l1_value = 0
+l2_value = 0
 drop_out_c = 0
 help_nn = 0
 #input file path and parameters from the setting file
@@ -77,8 +77,8 @@ for line0 in fileinput.input():
         dict_name = part2
     if 'help_nn' in part1:
         help_nn = int(part2)
-    if 'l1_value' in part1:
-        l1_c = float(part2)
+    if 'l2_value' in part1:
+        l2_c = float(part2)
     if 'drop_out' in part1:
         drop_out_c = float(part2)
         
@@ -100,7 +100,7 @@ performance_file_name= performance_file_name +v1+out_name
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 HIDDEN_SIZE = node0
 BATCH_SIZE = 128
-RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l1(l1_c),b_regularizer=l1(l1_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
 
 #ratio_t = 1
@@ -109,7 +109,7 @@ RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequenc
     
 
 ##########################start a model##########################
-'Need to fix the model for regression here'
+
 
 model = Sequential()
 '''
@@ -121,6 +121,9 @@ for _ in xrange(LAYERS-1):
 #    #model.add(Dropout(0.5))
 '''
 model.add(RNN)
+if help_nn>0:
+    model.add(Dense(help_nn))
+    model.add(Activation('tanh'))
 model.add(Dense(1))
 model.compile(loss=loss_function0, optimizer="adam")
 # model.add(Dense(len(classes)))
@@ -227,21 +230,25 @@ def main():
     #print(X_train)
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
-    
+    output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
     for n0 in range(0,n_iteration+1):
         #fit    
         print(y_train)
         model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
+        y_train_pred = model.predict(X_train)
+        y_train_pred = y_train_pred.reshape(y_train_pred.shape[0])
+        [r0_train,pval0_train] = pearsonr(y_train_pred)
+        
         y_predicted = model.predict(X_val)
         y_predicted = y_predicted.reshape(y_predicted.shape[0])
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
         #save performance
-        output_perf2([n0,r0,pval0])
+        output_perf2([n0,r0_train,pval0_train,r0,pval0])
         #print performance
-        print([n0,r0,pval0])
+        print([n0,r0_train,pval0_train,r0,pval0])
         print('Predicted binding aff')
         print(y_predicted[0:100])
         print('Measured binding aff')
