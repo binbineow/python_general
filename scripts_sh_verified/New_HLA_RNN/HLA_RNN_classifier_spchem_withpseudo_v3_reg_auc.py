@@ -362,10 +362,10 @@ for _ in range(0,1):
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         #list_train_n = [x[1] for x in model.predict_classes(X_train_n,verbose=vb0)]
-        list_train_p = model.predict_proba(X_train_p,verbose=vb0)[:,0]
+        list_train_p = model.predict_proba(X_train_p,verbose=vb0)[:,1]
         #print('list_train_p')
         #print(list_train_p)
-        list_train_n = model.predict_proba(X_train_n,verbose=vb0)[:,0]
+        list_train_n = model.predict_proba(X_train_n,verbose=vb0)[:,1]
         print('list_train_n')
         #print(list_train_n)
         #print(shape(list_train_n))
@@ -393,11 +393,11 @@ for _ in range(0,1):
         #ntotal0 = len(X_val_n)
         #predict
         #list_val_p = [x[1] for x in model.predict(X_val_p,verbose=vb0)]
-        list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,0]
+        list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         #list_val_n = [x[1] for x in model.predict(X_val_n,verbose=vb0)]
-        list_val_n = model.predict_proba(X_val_n,verbose=vb0)[:,0]
+        list_val_n = model.predict_proba(X_val_n,verbose=vb0)[:,1]
         #print(list_val_p)
         #print(list_val_n)
         list_values = np.concatenate((list_val_p,list_val_n))
