@@ -21,6 +21,8 @@ from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
 from keras.regularizers import l2, activity_l2
+from sklearn.metrics import roc_auc_score
+import numpy as np
 #from keras.regularizers import l2,activity_l2
 
 ######Path for data as well as performance output are read in from fileinput ###
@@ -360,8 +362,12 @@ for _ in range(0,1):
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         list_train_n = model.predict_classes(X_train_n,verbose=vb0)
-        print(list_train_p)
-        print(list_train_n)
+        list_values = np.concatenate((list_train_p,list_train_n))
+        list_true = np.concatenate((np.ones(len(list_train_p),np.zeros(len(list_train_n)))))
+        auc_train = roc_auc_score(list_true, list_values)
+        #print(list_train_p)
+        #print(list_train_n)
+        
         #auc_train = cal_auc(list_train_p,list_train_n,n_auc,max0)
         '''
         tn0 = ntotal0 - fp0
@@ -379,12 +385,16 @@ for _ in range(0,1):
         #ntotal0 = len(X_val_n)
         #predict
         list_val_p = model.predict(X_val_p,verbose=vb0)
-        
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         list_val_n = model.predict(X_val_n,verbose=vb0)
-        print(list_val_p)
-        print(list_val_n)
+        #print(list_val_p)
+        #print(list_val_n)
+        list_values = np.concatenate((list_val_p,list_val_n))
+        list_true = np.concatenate((np.ones(len(list_val_p),np.zeros(len(list_val_n)))))
+        auc_val = roc_auc_score(list_true, list_values)
+        print([iteration,auc_train,auc_val])
+        output_perf2([iteration,auc_train,auc_val])
         '''
         p_predicted = model.predict_classes(X_val_p,verbose=vb0)
         #overall true positive
