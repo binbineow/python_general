@@ -358,10 +358,18 @@ for _ in range(0,1):
         #ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        list_train_p = [x[1] for x in model.predict(X_train_p,verbose=vb0)]
+        #list_train_p = [x[1] for x in model.predict(X_train_p,verbose=vb0)]
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
-        list_train_n = [x[1] for x in model.predict_classes(X_train_n,verbose=vb0)]
+        #list_train_n = [x[1] for x in model.predict_classes(X_train_n,verbose=vb0)]
+        list_train_p = model.predict_proba(X_train_p,verbose=vb0)
+        print('list_train_p')
+        print(list_train_p)
+        list_train_n = model.predict_proba(X_train_n,verbose=vb0)
+        print('list_train_n')
+        print(list_train_n)
+        print(type(list_train_n))
+        print(str(len(list_train_n)))
         list_values = np.concatenate((list_train_p,list_train_n))
         list_true = np.concatenate((np.ones(len(list_train_p),np.zeros(len(list_train_n)))))
         auc_train = roc_auc_score(list_true, list_values)
@@ -384,10 +392,12 @@ for _ in range(0,1):
         #ptotal0 = len(X_val_p)
         #ntotal0 = len(X_val_n)
         #predict
-        list_val_p = [x[1] for x in model.predict(X_val_p,verbose=vb0)]
+        #list_val_p = [x[1] for x in model.predict(X_val_p,verbose=vb0)]
+        list_val_p = model.predict_proba(X_val_p,verbose=vb0)
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
-        list_val_n = [x[1] for x in model.predict(X_val_n,verbose=vb0)]
+        #list_val_n = [x[1] for x in model.predict(X_val_n,verbose=vb0)]
+        list_val_n = model.predict_proba(X_val_n,verbose=vb0)
         #print(list_val_p)
         #print(list_val_n)
         list_values = np.concatenate((list_val_p,list_val_n))
