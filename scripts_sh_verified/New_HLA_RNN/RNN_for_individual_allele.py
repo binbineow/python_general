@@ -29,10 +29,10 @@ dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 # Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.JZS1
-n_iteration = 20
-HIDDEN_SIZE = 30
-BATCH_SIZE = 20
+
+n_iteration = 40
+HIDDEN_SIZE = 64
+BATCH_SIZE = 128
 LAYERS = 2
 ratio_t = 1
 chars = 'ARNDCQEGHILKMFPSTWYVBZX'#'0123456789+ '
@@ -45,11 +45,13 @@ classes = [0,1]
 model = Sequential()
 # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
 #model.add(Masking())
-model.add(RNN(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=True))
-for _ in xrange(LAYERS-1):
-    model.add(RNN(HIDDEN_SIZE, return_sequences=True))
-#    #model.add(Dropout(0.5))
-model.add(RNN(HIDDEN_SIZE, return_sequences=False))
+RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+
+model.add(RNN)
+# for _ in xrange(LAYERS-1):
+#     model.add(RNN(HIDDEN_SIZE, return_sequences=True))
+# #    #model.add(Dropout(0.5))
+# model.add(RNN(HIDDEN_SIZE, return_sequences=False))
 model.add(Dense(len(classes)))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
