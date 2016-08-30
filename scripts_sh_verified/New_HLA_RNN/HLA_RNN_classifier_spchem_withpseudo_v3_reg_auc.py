@@ -403,8 +403,8 @@ for _ in range(0,1):
         list_values = np.concatenate((list_val_p,list_val_n))
         list_true = np.concatenate((np.ones(len(list_val_p),np.zeros(len(list_val_n)))))
         auc_val = roc_auc_score(list_true, list_values)
-        print([iteration,auc_train,auc_val])
-        #output_perf2([iteration,auc_train,auc_val])
+        #print([iteration,auc_train,auc_val])
+        output_perf2([iteration,auc_train,auc_val])
         '''
         p_predicted = model.predict_classes(X_val_p,verbose=vb0)
         #overall true positive
