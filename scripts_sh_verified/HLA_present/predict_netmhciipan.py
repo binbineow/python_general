@@ -43,7 +43,7 @@ def remove_file(file0):
     cmd0.wait()     
 
 def run_netmhciipan(hla_type_run,list_run,len_run):
-    set_run = set(list_rum)
+    set_run = set(list_run)
     list_run = list(set_run)
     str_long = make_one_line(list_run)
     #create a pep file
