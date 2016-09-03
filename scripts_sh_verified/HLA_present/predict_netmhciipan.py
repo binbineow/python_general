@@ -10,7 +10,7 @@ def convert_hla(str0):
    
     str1 = str0.split('*')[1].split(':')
     num1 = str1[0]
-    num2 = str2[1]
+    num2 = str1[1]
     return 'DRB1_'+num1+num2
 
 #given a list of strings, return a list of their lengths in order
