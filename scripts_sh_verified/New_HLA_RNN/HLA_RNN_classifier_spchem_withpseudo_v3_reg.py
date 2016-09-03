@@ -113,6 +113,8 @@ for line0 in fileinput.input():
         l2_c = float(part2)
     if 'drop_out' in part1:
         drop_out_c = float(part2)
+    if 'batch' in part1:
+        BATCH_SIZE=int(part2)
         
  
 
@@ -396,7 +398,7 @@ for _ in range(0,1):
         print('[iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub]')
         print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
-        #model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
