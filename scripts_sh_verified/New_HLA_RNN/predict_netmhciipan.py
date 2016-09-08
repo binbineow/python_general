@@ -4,9 +4,6 @@ import subprocess
 import os
 
 
-####iedb_path should be in the bash path file, so the program can call NetMHCIIpan directly
-
-#convert HLA-DRB1*04:01 into DRB1_0401 format
 def convert_hla(str0):
     str1 = str0.split('*')[1].split(':')
     num1 = str1[0]
@@ -58,7 +55,7 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     #'-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
     cmd_line = 'netMHCIIpan -f '+file_name_in+ ' -inptype 0 -a '+ hla_type_run+ ' >'+file_name_in+'.temp'\
     ' -length '+str(len_run)+ ' -xls -xlsfile '+file_name_in+'.xls ' + \
-    '-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
+    '-tdir /share/PI/rbaltman/bchen45/software/IEDB/netMHCIIpan-3.1/tmp'
     print cmd_line
     #cmd_line_list = cmd_line.split(' ')
     #print cmd_line_list
@@ -73,24 +70,3 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
         remove_file(file_name_in+'.temp')
         remove_file(file_name_in+'.xls')
     return dict_out
-
-#main function
-#give the hla_type in HLA_DRB1*04:01 format, and a list of sequences, return a dictionary
-#The dictionary maps individual sequences -> [binding affinity, ranking score 
-def predict_netmhciipan(hla_type0,list_seq):
-    dict0 = dict()
-    list_len0 = get_len_list(list_seq)
-    set_len0 = set(list_len0)
-    if '*' in hla_type0:
-        hla_type_run = convert_hla(hla_type0)
-    else:
-        hla_type_run = hla_type0
-    for len_run in set_len0:
-        list_run = []
-        for x in range(0,len(list_len0)):
-            if list_len0[x] == len_run:
-                list_run.append(list_seq[x])
-        dict_run = run_netmhciipan(hla_type_run,list_run,len_run)
-        print(dict_run)
-        dict0.update(dict_run)
-    return dict0
