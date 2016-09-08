@@ -54,8 +54,8 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     file_pep.close()    
     #run
     cmd_line = 'netMHCIIpan -f '+file_name_in+ ' -inptype 0 -a '+ hla_type_run+ \
-     ' -length '+str(len_run)+' >'+file_name_in+'.temp' + ' -xls -xlsfile '+file_name_in+'.xls '
-    #'-tdir /scratch/users/bchen45/HLA_prediction/IEDB/netMHCIIpan-3.1/tmp'
+     ' -length '+str(len_run)+' >'+file_name_in+'.temp' + ' -xls -xlsfile '+file_name_in+'.xls ' + \
+    '-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
     print cmd_line
     cmd0 = subprocess.Popen(cmd_line,shell=True)      
     cmd0.wait() 
