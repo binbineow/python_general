@@ -56,8 +56,8 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     #cmd_line = 'netMHCIIpan -f '+file_name_in+ ' -inptype 0 -a '+ hla_type_run+ \
     # ' -length '+str(len_run)+' > '+file_name_in+'.temp' + ' -xls -xlsfile '+file_name_in+'.xls ' + \
     #'-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
-    cmd_line = 'netMHCIIpan -f '+file_name_in+ ' -inptype 0 -a '+ hla_type_run+ \
-     ' -length '+str(len_run)+ ' -xls -xlsfile '+file_name_in+'.xls ' + \
+    cmd_line = 'netMHCIIpan -f '+file_name_in+ ' -inptype 0 -a '+ hla_type_run+ '>'+file_name_in+'.temp'\
+    ' -length '+str(len_run)+ ' -xls -xlsfile '+file_name_in+'.xls ' + \
     '-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
     print cmd_line
     #cmd_line_list = cmd_line.split(' ')
