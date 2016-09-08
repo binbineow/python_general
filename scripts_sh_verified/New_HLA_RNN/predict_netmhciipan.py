@@ -2,7 +2,6 @@
 import fileinput
 import subprocess
 import os
-from predict_netmhciipan import *
 
 
 ####iedb_path should be in the bash path file, so the program can call NetMHCIIpan directly

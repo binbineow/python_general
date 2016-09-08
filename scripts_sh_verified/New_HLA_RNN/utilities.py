@@ -12,6 +12,10 @@ import subprocess
 
 def dumb(): return defaultdict(list)
 
+two_layer = defaultdict(lambda: defaultdict(str))
+
+two_layer["x"]["y"] = "s"
+
 def touch_file(path_file0):
     cmd = 'touch '+path_file0
     cmd0 = subprocess.Popen(cmd,shell=True)      
