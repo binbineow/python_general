@@ -18,14 +18,7 @@ path_encoding = '/home/stanford/rbaltman/users/bchen45/code/python_general/encod
 one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/human_proteinome_oneline.str'
 #training and validation data save path
 path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
-#RNASeq file if needed
-#dictRNA_file = path0+'MCLRNASeq_ave.dict'
-hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_generalv1_x_'
-#v2 contains training examples with both allele 1,2 and allele 2,1
-out_file_name = 'hla_ii_train_val'
-note_label = 'val_note.txt'
-t_ratio = 1
+
 
 
 

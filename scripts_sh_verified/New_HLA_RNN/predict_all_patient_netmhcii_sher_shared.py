@@ -9,7 +9,7 @@ import subprocess
 from collections import defaultdict
 import os
 
-path_save = '/scratch/users/bchen45/HLA_prediction/RNN_data/'
+path_save = '/share/PI/rbaltman/bchen45/software/IEDB/MCL_netmhc_predict_results'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
 one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
 
@@ -67,7 +67,7 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     #'-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
     cmd_line = 'netMHCIIpan -f '+file_name_in+ ' -inptype 0 -a '+ hla_type_run+ ' >'+file_name_in+'.temp'\
     ' -length '+str(len_run)+ ' -xls -xlsfile '+file_name_in+'.xls ' + \
-    '-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
+    '-tdir /share/PI/rbaltman/bchen45/software/IEDB/netMHCIIpan-3.1/tmp'
     print cmd_line
     #cmd_line_list = cmd_line.split(' ')
     #print cmd_line_list
