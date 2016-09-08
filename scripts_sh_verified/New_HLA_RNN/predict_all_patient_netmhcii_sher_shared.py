@@ -11,7 +11,7 @@ import os
 
 path_save = '/share/PI/rbaltman/bchen45/software/IEDB/MCL_netmhc_predict_results'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
-one_gene_path = '/scratch/users/bchen45/HLA_prediction/IEDB/test0/human_proteinome_oneline.str'
+one_gene_path = '/share/PI/rbaltman/bchen45/software/IEDB/test0/human_proteinome_oneline.str'
 
 ####iedb_path should be in the bash path file, so the program can call NetMHCIIpan directly
 
