@@ -49,7 +49,7 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     #create a pep file
     file_name_in = hla_type_run+str(len_run)+'.pep'
     file_pep = open(file_name_in,'w+')
-    file_pep.write('>temp0')
+    file_pep.write('>temp0\n')
     file_pep.write(str_long)
     file_pep.close()    
     #run
