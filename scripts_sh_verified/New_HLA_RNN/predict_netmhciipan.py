@@ -59,9 +59,9 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     print cmd_line
     cmd_line_list = cmd_line.split(' ')
     print cmd_line_list
-    subprocess.call(cmd_line_list)
-    #cmd0 = subprocess.Popen(cmd_line,shell=True)      
-    #cmd0.wait() 
+    #subprocess.call(cmd_line_list)
+    cmd0 = subprocess.Popen(cmd_line,shell=False)      
+    cmd0.wait() 
     #get data
     dict_out = read_netmhc_xls(file_name_in+'.xls', list_run)
     #remove temp file
