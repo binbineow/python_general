@@ -58,7 +58,7 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     '-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
     print cmd_line
     #cmd0 = subprocess.call(cmd_line,shell=True)
-    cmd0 = subprocess.Popen(cmd_line,shell=False)      
+    cmd0 = subprocess.Popen(cmd_line,shell=True)      
     cmd0.wait() 
     #get data
     dict_out = read_netmhc_xls(file_name_in+'.xls', list_run)
