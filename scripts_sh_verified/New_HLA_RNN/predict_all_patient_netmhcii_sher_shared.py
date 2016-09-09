@@ -148,7 +148,7 @@ len_one = len(onegenestr)
 #read in data
 #patient_val = ['MCL041','MCL128','MCL019']
 patient_target = ['MCL128','MCL041','MCL019']
-patient_target = ['MCL019']
+patient_target = ['MCL041']
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 #dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 #initiate the training set
@@ -163,6 +163,7 @@ if len(patient_target)<1:
 for pid0 in patient_target:
     hla1 = MCL_data[pid0]['HLA_typing'][-1]
     hla2 = MCL_data[pid0]['HLA_typing'][-2]
+    print hla1
     [dict_pos,dict_neg] = make_predict_dict(pid0,hla1,hla2)
     print dict_pos
     #save
