@@ -133,7 +133,7 @@ def make_predict_dict(pid0,hla1,hla2):
     pep_list = keep_long(MCL_data[pid0]['MHC2_frag'])
     pep_list_neg = make_neg(pep_list)
     dict_run_pos = predict_netmhciipan(hla1,pep_list)
-    dict_second = predict_netmhciipan(hla2,peplist)
+    dict_second = predict_netmhciipan(hla2,pep_list)
     dict_run_pos = update_dict(dict_run_pos,dict_second)
     dict_run_neg = predict_netmhciipan(hla1,pep_list_neg)
     dict_second = predict_netmhciipan(hla2,pep_list_neg)
