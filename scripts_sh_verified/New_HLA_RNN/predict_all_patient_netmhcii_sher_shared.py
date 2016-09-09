@@ -167,7 +167,7 @@ for pid0 in patient_target:
     [dict_pos,dict_neg] = make_predict_dict(pid0,hla1,hla2)
     print dict_pos
     #save
-    pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl019.pos.dict','w+'))
-    pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl019.neg.dict','w+')) 
+    pickle.dump(dict_pos,open(path_save+'netmhc_predict_'+pid0+'.pos.dict','w+'))
+    pickle.dump(dict_neg,open(path_save+'netmhc_predict_'+pid0+'.neg.dict','w+')) 
 
   
