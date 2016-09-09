@@ -152,7 +152,7 @@ patient_target = ['MCL019']
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 #dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 #initiate the training set
-set_train = set()
+#set_train = set()
 #dict_pos = defaultdict(defaultdict)
 #dict_neg = defaultdict(defaultdict)
 dict_pos = dict()
@@ -164,7 +164,9 @@ for pid0 in patient_target:
     hla1 = MCL_data[pid0]['HLA_typing'][-1]
     hla2 = MCL_data[pid0]['HLA_typing'][-2]
     [dict_pos,dict_neg] = make_predict_dict(pid0,hla1,hla2)
+    print dict_pos
+    #save
+    pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl019.pos.dict','w+'))
+    pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl019.neg.dict','w+')) 
 
-#save
-pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl019.pos.dict'))
-pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl019.neg.dict'))   
+  
