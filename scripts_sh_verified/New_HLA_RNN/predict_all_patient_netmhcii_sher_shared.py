@@ -155,8 +155,8 @@ MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 set_train = set()
 #dict_pos = defaultdict(defaultdict)
 #dict_neg = defaultdict(defaultdict)
-dict_pos = defaultdict()
-dict_neg = Defaultdict()
+dict_pos = dict()
+dict_neg = dict()
 #write training data into a txt file
 if len(patient_target)<1:
     patient_target = MCL_data['pid']['pid']
