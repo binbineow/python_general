@@ -152,9 +152,10 @@ def make_predict_dict(pid0,hla1,hla2):
 #generating the random peptide sequence
 onegenestr = pickle.load(open(one_gene_path,'r'))
 len_one = len(onegenestr)
+patient_target = []
 #read in data
 #patient_val = ['MCL041','MCL128','MCL019']
-
+patient_target = ['MCL128','MCL041','MCL019']
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 #initiate the training set
@@ -163,6 +164,8 @@ dict_pos = defaultdict(defaultdict)
 dict_neg = defaultdict(defaultdict)
 #write training data into a txt file
 pid_list = MCL_data['pid']['pid']
+if len(patient_target)>0:
+    pid_list = patient_target
 for pid0 in pid_list:
     hla1 = MCL_data[pid0]['HLA_typing'][-1]
     hla2 = MCL_data[pid0]['HLA_typing'][-2]
