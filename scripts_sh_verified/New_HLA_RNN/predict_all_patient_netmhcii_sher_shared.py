@@ -1,7 +1,7 @@
 #make a dictionary = HLA-type to list of peptides
 #code to convert a list into cluster 
 from utilities import *
-#from predict_netmhciipan import *
+from predict_netmhciipan import *
 import math
 import random
 import re
@@ -12,7 +12,7 @@ import os
 path_save = '/share/PI/rbaltman/bchen45/software/IEDB/MCL_netmhc_predict_results'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
 one_gene_path = '/share/PI/rbaltman/bchen45/software/IEDB/test0/human_proteinome_oneline.str'
-
+'''
 ####iedb_path should be in the bash path file, so the program can call NetMHCIIpan directly
 
 #convert HLA-DRB1*04:01 into DRB1_0401 format
@@ -103,7 +103,7 @@ def predict_netmhciipan(hla_type0,list_seq):
         print(dict_run)
         dict0.update(dict_run)
     return dict0
-
+'''
 def make_neg(pep_list):
     list_out = []
     for x in pep_list:

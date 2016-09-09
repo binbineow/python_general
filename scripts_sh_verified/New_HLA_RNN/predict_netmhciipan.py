@@ -28,7 +28,8 @@ def read_netmhc_xls(file0,list_run):
     dict0 = dict()
     for line0 in file_out:
         line0 = line0.rstrip()
-        if 'Sequence' in line0:
+        print line0
+        if 'temp0' in line0:
             line0 = line0.split('\t')
         if line0[1] in list_run:
             dict0[line0[1]] = [float(line0[3]),float(line0[4]),float(line0[5])]
