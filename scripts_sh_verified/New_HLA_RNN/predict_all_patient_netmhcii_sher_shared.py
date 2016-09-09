@@ -123,7 +123,7 @@ def keep_long(list0):
 
 def update_dict(dict1,dict2):
     for key0, value0 in dict1.iteritems():
-        dict1[key0] = dict[key0] + dict[key0]
+        dict1[key0] = dict1[key0] + dict2[key0]
     return dict1
         
 
