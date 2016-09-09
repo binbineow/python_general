@@ -8,6 +8,7 @@ import re
 import subprocess
 from collections import defaultdict
 import os
+from flake8.formatting.default import Default
 
 path_save = '/share/PI/rbaltman/bchen45/software/IEDB/MCL_netmhc_predict_results'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
@@ -112,6 +113,7 @@ def make_neg(pep_list):
         neg1= onegenestr[rand0:rand0+len(x)]
         list_out.append(neg0)
         list_out.append(neg1)
+    return list_out
 
 #requires every elements in the list >= 9
 def keep_long(list0):
@@ -145,20 +147,24 @@ onegenestr = pickle.load(open(one_gene_path,'r'))
 len_one = len(onegenestr)
 #read in data
 #patient_val = ['MCL041','MCL128','MCL019']
-
+patient_target = ['MCL128','MCL041','MCL019']
+patient_target = ['MCL019']
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 #dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 #initiate the training set
 set_train = set()
-dict_pos = defaultdict(defaultdict)
-dict_neg = defaultdict(defaultdict)
+#dict_pos = defaultdict(defaultdict)
+#dict_neg = defaultdict(defaultdict)
+dict_pos = defaultdict()
+dict_neg = Defaultdict()
 #write training data into a txt file
-pid_list = MCL_data['pid']['pid']
-for pid0 in pid_list:
+if len(patient_target)<1:
+    patient_target = MCL_data['pid']['pid']
+for pid0 in patient_target:
     hla1 = MCL_data[pid0]['HLA_typing'][-1]
     hla2 = MCL_data[pid0]['HLA_typing'][-2]
-    [dict_pos[pid0],dict_neg[pid0]] = make_predict_dict(pid0,hla1,hla2)
+    [dict_pos,dict_neg] = make_predict_dict(pid0,hla1,hla2)
 
 #save
-pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl.pos.dict'))
-pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl.neg.dict'))   
+pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl019.pos.dict'))
+pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl019.neg.dict'))   

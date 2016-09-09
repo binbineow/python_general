@@ -77,18 +77,19 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
 #The dictionary maps individual sequences -> [binding affinity, ranking score 
 def predict_netmhciipan(hla_type0,list_seq):
     dict0 = dict()
-    list_len0 = get_len_list(list_seq)
-    set_len0 = set(list_len0)
-    if '*' in hla_type0:
-        hla_type_run = convert_hla(hla_type0)
-    else:
-        hla_type_run = hla_type0
-    for len_run in set_len0:
-        list_run = []
-        for x in range(0,len(list_len0)):
-            if list_len0[x] == len_run:
-                list_run.append(list_seq[x])
-        dict_run = run_netmhciipan(hla_type_run,list_run,len_run)
-        print(dict_run)
-        dict0.update(dict_run)
+    if len(list_seq)>0:
+        list_len0 = get_len_list(list_seq)
+        set_len0 = set(list_len0)
+        if '*' in hla_type0:
+            hla_type_run = convert_hla(hla_type0)
+        else:
+            hla_type_run = hla_type0
+        for len_run in set_len0:
+            list_run = []
+            for x in range(0,len(list_len0)):
+                if list_len0[x] == len_run:
+                    list_run.append(list_seq[x])
+            dict_run = run_netmhciipan(hla_type_run,list_run,len_run)
+            print(dict_run)
+            dict0.update(dict_run)
     return dict0
