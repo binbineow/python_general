@@ -10,7 +10,7 @@ from collections import defaultdict
 import os
 
 
-path_save = '/share/PI/rbaltman/bchen45/software/IEDB/MCL_netmhc_predict_results'
+path_save = '/share/PI/rbaltman/bchen45/software/IEDB/MCL_netmhc_predict_results/'
 path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
 one_gene_path = '/share/PI/rbaltman/bchen45/software/IEDB/test0/human_proteinome_oneline.str'
 '''
