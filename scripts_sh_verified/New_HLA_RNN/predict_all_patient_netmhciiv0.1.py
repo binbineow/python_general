@@ -10,10 +10,18 @@ from collections import defaultdict
 import os
 
 
-path_save = '/share/PI/rbaltman/bchen45/software/IEDB/MCL_netmhc_predict_results'
-path0 = '/scratch/users/bchen45/HLA_prediction/MCL_MHC_project/gene_analysis/'
-one_gene_path = '/share/PI/rbaltman/bchen45/software/IEDB/test0/human_proteinome_oneline.str'
-'''
+#folder for the main peptide data
+path0 = '/home/stanford/rbaltman/users/bchen45/data/MCL_data/'
+#folder for encoding dictionary
+path_encoding = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
+#file for random peptide sequence
+one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/human_proteinome_oneline.str'
+#training and validation data save path
+path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
+
+
+
+
 ####iedb_path should be in the bash path file, so the program can call NetMHCIIpan directly
 
 #convert HLA-DRB1*04:01 into DRB1_0401 format
@@ -68,7 +76,7 @@ def run_netmhciipan(hla_type_run,list_run,len_run):
     #'-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
     cmd_line = 'netMHCIIpan -f '+file_name_in+ ' -inptype 0 -a '+ hla_type_run+ ' >'+file_name_in+'.temp'\
     ' -length '+str(len_run)+ ' -xls -xlsfile '+file_name_in+'.xls ' + \
-    '-tdir /share/PI/rbaltman/bchen45/software/IEDB/netMHCIIpan-3.1/tmp'
+    '-tdir /home/stanford/rbaltman/users/bchen45/software/netMHCIIpan-3.1/tmp'
     print cmd_line
     #cmd_line_list = cmd_line.split(' ')
     #print cmd_line_list
@@ -104,7 +112,7 @@ def predict_netmhciipan(hla_type0,list_seq):
         print(dict_run)
         dict0.update(dict_run)
     return dict0
-'''
+
 def make_neg(pep_list):
     list_out = []
     for x in pep_list:
@@ -113,7 +121,6 @@ def make_neg(pep_list):
         neg1= onegenestr[rand0:rand0+len(x)]
         list_out.append(neg0)
         list_out.append(neg1)
-    return list_out
 
 #requires every elements in the list >= 9
 def keep_long(list0):
@@ -125,7 +132,7 @@ def keep_long(list0):
 
 def update_dict(dict1,dict2):
     for key0, value0 in dict1.iteritems():
-        dict1[key0] = dict1[key0] + dict2[key0]
+        dict1[key0] = dict[key0] + dict[key0]
     return dict1
         
 
@@ -135,7 +142,7 @@ def make_predict_dict(pid0,hla1,hla2):
     pep_list = keep_long(MCL_data[pid0]['MHC2_frag'])
     pep_list_neg = make_neg(pep_list)
     dict_run_pos = predict_netmhciipan(hla1,pep_list)
-    dict_second = predict_netmhciipan(hla2,pep_list)
+    dict_second = predict_netmhciipan(hla2,peplist)
     dict_run_pos = update_dict(dict_run_pos,dict_second)
     dict_run_neg = predict_netmhciipan(hla1,pep_list_neg)
     dict_second = predict_netmhciipan(hla2,pep_list_neg)
@@ -145,26 +152,25 @@ def make_predict_dict(pid0,hla1,hla2):
 #generating the random peptide sequence
 onegenestr = pickle.load(open(one_gene_path,'r'))
 len_one = len(onegenestr)
+patient_target = []
 #read in data
 #patient_val = ['MCL041','MCL128','MCL019']
 patient_target = ['MCL128','MCL041','MCL019']
-patient_target = ['MCL019']
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
-#dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
+dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 #initiate the training set
 set_train = set()
-#dict_pos = defaultdict(defaultdict)
-#dict_neg = defaultdict(defaultdict)
-dict_pos = defaultdict()
-dict_neg = Defaultdict()
+dict_pos = defaultdict(defaultdict)
+dict_neg = defaultdict(defaultdict)
 #write training data into a txt file
-if len(patient_target)<1:
-    patient_target = MCL_data['pid']['pid']
-for pid0 in patient_target:
+pid_list = MCL_data['pid']['pid']
+if len(patient_target)>0:
+    pid_list = patient_target
+for pid0 in pid_list:
     hla1 = MCL_data[pid0]['HLA_typing'][-1]
     hla2 = MCL_data[pid0]['HLA_typing'][-2]
-    [dict_pos,dict_neg] = make_predict_dict(pid0,hla1,hla2)
+    [dict_pos[pid0],dict_neg[pid0]] = make_predict_dict(pid0,hla1,hla2)
 
 #save
-pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl019.pos.dict'))
-pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl019.neg.dict'))   
+pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl_val.pos.dict'))
+pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl_val.neg.dict'))   
