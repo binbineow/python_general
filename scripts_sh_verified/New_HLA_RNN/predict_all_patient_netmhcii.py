@@ -172,5 +172,5 @@ for pid0 in pid_list:
     [dict_pos[pid0],dict_neg[pid0]] = make_predict_dict(pid0,hla1,hla2)
 
 #save
-pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl.pos.dict'))
-pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl.neg.dict'))   
+pickle.dump(dict_pos,open(path_save+'netmhc_predict_mcl_val.pos.dict'))
+pickle.dump(dict_neg,open(path_save+'netmhc_predict_mcl_val.neg.dict'))   
