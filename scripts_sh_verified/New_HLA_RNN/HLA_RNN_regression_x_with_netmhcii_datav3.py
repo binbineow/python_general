@@ -255,6 +255,6 @@ def main():
         print('Measured binding aff')
         print(y_val[0:100])
         #save the model
-        #model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
 
 main()
