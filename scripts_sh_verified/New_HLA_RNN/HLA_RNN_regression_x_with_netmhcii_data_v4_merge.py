@@ -99,7 +99,7 @@ performance_file_name= performance_file_name +v1+out_name
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 HIDDEN_SIZE = node0
-BATCH_SIZE = 128
+BATCH_SIZE = 1024
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
 
@@ -128,7 +128,8 @@ if help_nn>0:
 final_model.add(Dense(1))
 final_model.compile(loss=loss_function0, optimizer="adam")
 model = final_model
-
+json_string = model.to_json()
+open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
@@ -251,15 +252,15 @@ def main():
         y_predicted = y_predicted.reshape(y_predicted.shape[0])
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
-        print('PCC in validation'+str(r0))
+        #print('PCC in validation'+str(r0))
         #save performance
         output_perf2([n0,r0_train,pval0_train,r0,pval0])
         #print performance
         print([n0,r0_train,pval0_train,r0,pval0])
         print('Predicted binding aff')
-        print(y_predicted[0:100])
+        print(y_predicted[0:10])
         print('Measured binding aff')
-        print(y_val[0:100])
+        print(y_val[0:10])
         #save the model
         model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
 
