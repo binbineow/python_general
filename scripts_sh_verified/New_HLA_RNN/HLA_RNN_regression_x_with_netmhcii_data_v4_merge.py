@@ -110,7 +110,7 @@ RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequenc
 
 ##########################start a model##########################
 ##########fixed part
-model_fixed = sequential()
+model_fixed = Sequential()
 model_fixed.add(Dense(HIDDEN_SIZE,input_dim=19*len(chars),activation='tanh'))
 
 ##########recurrent part
