@@ -203,7 +203,7 @@ def encoding_data(list0,MAXLEN):
 
 def split_x(x0,n0):
     x_fixed = x0[:,:n0,:].reshape((x0.shape[0],n0*len(chars)))
-    x_variable = x0[:,n0,:]
+    x_variable = x0[:,n0:,:]
     return [x_fixed,x_variable]
     
 
