@@ -240,7 +240,7 @@ def main():
     for n0 in range(0,n_iteration+1):
         #fit    
         print(y_train)
-        model.fit([X_train_fixed,X_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
+        model.fit([X_train_fixed,X_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0)      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
         y_train_pred = model.predict([X_train_fixed,X_train_variable])
@@ -251,6 +251,7 @@ def main():
         y_predicted = y_predicted.reshape(y_predicted.shape[0])
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
+        print('PCC in validation'+str(r0))
         #save performance
         output_perf2([n0,r0_train,pval0_train,r0,pval0])
         #print performance
