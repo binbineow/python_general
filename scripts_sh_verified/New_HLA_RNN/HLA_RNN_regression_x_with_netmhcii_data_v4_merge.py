@@ -99,7 +99,7 @@ performance_file_name= performance_file_name +v1+out_name
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 HIDDEN_SIZE = node0
-BATCH_SIZE = 1024
+BATCH_SIZE = 124
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
 
@@ -240,7 +240,7 @@ def main():
     print('start training')
     for n0 in range(0,n_iteration+1):
         #fit    
-        print(y_train)
+        #print(y_train)
         model.fit([X_train_fixed,X_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0)      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
