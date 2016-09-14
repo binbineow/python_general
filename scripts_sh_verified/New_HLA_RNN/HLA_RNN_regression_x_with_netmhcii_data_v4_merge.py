@@ -201,7 +201,10 @@ def encoding_data(list0,MAXLEN):
     X_encoded = encoding(X_0_m,list0,MAXLEN)
     return X_encoded
 
-        
+def split_x(x0,n0):
+    x_fixed = x0[:,:n0,:].reshpae((x0.shape[0],n0*len(chars)))
+    x_variable = x0[:,n0,:]
+    return [x_fixed,x_variable]
     
 
 def main():
@@ -227,19 +230,24 @@ def main():
     #print(X_train)
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
+    ##separate input into two parts
+    [X_train_fixed,X_train_variable] = split_x(X_train,19)
+    [X_val_fixed,X_val_variable] = split_x(X_val,19)
+    
+    
     output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
     print('start training')
     for n0 in range(0,n_iteration+1):
         #fit    
         print(y_train)
-        model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
+        model.fit([X_train_fixed,X_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
-        y_train_pred = model.predict(X_train)
+        y_train_pred = model.predict([X_train_fixed,X_train_variable])
         y_train_pred = y_train_pred.reshape(y_train_pred.shape[0])
         [r0_train,pval0_train] = pearsonr(y_train_pred,y_train)
         
-        y_predicted = model.predict(X_val)
+        y_predicted = model.predict([X_val_fixed,X_val_variable])
         y_predicted = y_predicted.reshape(y_predicted.shape[0])
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
