@@ -111,7 +111,7 @@ RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequenc
 ##########################start a model##########################
 ##########fixed part
 model_fixed = Sequential()
-model_fixed.add(Dense(help_nn,input_dim=19*len(chars),activation='tanh'))
+model_fixed.add(Dense(help_nn,input_dim=19*len(chars),activation='relu'))
 
 ##########recurrent part
 model_r = Sequential()
@@ -124,7 +124,7 @@ final_model = Sequential()
 final_model.add(merged)
 if help_nn>0:
     final_model.add(Dense(help_nn))
-    final_model.add(Activation('tanh'))
+    final_model.add(Activation('relu'))
 final_model.add(Dense(1))
 final_model.compile(loss=loss_function0, optimizer="adam")
 model = final_model

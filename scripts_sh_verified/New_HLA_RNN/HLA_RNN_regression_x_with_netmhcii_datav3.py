@@ -126,6 +126,8 @@ if help_nn>0:
     model.add(Activation('tanh'))
 model.add(Dense(1))
 model.compile(loss=loss_function0, optimizer="adam")
+json_string = model.to_json()
+open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
 # model.add(Dense(len(classes)))
 # model.add(Activation('softmax'))
 # model.compile(loss=loss_function0, optimizer='adam')
