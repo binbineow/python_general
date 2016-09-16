@@ -34,6 +34,7 @@ n_iteration = 30
 l2_value = 0
 drop_out_c = 0
 help_nn = 0
+act_fun = 'tanh'
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     line0 = line0.rstrip()
@@ -81,6 +82,8 @@ for line0 in fileinput.input():
         l2_c = float(part2)
     if 'drop_out' in part1:
         drop_out_c = float(part2)
+    if 'activation' in part1:
+        act_fun = part2
         
         
  
@@ -111,7 +114,7 @@ RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequenc
 ##########################start a model##########################
 ##########fixed part
 model_fixed = Sequential()
-model_fixed.add(Dense(help_nn,input_dim=19*len(chars),activation='relu'))
+model_fixed.add(Dense(help_nn,input_dim=19*len(chars),activation=act_fun))
 
 ##########recurrent part
 model_r = Sequential()
@@ -124,7 +127,7 @@ final_model = Sequential()
 final_model.add(merged)
 if help_nn>0:
     final_model.add(Dense(help_nn))
-    final_model.add(Activation('relu'))
+    final_model.add(Activation(act_fun))
 final_model.add(Dense(1))
 final_model.compile(loss=loss_function0, optimizer="adam")
 model = final_model
@@ -262,7 +265,7 @@ def main():
         #print('Measured binding aff')
         #print(y_val[0:10])
         #save the model
-        if r0 > r_best:
+        if r0 > r_best+0.005:
             model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
             r_best = r0
 main()

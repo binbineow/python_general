@@ -35,8 +35,10 @@ l2_value = 0
 drop_out_c = 0
 help_nn = 0
 act_fun = 'tanh'
+input_info = ''
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
+    input_info = input_info + line0
     line0 = line0.rstrip()
     print(line0)
     #ideally add a line to remove spaces in each line
@@ -85,7 +87,7 @@ for line0 in fileinput.input():
     if 'activation' in part1:
         act_fun = part2
         
-        
+output_perf2([input_info])        
  
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
@@ -261,7 +263,7 @@ def main():
         #print('Measured binding aff')
         #print(y_val[0:100])
         #save the model
-        if r0 > r_best:
+        if r0 > r_best+0.005:
             model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
             r_best = r0
 
