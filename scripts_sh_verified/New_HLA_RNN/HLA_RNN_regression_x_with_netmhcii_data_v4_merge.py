@@ -235,7 +235,7 @@ def main():
     [X_train_fixed,X_train_variable] = split_x(X_train,19)
     [X_val_fixed,X_val_variable] = split_x(X_val,19)
     
-    
+    r_best = 0
     output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
     print('start training')
     for n0 in range(0,n_iteration+1):
@@ -256,12 +256,13 @@ def main():
         #save performance
         output_perf2([n0,r0_train,pval0_train,r0,pval0])
         #print performance
-        print([n0,r0_train,pval0_train,r0,pval0])
-        print('Predicted binding aff')
-        print(y_predicted[0:10])
-        print('Measured binding aff')
-        print(y_val[0:10])
+        #print([n0,r0_train,pval0_train,r0,pval0])
+        #print('Predicted binding aff')
+        #print(y_predicted[0:10])
+        #print('Measured binding aff')
+        #print(y_val[0:10])
         #save the model
-        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
-
+        if r0 > r_best:
+            model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+            r_best = r0
 main()

@@ -34,6 +34,7 @@ n_iteration = 30
 l2_value = 0
 drop_out_c = 0
 help_nn = 0
+act_fun = 'tanh'
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     line0 = line0.rstrip()
@@ -81,6 +82,8 @@ for line0 in fileinput.input():
         l2_c = float(part2)
     if 'drop_out' in part1:
         drop_out_c = float(part2)
+    if 'activation' in part1:
+        act_fun = part2
         
         
  
@@ -123,7 +126,7 @@ for _ in xrange(LAYERS-1):
 model.add(RNN)
 if help_nn>0:
     model.add(Dense(help_nn))
-    model.add(Activation('tanh'))
+    model.add(Activation(act_fun))
 model.add(Dense(1))
 model.compile(loss=loss_function0, optimizer="adam")
 json_string = model.to_json()
@@ -234,9 +237,10 @@ def main():
     y_train = np.array(y_train)
     output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
     print('start training')
+    r_best = 0
     for n0 in range(0,n_iteration+1):
         #fit    
-        print(y_train)
+        #print(y_train)
         model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0,validation_data=(X_val, y_val))      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
@@ -252,11 +256,13 @@ def main():
         output_perf2([n0,r0_train,pval0_train,r0,pval0])
         #print performance
         print([n0,r0_train,pval0_train,r0,pval0])
-        print('Predicted binding aff')
-        print(y_predicted[0:100])
-        print('Measured binding aff')
-        print(y_val[0:100])
+        #print('Predicted binding aff')
+        #print(y_predicted[0:100])
+        #print('Measured binding aff')
+        #print(y_val[0:100])
         #save the model
-        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+        if r0 > r_best:
+            model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+            r_best = r0
 
 main()
