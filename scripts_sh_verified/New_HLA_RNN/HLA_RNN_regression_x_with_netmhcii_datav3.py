@@ -215,6 +215,7 @@ def encoding_data(list0,MAXLEN):
     
 
 def main():
+    r0 = 0
     MAXLEN = 0
     [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
     
