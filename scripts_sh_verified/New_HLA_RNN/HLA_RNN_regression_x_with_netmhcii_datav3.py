@@ -17,6 +17,76 @@ from scipy.stats import pearsonr
 from keras.regularizers import l2, activity_l2
 #from keras.regularizers import l2,activity_l2
 
+##functions
+def encoding_line(str0, max_len):
+    #print(type(dict_aa['A']))
+    #print(type(list(dict_aa['A'])))
+    #print(type(max_len))
+    if len(str0) == 1:
+        coded0 = np.zeros(2)
+        if str0 == '0':
+            coded0[0] = 1
+        else:
+            coded0[1] = 1
+    else:
+        coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
+        for i,char0 in enumerate(str0):
+            coded0[i,:] = dict_aa[char0] 
+    #print(str0)
+    #print(coded0)
+    return coded0
+
+def encoding(matrix0, input0, len0):
+    for i, sentence in enumerate(input0):
+        matrix0[i] = encoding_line(sentence, len0)
+    return matrix0
+
+def output_perf2(list0):
+    touch_file(path_save+performance_file_name+'.txt')     
+    file_out = open(path_save+performance_file_name+'.txt','a')
+    for x in list0:
+        file_out.write(str(x)+'\t')
+    file_out.write('\n')
+    file_out.close()
+
+def shuffle_train(list1,list2):
+    from random import shuffle
+    # Given list1 and list2
+    list1_shuf = []
+    list2_shuf = []
+    index_shuf = range(len(list1))
+    shuffle(index_shuf)
+    for i in index_shuf:
+        list1_shuf.append(list1[i])
+        list2_shuf.append(list2[i])
+    return [list1_shuf,list2_shuf]
+
+#you probably don't need this
+#AUC evaluation is potentially dsired
+def calf1(str1,str2):
+    pre0 = float(str1)
+    recall0 = float(str2)
+    f1_out = 2.0*pre0*recall0/(pre0+recall0)
+    return str(f1_out)
+
+def read_data(path_file0):
+    #read
+    X_0 = []
+    y_0 = []
+    max_len0 = 0
+    for line0 in open(path_file0,'r'):
+        line0 = line0.rstrip().split('\t')
+        X_0.append(line0[0])
+        y_0.append(float(line0[1]))
+        max_len0 = max(max_len0,len(line0[0]))
+    return [X_0,y_0,max_len0]
+
+def encoding_data(list0,MAXLEN):
+    #encoding   
+    X_0_m = np.zeros((len(list0), MAXLEN, len(chars)))
+    X_encoded = encoding(X_0_m,list0,MAXLEN)
+    return X_encoded
+
 ############################default value##############################
 ##################import coding path and dictionaries#####################
 path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
@@ -142,74 +212,7 @@ open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
-def encoding_line(str0, max_len):
-    #print(type(dict_aa['A']))
-    #print(type(list(dict_aa['A'])))
-    #print(type(max_len))
-    if len(str0) == 1:
-        coded0 = np.zeros(2)
-        if str0 == '0':
-            coded0[0] = 1
-        else:
-            coded0[1] = 1
-    else:
-        coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
-        for i,char0 in enumerate(str0):
-            coded0[i,:] = dict_aa[char0] 
-    #print(str0)
-    #print(coded0)
-    return coded0
 
-def encoding(matrix0, input0, len0):
-    for i, sentence in enumerate(input0):
-        matrix0[i] = encoding_line(sentence, len0)
-    return matrix0
-
-def output_perf2(list0):
-    touch_file(path_save+performance_file_name+'.txt')     
-    file_out = open(path_save+performance_file_name+'.txt','a')
-    for x in list0:
-        file_out.write(str(x)+'\t')
-    file_out.write('\n')
-    file_out.close()
-
-def shuffle_train(list1,list2):
-    from random import shuffle
-    # Given list1 and list2
-    list1_shuf = []
-    list2_shuf = []
-    index_shuf = range(len(list1))
-    shuffle(index_shuf)
-    for i in index_shuf:
-        list1_shuf.append(list1[i])
-        list2_shuf.append(list2[i])
-    return [list1_shuf,list2_shuf]
-
-#you probably don't need this
-#AUC evaluation is potentially dsired
-def calf1(str1,str2):
-    pre0 = float(str1)
-    recall0 = float(str2)
-    f1_out = 2.0*pre0*recall0/(pre0+recall0)
-    return str(f1_out)
-
-def read_data(path_file0):
-    #read
-    X_0 = []
-    y_0 = []
-    max_len0 = 0
-    for line0 in open(path_file0,'r'):
-        line0 = line0.rstrip().split('\t')
-        X_0.append(line0[0])
-        y_0.append(float(line0[1]))
-        max_len0 = max(max_len0,len(line0[0]))
-    return [X_0,y_0,max_len0]
-
-def encoding_data(list0,MAXLEN):
-    #encoding   
-    X_0_m = np.zeros((len(list0), MAXLEN, len(chars)))
-    X_encoded = encoding(X_0_m,list0,MAXLEN)
-    return X_encoded
 
         
     
