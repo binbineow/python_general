@@ -34,6 +34,8 @@ weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_final_hnn0_l20.1_d0.2_reluv2
 #patients excluded
 #length_max
 max0 = 74
+max0 = 56
+
 #aa encoding
 dict_name='Blosum50_sparse.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
@@ -170,7 +172,7 @@ def get_len(list0):
 def clean_list(list0):
     list_out = []
     for x in list0:
-        if not 'o' in x:
+        if not 'o' in x and len(x)<=max0:
             list_out.append(x)
     return list_out
 
