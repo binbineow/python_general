@@ -87,6 +87,8 @@ def import_model(path_model,model_name0,weight_name0):
 
 ##list1,2 are two possible binding probabilities give two potential MHC types
 def cal_percentile_from2lists(list1,list2,distr1,distr2):
+    distr1 = list(distr1.flat)
+    distr2 = list(distr2.flat)
     list_out = []
     for n0 in range(0,len(list1)):
         #val1 = percentileofscore(np.array(distr1), list1[n0])
@@ -150,7 +152,6 @@ def predict_with_rnn(model0,list_pos,list_neg,mhc1,mhc2):
     list_neg_1 = encoding_data(list_neg_1, max0)
     list_neg_2 = encoding_data(list_neg_2, max0)
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size).flat)
-    print(val_pos_1)
     val_pos_2 = list(model0.predict_proba(list_pos_2,batch_size=b_size).flat)
     val_neg_1 = list(model0.predict_proba(list_neg_1,batch_size=b_size).flat)
     val_neg_2 = list(model0.predict_proba(list_neg_2,batch_size=b_size).flat)
