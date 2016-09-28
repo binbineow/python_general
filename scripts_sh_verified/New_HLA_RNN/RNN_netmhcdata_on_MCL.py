@@ -100,7 +100,7 @@ def get_max_list_from2lists(list1,list2):
     return list_out
         
 
-def cal_auc_from2lists(pos_list,neg_list):
+def cal_auc_from2lists(post_list,neg_list):
     list_values = np.concatenate((post_list,neg_list))
     list_true = np.concatenate((np.ones(len(post_list)),np.zeros(len(neg_list))))
     auc_val = roc_auc_score(list_true, list_values)
@@ -202,7 +202,7 @@ def process_data(model_rnn,file_name0):
     print('start prediction')
     for pid0 in patient_target:
         if not pid0 in done_list:
-            print(pid0)
+            #print(pid0)
             mhc1 = MCL_data[pid0]['HLA_typing'][-1]
             mhc2 = MCL_data[pid0]['HLA_typing'][-2]
             dict_pos = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.pos.dict','r'))
