@@ -39,10 +39,11 @@ dict_name='Blosum50_sparse.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
 ###determine the encoding size
 chars = dict_aa['A']
-
+##batch_size
+b_size = 128
 
 #ouptu file
-file_name_out = path_pep+'rnn_nemhc_data_on_mcl_v1.txt'
+file_name_out = path_pep+'rnn_nemhc_data_on_mcl_v2_sub.txt'
 
 #mhc_pseudosequence_dict
 mhc_dic = pickle.load(open(path_encoding+mhc_dict_file,'r'))
@@ -123,7 +124,7 @@ def make_random_dict(model0,mhc_set,len_list,file_name0=path_save+'random_pep_by
         list_random.append(neg0)
     for mhc0 in mhc_set:
         list_with_seq = encoding_data(add_mhc_to_peplist(mhc0, list_random),max0)
-        list_val_p = model0.predict_proba(list_with_seq)
+        list_val_p = model0.predict_proba(list_with_seq,batch_size=b_size)
         dict_random_mhc[mhc0] = list_val_p
     pickle.dump(dict_random_mhc,open(file_name0,'w+'))
     print('dcit_random_mhc is saved at '+file_name0)
@@ -144,10 +145,10 @@ def predict_with_rnn(model0,list_pos,list_neg,mhc1,mhc2):
     list_pos_2 = encoding_data(list_pos_2, max0)
     list_neg_1 = encoding_data(list_neg_1, max0)
     list_neg_2 = encoding_data(list_neg_2, max0)
-    val_pos_1 = model0.predict_proba(list_pos_1)
-    val_pos_2 = model0.predict_proba(list_pos_2)
-    val_neg_1 = model0.predict_proba(list_neg_1)
-    val_neg_2 = model0.predict_proba(list_neg_2)
+    val_pos_1 = model0.predict_proba(list_pos_1,batch_size=b_size)
+    val_pos_2 = model0.predict_proba(list_pos_2,batch_size=b_size)
+    val_neg_1 = model0.predict_proba(list_neg_1,batch_size=b_size)
+    val_neg_2 = model0.predict_proba(list_neg_2,batch_size=b_size)
     val_pos = get_max_list_from2lists(val_pos_1, val_pos_2)
     val_neg = get_max_list_from2lists(val_neg_1, val_neg_2)
     return val_pos,val_neg,val_pos_1,val_pos_2,val_neg_1,val_neg_2
@@ -167,13 +168,14 @@ def process_data(model_rnn,file_name0):
     #dict_neg = defaultdict(defaultdict)
     #write training data into a txt file
     patient_target = []
-    done_list = []
-    patient_target = ['MCL019']
+    done_list = ['MCL019']
+    patient_target = ['MCL001']
     output_string = ''
     if len(patient_target)<1:
         patient_target = MCL_data['pid']['pid']
     #get mhc_set   
     #create 10000 random peptide sequence lenth 
+    '''
     mhc_set = set()
     len_list = []
     for pid0 in MCL_data['pid']['pid']:
@@ -188,13 +190,15 @@ def process_data(model_rnn,file_name0):
     
     #create random peptide dictioanry based on mhc type
     dict_random = make_random_dict(model_rnn,mhc_set,len_list)
+    '''
+    dict_random = pickle.load(open('/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/random_pep_by_mhc.dict','r'))
     print('start prediction')
     for pid0 in patient_target:
         if not pid0 in done_list:
             mhc1 = MCL_data[pid0]['HLA_typing'][-1]
             mhc2 = MCL_data[pid0]['HLA_typing'][-2]
-            dict_pos = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.pos.dict','w+'))
-            dict_neg = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.neg.dict','w+'))
+            dict_pos = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.pos.dict','r'))
+            dict_neg = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.neg.dict','r'))
             if len(dict_pos)>1:
                 list_pos = get_key_list_from_dict(dict_pos)
                 list_neg = get_key_list_from_dict(dict_neg)
