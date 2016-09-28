@@ -226,6 +226,7 @@ def process_data(model_rnn,file_name0):
                 str0 = pid0+','+mhc1+','+mhc2+','+str(auc_raw)+','+str(auc_percent)+'\n'
                 print(str0)
                 output_string = output_string + str0
+    return output_string
 
 def main(file_name_out):
     model_rnn = import_model(path_model, model_name0, weight_name0)
