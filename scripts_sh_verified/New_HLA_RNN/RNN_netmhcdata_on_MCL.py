@@ -32,6 +32,14 @@ path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_mod
 model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_final_hnn0_l20.1_d0.2_reluv2_model.json'
 weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_final_hnn0_l20.1_d0.2_reluv2_weight.h5'
 #patients excluded
+#length_max
+max0 = 56
+#aa encoding
+dict_name='Blosum50_sparse.dict'
+dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
+###determine the encoding size
+chars = dict_aa['A']
+
 
 #ouptu file
 file_name_out = path_pep+'rnn_nemhc_data_on_mcl_v1.txt'
@@ -39,6 +47,35 @@ file_name_out = path_pep+'rnn_nemhc_data_on_mcl_v1.txt'
 #mhc_pseudosequence_dict
 mhc_dic = pickle.load(open(path_encoding+mhc_dict_file,'r'))
 
+##functions
+def encoding_line(str0, max_len):
+    #print(type(dict_aa['A']))
+    #print(type(list(dict_aa['A'])))
+    #print(type(max_len))
+    if len(str0) == 1:
+        coded0 = np.zeros(2)
+        if str0 == '0':
+            coded0[0] = 1
+        else:
+            coded0[1] = 1
+    else:
+        coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
+        for i,char0 in enumerate(str0):
+            coded0[i,:] = dict_aa[char0] 
+    #print(str0)
+    #print(coded0)
+    return coded0
+
+def encoding(matrix0, input0, len0):
+    for i, sentence in enumerate(input0):
+        matrix0[i] = encoding_line(sentence, len0)
+    return matrix0
+
+def encoding_data(list0,MAXLEN):
+    #encoding   
+    X_0_m = np.zeros((len(list0), MAXLEN, len(chars)))
+    X_encoded = encoding(X_0_m,list0,MAXLEN)
+    return X_encoded
 
 def import_model(path_model,model_name0,weight_name0):
     model_name0 = path_model+ model_name0
