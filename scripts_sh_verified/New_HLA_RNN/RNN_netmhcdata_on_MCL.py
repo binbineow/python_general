@@ -10,6 +10,7 @@ from keras.regularizers import l2, activity_l2
 from sklearn.metrics import roc_auc_score
 from collections import defaultdict
 from random import shuffle
+import random
 
 #parameters
 #folder where pid -> strings dicts are saved
@@ -136,6 +137,7 @@ def process_data(model_rnn,file_name0):
     for pid0 in MCL_data['pid']['pid']:
         mhc_set.add(MCL_data[pid0]['HLA_typing'][-1])
         mhc_set.add(MCL_data[pid0]['HLA_typing'][-2])
+        rand0 = random.randint(0,len_one)
         len_list.extend(get_len(MCL_data[pid0]['MHC2_frag']))
     #shuffle len_list
     shuffle(len_list)
