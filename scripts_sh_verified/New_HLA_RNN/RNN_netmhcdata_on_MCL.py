@@ -187,7 +187,7 @@ def process_data(model_rnn,file_name0):
     patient_target = []
     done_list = ['MCL019']
     patient_target = ['MCL001']
-    #patient_target = []
+    patient_target = []
     output_string = ''
     if len(patient_target)<1:
         patient_target = MCL_data['pid']['pid']
