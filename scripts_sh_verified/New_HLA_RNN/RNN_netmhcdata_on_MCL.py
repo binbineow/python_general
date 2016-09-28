@@ -202,6 +202,7 @@ def process_data(model_rnn,file_name0):
     print('start prediction')
     for pid0 in patient_target:
         if not pid0 in done_list:
+            print(pid0)
             mhc1 = MCL_data[pid0]['HLA_typing'][-1]
             mhc2 = MCL_data[pid0]['HLA_typing'][-2]
             dict_pos = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.pos.dict','r'))
