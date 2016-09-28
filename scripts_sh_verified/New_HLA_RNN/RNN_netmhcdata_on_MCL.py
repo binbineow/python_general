@@ -150,7 +150,7 @@ def predict_with_rnn(model0,list_pos,list_neg,mhc1,mhc2):
     list_neg_1 = encoding_data(list_neg_1, max0)
     list_neg_2 = encoding_data(list_neg_2, max0)
     val_pos_1 = model0.predict_proba(list_pos_1,batch_size=b_size)
-    print(val_pos_1)
+    print(str(val_pos_1.shape))
     val_pos_2 = model0.predict_proba(list_pos_2,batch_size=b_size)
     val_neg_1 = model0.predict_proba(list_neg_1,batch_size=b_size)
     val_neg_2 = model0.predict_proba(list_neg_2,batch_size=b_size)
