@@ -119,7 +119,7 @@ def add_mhc_to_peplist(mhc0,list0):
     mhc_seq0 = mhc_dic[mhc0]
     #print(mhc_seq0)
     for x in list0:
-        print(mhc_seq0+x)
+        #print(mhc_seq0+x)
         list_out.append(mhc_seq0+x)
     return list_out
 
