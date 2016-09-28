@@ -69,8 +69,6 @@ def encoding_line(str0, max_len):
 
 def encoding(matrix0, input0, len0):
     for i, sentence in enumerate(input0):
-        if 'o' in sentence:
-            print(sentence)
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
@@ -161,6 +159,13 @@ def get_len(list0):
         list_out.append(len(x))
     return list_out
 
+def clean_list(list0):
+    list_out = []
+    for x in list0:
+        if not 'o' in x:
+            list_out.append(x)
+    return list_out
+
 def process_data(model_rnn,file_name0):
     MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
     #dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
@@ -203,7 +208,9 @@ def process_data(model_rnn,file_name0):
             dict_neg = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.neg.dict','r'))
             if len(dict_pos)>1:
                 list_pos = get_key_list_from_dict(dict_pos)
+                list_pos = clean_list(list_pos)
                 list_neg = get_key_list_from_dict(dict_neg)
+                list_neg = clean_list(list_neg)
                 [val_pos,val_neg,val_pos_1,val_pos_2,val_neg_1,val_neg_2] = predict_with_rnn(model_rnn,list_pos,list_neg,mhc1,mhc2)
                 auc_raw = cal_auc_from2lists(val_pos,val_neg)
                 val_pos_per = cal_percentile_from2lists(val_pos_1,val_pos_2,dict_random[mhc1],dict_random[mhc2])
