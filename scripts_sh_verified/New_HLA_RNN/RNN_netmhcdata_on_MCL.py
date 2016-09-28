@@ -94,7 +94,7 @@ def cal_percentile_from2lists(list1,list2,distr1,distr2):
         #val1 = percentileofscore(np.array(distr1), list1[n0])
         #val1 = percentileofscore(distr1, list1[n0])
         #print(val1)
-        print(list1[n0])
+        #print(list1[n0])
         max0 = max(percentileofscore(distr1, list1[n0]),percentileofscore(distr2, list2[n0]))
         list_out.append(max0)
     return list_out
