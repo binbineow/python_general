@@ -87,6 +87,7 @@ def make_random_dict(model0,mhc_set,len_list,file_name0=path_save+'random_pep_by
         list_val_p = model0.predict_proba(list_with_seq)[:,1]
         dict_random_mhc[mhc0] = list_val_p
     pickle.dump(dict_random_mhc,open(file_name0,'w+'))
+    print('dcit_random_mhc is saved at '+file_name0)
     return dict_random_mhc
 
 def get_key_list_from_dict(dict0):
@@ -144,6 +145,7 @@ def process_data(model_rnn,file_name0):
     
     #create random peptide dictioanry based on mhc type
     dict_random = make_random_dict(model_rnn,mhc_set,len_list)
+    print('start prediction')
     for pid0 in patient_target:
         if not pid0 in done_list:
             mhc1 = MCL_data[pid0]['HLA_typing'][-1]
@@ -159,6 +161,7 @@ def process_data(model_rnn,file_name0):
                 val_neg_per = cal_percentile_from2lists(val_neg_1,val_neg_2,dict_random[mhc1],dict_random[mhc2])
                 auc_percent = cal_auc_from2lists(val_pos_per,val_neg_per)
                 str0 = pid0+','+mhc1+','+mhc2+','+str(auc_raw)+','+str(auc_percent)+'\n'
+                print(str0)
                 output_string = output_string + str0
 
 def main(file_name_out):
