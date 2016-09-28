@@ -123,7 +123,7 @@ def make_random_dict(model0,mhc_set,len_list,file_name0=path_save+'random_pep_by
         list_random.append(neg0)
     for mhc0 in mhc_set:
         list_with_seq = encoding_data(add_mhc_to_peplist(mhc0, list_random),max0)
-        list_val_p = model0.predict_proba(list_with_seq)[:,1]
+        list_val_p = model0.predict_proba(list_with_seq)
         dict_random_mhc[mhc0] = list_val_p
     pickle.dump(dict_random_mhc,open(file_name0,'w+'))
     print('dcit_random_mhc is saved at '+file_name0)
@@ -144,10 +144,10 @@ def predict_with_rnn(model0,list_pos,list_neg,mhc1,mhc2):
     list_pos_2 = encoding_data(list_pos_2, max0)
     list_neg_1 = encoding_data(list_neg_1, max0)
     list_neg_2 = encoding_data(list_neg_2, max0)
-    val_pos_1 = model0.predict_proba(list_pos_1)[:,1]
-    val_pos_2 = model0.predict_proba(list_pos_2)[:,1]
-    val_neg_1 = model0.predict_proba(list_neg_1)[:,1]
-    val_neg_2 = model0.predict_proba(list_neg_2)[:,1]
+    val_pos_1 = model0.predict_proba(list_pos_1)
+    val_pos_2 = model0.predict_proba(list_pos_2)
+    val_neg_1 = model0.predict_proba(list_neg_1)
+    val_neg_2 = model0.predict_proba(list_neg_2)
     val_pos = get_max_list_from2lists(val_pos_1, val_pos_2)
     val_neg = get_max_list_from2lists(val_neg_1, val_neg_2)
     return val_pos,val_neg,val_pos_1,val_pos_2,val_neg_1,val_neg_2
