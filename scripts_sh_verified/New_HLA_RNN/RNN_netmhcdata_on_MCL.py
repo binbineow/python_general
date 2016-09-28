@@ -138,7 +138,7 @@ def process_data(model_rnn,file_name0):
         mhc_set.add(MCL_data[pid0]['HLA_typing'][-2])
         len_list.extend(get_len(MCL_data[pid0]['MHC2_frag']))
     #shuffle len_list
-    len_list = shuffle(len_list)
+    shuffle(len_list)
     #get to first 10,000
     n0 = 10000
     len_list = len_list[0:n0]
