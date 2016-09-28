@@ -33,7 +33,7 @@ model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_final_hnn0_l20.1_d0.2_reluv2_
 weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_final_hnn0_l20.1_d0.2_reluv2_weight.h5'
 #patients excluded
 #length_max
-max0 = 56
+max0 = 74
 #aa encoding
 dict_name='Blosum50_sparse.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
@@ -122,7 +122,7 @@ def make_random_dict(model0,mhc_set,len_list,file_name0=path_save+'random_pep_by
         neg0 = onegenestr[rand0:rand0+len0]
         list_random.append(neg0)
     for mhc0 in mhc_set:
-        list_with_seq = add_mhc_to_peplist(mhc0, list_random)
+        list_with_seq = encoding_data(add_mhc_to_peplist(mhc0, list_random),max0)
         list_val_p = model0.predict_proba(list_with_seq)[:,1]
         dict_random_mhc[mhc0] = list_val_p
     pickle.dump(dict_random_mhc,open(file_name0,'w+'))
@@ -140,6 +140,10 @@ def predict_with_rnn(model0,list_pos,list_neg,mhc1,mhc2):
     list_pos_2 = add_mhc_to_peplist(mhc2,list_pos)
     list_neg_1 = add_mhc_to_peplist(mhc1,list_neg)
     list_neg_2 = add_mhc_to_peplist(mhc2,list_neg)
+    list_pos_1 = encoding_data(list_pos_1, max0)
+    list_pos_2 = encoding_data(list_pos_2, max0)
+    list_neg_1 = encoding_data(list_neg_1, max0)
+    list_neg_2 = encoding_data(list_neg_2, max0)
     val_pos_1 = model0.predict_proba(list_pos_1)[:,1]
     val_pos_2 = model0.predict_proba(list_pos_2)[:,1]
     val_neg_1 = model0.predict_proba(list_neg_1)[:,1]
