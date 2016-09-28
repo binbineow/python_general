@@ -82,7 +82,7 @@ def make_random_dict(model0,mhc_set,len_list,file_name0=path_save+'random_pep_by
     list_random = []
     for len0 in len_list:
         rand0 = random.randint(0,len_one)
-        neg0 = onegenestr[rand0:rand0+len(pos0)]
+        neg0 = onegenestr[rand0:rand0+len0]
         list_random.append(neg0)
     for mhc0 in mhc_set:
         list_with_seq = add_mhc_to_peplist(mhc0, list_random)
