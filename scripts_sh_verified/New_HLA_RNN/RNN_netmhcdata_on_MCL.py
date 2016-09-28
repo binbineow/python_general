@@ -69,7 +69,7 @@ def encoding_line(str0, max_len):
 
 def encoding(matrix0, input0, len0):
     for i, sentence in enumerate(input0):
-        if 'o' in stence:
+        if 'o' in sentence:
             print(sentence)
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
