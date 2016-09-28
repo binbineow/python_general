@@ -235,6 +235,7 @@ def main():
     
     y_val = np.array(y_val)
     MAXLEN = max(MAXLEN,maxlen0)
+    print('max='+str(MAXLEN))
     
     ########encoding
     X_train = encoding_data(X_train,MAXLEN)
