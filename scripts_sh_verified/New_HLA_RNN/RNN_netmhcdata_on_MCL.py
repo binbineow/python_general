@@ -115,8 +115,9 @@ def cal_auc_from2lists(post_list,neg_list):
 def add_mhc_to_peplist(mhc0,list0):
     list_out = []
     mhc_seq0 = mhc_dic[mhc0]
-    print(mhc_seq0)
+    #print(mhc_seq0)
     for x in list0:
+        print(mhc_seq0+x)
         list_out.append(mhc_seq0+x)
     return list_out
 
