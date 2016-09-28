@@ -45,7 +45,7 @@ chars = dict_aa['A']
 b_size = 128
 
 #ouptu file
-file_name_out = path_pep+'rnn_nemhc_data_on_mcl_v2_sub.txt'
+file_name_out = path_pep+'rnn_nemhc_data_on_mcl_v2_59andshorter.txt'
 
 #mhc_pseudosequence_dict
 mhc_dic = pickle.load(open(path_encoding+mhc_dict_file,'r'))
@@ -172,7 +172,7 @@ def get_len(list0):
 def clean_list(list0):
     list_out = []
     for x in list0:
-        if not 'o' in x and len(x)<=max0:
+        if not 'o' in x and len(x)<=max0-19:
             list_out.append(x)
     return list_out
 
