@@ -81,6 +81,7 @@ def make_random_dict(model0,mhc_set,len_list,file_name0=path_save+'random_pep_by
     len_one = len(onegenestr)
     list_random = []
     for len0 in len_list:
+        rand0 = random.randint(0,len_one)
         neg0 = onegenestr[rand0:rand0+len(pos0)]
         list_random.append(neg0)
     for mhc0 in mhc_set:
@@ -137,7 +138,6 @@ def process_data(model_rnn,file_name0):
     for pid0 in MCL_data['pid']['pid']:
         mhc_set.add(MCL_data[pid0]['HLA_typing'][-1])
         mhc_set.add(MCL_data[pid0]['HLA_typing'][-2])
-        rand0 = random.randint(0,len_one)
         len_list.extend(get_len(MCL_data[pid0]['MHC2_frag']))
     #shuffle len_list
     shuffle(len_list)
