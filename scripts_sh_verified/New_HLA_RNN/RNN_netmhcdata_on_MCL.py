@@ -115,6 +115,7 @@ def cal_auc_from2lists(post_list,neg_list):
 def add_mhc_to_peplist(mhc0,list0):
     list_out = []
     mhc_seq0 = mhc_dic[mhc0]
+    print(mhc_seq0)
     for x in list0:
         list_out.append(mhc_seq0+x)
     return list_out
@@ -182,7 +183,8 @@ def process_data(model_rnn,file_name0):
     #write training data into a txt file
     patient_target = []
     done_list = ['MCL019']
-    patient_target = []
+    patient_target = ['MCL001']
+    #patient_target = []
     output_string = ''
     if len(patient_target)<1:
         patient_target = MCL_data['pid']['pid']
