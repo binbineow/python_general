@@ -166,7 +166,7 @@ def process_data(model_rnn,file_name0):
 
 def main(file_name_out):
     model_rnn = import_model(path_model, model_name0, weight_name0)
-    output_str = process_data(model_rnn)
+    output_str = process_data(model_rnn,file_name_out)
     file_out = open(file_name_out,'w+')
     file_out.write(output_str)
     file_out.close()
