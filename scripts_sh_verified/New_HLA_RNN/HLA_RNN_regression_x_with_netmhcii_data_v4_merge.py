@@ -35,6 +35,7 @@ l2_value = 0
 drop_out_c = 0
 help_nn = 0
 act_fun = 'tanh'
+help_layer0 = 1
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     line0 = line0.rstrip()
@@ -84,6 +85,8 @@ for line0 in fileinput.input():
         drop_out_c = float(part2)
     if 'activation' in part1:
         act_fun = part2
+    if 'help_layer' in part1:
+        help_layer0 = int(part2)
         
         
  
@@ -125,7 +128,7 @@ merged = Merge([model_fixed, model_r],mode='concat')
 ###final
 final_model = Sequential()
 final_model.add(merged)
-if help_nn>0:
+for _ in range(0,help_layer0):
     final_model.add(Dense(help_nn))
     final_model.add(Activation(act_fun))
 final_model.add(Dense(1))
