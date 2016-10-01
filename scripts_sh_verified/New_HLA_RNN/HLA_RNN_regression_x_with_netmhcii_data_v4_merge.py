@@ -252,11 +252,11 @@ def main():
         model.fit([X_train_fixed,X_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0)      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
-        y_train_pred = model.predict([X_train_fixed,X_train_variable])
+        y_train_pred = model.predict([X_train_fixed,X_train_variable],batch_size=BATCH_SIZE)
         y_train_pred = y_train_pred.reshape(y_train_pred.shape[0])
         [r0_train,pval0_train] = pearsonr(y_train_pred,y_train)
         
-        y_predicted = model.predict([X_val_fixed,X_val_variable])
+        y_predicted = model.predict([X_val_fixed,X_val_variable],batch_size=BATCH_SIZE)
         y_predicted = y_predicted.reshape(y_predicted.shape[0])
         print(y_predicted)
         [r0, pval0] = pearsonr(y_predicted,y_val)
@@ -271,7 +271,7 @@ def main():
         #print(y_val[0:10])
         #save the model
         if r0 > r_best+0.005:
-            model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+            model.save_weights(path_save+file_name0+out_name+'iteration_'+str(n0)+'_weight.h5',overwrite=True)
             r_best = r0
 #print out parameteres
 output_perf2([input_info]) 
