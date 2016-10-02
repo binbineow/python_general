@@ -11,6 +11,7 @@ from sklearn.metrics import roc_auc_score
 from collections import defaultdict
 from random import shuffle
 import random
+from scipy.stats import pearsonr
 
 #parameters
 #folder where pid -> strings dicts are saved
@@ -34,7 +35,7 @@ weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.
 #patients excluded
 #length_max
 max0 = 74
-max0 = 56
+#max0 = 56
 
 #aa encoding
 dict_name='Sparse_only.dict'
@@ -242,10 +243,12 @@ def process_data(model_rnn,file_name0):
                 print(val_pos[0:20])
                 print('Positive predicted by NetMHCpanII')
                 print(pos_reference[0:20])
+                print('Pearson_regression for positive='+str(pearsonr(val_pos, pos_reference)[0]))
                 print('Negative predicted by RNN')
                 print(val_neg[0:20])
                 print('Negative predicted by NetMHCpanII')
-                print(neg_reference[0:20])                                
+                print(neg_reference[0:20]) 
+                print('Pearson_regression for negative='+str(pearsonr(val_neg, neg_reference)[0]))                               
                 auc_raw = cal_auc_from2lists(val_pos,val_neg)
                 val_pos_per = cal_percentile_from2lists(val_pos_1,val_pos_2,dict_random[mhc1],dict_random[mhc2])
                 val_neg_per = cal_percentile_from2lists(val_neg_1,val_neg_2,dict_random[mhc1],dict_random[mhc2])
