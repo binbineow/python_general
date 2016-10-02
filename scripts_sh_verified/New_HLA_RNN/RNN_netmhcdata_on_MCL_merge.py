@@ -197,7 +197,7 @@ def process_data(model_rnn,file_name0):
     #dict_neg = defaultdict(defaultdict)
     #write training data into a txt file
     patient_target = []
-    done_list = ['MCL019']
+    done_list = ['MCL019','MCL001']
     patient_target = ['MCL001']
     patient_target = []
     output_string = ''
