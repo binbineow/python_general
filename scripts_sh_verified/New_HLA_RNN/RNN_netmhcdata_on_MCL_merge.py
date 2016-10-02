@@ -34,7 +34,7 @@ weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.
 #patients excluded
 #length_max
 max0 = 74
-#max0 = 56
+max0 = 56
 
 #aa encoding
 dict_name='Sparse_only.dict'
@@ -45,7 +45,7 @@ chars = dict_aa['A']
 b_size = 128
 
 #ouptu file
-file_name_out = path_pep+'rnn_merged_nemhc_data_on_mcl_v1_74'
+file_name_out = path_pep+'rnn_merged_nemhc_data_on_mcl_v1_56'
 
 #mhc_pseudosequence_dict
 mhc_dic = pickle.load(open(path_encoding+mhc_dict_file,'r'))
