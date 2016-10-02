@@ -168,7 +168,11 @@ def predict_with_rnn(model0,list_pos,list_neg,mhc1,mhc2):
     val_neg = get_max_list_from2lists(val_neg_1, val_neg_2)
     return val_pos,val_neg,val_pos_1,val_pos_2,val_neg_1,val_neg_2
 
-
+def get_dict_nth_val(dict0,n0):
+    list_out = []
+    for _,val0 in dict0.iteritems():
+        list_out.append(val0[n0])
+    return list_out
 
 def get_len(list0):
     list_out = []
@@ -221,16 +225,27 @@ def process_data(model_rnn,file_name0):
     for pid0 in patient_target:
         if not pid0 in done_list:
             #print(pid0)
+            print(pid0)
             mhc1 = MCL_data[pid0]['HLA_typing'][-1]
             mhc2 = MCL_data[pid0]['HLA_typing'][-2]
             dict_pos = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.pos.dict','r'))
+            pos_reference = get_dict_nth_val(dict_pos, 0)
             dict_neg = pickle.load(open(path_pep+'netmhc_predict_'+pid0+'.neg.dict','r'))
+            neg_reference = get_dict_nth_val(dict_neg, 0)
             if len(dict_pos)>1:
                 list_pos = get_key_list_from_dict(dict_pos)
                 list_pos = clean_list(list_pos)
                 list_neg = get_key_list_from_dict(dict_neg)
                 list_neg = clean_list(list_neg)
                 [val_pos,val_neg,val_pos_1,val_pos_2,val_neg_1,val_neg_2] = predict_with_rnn(model_rnn,list_pos,list_neg,mhc1,mhc2)
+                print('Positive predicted by RNN')
+                print(val_pos[0,20])
+                print('Positive predicted by NetMHCpanII')
+                print(pos_reference[0,20])
+                print('Negative predicted by RNN')
+                print(val_neg[0,20])
+                print('Negative predicted by NetMHCpanII')
+                print(neg_reference[0,20])                                
                 auc_raw = cal_auc_from2lists(val_pos,val_neg)
                 val_pos_per = cal_percentile_from2lists(val_pos_1,val_pos_2,dict_random[mhc1],dict_random[mhc2])
                 val_neg_per = cal_percentile_from2lists(val_neg_1,val_neg_2,dict_random[mhc1],dict_random[mhc2])
