@@ -128,22 +128,6 @@ def add_mhc_to_peplist(mhc0,list0):
         list_out.append(mhc_seq0+x)
     return list_out
 
-def make_random_dict(model0,mhc_set,len_list,file_name0=path_save+'random_pep_by_mhc.dict'):
-    dict_random_mhc = dict()
-    onegenestr = pickle.load(open(one_gene_path,'r'))
-    len_one = len(onegenestr)
-    list_random = []
-    for len0 in len_list:
-        rand0 = random.randint(0,len_one)
-        neg0 = onegenestr[rand0:rand0+len0]
-        list_random.append(neg0)
-    for mhc0 in mhc_set:
-        list_with_seq = encoding_data(add_mhc_to_peplist(mhc0, list_random),max0)
-        list_val_p = model0.predict_proba(list_with_seq,batch_size=b_size)
-        dict_random_mhc[mhc0] = list_val_p
-    pickle.dump(dict_random_mhc,open(file_name0,'w+'))
-    print('dcit_random_mhc is saved at '+file_name0)
-    return dict_random_mhc
 
 def get_key_list_from_dict(dict0):
     list_out = []
@@ -201,7 +185,7 @@ def get_neg_from_pos(pos_data):
         list_neg.append(neg0) 
     return list_neg        
 
-def process_data(list0,model_rnn,file_name0):
+def process_data(list0,model_rnn):
     pos_data = get_v_pos_list(list0)
     print('Positive Ig Variable peptides recovered from MHCII='+str(len(pos_data)))
     neg_data = get_neg_from_pos(pos_data)
@@ -229,6 +213,7 @@ def process_data(list0,model_rnn,file_name0):
 
 def main(list0):
     model_rnn = import_model(path_model, model_name0, weight_name0)
+    process_data(list0, model_rnn)
 
 file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
 main(file_names_v)
