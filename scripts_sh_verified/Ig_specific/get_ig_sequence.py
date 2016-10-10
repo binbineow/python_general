@@ -159,7 +159,10 @@ def main(path0,mcl_file,file_pid,file_v_region,file_c_region):
     dict_mcl = pickle.load(open(path0+mcl_file))
     pid_list = get_list_from_file(path0+file_pid)
     [con_gene_list,con_seq_list] = get_c_region(path0+file_c_region)
+    print(con_gene_list)
     [list_var,dict_h,dict_l] = get_v_region(path0+file_v_region)
+    print(list_var)
+    print(dict_h)
     #get two pid -> mhc2 peptide dictionaries, two lists of variable regions, 
     #a list of constant region peptides,
     #a list non-Ig peptides 
