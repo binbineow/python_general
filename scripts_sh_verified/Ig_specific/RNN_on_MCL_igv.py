@@ -40,7 +40,7 @@ max0 = 74
 #max0 = 56
 
 #verbose
-vb=1
+vb0=1
 #aa encoding
 dict_name_for_output = 'SparseOnly'
 dict_name='aa_21_sparse_encoding.dict'
