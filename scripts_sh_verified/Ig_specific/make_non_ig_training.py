@@ -35,7 +35,7 @@ t_ratio = 1
 file_nonIG= 'MCL_all_nonIg.list'
 file_constant = 'MCL_all_IG_constant.list'
 filter9 = True
-gene_filter = ['B1N7B6','DKFZp686C15213']
+gene_filter = ['IGLL1', 'A2J1N5', 'HEL180', 'IGLC3', 'B1N7B6','DKFZp686C15213']
 
 #generating the random peptide sequence
 onegenestr = pickle.load(open(one_gene_path,'r'))

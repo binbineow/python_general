@@ -26,7 +26,7 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 #hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_nonIG_v2'
+version0 = '_nonIG_v3'
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
@@ -37,7 +37,7 @@ file_nonIG_gene =  'MCL_all_nonIG_gene.list'
 file_constant = 'MCL_all_IG_constant.list'
 filter9 = True
 
-gene_filter = ['B1N7B6','DKFZp686C15213']
+gene_filter = ['IGLL1', 'A2J1N5', 'HEL180', 'IGLC3', 'B1N7B6','DKFZp686C15213']
 
 #generating the random peptide sequence
 onegenestr = pickle.load(open(one_gene_path,'r'))
