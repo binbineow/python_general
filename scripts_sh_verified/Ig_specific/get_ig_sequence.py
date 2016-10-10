@@ -73,7 +73,7 @@ def get_ig_nonig(pid0,mhc2_frag,mhc2_gene,con_seq_list,list_var,v_h0,v_l0):
     list_l = []
     list_h = []
     list_c = []
-    set_any = []
+    set_any = set()
     num_h = 0
     num_l = 0
     for n0 in range(0,len(mhc2_frag)):
