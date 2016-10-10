@@ -195,16 +195,16 @@ def main(path0,file_pid,file_v_region,file_c_region):
     #output
     return [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c]
 
-def save_files(list0,list_names):
+def save_files(list0,list_names,path0):
     for n0 in range(0,len(list0)):
-        pickle.dump(list0[n0],open(list_names[n0],'w+'))
+        pickle.dump(list0[n0],open(path0+list_names[n0],'w+'))
     
     
 dict_mcl = pickle.load(open(path0+mcl_file))
 [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c] = main(path0,file_pid,file_v_region,file_c_region)
 list_files = ['MCL_all_nonIg.list','MCL_all_nonIG_gene.list','MCL_all_V_heavy.list','MCL_all_V_light.list','MCL_all_IG_constant.list']
 list0 = [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c]
-save_files(list0,list_files)
+save_files(list0,list_files,path0)
 #save the new MCL data
-pickle.dump(dict_mcl,open('MCL_data11_18_2015_10_9_2016v1.1.dict','w+'))
+pickle.dump(dict_mcl,open(path0+'MCL_data11_18_2015_10_9_2016v1.1.dict','w+'))
 
