@@ -212,7 +212,8 @@ def process_data(list0,model_rnn):
     print('start prediction')
     [val_pos,val_neg] = predict_with_rnn(model_rnn,pos_data,neg_data)
     auc_raw = cal_auc_from2lists(val_pos,val_neg)
-    print(file_name_out)
+    print('Model_used='+model_name0)
+    print('Weight_used='+weight_name0)
     print('AUC='+str(auc_raw))
 
 
