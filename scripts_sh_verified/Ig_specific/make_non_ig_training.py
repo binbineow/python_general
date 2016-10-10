@@ -16,7 +16,7 @@ import subprocess
 
 
 #folder for the main peptide data
-path0 = '/home/stanford/rbaltman/users/bchen45/data/MCL_data/'
+path0 = '/home/stanford/rbaltman/users/bchen45/data/MCL_data/ig_specific/'
 #folder for encoding dictionary
 path_encoding = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
 #file for random peptide sequence
