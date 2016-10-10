@@ -26,15 +26,17 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 #hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_nonIG_v1'
+version0 = '_nonIG_v2'
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
 t_ratio = 1
 #input file names
 file_nonIG= 'MCL_all_nonIg.list'
+file_nonIG_gene =  'MCL_all_nonIG_gene.list'
 file_constant = 'MCL_all_IG_constant.list'
 filter9 = True
+
 gene_filter = ['B1N7B6','DKFZp686C15213']
 
 #generating the random peptide sequence
@@ -42,9 +44,16 @@ onegenestr = pickle.load(open(one_gene_path,'r'))
 len_one = len(onegenestr)
 #read in data
 list_nonig=pickle.load(open(path0+file_nonIG))
+list_nonig_gene = pickle.load(open(path0+file_nonIG_gene))
 list_constant=pickle.load(open(path0+file_constant))
 
-
+def gene_filter_classifier(str0):
+    out0 = False
+    for x in gene_filter:
+        if str0 == x:
+            out0 = True
+            break
+    return out0
 
 def make_training(path_save,version0,list_nonig):        
     #set up file
@@ -56,8 +65,10 @@ def make_training(path_save,version0,list_nonig):
     #hla_seq = dict_hla[MCL_data[pid0]['HLA_typing'][-1]] + dict_hla[MCL_data[pid0]['HLA_typing'][-2]]
     #hla_seq2 = dict_hla[MCL_data[pid0]['HLA_typing'][-2]] + dict_hla[MCL_data[pid0]['HLA_typing'][-1]]
     #write in training file line by line
-    for pos0 in list_nonig:
-        if not filter9 or len(pos0)>8:
+    for n0 in range(0,len(list_nonig)):
+        pos0 = list_nonig[n0]
+        gene0 = list_nonig_gene
+        if (not filter9 or len(pos0)>8) and (not len(gene_filter)>0 or gene_filter_classifier(gene0)):
             file_out.write(pos0+'\t'+'1\n')
             n_train +=1
             for i in range(0,t_ratio):
