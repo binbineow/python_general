@@ -21,10 +21,10 @@ import subprocess
 #paths and files
 #folder for the main peptide data
 path0 = '/home/stanford/rbaltman/users/bchen45/data/MCL_data/ig_specific/'
-mcl_file = ''
+mcl_file = 'MCL_data11_18_2015v1.1.dict'
 file_v_region = 'MCL_IG_pep_seqs.csv'
 file_c_region = 'ig_constant_region.txt'
-file_pid = 'traget_patient.txt'
+file_pid = 'target_patient_test.txt'
 
 #helping Function
 def get_list_from_file(file_name0):
@@ -166,6 +166,15 @@ def main(path0,mcl_file,file_v_region,file_c_region,file_pid):
     [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c] = get_mhc_seq(dict_mcl,pid_list,con_seq_list,list_var,dict_h,dict_l)
     #output
     return [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c]
+
+def save_files(list0,list_names):
+    for n0 in range(0,len(list0)):
+        pickle.dump(list0[n0],open(list_names[n0],'w+'))
+    
     
 
 [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c] = main(path0,mcl_file,file_v_region,file_c_region,file_pid)
+list_files = ['MCL_all_nonIg.list','MCL_all_nonIG_gene.list','MCL_all_V_heavy.list','MCL_all_V_light.list','MCL_all_IG_constant.list']
+list0 = [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c]
+save_files(list0,list_files)
+
