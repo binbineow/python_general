@@ -169,7 +169,7 @@ def get_mhc_seq(dict_mcl,pid_list,con_seq_list,list_var,dict_h,dict_l):
         [list_add,list_add_gene] = get_nonredun_frag(list_allnonig, list_nonig, list_nonig_gene)
         list_allnonig.extend(list_add)
         list_allnonig_gene.extend(list_add_gene)
-    
+    print(list_allnonig[0:10])
     #get rid of potential containmated IgV sequences 
     [list_allnonig, list_allnonig_gene] = get_rid_of_str0_in_list(list_allnonig,list_allnonig_gene,list_var)
         
