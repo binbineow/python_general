@@ -139,8 +139,7 @@ def get_rid_of_str0_in_list(list1,list1_gene,list_filter):
             list_out_gene.append(list1_gene[n0])
             print(list1[n0])
             print(list1_gene[n0])
-
-
+    return [list_out,list_out_gene]
 
 # get dictionaries and lists of variable regions and non-Ig peptides
 def get_mhc_seq(dict_mcl,pid_list,con_seq_list,list_var,dict_h,dict_l):
