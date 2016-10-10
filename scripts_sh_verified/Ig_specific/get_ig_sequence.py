@@ -134,9 +134,10 @@ def get_rid_of_str0_in_list(list1,list1_gene,list_filter):
     list_out = []
     list_out_gene = []
     for n0 in range(0,len(list1)):
-        if is_in_list(list1[n0],list_filter):
+        if not is_in_list(list1[n0],list_filter):
             list_out.append(list1[n0])
             list_out_gene.append(list1_gene[n0])
+        else:
             print(list1[n0])
             print(list1_gene[n0])
     return [list_out,list_out_gene]
