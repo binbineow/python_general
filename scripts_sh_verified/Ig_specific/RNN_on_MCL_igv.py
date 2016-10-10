@@ -24,6 +24,7 @@ path_encoding = '/home/stanford/rbaltman/users/bchen45/code/python_general/encod
 #file for random peptide sequence
 one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/human_proteinome_oneline.str'
 onegenestr = pickle.load(open(one_gene_path,'r'))
+len_one = len(onegenestr)
 #training and validation data save path
 path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
