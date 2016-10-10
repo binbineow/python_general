@@ -157,7 +157,7 @@ def get_mhc_seq(dict_mcl,pid_list,con_seq_list,list_var,dict_h,dict_l):
 def main(path0,mcl_file,file_v_region,file_c_region,file_pid):
     #load input
     dict_mcl = pickle.load(open(path0+mcl_file))
-    pid_list = get_list_from(path0+file_list)
+    pid_list = get_list_from_file(path0+file_list)
     [con_gene_list,con_seq_list] = get_c_region(path0+file_c_region)
     [list_var,dict_h,dict_l] = get_v_region
     #get two pid -> mhc2 peptide dictionaries, two lists of variable regions, 
