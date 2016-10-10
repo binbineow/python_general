@@ -172,7 +172,7 @@ def get_list_from_file(file_name0):
 def get_v_pos_list(list0):
     list_out = []
     for file0 in list0:
-        list_out.extend(get_list_from_file(file0))
+        list_out.extend(pickle.load(open(file0)))
     return list_out
 
 def get_neg_from_pos(pos_data):
