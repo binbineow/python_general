@@ -93,7 +93,7 @@ def get_ig_nonig(pid0,mhc2_frag,mhc2_gene,con_seq_list,list_var,v_h0,v_l0):
             is_ig = False
             for con0 in con_seq_list:
                 if frag0 in con0:
-                    list_l.append(frag0)
+                    list_c.append(frag0)
                     is_con = True
                     is_ig = True
                     break
