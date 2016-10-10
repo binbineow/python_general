@@ -162,7 +162,7 @@ def get_mhc_seq(dict_mcl,pid_list,con_seq_list,list_var,dict_h,dict_l):
         
         
 #main Function
-def main(path0,mcl_file,file_pid,file_v_region,file_c_region):
+def main(path0,file_pid,file_v_region,file_c_region):
     #load input
 
     pid_list = get_list_from_file(path0+file_pid)
