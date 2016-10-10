@@ -35,7 +35,7 @@ path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_mod
 model_name0 = 'hla_ii_train_val_nonIG_v3.txt_model.json'
 weight_name0 = 'hla_ii_train_val_nonIG_v3.txtnon_ig_v3_Sonly_n64_layer1_d0.3_l2_0.01_weight.h5'
 #sb model
-model_name0 = 'hla_ii_train_val_nonIG_v1.txt_model.json'
+model_name0 = 'hla_ii_train_val_nonIG_v3.txt_model.json'
 weight_name0 = 'hla_ii_train_val_nonIG_v1.txtnon_ig_v1_s+b_only_n64_layer1_d0.3_l2_0.01_weight.h5'
 #patients excluded
 #length_max
