@@ -2,7 +2,7 @@
 #this script takes in 
 #MCL_all_nonIg.list as training
 #MCL_all_IG_constant.list as validation
-#MCL_all_V_heavy.list and MCL_all_V_light.list as held-out test set （
+##MCL_all_V_heavy.list and MCL_all_V_light.list as held-out test set 
 #(don't need to processe here yet)
 #generate 1-> pos training 0 -> neg training
 #generate 3-> pos valdiation 2 -> neg validation
