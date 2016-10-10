@@ -164,7 +164,7 @@ def get_mhc_seq(dict_mcl,pid_list,con_seq_list,list_var,dict_h,dict_l):
 #main Function
 def main(path0,mcl_file,file_pid,file_v_region,file_c_region):
     #load input
-    dict_mcl = pickle.load(open(path0+mcl_file))
+
     pid_list = get_list_from_file(path0+file_pid)
     [con_gene_list,con_seq_list] = get_c_region(path0+file_c_region)
     #print('DNA Sequence data loaded')
@@ -186,8 +186,8 @@ def save_files(list0,list_names):
         pickle.dump(list0[n0],open(list_names[n0],'w+'))
     
     
-
-[list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c] = main(path0,mcl_file,file_pid,file_v_region,file_c_region)
+dict_mcl = pickle.load(open(path0+mcl_file))
+[list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c] = main(path0,file_pid,file_v_region,file_c_region)
 list_files = ['MCL_all_nonIg.list','MCL_all_nonIG_gene.list','MCL_all_V_heavy.list','MCL_all_V_light.list','MCL_all_IG_constant.list']
 list0 = [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c]
 save_files(list0,list_files)
