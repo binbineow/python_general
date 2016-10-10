@@ -67,6 +67,14 @@ def get_v_region(file_name0):
             dict_l[pid0] = l0
     return [list_v,dict_h,dict_l]
 
+def is_in_list(str0,list0):
+    out0 = False
+    for x in list0:
+        if str0 in x:
+            out0 = True
+            break
+    return out0
+
 def get_ig_nonig(pid0,mhc2_frag,mhc2_gene,con_seq_list,list_var,v_h0,v_l0):
     list_nonig = []
     list_nonig_gene = []
@@ -159,8 +167,10 @@ def main(path0,mcl_file,file_pid,file_v_region,file_c_region):
     dict_mcl = pickle.load(open(path0+mcl_file))
     pid_list = get_list_from_file(path0+file_pid)
     [con_gene_list,con_seq_list] = get_c_region(path0+file_c_region)
-    print('DNA Sequence data loaded')
+    #print('DNA Sequence data loaded')
     [list_var,dict_h,dict_l] = get_v_region(path0+file_v_region)
+    for n0 in range(0,len(con_gene_list)):
+        dict_mcl['Constant'][con_gene_list[n0]]=con_seq_list[n0]
     print('DNA Sequence data loaded')
     #print(list_var)
     #print(dict_h)
@@ -181,4 +191,6 @@ def save_files(list0,list_names):
 list_files = ['MCL_all_nonIg.list','MCL_all_nonIG_gene.list','MCL_all_V_heavy.list','MCL_all_V_light.list','MCL_all_IG_constant.list']
 list0 = [list_allnonig,list_allnonig_gene,list_all_h,list_all_l,list_all_c]
 save_files(list0,list_files)
+#save the new MCL data
+pickle.dump(dict_mcl,open('MCL_data11_18_2015_10_9_2016v1.1.dict','w+'))
 
