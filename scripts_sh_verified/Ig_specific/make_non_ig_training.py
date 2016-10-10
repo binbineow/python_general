@@ -66,7 +66,7 @@ def make_training(path_save,version0,list_nonig):
                 neg0 = ''.join(random.sample(pos0,len(pos0)))
                 file_out.write(neg0+'\t'+'0\n')
         else:
-            n_shrot +=1
+            n_short +=1
     file_out.close()
     print('Total_positive_examples='+str(n_train))
     print('Total_examples_excluded_due_to_short_length='+str(n_short))
@@ -93,7 +93,7 @@ def make_validation(path_save,version0,list_nonig):
                 neg0 = ''.join(random.sample(pos0,len(pos0)))
                 file_out.write(neg0+'\t'+'2\n')
         else:
-            n_shrot +=1
+            n_short +=1
     file_out.close()
     print('Total_positive_examples_for_validaiton='+str(n_train))
     print('Total_examples_excluded_due_to_short_length_for_validation='+str(n_short))
