@@ -24,7 +24,7 @@ path0 = '/home/stanford/rbaltman/users/bchen45/data/MCL_data/ig_specific/'
 mcl_file = 'MCL_data11_18_2015v1.1.dict'
 file_v_region = 'MCL_IG_pep_seqs.csv'
 file_c_region = 'ig_constant_region.txt'
-file_pid = 'target_patient_test.txt'
+file_pid = 'target_patient.txt'
 
 #helping Function
 def get_list_from_file(file_name0):
