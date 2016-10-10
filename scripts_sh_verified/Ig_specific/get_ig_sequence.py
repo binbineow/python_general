@@ -103,7 +103,7 @@ def get_ig_nonig(pid0,mhc2_frag,mhc2_gene,con_seq_list,list_var,v_h0,v_l0):
                 list_nonig_gene.append(gene0)
     #print out results
     print(pid0+','+str(num_h)+','+str(num_l))
-    return [list_c,list_h,list_l,listnonig,list_nonig_gene]
+    return [list_c,list_h,list_l,list_nonig,list_nonig_gene]
 
 def get_val_from_dict(dict0,make_set=True):
     list_val = []
