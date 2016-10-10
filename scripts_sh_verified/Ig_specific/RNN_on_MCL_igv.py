@@ -189,6 +189,7 @@ def get_neg_from_pos(pos_data):
 def process_data(list0,model_rnn):
     pos_data = get_v_pos_list(list0)
     print('Positive Ig Variable peptides recovered from MHCII='+str(len(pos_data)))
+    print(pos_data[0:10])
     neg_data = get_neg_from_pos(pos_data)
     print('Negative peptides='+str(len(neg_data)))
     #dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
