@@ -67,8 +67,8 @@ def make_training(path_save,version0,list_nonig):
     #write in training file line by line
     for n0 in range(0,len(list_nonig)):
         pos0 = list_nonig[n0]
-        gene0 = list_nonig_gene
-        if (not filter9 or len(pos0)>8) and (not len(gene_filter)>0 or gene_filter_classifier(gene0)):
+        gene0 = list_nonig_gene[n0]
+        if (not filter9 or len(pos0)>8) and (not len(gene_filter)>0 or not gene_filter_classifier(gene0)):
             file_out.write(pos0+'\t'+'1\n')
             n_train +=1
             for i in range(0,t_ratio):
