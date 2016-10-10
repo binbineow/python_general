@@ -54,7 +54,7 @@ def get_v_region(file_name0):
     list_v = []
     dict_h = dict()
     dict_l = dict()
-    for line0 in open(file_name0,'r'):
+    for line0 in open(file_name0,'rU'):
         line0 = line0.rstrip()
         if not 'Patient' in line0:
             line0 = line0.split(',')
