@@ -190,6 +190,7 @@ def process_data(list0,model_rnn):
     pos_data = get_v_pos_list(list0)
     print('Positive Ig Variable peptides recovered from MHCII='+str(len(pos_data)))
     neg_data = get_neg_from_pos(pos_data)
+    print('Negative peptides='+str(len(neg_data)))
     #dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
     #initiate the training set
     #set_train = set()
@@ -207,7 +208,7 @@ def process_data(list0,model_rnn):
     #create 10000 random peptide sequence lenth 
     #dict_random = pickle.load(open('/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/random_pep_by_mhc.dict','r'))
     print('start prediction')
-    [val_pos,val_neg] = predict_with_rnn(model_rnn,list_pos,list_neg)
+    [val_pos,val_neg] = predict_with_rnn(model_rnn,pos_data,neg_data)
     auc_raw = cal_auc_from2lists(val_pos,val_neg)
     print('AUC='+str(auc_raw))
 
