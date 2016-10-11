@@ -29,7 +29,7 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 mhc_dict_file = 'DRB1_pseudo_seq.dict'
 #path where the model is saved
-path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
+path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/old_model_weight_10_3/'
 model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3_sparseonly_model.json'
 weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3_sparseonly_weight.h5'
 #sparse
