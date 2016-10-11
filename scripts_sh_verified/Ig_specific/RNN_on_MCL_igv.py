@@ -37,6 +37,11 @@ weight_name0 = 'hla_ii_train_val_nonIG_v1.txtnon_ig_v1_s+b_only_n64_layer1_d0.3_
 #sb model
 #model_name0 = 'hla_ii_train_val_nonIG_v3.txt_model.json'
 #weight_name0 = 'hla_ii_train_val_nonIG_v1.txtnon_ig_v1_s+b_only_n64_layer1_d0.3_l2_0.01_weight.h5'
+#sonly
+model_name0 = 'hla_ii_train_val_nonIG_v2.txt_model.json'
+weight_name0 = 'hla_ii_train_val_nonIG_v2.txtnon_ig_v2_Sonly_n64_layer1_d0.3_l2_0.01_weight.h5'
+
+
 #patients excluded
 #length_max
 max0 = 74
