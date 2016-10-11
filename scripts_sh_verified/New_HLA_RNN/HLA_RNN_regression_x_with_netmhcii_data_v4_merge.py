@@ -271,7 +271,7 @@ def main():
         #print(y_val[0:10])
         #save the model
         if r0 > r_best+0.005:
-            model.save_weights(path_save+file_name0+out_name+'iteration_'+str(n0)+'_weight.h5',overwrite=True)
+            model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
             r_best = r0
 #print out parameteres
 output_perf2([input_info]) 

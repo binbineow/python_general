@@ -32,10 +32,13 @@ mhc_dict_file = 'DRB1_pseudo_seq.dict'
 path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
 model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3_sparseonly_model.json'
 weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3_sparseonly_weight.h5'
+#sparse
+model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_real1layer_l20.1_d0.3_Sonly_model.json'
+weight_name0 = 'regression_perf_chemsn64_merge_hnn64_real1layer_l20.1_d0.3_Sonly.txt'
 #patients excluded
 #length_max
-max0 = 74
-#max0 = 56
+#max0 = 74
+max0 = 56
 
 #aa encoding
 dict_name='Sparse_only.dict'
@@ -46,7 +49,7 @@ chars = dict_aa['A']
 b_size = 128
 
 #ouptu file
-file_name_out = path_pep+'rnn_merged_nemhc_data_on_mcl_v1_56'
+file_name_out = path_pep+'rnn_merged_nemhc_data_on_mcl_v1_56_sparse.csv'
 
 #mhc_pseudosequence_dict
 mhc_dic = pickle.load(open(path_encoding+mhc_dict_file,'r'))
