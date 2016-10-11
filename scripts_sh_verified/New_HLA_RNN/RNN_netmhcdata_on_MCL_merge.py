@@ -34,7 +34,7 @@ model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3
 weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3_sparseonly_weight.h5'
 #sparse
 model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_real1layer_l20.1_d0.3_Sonly_model.json'
-weight_name0 = 'regression_perf_chemsn64_merge_hnn64_real1layer_l20.1_d0.3_Sonly.txt'
+weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_real1layer_l20.1_d0.3_Sonly_weight.h5'
 #patients excluded
 #length_max
 #max0 = 74
