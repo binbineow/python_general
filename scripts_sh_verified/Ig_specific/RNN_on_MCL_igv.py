@@ -50,10 +50,10 @@ max0 = 74
 #verbose
 vb0=1
 #aa encoding
-dict_name_for_output = 'SparseOnly'
-dict_name='aa_21_sparse_encoding.dict'
-#dict_name_for_output = 'Sparse+BLOSUM50'
-#dict_name='Blosum50_sparse.dict'
+#dict_name_for_output = 'SparseOnly'
+#dict_name='aa_21_sparse_encoding.dict'
+dict_name_for_output = 'Sparse+BLOSUM50'
+dict_name='Blosum50_sparse.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
 ###determine the encoding size
 chars = dict_aa['A']
