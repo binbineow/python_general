@@ -232,7 +232,7 @@ def get_reco_map(mhc2_pos_data,seq_data):
 def print_list0(list0,del0):
     str0 = ''
     for x in list0:
-        str0=str(x)+del0
+        str0=str0+str(x)+','
     print(str0)
 
 def process_data(file_name0,mhc_file0,model_rnn):
