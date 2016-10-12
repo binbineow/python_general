@@ -264,5 +264,5 @@ def main(file_name0,mhc_file0,file_out):
 
 file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
 file_out = 'constantv1'
-main(pathig+file_name0,mhc_file0,pathig+file_out)
+main(pathig+file_name0,pathig+mhc_file0,pathig+file_out)
       
