@@ -31,8 +31,8 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 mhc_dict_file = 'DRB1_pseudo_seq.dict'
 #path where the model is saved
-path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
-#model_name0 = 'hla_ii_train_val_nonIG_v1.txtnon_ig_v1_BSonly_n64_layer1_d0.3_l2_0.1_hnn0_model.json'
+path_model = 'perf_non_ig_nonIG_v3non_ig_v3_Sonly_n64_layer1_d0.3_l2_0.01.txt'
+#model_name0 = 'hla_ii_train_val_nonIG_v3.txt_model.json'
 #weight_name0 = 'hla_ii_train_val_nonIG_v1.txtnon_ig_v1_s+b_only_n64_layer1_d0.3_l2_0.01_weight.h5'
 #sb model
 model_name0 = 'hla_ii_train_val_nonIG_v1.txtnon_ig_v1_BSonly_n64_layer1_d0.3_l2_0.1_hnn32_model.json'
@@ -50,10 +50,10 @@ max0 = 74
 #verbose
 vb0=1
 #aa encoding
-#dict_name_for_output = 'SparseOnly'
-#dict_name='aa_21_sparse_encoding.dict'
-dict_name_for_output = 'Sparse+BLOSUM50'
-dict_name='Blosum50_sparse.dict'
+dict_name_for_output = 'SparseOnly'
+dict_name='aa_21_sparse_encoding.dict'
+#dict_name_for_output = 'Sparse+BLOSUM50'
+#dict_name='Blosum50_sparse.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
 ###determine the encoding size
 chars = dict_aa['A']

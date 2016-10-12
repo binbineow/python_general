@@ -40,7 +40,7 @@ weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_real1layer_l20.1
 #max0 = 74
 max0 = 56
 
-#aa encoding
+#aa encodin
 dict_name='Sparse_only.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
 ###determine the encoding size
