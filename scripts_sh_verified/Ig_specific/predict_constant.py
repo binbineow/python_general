@@ -259,8 +259,8 @@ def process_data(file_name0,mhc_file0,model_rnn):
 def main(file_name0,mhc_file0,file_out):
     model_rnn = import_model(path_model, model_name0, weight_name0)
     [ighm_pred,ighm_reco] = process_data(file_name0,mhc_file0, model_rnn)
-    pickle.dump(ighm_pred,open(path_ig+file_out+'predicted.list'))
-    pickle.dump(ighm_reco,open(path_ig+file_out+'recovered.list'))
+    pickle.dump(ighm_pred,open(pathig+file_out+'predicted.list'))
+    pickle.dump(ighm_reco,open(pathig+file_out+'recovered.list'))
 
 file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
 file_out = 'constantv1.txt'
