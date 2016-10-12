@@ -150,15 +150,15 @@ def get_key_list_from_dict(dict0):
         list_out.append(key0)
     return list_out
 
-def predict_with_rnn(model0,list_pos,list_neg):
+def predict_with_rnn(model0,list_pos):
 
     list_pos_1 = encoding_data(list_pos, max0)
-    list_neg_1 = encoding_data(list_neg, max0)
+
     #list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size,verbose=vb0)[:,1])
-    val_neg_1 = list(model0.predict_proba(list_neg_1,batch_size=b_size,verbose=vb0)[:,1])
 
-    return val_pos_1,val_neg_1
+
+    return val_pos_1
 
 def get_len(list0):
     list_out = []
