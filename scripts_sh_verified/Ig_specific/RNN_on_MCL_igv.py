@@ -32,7 +32,7 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 mhc_dict_file = 'DRB1_pseudo_seq.dict'
 #path where the model is saved
 path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
-model_name0 = 'hla_ii_train_val_nonIG_v3.txt_model.json'
+model_name0 = 'hla_ii_train_val_nonIG_v3.txtnon_ig_v3_Sonly_n64_layer1_d0.3_l2_0.1_hnn32_model.json'
 weight_name0 = 'hla_ii_train_val_nonIG_v3.txtnon_ig_v3_Sonly_n64_layer1_d0.3_l2_0.01_weight.h5'
 #sb model
 #model_name0 = 'hla_ii_train_val_nonIG_v1.txtnon_ig_v1_BSonly_n64_layer1_d0.3_l2_0.1_hnn32_model.json'
