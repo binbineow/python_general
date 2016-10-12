@@ -229,7 +229,7 @@ def get_reco_map(mhc2_pos_data,seq_data):
             mark_list(list_out,index0,len(x))
     return list_out
             
-def print_list(list0,del0):
+def print_list0(list0,del0):
     str0 = ''
     for x in list0:
         str0=str(x)+del0
@@ -249,8 +249,8 @@ def process_data(file_name0,mhc_file0,model_rnn):
         ighm_pred = val_pos[i]
     print('Model_used='+model_name0)
     print('Weight_used='+weight_name0)
-    print_list(list(ighm_pred),',')
-    print_list(list(ighm_reco),',')
+    print_list0(list(ighm_pred),',')
+    print_list0(list(ighm_reco),',')
     return list(ighm_pred), list(ighm_reco)
 
 
