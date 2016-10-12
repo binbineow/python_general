@@ -227,7 +227,7 @@ def get_reco_map(mhc2_pos_data,seq_data):
         index0 = seq_data.find(x)
         if index0 > 0:
             mark_list(list_out,index0,len(x))
-    return list_out
+    print(list_out)
             
 def print_list0(list0,del0):
     str0 = ''
