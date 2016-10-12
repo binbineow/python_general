@@ -246,13 +246,13 @@ def process_data(file_name0,mhc_file0,model_rnn):
     print('start prediction')
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
-        ighm_pred = val_pos[i]
+        ighm_pred[i] = val_pos[i]
     print('Model_used='+model_name0)
     print('Weight_used='+weight_name0)
-    print(str(ighm_pred))
-    print(str(ighm_reco))
-    #print_list0(list(ighm_pred),',')
-    #print_list0(list(ighm_reco),',')
+    #print(str(ighm_pred))
+    #print(str(ighm_reco))
+    print_list0(list(ighm_pred),',')
+    print_list0(list(ighm_reco),',')
     return list(ighm_pred), list(ighm_reco)
 
 
