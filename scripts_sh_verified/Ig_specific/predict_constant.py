@@ -249,8 +249,10 @@ def process_data(file_name0,mhc_file0,model_rnn):
         ighm_pred = val_pos[i]
     print('Model_used='+model_name0)
     print('Weight_used='+weight_name0)
-    print_list0(list(ighm_pred),',')
-    print_list0(list(ighm_reco),',')
+    print(str(ighm_pred))
+    print(str(ighm_reco))
+    #print_list0(list(ighm_pred),',')
+    #print_list0(list(ighm_reco),',')
     return list(ighm_pred), list(ighm_reco)
 
 
