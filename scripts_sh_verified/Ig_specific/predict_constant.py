@@ -227,13 +227,13 @@ def get_reco_map(mhc2_pos_data,seq_data):
         index0 = seq_data.find(x)
         if index0 > 0:
             mark_list(list_out,index0,len(x))
-    print(list_out)
+    return list_out
             
 def print_list0(list0,del0):
     str0 = ''
     for x in list0:
         str0=str(x)+del0
-    return str0
+    print(str0)
 
 def process_data(file_name0,mhc_file0,model_rnn):
     seq_data = get_line_from_list(file_name0,'IGHM')
@@ -253,7 +253,7 @@ def process_data(file_name0,mhc_file0,model_rnn):
     #print(str(ighm_reco))
     print_list0(list(ighm_pred),',')
     print_list0(list(ighm_reco),',')
-    return list(ighm_pred), list(ighm_reco)
+    return [list(ighm_pred), list(ighm_reco)]
 
 
 def main(file_name0,mhc_file0,file_out):
@@ -264,5 +264,5 @@ def main(file_name0,mhc_file0,file_out):
 
 file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
 file_out = 'constantv1'
-main(pathig+file_name0,pathig+mhc_file0,file_out)
+main(pathig+file_name0,mhc_file0,pathig+file_out)
       
