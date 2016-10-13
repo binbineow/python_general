@@ -46,6 +46,9 @@ weight_name0 = 'hla_ii_train_val_nonIG_v3.txtnon_ig_v3_Sonly_n64_layer1_d0.3_l2_
 #length of framments
 n_frag = 15
 
+#whether to filter against NXT motifs
+is_filter_glyc = True
+
 #patients excluded
 #length_max
 max0 = 74
@@ -150,14 +153,22 @@ def get_key_list_from_dict(dict0):
         list_out.append(key0)
     return list_out
 
+def filter_glyc(list_seq,list0):
+    list_out = []
+    import re
+    for n0 in range(0,len(list0)):
+        if len(re.findall('N[^P]T|N[^P]S', list_seq[n0]))>0:
+            list_out.append(0)
+        else:
+            list_out.append(list0[n0])
+    return list_out
+
 def predict_with_rnn(model0,list_pos):
-
     list_pos_1 = encoding_data(list_pos, max0)
-
     #list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size,verbose=vb0)[:,1])
-
-
+    if is_filter_glyc:
+        val_pos_1 = filter_glyc(list_pos,val_pos_1)
     return val_pos_1
 
 def get_len(list0):
