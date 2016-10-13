@@ -163,10 +163,17 @@ def filter_glyc(list_seq,list0):
             list_out.append(list0[n0])
     return list_out
 
+def moving_average(a, n=n_frag) :
+    ret = np.cumsum(a, dtype=float)
+    ret[n:] = ret[n:] - ret[:-n]
+    return ret[n - 1:] / n
+
+
 def predict_with_rnn(model0,list_pos):
     list_pos_1 = encoding_data(list_pos, max0)
     #list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size,verbose=vb0)[:,1])
+    val_pos_1 = moving_average(val_pos_1)
     if is_filter_glyc:
         val_pos_1 = filter_glyc(list_pos,val_pos_1)
     return val_pos_1
@@ -253,7 +260,7 @@ def process_data(file_name0,mhc_file0,model_rnn):
     #pos_data = list(set(pos_data))
     mhc2_pos_data = pickle.load(open(mhc_file0))
     ighm_reco = get_reco_map(mhc2_pos_data,seq_data)
-    print('Positive Ig Variable peptides recovered from MHCII='+str(len(mhc_file0)))
+    print('Positive IGHM peptides recovered from MHCII='+str(len(mhc_file0)))
     print('start prediction')
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
