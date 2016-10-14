@@ -6,6 +6,8 @@ import cPickle as pickle
 import fileinput
 from collections import Counter
 from collections import defaultdict
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import numpy as np
 import subprocess
