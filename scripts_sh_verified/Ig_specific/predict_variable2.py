@@ -361,8 +361,8 @@ def main(file_name_pid,file_name0,file_out,chain0):
 #file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
 print('Model_used='+model_name0)
 print('Weight_used='+weight_name0)
-file_out = 'Heavy_v1'
+file_out = 'Light_v1'
 file_pid = 'target_patient.txt'
-chain0 = 'h'
+chain0 = 'l'
 main(pathig+file_pid,pathig+file_name0,pathig+file_out,chain0)
       
