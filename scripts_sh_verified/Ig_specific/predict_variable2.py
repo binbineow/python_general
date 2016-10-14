@@ -297,7 +297,7 @@ def count_region(list0,above_cut_off):
     return n0
                     
 
-def process_data(mhc_info,gene_info,model_rnn):
+def process_data(mhc_info,gene_info,model_rnn,pid0,chain0):
     seq_data = gene_info
     ighm_pred = [0]*len(seq_data)
     seq_frag = get_frag(seq_data,n_frag)
@@ -311,6 +311,7 @@ def process_data(mhc_info,gene_info,model_rnn):
         ighm_pred[i] = val_pos[i]
     n_pred = count_region(ighm_pred,0.1*scale0)
     n_reco = count_region(ighm_reco,1)
+    plot_2_lines(seq_pred,seq_reco,pid0+'_'+chain0.upper()+'_chain')
     #print('Model_used='+model_name0)
     #print('Weight_used='+weight_name0)
     #print(str(ighm_pred))
@@ -334,14 +335,14 @@ def main(file_name_pid,file_name0,file_out,chain0):
         mhc_info_h = dict_mcl[pid0]['Variable_'+chain0]
         gene_h = dict_mcl[pid0]['Variable_'+chain0+'_seq']
         list_h_reco_num.append(len(mhc_info_h))
-        [seq_pred,seq_reco,n_pred,n_reco] = process_data(mhc_info_h,gene_h, model_rnn)
+        [seq_pred,seq_reco,n_pred,n_reco] = process_data(mhc_info_h,gene_h, model_rnn,pid0,chain0)
         list_h_reco.append(n_reco)
         list_h_pred.append(n_pred)
         csv_out.write(pid0+', '+chain0.upper()+' chain\n')
         csv_out.write('Predicted,'+seq_pred+'\n')
         csv_out.write('Recovered,'+seq_reco+'\n')
         #add plotting function here
-        plot_2_lines(seq_pred,seq_reco,pid0+'_'+chain0.upper()+'_chain')
+        
         
     
     print('Spearman Correlation between predicted regions and recovered regions:')

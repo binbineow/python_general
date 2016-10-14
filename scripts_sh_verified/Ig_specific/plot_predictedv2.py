@@ -3,7 +3,7 @@ def plot_2_lines(y_pred,y_reco,name0,path0='/home/stanford/rbaltman/users/bchen4
     import matplotlib.pyplot as plt
     #example name0 = MCL001_H_chain
     len0 = len(y_pred) #len y1 = y2
-    x = np.linspace(1, len0+1, len0+1)
+    x = np.linspace(1, len0, len0)
     print(len(x))
     print(len(y_pred))
     print(len(y_reco))
