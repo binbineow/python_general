@@ -257,6 +257,6 @@ def main(list0):
     process_data(list0, model_rnn)
 
 file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
-file_names_v = [pathig+'MCL_all_IG_constant.list']
+#file_names_v = [pathig+'MCL_all_IG_constant.list']
 main(file_names_v)
       
