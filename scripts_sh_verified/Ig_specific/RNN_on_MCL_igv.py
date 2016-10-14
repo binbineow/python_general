@@ -150,7 +150,7 @@ def cal_auc_from2lists(post_list,neg_list):
     list_values = np.concatenate((post_list,neg_list))
     list_true = np.concatenate((np.ones(len(post_list)),np.zeros(len(neg_list))))
     auc_val = roc_auc_score(list_true, list_values)
-    optiomal0 = Find_Optimal_Cutoff(list_true, list_values)
+    optimal0 = Find_Optimal_Cutoff(list_true, list_values)
     print('Optimal threshold='+str(optimal0))
     return auc_val
 
