@@ -185,7 +185,7 @@ def predict_with_rnn(model0,list_pos):
     #list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size,verbose=vb0)[:,1])
     #add cut_off filter
-    val_pos_1 = [max(0,i-cut_off) for i in val_pos_1]
+    val_pos_1 = [max(0,i-cut_off0) for i in val_pos_1]
     #scale the list
     val_pos_1 = [i*scale0 for i in val_pos_1]
     #optional post-processing
