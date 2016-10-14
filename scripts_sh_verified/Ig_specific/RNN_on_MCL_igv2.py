@@ -289,8 +289,8 @@ def process_data(list0,model_rnn):
     val_pro = get_val_with_rnn(model_rnn, list_neg_pro)
     val_shuffle = get_val_with_rnn(model_rnn, list_neg_shuffle)
     print('Random peptides='+str(len(val_shuffle)))
-    print_top('Random peptides',val_pro,[0.05,0.01])
-    print_top('Shuffled peptides',val_shuffle,[0.05,0.01])
+    print_top('Random peptides',val_pro,[0.90,0.95,.99])
+    print_top('Shuffled peptides',val_shuffle,[0.90,0.95,0.99])
 
 
 
