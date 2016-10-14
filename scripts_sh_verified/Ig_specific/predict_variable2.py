@@ -307,7 +307,7 @@ def process_data(mhc_info,gene_info,model_rnn):
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
-    n_pred = count_region(ighm_pred,0.1*scale0)
+    n_pred = count_region(ighm_pred,0.15*scale0)
     n_reco = count_region(ighm_reco,1)
     #print('Model_used='+model_name0)
     #print('Weight_used='+weight_name0)
@@ -351,7 +351,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
     list_h_reco_num = print_list0(list_h_reco_num,',')
     csv_out.write('Summary\n')
     csv_out.write('Predicted,'+list_h_pred+'\n')
-    csv_out.write('Recovered region,'+list_h_pred+'\n')
+    csv_out.write('Recovered region,'+list_h_reco+'\n')
     csv_out.write('Recovered peptide,'+list_h_reco_num+'\n')
     
     csv_out.close()
