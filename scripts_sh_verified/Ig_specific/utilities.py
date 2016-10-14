@@ -1,7 +1,6 @@
 #update 11/23/2015
 import Levenshtein
 import os
-import matplotlib.pyplot as plt
 import cPickle as pickle
 import fileinput
 from collections import Counter
