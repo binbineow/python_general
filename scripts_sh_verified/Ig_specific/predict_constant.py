@@ -254,7 +254,7 @@ def print_list0(list0,del0):
     str0 = ''
     for x in list0:
         str0=str0+str(x)+','
-    print(str0)
+    return(str0)
 
 def process_data(file_name0,mhc_file0,model_rnn):
     seq_data = get_line_from_list(file_name0,'IGHM')
