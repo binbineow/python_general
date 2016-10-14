@@ -57,6 +57,9 @@ max0 = 74
 #cut_off for calling positive 
 cut_off0 = 0.4
 
+#scale for plotting
+scale0 = 100
+
 #verbose
 vb0=1
 #aa encoding
@@ -181,6 +184,10 @@ def predict_with_rnn(model0,list_pos):
     list_pos_1 = encoding_data(list_pos, max0)
     #list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size,verbose=vb0)[:,1])
+    #add cut_off filter
+    val_pos_1 = [max(0,i-cut_off) for i in val_pos_1]
+    #scale the list
+    val_pos_1 = [i*scale0 for i in val_pos_1]
     #optional post-processing
     val_pos_1 = moving_max(val_pos_1)
     if is_filter_glyc:
