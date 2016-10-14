@@ -64,7 +64,7 @@ chars = dict_aa['A']
 b_size = 128
 
 #cut_off for positive peptide calling
-cut_off = 0.4
+cut_off = 0.34
 
 #ouptu file
 file_name_out = path_model+'perf'+dict_name_for_output+'_variable_region_test.csv'
@@ -286,8 +286,8 @@ def process_data(list0,model_rnn):
     print('AUC='+str(auc_raw))
     test_data = pos_data*100
     [list_neg_pro,list_neg_shuffle] = get_neg_from_pos(test_data)
-    val_pro = get_val_with_rnn(model0, list_neg_pro)
-    val_shuffle = get_val_with_rnn(model0, list_neg_shuffle)
+    val_pro = get_val_with_rnn(model_rnn, list_neg_pro)
+    val_shuffle = get_val_with_rnn(model_rnn, list_neg_shuffle)
     print('Random peptides='+str(len(val_shuffle)))
     print_top('Random peptides',val_pro,[0.05,0.01])
     print_top('Shuffled peptides',val_shuffle,[0.05,0.01])
