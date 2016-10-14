@@ -179,6 +179,7 @@ def moving_max(a, n=n_frag):
     for n0 in range(0,len(a)+n_frag):
         max0 = max(a[max(0,n0-n_frag):n0+1])
         list_out.append(max0)
+    return list_out
 
 def predict_with_rnn(model0,list_pos):
     list_pos_1 = encoding_data(list_pos, max0)
