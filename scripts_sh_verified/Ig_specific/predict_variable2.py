@@ -307,7 +307,7 @@ def process_data(mhc_info,gene_info,model_rnn):
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
-    n_pred = count_region(ighm_pred,0.1*scale0)
+    n_pred = count_region(ighm_pred,0*scale0)
     n_reco = count_region(ighm_reco,1)
     #print('Model_used='+model_name0)
     #print('Weight_used='+weight_name0)
