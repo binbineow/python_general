@@ -11,7 +11,7 @@ from sklearn.metrics import roc_auc_score
 from collections import defaultdict
 from random import shuffle
 import random
-from plot_predicted import *
+from plot_predictedv2 import *
 
 
 #parameters
