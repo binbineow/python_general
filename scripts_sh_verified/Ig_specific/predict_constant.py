@@ -171,12 +171,18 @@ def moving_average(a, n=n_frag) :
     ret[n:] = ret[n:] - ret[:-n]
     return ret[n - 1:] / n
 
+def moving_max(a, n=n_frag):
+    list_out = []
+    for n0 in range(0,len(a)+n_frag):
+        max0 = max(a[max(0,n0-n_frag):n0+1])
+        list_out.append(max0)
 
 def predict_with_rnn(model0,list_pos):
     list_pos_1 = encoding_data(list_pos, max0)
     #list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size,verbose=vb0)[:,1])
-    val_pos_1 = moving_average(val_pos_1)
+    #optional post-processing
+    val_pos_1 = moving_max(val_pos_1)
     if is_filter_glyc:
         val_pos_1 = filter_glyc(list_pos,val_pos_1)
     return val_pos_1
