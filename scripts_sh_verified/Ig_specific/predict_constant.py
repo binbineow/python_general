@@ -54,6 +54,9 @@ is_filter_glyc = True
 max0 = 74
 #max0 = 56
 
+#cut_off for calling positive 
+cut_off0 = 0.4
+
 #verbose
 vb0=1
 #aa encoding
@@ -269,18 +272,23 @@ def process_data(file_name0,mhc_file0,model_rnn):
     print('Weight_used='+weight_name0)
     #print(str(ighm_pred))
     #print(str(ighm_reco))
-    print_list0(list(ighm_pred),',')
-    print_list0(list(ighm_reco),',')
-    return [list(ighm_pred), list(ighm_reco)]
+    ighm_pred = print_list0(list(ighm_pred),',')
+    ighm_reco = print_list0(list(ighm_reco),',')
+    return [ighm_pred, ighm_reco]
 
 
 def main(file_name0,mhc_file0,file_out):
     model_rnn = import_model(path_model, model_name0, weight_name0)
     [ighm_pred,ighm_reco] = process_data(file_name0,mhc_file0, model_rnn)
-    pickle.dump(ighm_pred,open(file_out+'predicted.list','w+'))
-    pickle.dump(ighm_reco,open(file_out+'recovered.list','w+'))
+    csv_out = open(file_out+'output.csv','w+')
+    csv_out.write('Predicted,'+ighm_pred+'\n')
+    csv_out.write('Recovered,'+ighm_reco+'\n')
+    csv_out.close()
+    #pickle.dump(ighm_pred,open(file_out+'predicted.list','w+'))
+    #pickle.dump(ighm_reco,open(file_out+'recovered.list','w+'))
 
-file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
+#file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
+
 file_out = 'constantv1'
 main(pathig+file_name0,pathig+mhc_file0,pathig+file_out)
       
