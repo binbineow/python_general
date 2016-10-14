@@ -1,8 +1,10 @@
 def plot_2_lines(y_pred,y_reco,name0,path0='/home/stanford/rbaltman/users/bchen45/data/MCL_data/ig_specific/variable_region_plots/'):
     import numpy as np
-    #import matplotlib.pyplot as plt
+    import matplotlib.pyplot as plt
+    import matplotlib
+    matplotlib.use('Agg')
     #example name0 = MCL001_H_chain
-    #requires utilities to run this script
+
     len0 = len(y_pred) #len y1 = y2
     x = np.linspace(1, len0, len0)
     #print(x)
