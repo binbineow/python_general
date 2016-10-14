@@ -160,6 +160,8 @@ def get_key_list_from_dict(dict0):
     return list_out
 
 def filter_glyc(list_seq,list0):
+    print(len(list_seq))
+    print(len(list0))
     list_out = []
     import re
     for n0 in range(0,len(list0)):
