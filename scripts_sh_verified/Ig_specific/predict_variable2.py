@@ -11,6 +11,7 @@ from sklearn.metrics import roc_auc_score
 from collections import defaultdict
 from random import shuffle
 import random
+from plot_predicted import *
 
 
 #parameters
@@ -118,6 +119,7 @@ def import_model(path_model,model_name0,weight_name0):
     return model0
 
 ##list1,2 are two possible binding probabilities give two potential MHC types
+
 def cal_percentile_from2lists(list1,list2,distr1,distr2):
     distr1 = list(distr1.flat)
     distr2 = list(distr2.flat)
@@ -307,7 +309,7 @@ def process_data(mhc_info,gene_info,model_rnn):
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
-    n_pred = count_region(ighm_pred,0.2*scale0)
+    n_pred = count_region(ighm_pred,0.1*scale0)
     n_reco = count_region(ighm_reco,1)
     #print('Model_used='+model_name0)
     #print('Weight_used='+weight_name0)
@@ -339,6 +341,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
         csv_out.write('Predicted,'+seq_pred+'\n')
         csv_out.write('Recovered,'+seq_reco+'\n')
         #add plotting function here
+        plot_2_lines(seq_pred,seq_reco,pid0+'_'+chain0.upper()+'_chain')
         
     
     print('Spearman Correlation between predicted regions and recovered regions:')
@@ -361,8 +364,8 @@ def main(file_name_pid,file_name0,file_out,chain0):
 #file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
 print('Model_used='+model_name0)
 print('Weight_used='+weight_name0)
-file_out = 'Light_v1'
-file_pid = 'target_patient.txt'
+file_out = 'Light_v1_test'
+file_pid = 'target_patient_test.txt'
 chain0 = 'l'
 main(pathig+file_pid,pathig+file_name0,pathig+file_out,chain0)
       
