@@ -192,7 +192,7 @@ def predict_with_rnn(model0,list_pos):
     val_pos_1 = [max(0,i-cut_off0) for i in val_pos_1]
     #scale the list
     val_pos_1 = [i*scale0 for i in val_pos_1]
-    print(val_pos_1[0])
+    #print(val_pos_1[0])
     #optional post-processing
     val_pos_1 = moving_max(val_pos_1)
     if is_filter_glyc:
@@ -352,7 +352,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
     csv_out.write('Summary\n')
     csv_out.write('Predicted,'+list_h_pred+'\n')
     csv_out.write('Recovered region,'+list_h_pred+'\n')
-    csv_out.write('Recovered peptide,'+list_h_pred_num+'\n')
+    csv_out.write('Recovered peptide,'+list_h_reco_num+'\n')
     
     csv_out.close()
     #pickle.dump(ighm_pred,open(file_out+'predicted.list','w+'))
