@@ -282,6 +282,19 @@ def print_list0(list0,del0):
         str0=str0+str(x)+','
     return(str0)
 
+def count_region(list0,above_cut_off):
+    n0 = 0
+    #above_cut_off = 0.1
+    in_region = False
+    for val0 in list0:
+        if val0>=above_cut_off and not in_region:
+            n0 +=1
+            in_region = True
+        if val0<=above_cut_off:
+            in_region = False
+    return n0
+                    
+
 def process_data(mhc_info,gene_info,model_rnn):
     seq_data = gene_info
     ighm_pred = [0]*len(seq_data)
@@ -289,18 +302,20 @@ def process_data(mhc_info,gene_info,model_rnn):
     #pos_data = list(set(pos_data))
     mhc2_pos_data = mhc_info
     ighm_reco = get_reco_map(mhc2_pos_data,seq_data)
-    print('Positive variable peptides recovered from MHCII='+str(len(mhc_2_pos_data)))
+    print('Positive variable peptides recovered from MHCII='+str(len(mhc2_pos_data)))
     print('start prediction')
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
+    n_pred = count_region(ighm_pred,0.1)
+    n_reco = count_region(ighm_reco,1)
     #print('Model_used='+model_name0)
     #print('Weight_used='+weight_name0)
     #print(str(ighm_pred))
     #print(str(ighm_reco))
     ighm_pred = print_list0(list(ighm_pred),',')
     ighm_reco = print_list0(list(ighm_reco),',')
-    return [ighm_pred, ighm_reco]
+    return [ighm_pred, ighm_reco,n_pred,n_reco]
 
 
 def main(file_name_pid,file_name0,file_out,chain0):
@@ -317,9 +332,9 @@ def main(file_name_pid,file_name0,file_out,chain0):
         mhc_info_h = dict_mcl[pid0]['Variable_'+chain0]
         gene_h = dict_mcl[pid0]['Variable_'+chain0+'_seq']
         list_h_reco_num.append(len(mhc_info_h))
-        [seq_pred,seq_reco,n_h,n_l] = process_data(mhc_info_h,gene_h, model_rnn)
-        list_h_reco.append(n_h)
-        list_h_pred.append(n_l)
+        [seq_pred,seq_reco,n_pred,n_reco] = process_data(mhc_info_h,gene_h, model_rnn)
+        list_h_reco.append(n_reco)
+        list_h_pred.append(n_pred)
         csv_out.write(pid0+', '+chain0.upper()+' chain\n')
         csv_out.write('Predicted,'+seq_pred+'\n')
         csv_out.write('Recovered,'+seq_reco+'\n')
