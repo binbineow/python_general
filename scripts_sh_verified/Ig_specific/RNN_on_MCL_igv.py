@@ -8,6 +8,7 @@ from keras.models import model_from_json
 from scipy.stats import percentileofscore
 from keras.regularizers import l2, activity_l2
 from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_curve, auc
 from collections import defaultdict
 from random import shuffle
 import random
@@ -103,6 +104,26 @@ def import_model(path_model,model_name0,weight_name0):
     model0.load_weights(weight_name0)
     return model0
 
+def Find_Optimal_Cutoff(target, predicted):
+    """ Find the optimal probability cutoff point for a classification model related to event rate
+    Parameters
+    ----------
+    target : Matrix with dependent or target data, where rows are observations
+
+    predicted : Matrix with predicted data, where rows are observations
+
+    Returns
+    -------     
+    list type, with optimal cutoff value
+
+    """
+    fpr, tpr, threshold = roc_curve(target, predicted)
+    i = np.arange(len(tpr)) 
+    roc = pd.DataFrame({'tf' : pd.Series(tpr-(1-fpr), index=i), 'threshold' : pd.Series(threshold, index=i)})
+    roc_t = roc.ix[(roc.tf-0).abs().argsort()[:1]]
+
+    return list(roc_t['threshold']) 
+
 ##list1,2 are two possible binding probabilities give two potential MHC types
 def cal_percentile_from2lists(list1,list2,distr1,distr2):
     distr1 = list(distr1.flat)
@@ -128,6 +149,8 @@ def cal_auc_from2lists(post_list,neg_list):
     list_values = np.concatenate((post_list,neg_list))
     list_true = np.concatenate((np.ones(len(post_list)),np.zeros(len(neg_list))))
     auc_val = roc_auc_score(list_true, list_values)
+    optiomal0 = Find_Optimal_Cutoff(list_true, list_values)
+    print('Optimal threshold='+str(optimal0))
     return auc_val
 
 def add_mhc_to_peplist(mhc0,list0):
@@ -227,10 +250,12 @@ def process_data(list0,model_rnn):
     print('AUC='+str(auc_raw))
 
 
+
 def main(list0):
     model_rnn = import_model(path_model, model_name0, weight_name0)
     process_data(list0, model_rnn)
 
 file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
+file_names_v = [pathig+'MCL_all_IG_constant.list']
 main(file_names_v)
       
