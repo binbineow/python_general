@@ -55,7 +55,7 @@ max0 = 74
 #max0 = 56
 
 #cut_off for calling positive 
-cut_off0 = 0.4
+cut_off0 = 0.45
 
 #scale for plotting
 scale0 = 100
