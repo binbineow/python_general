@@ -12,6 +12,7 @@ from sklearn.metrics import roc_curve, auc
 from collections import defaultdict
 from random import shuffle
 import random
+import pandas as pd
 
 #parameters
 #folder where pid -> strings dicts are saved
