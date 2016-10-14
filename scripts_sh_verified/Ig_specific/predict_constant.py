@@ -191,6 +191,7 @@ def predict_with_rnn(model0,list_pos):
     val_pos_1 = [max(0,i-cut_off0) for i in val_pos_1]
     #scale the list
     val_pos_1 = [i*scale0 for i in val_pos_1]
+    print(val_pos_1[0])
     #optional post-processing
     val_pos_1 = moving_max(val_pos_1)
     if is_filter_glyc:
