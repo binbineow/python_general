@@ -3,6 +3,7 @@ def plot_2_lines(y_pred,y_reco,name0,chain0,path0='/home/stanford/rbaltman/users
     import matplotlib.pyplot as plt
     import matplotlib
     import subprocess
+    import os
     matplotlib.use('Agg')
     #example name0 = MCL001_H_chain
     if not os.path.isdir(path0+chain0):
