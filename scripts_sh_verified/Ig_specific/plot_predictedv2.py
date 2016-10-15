@@ -2,7 +2,7 @@ def plot_2_lines(y_pred,y_reco,name0,chain0,path0='/home/stanford/rbaltman/users
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib
-    import os
+    import subprocess
     matplotlib.use('Agg')
     #example name0 = MCL001_H_chain
     cmd_line = 'mkdir '+path0+chain0
