@@ -93,7 +93,7 @@ for pid0 in patient_target:
         gene_seq = gene_seq + MCL_data[pid0]['Variable_l_seq']
         seq_test = gene_seq[0:15]
         print('length of fragments to be predicted= '+str(len(gene_seq)))
-        dict_out = make_predict_dict(gene_seq,hla1,hla2,n_frag)
+        dict_out = make_predict_dict(gene_seq,hla1,hla2)
         print(pid0+', sample score:'+str(dict_out[seq_test]))
         MCL_data[pid0]['NetMCHIIpan_dict'] = dict_out
         #save
