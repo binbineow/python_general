@@ -68,7 +68,7 @@ def get_list_from_file(file_name0):
 
 #######loading data#######################
 file_pid = 'target_patient.txt'
-file_name_pid = pathig+ file_pid
+file_name_pid = path0+ file_pid
 patient_target = get_list_from_file(file_name_pid)
 dict_name = 'MCL_data11_18_2015_10_9_2016v1.1.dict'
 MCL_data = pickle.load(open(path0+dict_name,'r'))
