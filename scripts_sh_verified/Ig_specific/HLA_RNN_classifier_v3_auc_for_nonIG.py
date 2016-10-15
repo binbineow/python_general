@@ -50,7 +50,7 @@ path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
-data_file_name='hla_ii_train_val_'
+data_file_name='hla_i_train_val_'
 dict_name = 'aa_21_sparse_encoding.dict'
 b_shuffle = True
 loss_function0 = 'categorical_crossentropy'
@@ -64,7 +64,7 @@ l2_c = 0
 drop_out_c = 0.2
 HIDDEN_SIZE = 64
 BATCH_SIZE = 128
-v1 = '_nonIG_v1'
+v1 = '_nonIG_v3'
 #will play with Layers 
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]

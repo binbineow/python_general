@@ -2,9 +2,12 @@ def plot_2_lines(y_pred,y_reco,name0,chain0,path0='/home/stanford/rbaltman/users
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib
+    import os
     matplotlib.use('Agg')
     #example name0 = MCL001_H_chain
-
+    cmd_line = 'mkdir '+path0+chain0
+    cmd0 = subprocess.Popen(cmd_line,shell=True)      
+    cmd0.wait()
     len0 = len(y_pred) #len y1 = y2
     x = np.linspace(0, len0, len0+1)
     #print(x)
