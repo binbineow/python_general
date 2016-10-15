@@ -82,7 +82,7 @@ n_frag = 15
 if len(patient_target)<1:
     patient_target = MCL_data['pid']['pid']
 for pid0 in patient_target:
-    if not pid0 in done_list:
+    if 1==1:
         hla1 = MCL_data[pid0]['HLA_typing'][-1]
         hla2 = MCL_data[pid0]['HLA_typing'][-2]
         print hla1
