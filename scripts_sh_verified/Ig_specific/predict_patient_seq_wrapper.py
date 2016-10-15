@@ -89,8 +89,8 @@ for pid0 in patient_target:
         ###making gene list
         gene_seq = ''
         gene_seq = gene_seq + MCL_data['Constant']['IGHM']
-        gene_seq = gene_seq + MCL_data[pid]['Variable_h_seq']
-        gene_seq = gene_seq + MCL_data[pid]['Variable_l_seq']
+        gene_seq = gene_seq + MCL_data[pid0]['Variable_h_seq']
+        gene_seq = gene_seq + MCL_data[pid0]['Variable_l_seq']
         seq_test = gene_seq[0:15]
         print('length of fragments to be predicted= '+str(len(gene_seq)))
         dict_out = make_predict_dict(gene_seq,hla1,hla2,n_frag)
