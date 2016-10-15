@@ -11,8 +11,8 @@ import os
 from matplotlib.font_manager import pickle_dump
 
 ####this script will be run on Sherlock#########
-path_save = '/share/PI/rbaltman/bchen45/data/ig_specific'
-path0 = '/share/PI/rbaltman/bchen45/data/ig_specific'
+path_save = '/share/PI/rbaltman/bchen45/data/ig_specific/'
+path0 = '/share/PI/rbaltman/bchen45/data/ig_specific/'
 one_gene_path = '/share/PI/rbaltman/bchen45/software/IEDB/test0/human_proteinome_oneline.str'
 
 def make_neg(pep_list):
