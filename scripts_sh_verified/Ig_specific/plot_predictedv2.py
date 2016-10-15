@@ -1,4 +1,4 @@
-def plot_2_lines(y_pred,y_reco,name0,path0='/home/stanford/rbaltman/users/bchen45/data/MCL_data/ig_specific/variable_region_plots/'):
+def plot_2_lines(y_pred,y_reco,name0,chain0,path0='/home/stanford/rbaltman/users/bchen45/data/MCL_data/ig_specific/variable_region_plots/'):
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib

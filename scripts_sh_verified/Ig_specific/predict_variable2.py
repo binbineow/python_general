@@ -311,7 +311,7 @@ def process_data(mhc_info,gene_info,model_rnn,pid0,chain0):
         ighm_pred[i] = val_pos[i]
     n_pred = count_region(ighm_pred,0.1*scale0)
     n_reco = count_region(ighm_reco,1)
-    plot_2_lines(ighm_pred,ighm_reco,pid0+'_'+chain0.upper()+'_chain')
+    plot_2_lines(ighm_pred,ighm_reco,pid0+'_'+chain0.upper()+'_chain',chain0)
     #print('Model_used='+model_name0)
     #print('Weight_used='+weight_name0)
     #print(str(ighm_pred))
