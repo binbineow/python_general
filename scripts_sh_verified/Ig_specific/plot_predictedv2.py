@@ -13,7 +13,7 @@ def plot_2_lines(y_pred,y_reco,name0,path0='/home/stanford/rbaltman/users/bchen4
     y_reco = np.array(y_reco)
     #print(y_reco)
     ax = plt.gca()
-    plt.fill(x,y_pred,'b*',x,y_reco,'r*',alpha=0.3)
+    plt.fill(x,y_pred,'b*',x,y_reco,'r*',alpha=0.2)
     ax.set_xlabel(name0+' Amino Acid Sequence')
     ax.set_ylabel('Peptides recovered/Predicted scores')
     ax.set_title(name0+' Peptide Recovered vs. MARIA Prediction Scores')

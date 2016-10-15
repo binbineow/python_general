@@ -60,7 +60,7 @@ max0 = 74
 cut_off0 = 0.45
 
 #scale for plotting
-scale0 = 100
+scale0 = 40
 
 #verbose
 vb0=0
@@ -366,7 +366,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
 print('Model_used='+model_name0)
 print('Weight_used='+weight_name0)
 file_out = 'Light_v1_test'
-file_pid = 'target_patient_test.txt'
+file_pid = 'target_patient.txt'
 chain0 = 'l'
 main(pathig+file_pid,pathig+file_name0,pathig+file_out,chain0)
       
