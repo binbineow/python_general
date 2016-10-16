@@ -37,7 +37,7 @@ def update_dict(dict1,dict2):
     dict0 = dict()
     ##merge two allele information by getting the better rank score from NetMHCIIpan
     for key0, value0 in dict1.iteritems():
-        dict1[key0] = min(dict1[key0][2],dict2[key0][2])
+        dict0[key0] = min(dict1[key0][2],dict2[key0][2])
     return dict0
         
 def get_frag(str0,n0):
