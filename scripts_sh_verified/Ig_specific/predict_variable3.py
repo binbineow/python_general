@@ -366,7 +366,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
 print('Model_used='+model_name0)
 print('Weight_used='+weight_name0)
 file_out = 'Light_v2'
-file_pid = 'target_patient.txt'
+file_pid = 'target_patient_test.txt'
 chain0 = 'l'
 main(pathig+file_pid,pathig+file_name0,pathig+file_out,chain0)
       

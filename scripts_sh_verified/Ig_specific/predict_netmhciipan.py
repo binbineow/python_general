@@ -28,7 +28,7 @@ def read_netmhc_xls(file0,list_run):
     dict0 = dict()
     for line0 in file_out:
         line0 = line0.rstrip()
-        print line0
+        #print line0
         if 'temp0' in line0:
             line0 = line0.split('\t')
         if line0[1] in list_run:
@@ -90,6 +90,7 @@ def predict_netmhciipan(hla_type0,list_seq):
                 if list_len0[x] == len_run:
                     list_run.append(list_seq[x])
             dict_run = run_netmhciipan(hla_type_run,list_run,len_run)
-            print(dict_run)
+            #print(dict_run)
             dict0.update(dict_run)
+            print('NetMHCII prediction finished')
     return dict0
