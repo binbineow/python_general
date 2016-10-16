@@ -4,6 +4,9 @@ def plot_2_lines(y_pred,y_reco,name0,chain0,path0='/home/stanford/rbaltman/users
     import matplotlib
     import subprocess
     import os
+    #y_axis scaling
+    ratio0 = 1.3
+    #main
     matplotlib.use('Agg')
     #example name0 = MCL001_H_chain
     if not os.path.isdir(path0+chain0):
@@ -16,6 +19,7 @@ def plot_2_lines(y_pred,y_reco,name0,chain0,path0='/home/stanford/rbaltman/users
     y_pred = np.array([0]+y_pred+[0])
     #print(y_pred)
     y_reco = np.array([0]+y_reco+[0])
+    max0 = ratio0*max(max(y_pred),max(y_reco))
     #print(y_reco)
     ax = plt.gca()
     alpha0 = 0.3
@@ -26,5 +30,6 @@ def plot_2_lines(y_pred,y_reco,name0,chain0,path0='/home/stanford/rbaltman/users
     ax.set_xlabel(name0+' Amino Acid Sequence')
     ax.set_ylabel('Peptides recovered/Predicted scores')
     ax.set_title(name0+' Peptide Recovered vs. MARIA Prediction Scores')
+    ax.set_ylim([0,max0])
     plt.savefig(path0+chain0+'/'+name0+'_pred_vs_recovered.png', bbox_inches='tight')
     plt.close()
