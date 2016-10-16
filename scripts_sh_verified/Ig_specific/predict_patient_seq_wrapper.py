@@ -100,5 +100,5 @@ for pid0 in patient_target:
         #pickle.dump(dict_pos,open(path_save+'netmhc_predict_'+pid0+'.pos.dict','w+'))
         #pickle.dump(dict_neg,open(path_save+'netmhc_predict_'+pid0+'.neg.dict','w+')) 
 
-pickle_dump(MCL_data,open(path0+dict_name+'with_netmhcii','w+'))
+pickle.dump(MCL_data,open(path0+dict_name+'with_netmhcii','w+'))
   
