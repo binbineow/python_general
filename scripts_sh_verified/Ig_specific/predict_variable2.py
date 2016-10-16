@@ -60,7 +60,7 @@ max0 = 74
 cut_off0 = 0.45
 
 #scale for plotting
-scale0 = 40
+scale0 = 20
 
 #verbose
 vb0=0
