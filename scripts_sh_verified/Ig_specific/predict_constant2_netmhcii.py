@@ -58,10 +58,10 @@ max0 = 74
 
 #cut_off for calling positive 
 #top 20% is considered for netmhcii
-cut_off0 = 20 
+cut_off0 = 15
 
 #scale for plotting
-scale0 = 3 
+scale0 = 1 
 
 #verbose
 vb0=0
