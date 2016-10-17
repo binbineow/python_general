@@ -299,10 +299,10 @@ def count_region(list0,above_cut_off):
     return n0
                     
 def predict_with_netmhc_stored(dict_netmhc,seq_frag):
-    list_val_1 = []
+    val_val_1 = []
     for seq0 in seq_frag:
         if seq0 in dict_netmhc:
-            list_val_1.append(dict_netmhc[seq0])
+            val_val_1.append(dict_netmhc[seq0])
         else:
             print(seq0+' not in the dictionary')
     #the score is in top x percentile
