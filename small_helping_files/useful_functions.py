@@ -76,3 +76,19 @@ def get_val_from_dict(dict0,make_set=True):
         list_val = list(set(list_val))
     return list_val
 ######################################
+
+def dumb(): return defaultdict(list)
+
+file_name_mhc = 'MCL_data11_18_2015_10_9_2016v1.1.dictwith_netmhcii'
+file_name_mhc = 'MCL_data11_18_2015v1.2_UP.dict'
+file_name_pid = 'target_patient.txt'
+mhc0 = 'MHC2'
+def get_mhc_frag_num(file_name_pid,file_name_mhc,mhc0):
+    import cPickle as pickle
+    pid_list = get_list_from_file(file_name_pid)
+    mcl_dict = pickle.load(open(file_name_mhc,'r'))
+    for pid0 in pid_list:
+        print(pid0+','+str(len(mcl_dict[pid0][mhc0+'_frag'])))
+        
+
+get_mhc_frag_num(file_name_pid,file_name_mhc,mhc0)
