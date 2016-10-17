@@ -61,7 +61,7 @@ max0 = 74
 cut_off0 = 15
 
 #scale for plotting
-scale0 = 1 
+scale0 = 1
 
 #verbose
 vb0=0
@@ -308,6 +308,7 @@ def predict_with_netmhc_stored(dict_netmhc,seq_frag):
     #the score is in top x percentile
     #let's try 20 - x, and ignore negative score
     val_pos_1 = [max(0,i-cut_off0) for i in val_pos_1]
+    print(val_pos_1)
     #scale the list
     val_pos_1 = [i*scale0 for i in val_pos_1]
     #print(val_pos_1[0])
