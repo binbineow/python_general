@@ -27,8 +27,8 @@ def plot_2_lines(y_pred,y_reco,name0,chain0,
     #print(y_reco)
     ax = plt.gca()
     alpha0 = 0.3
-    pred0, = plt.fill(x,y_pred,'b',alpha=alpha0,label='MARIA Predicted')
-    reco0, = plt.fill(x,y_reco,'r',alpha=alpha0,label='MHCII Peptide Recovered')
+    pred0, = plt.fill(x,y_pred,'b',alpha=alpha0,label=label1)
+    reco0, = plt.fill(x,y_reco,'r',alpha=alpha0,label=label2)
     plt.legend(handles=[pred0,reco0,])
     #plt.fill(x,y_pred,'b*',alphax,y_reco,'r*',alpha=0.2)
     ax.set_xlabel(name0+' Amino Acid Sequence')
