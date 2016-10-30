@@ -142,6 +142,7 @@ for pid0 in pid_list:
         list_pep_total.extend(MCL_data[pid0][mhc0])
 #make it unique
 list_pep_total = list(set(list_pep_total))
+print(list_pep_total[0:15])
 list_pep_total = limit_length(list_pep_total,9)
 list_clusters = get_cluster_list(list_pep_total)
 [list_train,list_val] = split_cluster(list_clusters,len(list_pep_total),split0)
