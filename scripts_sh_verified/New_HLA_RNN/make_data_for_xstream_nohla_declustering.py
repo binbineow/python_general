@@ -37,7 +37,7 @@ def make_cluster(list0):
                         list0.append(list2[m0])
             cluster_list.append(list0)
             n_element += len(list0)
-    print('total cluster='+str(cluster_list))
+    print('total cluster='+str(len(cluster_list)))
     print('total elements='+str(n_element))
     return cluster_list
 
