@@ -126,7 +126,7 @@ len_one = len(onegenestr)
 #read in data
 #patient_val = ['MCL041','MCL128','MCL019']
 MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
-dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
+#dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 #initiate the training set
 #set_train = set()
 #write training data into a txt file
