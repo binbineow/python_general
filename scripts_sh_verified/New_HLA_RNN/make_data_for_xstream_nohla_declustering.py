@@ -144,9 +144,10 @@ list_pep_total = limit_length(list_pep_total,9)
 list_clusters = get_cluster_list(list_pep_total)
 [list_train,list_val] = split_cluster(list_clusters,len(list_pep_total),split0)
 #0 indicates the code for negative data, 0 for training, 2 for validation
+del_file(path_save+out_file_name+version0)
 write_data_with_neg(list_train,path_save,out_file_name+version0,0,shuffle0)
 write_data_with_neg(list_train,path_save,out_file_name+version0,2,shuffle0)
-print('Training positive = '+str(list_train))
-print('Training negative = '+str(list_val))
+print('Training positive = '+str(len(list_train)))
+print('Training negative = '+str(len(list_val)))
 
 

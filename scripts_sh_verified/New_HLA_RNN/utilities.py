@@ -21,6 +21,11 @@ def touch_file(path_file0):
     cmd0 = subprocess.Popen(cmd,shell=True)      
     cmd0.wait() 
 
+def del_file(path_file0):
+    cmd = 'rm '+path_file0
+    cmd0 = subprocess.Popen(cmd,shell=True)      
+    cmd0.wait() 
+    
 #write_list take in a file variable, list of strings and and separating symbol
 #each line contains all strings in the list separated by the symbol, ended with '\n'
 def write_list(file_out,list1,symbol0):
