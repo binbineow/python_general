@@ -243,7 +243,7 @@ output_perf2([input_info])
 def round_list(list0,n0):
     list_out = []
     for val1 in list0:
-        list_out.append(round(val1,n0))
+        list_out.append(round(float(val1),n0))
     return list_out
 
 #main function
