@@ -48,7 +48,7 @@ def get_cluster_list(list_pep_total):
     return list_culsters
 
 def split_cluster(list_clusters,n0,split0):
-    train_target = n0*split0
+    train_target = n0*(1-split0)
     print('training_target='+str(train_target))
     list_train = []
     list_val = []
@@ -134,6 +134,7 @@ MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 list_pep_total = []
 pid_list = MCL_data['pid']['pid']
 patient_val = []
+print(pid_list)
 #get list_pep_total 
 #contraining all unique peptide in the data
 for pid0 in pid_list:
