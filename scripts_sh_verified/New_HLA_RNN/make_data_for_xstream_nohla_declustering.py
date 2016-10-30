@@ -147,7 +147,7 @@ print('redundant set of peptide of '+mhc0+' ='+str(mhc_total))
 #make it unique
 list_pep_total = list(set(list_pep_total))
 #print(list_pep_total[0:15])
-list_pep_total = limit_length(list_pep_total,7)
+list_pep_total = limit_length(list_pep_total,8)
 print('After filtering, peptide n='+str(len(list_pep_total)))
 list_clusters = get_cluster_list(list_pep_total)
 [list_train,list_val] = split_cluster(list_clusters,len(list_pep_total),split0)
