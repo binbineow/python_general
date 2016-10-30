@@ -137,9 +137,12 @@ patient_val = []
 print(pid_list)
 #get list_pep_total 
 #contraining all unique peptide in the data
+mhc_total = 0
 for pid0 in pid_list:
     if not pid0 in patient_val:
         list_pep_total.extend(MCL_data[pid0][mhc0])
+        mhc_total += len(MCL_data[pid0][mhc0])
+print('redundant set of peptide of '+mhc0+' ='+str(mhc_total))
 #make it unique
 list_pep_total = list(set(list_pep_total))
 print(list_pep_total[0:15])
