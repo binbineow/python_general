@@ -22,22 +22,23 @@ def make_cluster(list0):
     #print list2
     list2_tested = [True]*len(list2)
     cluster_list = []
-    len_d_ave = []
-    len_d_max = []
-    len_std = []
+#     len_d_ave = []
+#     len_d_max = []
+#     len_std = []
+    n_element = 0
     for n0 in range(0,len(list2)):
-        if list2_tested[n0]:
-            list0 = []
-            len_d0 = []
-            len_l0 = []
+        if list2_tested[n0]:   
+            list0 = []             
             list0.append(list2[n0])
             for m0 in range(n0+1,len(list2)):
                 if list2_tested[m0]:
                     if list2[n0] in list2[m0]:
                         list2_tested[m0] = False
                         list0.append(list2[m0])
-                        len_d0.append(len(list2[m0])-len(list2[n0]))
-            cluster_list.append(list0[0])
+            cluster_list.append(list0)
+            n_element += len(list0)
+    print('total cluster='+str(cluster_list))
+    print('total elements='+str(n_element))
     return cluster_list
 
 def get_cluster_list(list_pep_total):
@@ -148,7 +149,6 @@ list_pep_total = list(set(list_pep_total))
 #print(list_pep_total[0:15])
 list_pep_total = limit_length(list_pep_total,9)
 print('After filtering, peptide n='+str(len(list_pep_total)))
-print(len(list_pep_total))
 list_clusters = get_cluster_list(list_pep_total)
 [list_train,list_val] = split_cluster(list_clusters,len(list_pep_total),split0)
 #0 indicates the code for negative data, 0 for training, 2 for validation
