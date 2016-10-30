@@ -26,7 +26,7 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 #hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_nonIG_v3'
+version0 = '_nonIG_v4'
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
@@ -76,6 +76,8 @@ def make_training(path_save,version0,list_nonig):
                 neg0 = onegenestr[rand0:rand0+len(pos0)]
                 neg0 = neg0.upper()
                 file_out.write(neg0+'\t'+'0\n')
+                neg0 = ''.join(random.sample(pos0,len(pos0)))
+                file_out.write(neg0+'\t'+'0\n')
         else:
             n_short +=1
     file_out.close()
@@ -100,8 +102,6 @@ def make_validation(path_save,version0,list_nonig):
                 rand0 = random.randint(0,len_one)
                 neg0 = onegenestr[rand0:rand0+len(pos0)]
                 neg0 = neg0.upper()
-                file_out.write(neg0+'\t'+'2\n')
-                neg0 = ''.join(random.sample(pos0,len(pos0)))
                 file_out.write(neg0+'\t'+'2\n')
         else:
             n_short +=1

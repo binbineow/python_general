@@ -64,8 +64,6 @@ def get_list_from_file(file_name0):
         list_out.append(x)
     return list_out
 
-
-
 #######loading data#######################
 file_pid = 'target_patient.txt'
 file_name_pid = path0+ file_pid
