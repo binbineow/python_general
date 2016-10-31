@@ -39,7 +39,7 @@ max0 = 40
 dict_name='aa_21_sparse_encoding.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
 ###determine the encoding size
-#chars = dict_aa['A']
+chars = dict_aa['A']
 ##batch_size
 b_size = 512
 
