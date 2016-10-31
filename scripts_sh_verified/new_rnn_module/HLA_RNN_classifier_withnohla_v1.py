@@ -181,7 +181,7 @@ model.add(Activation('softmax'))
 model.compile(loss=loss_function0, optimizer='adam')
 #save the model
 json_string = model.to_json()
-open(path_save+file_name0+'_model.json', 'w+').write(json_string)
+open(path_save+file_name0+out_name+'_model.json', 'w+').write(json_string)
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
