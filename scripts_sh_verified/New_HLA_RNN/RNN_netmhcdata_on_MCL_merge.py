@@ -27,7 +27,7 @@ one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/huma
 path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
-mhc_dict_file = 'seq_dict.pkl'
+mhc_dict_file = 'seq_dict-2.pkl'
 #path where the model is saved
 path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/regression_model/'
 model_name0 = 'train1.tsv_s_only.txtn64_hnn128_l20.1_d0.3_test1_model.json'
@@ -39,7 +39,7 @@ weight_name0 = 'train1.tsv_s_only.txtn64_hnn128_l20.1_d0.3_test1_weight.h5'
 max0 = 71
 
 #aa encodin
-dict_name = 'aa_21_sparse_encoding-2.dict'
+dict_name = 'aa_21_sparse_encoding.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
 dict_aa['_'] = np.zeros(21)
 ###determine the encoding size
