@@ -41,13 +41,7 @@ def encoding(matrix0, input0, len0):
         matrix0[i] = encoding_line(sentence, len0)
     return matrix0
 
-def output_perf2(list0):
-    touch_file(path_save+performance_file_name+'.txt')     
-    file_out = open(path_save+performance_file_name+'.txt','a')
-    for x in list0:
-        file_out.write(str(x)+'\t')
-    file_out.write('\n')
-    file_out.close()
+
 
 def shuffle_train(list1,list2):
     from random import shuffle
@@ -157,8 +151,7 @@ for line0 in fileinput.input():
     if 'activation' in part1:
         act_fun = part2
         
-output_perf2([input_info])        
- 
+
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 dict_aa['-'] = np.zeros(21)
@@ -176,7 +169,7 @@ print(performance_file_name)
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 HIDDEN_SIZE = node0
-BATCH_SIZE = 128
+BATCH_SIZE = 512
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
 
@@ -215,8 +208,17 @@ open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
 
+def output_perf2(list0):
+    touch_file(path_save+performance_file_name+'.txt')     
+    file_out = open(path_save+performance_file_name+'.txt','a')
+    for x in list0:
+        file_out.write(str(x)+'\t')
+    file_out.write('\n')
+    file_out.close()
 
-        
+#save running parameters
+output_perf2([input_info])        
+         
     
 
 def main():
