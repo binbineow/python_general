@@ -3,6 +3,8 @@ from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent, Merge
 from keras.callbacks import ModelCheckpoint
+import cPickle as pickle
+import numpy as np
 #from utilities import *
 from keras.models import model_from_json
 from scipy.stats import percentileofscore
