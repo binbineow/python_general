@@ -105,7 +105,7 @@ def import_model(path_model, model_name0,weight_name0):
 
 def RNN_predict(list0, cut_off=0.4, path0 = path_model,model0=model_name0,weight0=weight_name0):
     model0 = import_model(path0,model0,weight0)
-    [list_scores,list_class] = run_rnn_model(model0,list0)
+    [list_scores,list_class] = predict_with_rnn(model0,list0)
     #dict_random = pickle.load(open('/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/random_pep_by_mhc.dict','r'))
     #list_random = dict_random['HLA-DRB1*01:01']
     #neg_list_scores = run_rnn_model(model0,list_random)
