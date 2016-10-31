@@ -122,7 +122,7 @@ chars = dict_aa['A']
 ##########################construct input file name####################  
 file_name0 = data_file_name+v1+'.txt'
 note_label = 'val_note.txt'
-note_file0 = data_file_name+v1+note_label
+#note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
 
 #########################construct note label############################
@@ -180,8 +180,8 @@ model.add(Dense(2))
 model.add(Activation('softmax'))
 model.compile(loss=loss_function0, optimizer='adam')
 #save the model
-#json_string = model.to_json()
-#open(path_save+file_name0+'_model.json', 'w').write(json_string)
+json_string = model.to_json()
+open(path_save+file_name0+'_model.json', 'w+').write(json_string)
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
@@ -406,7 +406,7 @@ for _ in range(0,1):
         auc_val = roc_auc_score(list_true, list_values)
         #print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         output_perf2(round_list([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,auc_val],4))
-        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+        model.save_weights(path_save+data_file_name+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
