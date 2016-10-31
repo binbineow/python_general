@@ -26,5 +26,12 @@ for line0 in open(path_in+file_in):
         
 #output
 pickle.dump(dict0,open(path_out+file_out,'w+'))
-    
+''' 
+dict1 = dict()
+for key0,val0 in dict0.iteritems():
+    if 'DRB1_' in key0:
+        key1 = format_hla(key0)
+        dict1[key1] = val0
+pickle.dump(dict1,open('DRB1_34_encoding.dict','w+'))
 
+'''  

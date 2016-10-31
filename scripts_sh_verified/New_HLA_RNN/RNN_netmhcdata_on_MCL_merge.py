@@ -27,7 +27,7 @@ one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/huma
 path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
-mhc_dict_file = 'seq_dict-2.pkl'
+mhc_dict_file = 'DRB1_34_encoding.dict'
 #path where the model is saved
 path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/regression_model/'
 model_name0 = 'train1.tsv_s_only.txtn64_hnn128_l20.1_d0.3_test1_model.json'
