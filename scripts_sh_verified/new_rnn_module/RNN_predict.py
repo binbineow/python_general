@@ -92,7 +92,7 @@ def cal_auc_from2lists(post_list,neg_list):
 def predict_with_rnn(model0,list_pos_1):
     list_pos_1 = encoding_data(list_pos_1, max0)
     val_pos_1 = model0.predict_proba(list_pos_1,batch_size=b_size)[:,1]
-    class_pos_1 = model0.predict(list_pos_1,batch_size=b_size)
+    class_pos_1 = model0.predict_classes(list_pos_1,batch_size=b_size)
     return val_pos_1,class_pos_1
 
 
