@@ -39,7 +39,7 @@ weight_name0 = 'train1.tsv_s_only.txtn64_hnn128_l20.1_d0.3_test1_weight.h5'
 max0 = 71
 
 #aa encodin
-dict_name = 'aa_21_sparse_encoding.dict'
+dict_name = 'aa_21_sparse_encoding-2.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
 dict_aa['_'] = np.zeros(21)
 ###determine the encoding size
