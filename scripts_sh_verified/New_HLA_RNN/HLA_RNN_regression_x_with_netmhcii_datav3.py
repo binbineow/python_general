@@ -157,7 +157,7 @@ for line0 in fileinput.input():
     if 'activation' in part1:
         act_fun = part2
         
-output_perf2([input_info])        
+      
  
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
@@ -170,6 +170,7 @@ file_name0 = train_file0+v1+'.txt'
 #note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
 
+output_perf2([input_info])  
 ##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
