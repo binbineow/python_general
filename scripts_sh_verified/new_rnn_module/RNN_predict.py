@@ -3,7 +3,7 @@ from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent, Merge
 from keras.callbacks import ModelCheckpoint
-from utilities import *
+#from utilities import *
 from keras.models import model_from_json
 from scipy.stats import percentileofscore
 from keras.regularizers import l2, activity_l2
@@ -26,8 +26,8 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 mhc_dict_file = 'DRB1_pseudo_seq.dict'
 #path where the model is saved
-path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/'
-model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_final_hnn0_l20.1_d0.2_reluv2_model.json'
+path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/mcl_model/'
+model_name0 = 'hla_ii_train_val_generalv1_x_deculster.txthla2_noshuffle_s_only_n64_hnn32_layer1_d0.3_l2_0.1_forP_model.json'
 weight_name0 = 'hla_ii_train_val_generalv1_x_deculster_noshuffle.txthla2_decluster_noshuffle_Sonly_n64_hnn32_layer1_d0.3_l2_0.1_weight.h5'
 #patients excluded
 #length_max
