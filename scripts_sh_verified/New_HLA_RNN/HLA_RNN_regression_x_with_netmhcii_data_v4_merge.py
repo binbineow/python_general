@@ -94,6 +94,7 @@ for line0 in fileinput.input():
 
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
+dict_aa['-'] = np.zeros(21)
 ###determine the encoding size
 chars = dict_aa['A']
    
