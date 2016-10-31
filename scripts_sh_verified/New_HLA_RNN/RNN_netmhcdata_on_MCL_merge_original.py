@@ -27,30 +27,29 @@ one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/huma
 path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
-mhc_dict_file = 'seq_dict.pkl'
+mhc_dict_file = 'DRB1_pseudo_seq.dict'
 #path where the model is saved
-path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/regression_model/'
-model_name0 = 'train1.tsv_s_only.txtn64_hnn128_l20.1_d0.3_test1_model.json'
-weight_name0 = 'train1.tsv_s_only.txtn64_hnn128_l20.1_d0.3_test1_weight.h5'
-
+path_model = '/home/stanford/rbaltman/users/bchen45/results/HLA_pred_general_model/old_model_weight_10_3/'
+model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3_sparseonly_model.json'
+weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_2layer_l20.1_d0.3_sparseonly_weight.h5'
+#sparse
+model_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_real1layer_l20.1_d0.3_Sonly_model.json'
+weight_name0 = 'netMHCIIpan_train1.tab_chems.txtn64_merge_hnn64_real1layer_l20.1_d0.3_Sonly_weight.h5'
 #patients excluded
 #length_max
 #max0 = 74
-max0 = 71
+max0 = 56
 
 #aa encodin
-dict_name = 'aa_21_sparse_encoding.dict'
+dict_name='Sparse_only.dict'
 dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
-dict_aa['_'] = np.zeros(21)
 ###determine the encoding size
 chars = dict_aa['A']
 ##batch_size
 b_size = 128
-#mixed length size
-len0_hla = 34
 
 #ouptu file
-file_name_out = path_pep+'rnn_merged_nemhc_data_on_mcl_v2_71_sparse.csv'
+file_name_out = path_pep+'rnn_merged_nemhc_data_on_mcl_v1_56_sparse.csv'
 
 #mhc_pseudosequence_dict
 mhc_dic = pickle.load(open(path_encoding+mhc_dict_file,'r'))
@@ -161,10 +160,10 @@ def predict_with_rnn(model0,list_pos,list_neg,mhc1,mhc2):
     list_pos_2 = add_mhc_to_peplist(mhc2,list_pos)
     list_neg_1 = add_mhc_to_peplist(mhc1,list_neg)
     list_neg_2 = add_mhc_to_peplist(mhc2,list_neg)
-    [list_pos_1_fixed, list_pos_1_var] = split_x(encoding_data(list_pos_1, max0),len0_hla)
-    [list_pos_2_fixed, list_pos_2_var] = split_x(encoding_data(list_pos_2, max0),len0_hla)
-    [list_neg_1_fixed, list_neg_1_var] = split_x(encoding_data(list_neg_1, max0),len0_hla)
-    [list_neg_2_fixed, list_neg_2_var] = split_x(encoding_data(list_neg_2, max0),len0_hla)
+    [list_pos_1_fixed, list_pos_1_var] = split_x(encoding_data(list_pos_1, max0),19)
+    [list_pos_2_fixed, list_pos_2_var] = split_x(encoding_data(list_pos_2, max0),19)
+    [list_neg_1_fixed, list_neg_1_var] = split_x(encoding_data(list_neg_1, max0),19)
+    [list_neg_2_fixed, list_neg_2_var] = split_x(encoding_data(list_neg_2, max0),19)
     val_pos_1 = list(model0.predict_proba([list_pos_1_fixed,list_pos_1_var],batch_size=b_size).flat)
     val_pos_2 = list(model0.predict_proba([list_pos_2_fixed,list_pos_2_var],batch_size=b_size).flat)
     val_neg_1 = list(model0.predict_proba([list_neg_1_fixed,list_neg_1_var],batch_size=b_size).flat)
@@ -188,7 +187,7 @@ def get_len(list0):
 def clean_list(list0):
     list_out = []
     for x in list0:
-        if not 'o' in x and len(x)<=max0-len0_hla:
+        if not 'o' in x and len(x)<=max0-19:
             list_out.append(x)
     return list_out
 
