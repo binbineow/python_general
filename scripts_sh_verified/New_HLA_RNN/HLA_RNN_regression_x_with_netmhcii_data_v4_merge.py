@@ -107,19 +107,19 @@ performance_file_name= performance_file_name +v1+out_name
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
 HIDDEN_SIZE = node0
-BATCH_SIZE = 124
+BATCH_SIZE = 512
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
-
+len_hla = 34
 
 #ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 #classes = [0,1]
-    
+
 
 ##########################start a model##########################
 ##########fixed part
 model_fixed = Sequential()
-model_fixed.add(Dense(help_nn,input_dim=19*len(chars),activation=act_fun))
+model_fixed.add(Dense(help_nn,input_dim=len_hla*len(chars),activation=act_fun))
 
 ##########recurrent part
 model_r = Sequential()
@@ -199,9 +199,9 @@ def read_data(path_file0):
     max_len0 = 0
     for line0 in open(path_file0,'r'):
         line0 = line0.rstrip().split('\t')
-        X_0.append(line0[0])
-        y_0.append(float(line0[1]))
-        max_len0 = max(max_len0,len(line0[0]))
+        X_0.append(line0[0]+line0[1])
+        y_0.append(float(line0[2]))
+        max_len0 = max(max_len0,len(line0[0]+line0[1]))
     return [X_0,y_0,max_len0]
 
 def encoding_data(list0,MAXLEN):
@@ -240,8 +240,8 @@ def main():
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
     ##separate input into two parts
-    [X_train_fixed,X_train_variable] = split_x(X_train,19)
-    [X_val_fixed,X_val_variable] = split_x(X_val,19)
+    [X_train_fixed,X_train_variable] = split_x(X_train,len0_hla)
+    [X_val_fixed,X_val_variable] = split_x(X_val,len0_hla)
     
     r_best = 0
     output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
