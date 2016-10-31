@@ -169,6 +169,7 @@ file_name0 = train_file0+v1+'.txt'
 #note_label = 'val_note.txt'
 #note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
+print(performance_file_name)
 
 ##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
