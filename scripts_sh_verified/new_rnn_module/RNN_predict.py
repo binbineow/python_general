@@ -95,6 +95,17 @@ def predict_with_rnn(model0,list_pos_1):
     class_pos_1 = model0.predict_classes(list_pos_1,batch_size=b_size)
     return val_pos_1,class_pos_1
 
+def make_random_pep(list0):
+    import random
+    list_out = []
+    one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/human_proteinome_oneline.str'
+    onegenestr = pickle.load(open(one_gene_path,'r'))
+    len_one = len(onegenestr)
+    for pos0 in list0:
+        rand0 = random.randint(0,len_one)
+        neg0 = onegenestr[rand0:rand0+len(pos0)]
+        list_out.append(neg0)
+    return list_out
 
 def import_model(path_model, model_name0,weight_name0):
     model_name0 = path_model+ model_name0
@@ -103,14 +114,22 @@ def import_model(path_model, model_name0,weight_name0):
     model0.load_weights(weight_name0)
     return model0
 
+def cal_sensi(list0,cut_off):
+    n0 = 0
+    for x in list0:
+        if x>= cut_off:
+            n0 +=1
+    return float(n0)/len(list0)
+
 def RNN_predict(list0, cut_off=0.4, path0 = path_model,model0=model_name0,weight0=weight_name0):
     model0 = import_model(path0,model0,weight0)
     [list_scores,list_class] = predict_with_rnn(model0,list0)
+    sensitivity_cut = cal_sensi(list_scores,cut_off)
     #dict_random = pickle.load(open('/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/random_pep_by_mhc.dict','r'))
     #list_random = dict_random['HLA-DRB1*01:01']
     #neg_list_scores = run_rnn_model(model0,list_random)
     sensitivity0 = np.sum(list_class)/float(len(list0))
-    return list_scores,list_class, sensitivity0
+    return list_scores,list_class, sensitivity0, sensitivity_cut
     
     
     
