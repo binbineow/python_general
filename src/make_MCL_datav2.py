@@ -77,9 +77,9 @@ for line0 in fileinput.input():
         data_MCL[pid]['mutation_pep_mhc1'] = mut_pep_mhc1
         data_MCL[pid]['wt_pep_mhc1'] = wt_pep_mhc1
         #update total list
-        mcl_mut_original = mcl_mut_original | mut_original_list
-        mcl_wt_pep = mcl_wt_pep | wt_pep_mhc1
-        mcl_mut_pep = mcl_mut_pep | mut_pep_mhc1
+        mcl_mut_original = mcl_mut_original | set(mut_original_list)
+        mcl_wt_pep = mcl_wt_pep | set(wt_pep_mhc1)
+        mcl_mut_pep = mcl_mut_pep | set(mut_pep_mhc1)
         #get MHC1 or MHC2 fragments and genes
         for type0 in ['MHC1','MHC2']:
             filename0 = path_MS+pid+'_'+type0+'_20151109_SQLPowerTool.csv'
