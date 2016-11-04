@@ -99,7 +99,7 @@ for line0 in fileinput.input():
 data_MCL['pooled']['all_mhc1'] = list(mcl_mhc1_all)
 data_MCL['pooled']['all_mhc2'] = list(mcl_mhc2_all)
 data_MCL['pooled']['all_original_mut'] = list(mcl_mut_original)
-data_MCL['pooled']['all_wt_mhc1'] = list(mcl_wt_pep)
+data_MCL['pooled']['all_wt_mhc1'] = list(mcl_wt_pep)[1:]
 data_MCL['pooled']['all_mut_mhc1'] = list(mcl_mut_pep)
 data_MCL['pooled']['key_words'] = ['all_mhc1','all_mhc2','all_original_mut','all_wt_mhc1','all_mut_mhc1']
 pickle.dump(data_MCL,open('MCL_11_11_2015_data_11_03_2016v2.0.dict','wb+'))
