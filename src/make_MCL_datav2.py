@@ -45,6 +45,12 @@ def get_HLA_typing (str0):
 #load dictionary
 gene_dict = pickle.load(open(dict_file,'r'))
 #dictRNA=pickle.load(open(dictRNA_file,'r'))
+#initiate 
+mcl_mhc1_all = set()
+mcl_mhc2_all = set()
+mcl_mut_original = set()
+mcl_wt_pep = set()
+mcl_mut_pep = set()
 
 for line0 in fileinput.input():
     if len(line0)> 15:
@@ -63,13 +69,17 @@ for line0 in fileinput.input():
         mut_gene_list = list(data_mut['Gene'])
         mut_original_list  = list(data_mut['Full_length_peptide']) 
         mut_pep_mhc1 = list(data_mut['Mut_peptide']) 
-        original_pep_mhc1 = list(data_mut['Wt_peptide']) 
+        wt_pep_mhc1 = list(data_mut['Wt_peptide']) 
         mut_gene_list = remove_merged(mut_gene_list)
         data_MCL[pid]['mutation']=mut_gene_list
         data_MCL[pid]['mutation'].append('IGHM')
         data_MCL[pid]['mutation_pep_original'] = mut_original_list
         data_MCL[pid]['mutation_pep_mhc1'] = mut_pep_mhc1
-        data_MCL[pid]['wt_pep_mhc1'] = original_pep_mhc1
+        data_MCL[pid]['wt_pep_mhc1'] = wt_pep_mhc1
+        #update total list
+        mcl_mut_original = mcl_mut_original | mut_original_list
+        mcl_wt_pep = mcl_wt_pep | wt_pep_mhc1
+        mcl_mut_pep = mcl_mut_pep | mut_pep_mhc1
         #get MHC1 or MHC2 fragments and genes
         for type0 in ['MHC1','MHC2']:
             filename0 = path_MS+pid+'_'+type0+'_20151109_SQLPowerTool.csv'
@@ -81,7 +91,17 @@ for line0 in fileinput.input():
             ms_gene_list = get_gene_from_ms(ms_gene_list,gene_dict,pid=pid)
             data_MCL[pid][type0+'_frag'] = ms_frag_list
             data_MCL[pid][type0+'_gene'] = ms_gene_list
+            if type0 == 'MHC1':
+                mcl_mhc1_all = mcl_mhc1_all | set(ms_frag_list)
+            else:
+                mcl_mhc2_all = mcl_mhc2_all | set(ms_frag_list)
 
+data_MCL['pooled']['all_mhc1'] = list(mcl_mhc1_all)
+data_MCL['pooled']['all_mhc2'] = list(mcl_mhc2_all)
+data_MCL['pooled']['all_original_mut'] = list(mcl_mut_original)
+data_MCL['pooled']['all_wt_mhc1'] = list(mcl_wt_pep)
+data_MCL['pooled']['all_mut_mhc1'] = list(mcl_mut_pep)
+data_MCL['pooled']['key_words'] = ['all_mhc1','all_mhc2','all_original_mut','all_wt_mhc1','all_mut_mhc1']
 pickle.dump(data_MCL,open('MCL_11_11_2015_data_11_03_2016v2.0.dict','wb+'))
 
 
