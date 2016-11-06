@@ -299,6 +299,8 @@ for _ in range(0,1):
             #for c in in_: char_set.add(c)
             class_set.add(out_)
     #
+    print('before_encoding')
+    print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
     
     #shuffle if indicated
     if b_shuffle:
