@@ -1,3 +1,4 @@
+from __future__ import print_function
 import theano
 theano.config.device = 'gpu'
 theano.config.floatX = 'float32'
@@ -12,7 +13,6 @@ theano.config.floatX = 'float32'
 #model.load_weights('my_model_weights.h5')
 
 #####################import#################################
-from __future__ import print_function
 from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
