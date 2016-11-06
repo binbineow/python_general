@@ -1,3 +1,6 @@
+import theano
+theano.config.device = 'gpu'
+theano.config.floatX = 'float32'
 # -*- coding: utf-8 -*-
 #based on HLA_RNN_classifier_spchem_withpseudo_v3_reg
 #using no hla information
@@ -10,9 +13,6 @@
 
 #####################import#################################
 from __future__ import print_function
-import theano
-theano.config.device = 'gpu'
-theano.config.floatX = 'float32'
 from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
