@@ -58,6 +58,20 @@ def save(path, ext='png', close=True, verbose=True):
         print("Done")
 ######################################
 
+#get a dictionary from a file name###        
+def get_dict_from_file(file_name0):
+    file0 = open(file_name0,'r')
+    dict_out = dict()
+    for line0 in file0:
+        line0 = line0.rstrip().split(' ')
+        #####get rid of ; if present and take the first value
+        if ';' in line0[1]:
+            line0[1] = line0[1][:-1]
+        ####
+        dict_out[line0[0]] = line0[1]
+    return list_out
+######################################
+
 #get a list from a file name###        
 def get_list_from_file(file_name0):
     file0 = open(file_name0,'r')
@@ -83,6 +97,7 @@ file_name_mhc = 'MCL_data11_18_2015_10_9_2016v1.1.dictwith_netmhcii'
 file_name_mhc = 'MCL_data11_18_2015v1.2_UP.dict'
 file_name_pid = 'target_patient.txt'
 mhc0 = 'MHC2'
+
 def get_mhc_frag_num(file_name_pid,file_name_mhc,mhc0):
     import cPickle as pickle
     pid_list = get_list_from_file(file_name_pid)

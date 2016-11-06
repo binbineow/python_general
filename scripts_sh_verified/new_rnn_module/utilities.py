@@ -11,34 +11,7 @@ import numpy as np
 import subprocess
 
 
-#working on xstream only if no one_gene_path given
-#
-def make_random_pep(list0,one_gene_path = '/home/stanford/rbaltman/users/bchen45/data/protein_general/human_proteinome_oneline.str'):
-    import random
-    list_out = []
-    onegenestr = pickle.load(open(one_gene_path,'r'))
-    len_one = len(onegenestr)
-    for pos0 in list0:
-        rand0 = random.randint(0,len_one)
-        neg0 = onegenestr[rand0:rand0+len(pos0)]
-        list_out.append(neg0)
-    return list_out
 
-def make_list_overlap_str(str0,str1):
-    list_out = [str0]
-    str_last = str0
-    for x in str1:
-        str_last = str_last + x
-        list_out.append(str_last)
-    print list_out
-    return list_out
-
-def cal_sensi(list0,cut_off):
-    n0 = 0
-    for x in list0:
-        if x>= cut_off:
-            n0 +=1
-    return float(n0)/len(list0)
 
 
 def dumb(): return defaultdict(list)
