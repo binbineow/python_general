@@ -116,6 +116,8 @@ for line0 in fileinput.input():
         drop_out_c = float(part2)
     if 'batch' in part1:
         BATCH_SIZE=int(part2)
+        print('batch='+part2)
+    
         
  
 

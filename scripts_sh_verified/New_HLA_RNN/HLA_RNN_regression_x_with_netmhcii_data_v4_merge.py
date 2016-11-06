@@ -89,6 +89,8 @@ for line0 in fileinput.input():
         act_fun = part2
     if 'help_layer' in part1:
         help_layer0 = int(part2)
+    if 'batch' in part1:
+        BATCH_SIZE=int(part2)
         
         
 
