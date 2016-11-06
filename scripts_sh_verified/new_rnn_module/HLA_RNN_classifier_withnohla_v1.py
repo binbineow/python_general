@@ -10,6 +10,9 @@
 
 #####################import#################################
 from __future__ import print_function
+import theano
+theano.config.device = 'gpu'
+theano.config.floatX = 'float32'
 from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
@@ -18,9 +21,7 @@ from utilities import *
 from keras.models import model_from_json
 from keras.regularizers import l2, activity_l2
 from sklearn.metrics import roc_auc_score
-import theano
-theano.config.device = 'gpu'
-theano.config.floatX = 'float32'
+
 #from keras.regularizers import l2,activity_l2
 
 ######Path for data as well as performance output are read in from fileinput ###
