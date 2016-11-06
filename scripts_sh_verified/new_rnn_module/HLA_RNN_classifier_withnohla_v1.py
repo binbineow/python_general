@@ -368,7 +368,7 @@ for _ in range(0,1):
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0))+0.1
+        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0),batch_size=BATCH_SIZE)+0.1
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         fp0 = sum(model.predict_classes(X_train_n,verbose=vb0,batch_size=BATCH_SIZE))
@@ -396,7 +396,7 @@ for _ in range(0,1):
         #print('mask_non_i='+str(len(mask_non_i)))
         #print('Val_Negative')
         #print(model.predict_classes(X_val_n)) 
-        fp0 = sum(model.predict_classes(X_val_n,verbose=vb0))
+        fp0 = sum(model.predict_classes(X_val_n,verbose=vb0,batch_size=BATCH_SIZE))
         tn0 = ntotal0 - fp0
         fn0 = ptotal0 - tp0
         val_pre=str(float(tp0)/(tp0+fp0))
@@ -405,8 +405,8 @@ for _ in range(0,1):
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
         #print('\n')
-        list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
-        list_val_n = model.predict_proba(X_val_n,verbose=vb0)[:,1]
+        list_val_p = model.predict_proba(X_val_p,verbose=vb0,batch_size=BATCH_SIZE)[:,1]
+        list_val_n = model.predict_proba(X_val_n,verbose=vb0,batch_size=BATCH_SIZE)[:,1]
         list_values = np.concatenate((list_val_p,list_val_n))
         list_true = np.concatenate((np.ones(len(list_val_p)),np.zeros(len(list_val_n))))
         auc_val = roc_auc_score(list_true, list_values)
