@@ -119,7 +119,7 @@ t_ratio = 1
 #validation split
 split0 = 0.2 #use 20% of data as the validation
 #use shuffled positive peptides as negative or not
-shuffle0 = True
+shuffle0 = False
 #MHC group
 mhc0 = 'MHC1_frag'
 #generating the random peptide sequence
@@ -155,7 +155,7 @@ list_clusters = get_cluster_list(list_pep_total)
 del_file(path_save+out_file_name+version0+'.txt')
 print('Save the file to '+path_save+out_file_name+version0+'.txt')
 write_data_with_neg(list_train,path_save,out_file_name+version0,0,shuffle0)
-write_data_with_neg(list_train,path_save,out_file_name+version0,2,shuffle0)
+write_data_with_neg(list_val,path_save,out_file_name+version0,2,shuffle0)
 print('Training positive = '+str(len(list_train)))
 print('Validation negative = '+str(len(list_val)))
 
