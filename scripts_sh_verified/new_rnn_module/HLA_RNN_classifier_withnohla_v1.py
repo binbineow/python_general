@@ -300,7 +300,7 @@ for _ in range(0,1):
             class_set.add(out_)
     #
     print('before_encoding')
-    print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
+    print('Training='+str(len(X_train))+' Validation='+str(len(X_val_p)))
     
     #shuffle if indicated
     if b_shuffle:
