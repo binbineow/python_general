@@ -79,7 +79,7 @@ def write_data_with_neg(list0,path_save,file_name0,neg_int,shuffle0):
                     file_out.write(neg0+'\t'+str(neg_int)+'\n')
                     neg0 = ''.join(random.sample(pos0,len(pos0)))
                     file_out.write(neg0+'\t'+str(neg_int)+'\n')
-            elif not mixe0:
+            elif not mixed0:
                 for i in range(0,t_ratio*2):
                     rand0 = random.randint(0,len_one_ms)
                     neg0 = onegenestr_ms[rand0:rand0+len(pos0)]
@@ -127,7 +127,7 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #hla_dict_file = 'DRB1_pseudo_seq.dict'
 version0 = '_generalv1_x_deculster_2ms'
 #mix random peptide types or not
-fixed0 = False
+mixed0 = False
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
