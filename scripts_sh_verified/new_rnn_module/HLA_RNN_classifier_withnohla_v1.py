@@ -370,7 +370,7 @@ for _ in range(0,1):
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0),batch_size=BATCH_SIZE)+0.1
+        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0,batch_size=BATCH_SIZE))+0.1
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         fp0 = sum(model.predict_classes(X_train_n,verbose=vb0,batch_size=BATCH_SIZE))
