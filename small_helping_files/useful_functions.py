@@ -91,6 +91,15 @@ def get_val_from_dict(dict0,make_set=True):
     return list_val
 ######################################
 
+def create_long_string(list0,shuffle0=True):
+    #shuffle the list by default
+    import random
+    random.shuffle(list0)
+    str_out = ''.join(list0)
+    return str_out
+    
+    
+
 def dumb(): return defaultdict(list)
 
 file_name_mhc = 'MCL_data11_18_2015_10_9_2016v1.1.dictwith_netmhcii'
@@ -104,6 +113,6 @@ def get_mhc_frag_num(file_name_pid,file_name_mhc,mhc0):
     mcl_dict = pickle.load(open(file_name_mhc,'r'))
     for pid0 in pid_list:
         print(pid0+','+str(len(mcl_dict[pid0][mhc0+'_frag'])))
-        
+    
 
 get_mhc_frag_num(file_name_pid,file_name_mhc,mhc0)
