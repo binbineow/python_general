@@ -57,7 +57,18 @@ def walking_pep(list0,upper0 = 50,walk0=16):
             for i in range(0,len(x)-walk0):
                 list_out.append(x[i:i+walk0])
     print('Number of strings longer than '+str(upper0)+' = '+str(n0))
-    return list_out        
+    return list_out  
+      
+######################################
+
+#get a list from a file name###        
+def get_list_from_file(file_name0):
+    file0 = open(file_name0,'r')
+    list_out = []
+    for x in file0:
+        x = x.rstrip()
+        list_out.append(x)
+    return list_out
 
 #remove str0
 def remove_str0_from_a_list(list0,str0):
