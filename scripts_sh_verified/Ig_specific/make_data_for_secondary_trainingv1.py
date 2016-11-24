@@ -198,8 +198,8 @@ def predict_with_rnn(model0,list_pos):
     #print(val_pos_1[0])
     #optional post-processing
     val_pos_1 = moving_max(val_pos_1)
-    #if is_filter_glyc:
-    #    val_pos_1 = filter_glyc(list_pos,val_pos_1)
+    if is_filter_glyc:
+        val_pos_1 = filter_glyc(list_pos,val_pos_1)
     return val_pos_1
 
 
@@ -325,8 +325,8 @@ def process_data(mhc_info,gene_info,model_rnn,pid0,chain0):
     #pos_data = list(set(pos_data))
     mhc2_pos_data = mhc_info
     ighm_reco = get_reco_map(mhc2_pos_data,seq_data)
-    print('Positive variable peptides recovered from MHCII='+str(len(mhc2_pos_data)))
-    print('start prediction')
+    print(len(val_pos))
+    print(len(seq_data))
     val_pos = predict_with_netmhc_stored(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
