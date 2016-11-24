@@ -341,26 +341,28 @@ def process_data(mhc_info,gene_info,model_rnn,pid0,chain0):
     ighm_reco = print_list0(list(ighm_reco),',')
     return [ighm_pred, ighm_reco,n_pred,n_reco]
 
-def process_data_rnn(file_name0,mhc_file0,model_rnn):
-    seq_data = get_line_from_list(file_name0,'IGHM')
+def process_data_rnn(mhc_info,gene_info,model_rnn,pid0,chain0):
+    seq_data = gene_info
     ighm_pred = [0]*len(seq_data)
     seq_frag = get_frag(seq_data,n_frag)
     #pos_data = list(set(pos_data))
-    mhc2_pos_data = pickle.load(open(mhc_file0))
+    mhc2_pos_data = mhc_info
     ighm_reco = get_reco_map(mhc2_pos_data,seq_data)
-    print('Positive IGHM peptides recovered from MHCII='+str(len(mhc_file0)))
+    print('Positive variable peptides recovered from MHCII='+str(len(mhc2_pos_data)))
     print('start prediction')
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
-    print('Model_used='+model_name0)
-    print('Weight_used='+weight_name0)
+    n_pred = count_region(ighm_pred,0.1*scale0)
+    n_reco = count_region(ighm_reco,1)
+    plot_2_lines(ighm_pred,ighm_reco,pid0+'_'+chain0.upper()+'_chain',chain0)
+    #print('Model_used='+model_name0)
+    #print('Weight_used='+weight_name0)
     #print(str(ighm_pred))
     #print(str(ighm_reco))
     ighm_pred = print_list0(list(ighm_pred),',')
     ighm_reco = print_list0(list(ighm_reco),',')
-    return [ighm_pred, ighm_reco]
-
+    return [ighm_pred, ighm_reco,n_pred,n_reco]
 
 def main(file_name_pid,file_name0,file_out,chain0):
     #model_rnn = import_model(path_model, model_name0, weight_name0)
@@ -372,7 +374,6 @@ def main(file_name_pid,file_name0,file_out,chain0):
         print(pid0)
         mhc_info_h = dict_mcl[pid0]['Constant']
         gene_h = dict_mcl['Constant'][chain0]
-        list_h_reco_num.append(len(mhc_info_h))
         #predict with netmhciipan
         model_net = dict_mcl[pid0]['NetMCHIIpan_dict'] #the dictionary file not rnn here
         [_,_,n_pred,n_reco] = process_data(mhc_info_h,gene_h, model_net,pid0,chain0)
@@ -381,7 +382,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
         list_pep_num = [len(dict_mcl[pid0]['MHC2_frag'])]*len(n_pred)
         #predict with rnn
         model_rnn = import_model(path_model, model_name0, weight_name0)
-        [rnn_pred0,_] = process_data_rnn(file_name0,mhc_file0, model_rnn)
+        [rnn_pred0,_] = process_data_rnn(mhc_info_h,gene_h, model_rnn,pid0,chain0)
         list0 = numpy(zip(list_pep_num,rnn_pred0,n_pred))
         x_out = np.concatenate([x_out,list0])
     pickle.dump(x_out,open(file_out+'_x.list'))
