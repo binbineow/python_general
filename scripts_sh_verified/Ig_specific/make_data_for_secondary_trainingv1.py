@@ -375,14 +375,15 @@ def main(file_name_pid,file_name0,file_out,chain0):
         y_out.extend(seq_reco)
         print(pid0)
         print('y')
-        print(len(y_out))
-        print('x')
-        print(len(net_pred0))
+        print(len(seq_reco))
         list_pep_num = [len(dict_mcl[pid0]['MHC2_frag'])]*len(seq_reco)
         #predict with rnn
         model_rnn = import_model(path_model, model_name0, weight_name0)
         [rnn_pred0,_,_,_] = process_data_rnn(mhc_info_h,gene_h, model_rnn,pid0,chain0)
+        print(rnn_pred0[0])
         list0 = np.array(zip(list_pep_num,rnn_pred0,net_pred0))
+        print('x')
+        print(len(list0))
         if len(x_out) < 3:
             x_out = list0
         else:
