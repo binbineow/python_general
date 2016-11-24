@@ -332,11 +332,6 @@ def process_data(mhc_info,gene_info,model_rnn,pid0,chain0):
         ighm_pred[i] = val_pos[i]
     n_pred = count_region(ighm_pred,0.1*scale0)
     n_reco = count_region(ighm_reco,1)
-    plot_2_lines(ighm_pred,ighm_reco,pid0+'_'+chain0.upper()+'_chain',chain0,label1='NetMHCIIpan Predicted')
-    #print('Model_used='+model_name0)
-    #print('Weight_used='+weight_name0)
-    #print(str(ighm_pred))
-    #print(str(ighm_reco))
     ighm_pred = print_list0(list(ighm_pred),',')
     ighm_reco = print_list0(list(ighm_reco),',')
     return [ighm_pred, ighm_reco,n_pred,n_reco]
@@ -353,15 +348,16 @@ def process_data_rnn(mhc_info,gene_info,model_rnn,pid0,chain0):
     val_pos = predict_with_rnn(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
+    print(ighm_pred)
     n_pred = count_region(ighm_pred,0.1*scale0)
     n_reco = count_region(ighm_reco,1)
-    plot_2_lines(ighm_pred,ighm_reco,pid0+'_'+chain0.upper()+'_chain',chain0)
+    #plot_2_lines(ighm_pred,ighm_reco,pid0+'_'+chain0.upper()+'_chain',chain0)
     #print('Model_used='+model_name0)
     #print('Weight_used='+weight_name0)
     #print(str(ighm_pred))
     #print(str(ighm_reco))
-    ighm_pred = print_list0(list(ighm_pred),',')
-    ighm_reco = print_list0(list(ighm_reco),',')
+    #ighm_pred = print_list0(list(ighm_pred),',')
+    #ighm_reco = print_list0(list(ighm_reco),',')
     return [ighm_pred, ighm_reco,n_pred,n_reco]
 
 def main(file_name_pid,file_name0,file_out,chain0):
@@ -387,8 +383,8 @@ def main(file_name_pid,file_name0,file_out,chain0):
             x_out = list0
         else:
             x_out = np.concatenate([x_out,list0])
-    pickle.dump(x_out,open(file_out+'_x.list'))
-    pickle.dump(y_out,open(file_out+'_y.list'))
+    pickle.dump(x_out,open(file_out+'_x.list','w+'))
+    pickle.dump(y_out,open(file_out+'_y.list','w+'))
 
 
 #file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
