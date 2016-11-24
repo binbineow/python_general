@@ -378,7 +378,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
         model_net = dict_mcl[pid0]['NetMCHIIpan_dict'] #the dictionary file not rnn here
         [net_pred0,seq_reco,_,_] = process_data(mhc_info_h,gene_h, model_net,pid0,chain0)
         y_out.extend(seq_reco)
-        list_pep_num = [len(dict_mcl[pid0]['MHC2_frag'])]*len(n_pred)
+        list_pep_num = [len(dict_mcl[pid0]['MHC2_frag'])]*len(seq_reco)
         #predict with rnn
         model_rnn = import_model(path_model, model_name0, weight_name0)
         [rnn_pred0,_,_,_] = process_data_rnn(mhc_info_h,gene_h, model_rnn,pid0,chain0)
