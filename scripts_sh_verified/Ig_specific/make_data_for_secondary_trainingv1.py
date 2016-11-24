@@ -376,14 +376,13 @@ def main(file_name_pid,file_name0,file_out,chain0):
         gene_h = dict_mcl['Constant'][chain0]
         #predict with netmhciipan
         model_net = dict_mcl[pid0]['NetMCHIIpan_dict'] #the dictionary file not rnn here
-        [_,_,n_pred,n_reco] = process_data(mhc_info_h,gene_h, model_net,pid0,chain0)
-        y_out.extend(n_reco)
-        list_h_pred.append(n_pred)
+        [net_pred0,seq_reco,_,_] = process_data(mhc_info_h,gene_h, model_net,pid0,chain0)
+        y_out.extend(seq_reco)
         list_pep_num = [len(dict_mcl[pid0]['MHC2_frag'])]*len(n_pred)
         #predict with rnn
         model_rnn = import_model(path_model, model_name0, weight_name0)
-        [rnn_pred0,_] = process_data_rnn(mhc_info_h,gene_h, model_rnn,pid0,chain0)
-        list0 = numpy(zip(list_pep_num,rnn_pred0,n_pred))
+        [rnn_pred0,_,_,_] = process_data_rnn(mhc_info_h,gene_h, model_rnn,pid0,chain0)
+        list0 = np.array(zip(list_pep_num,rnn_pred0,net_pred0))
         x_out = np.concatenate([x_out,list0])
     pickle.dump(x_out,open(file_out+'_x.list'))
     pickle.dump(y_out,open(file_out+'_y.list'))
