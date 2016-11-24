@@ -116,3 +116,22 @@ def get_mhc_frag_num(file_name_pid,file_name_mhc,mhc0):
     
 
 get_mhc_frag_num(file_name_pid,file_name_mhc,mhc0)
+
+#pull mhc1 and mhc2 peptides from Nature Communication 2016 csv file
+def get_sublist_with_str(list0,str0):
+    list_out = []
+    for x in list0:
+        if str0 in x:
+            list_out.append(x)
+    return list_out
+
+def get_non_empty_row(array0):
+    list_out = []
+    import pandas as pd
+    for n0 in range(0,len(array0)):
+        for x in array0[n0]:
+            if not pd.isnull(x):
+                list_out.append(n0)
+                break
+    return list_out        
+    
