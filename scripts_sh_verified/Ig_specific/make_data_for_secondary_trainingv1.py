@@ -325,9 +325,9 @@ def process_data(mhc_info,gene_info,model_rnn,pid0,chain0):
     #pos_data = list(set(pos_data))
     mhc2_pos_data = mhc_info
     ighm_reco = get_reco_map(mhc2_pos_data,seq_data)
+    val_pos = predict_with_netmhc_stored(model_rnn,seq_frag)
     print(len(val_pos))
     print(len(seq_data))
-    val_pos = predict_with_netmhc_stored(model_rnn,seq_frag)
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
     n_pred = count_region(ighm_pred,0.1*scale0)
