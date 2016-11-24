@@ -192,14 +192,14 @@ def predict_with_rnn(model0,list_pos):
     #list_val_p = model.predict_proba(X_val_p,verbose=vb0)[:,1]
     val_pos_1 = list(model0.predict_proba(list_pos_1,batch_size=b_size,verbose=vb0)[:,1])
     #add cut_off filter
-    val_pos_1 = [max(0,i-cut_off0) for i in val_pos_1]
+    #val_pos_1 = [max(0,i-cut_off0) for i in val_pos_1]
     #scale the list
-    val_pos_1 = [i*scale0 for i in val_pos_1]
+    #val_pos_1 = [i*scale0 for i in val_pos_1]
     #print(val_pos_1[0])
     #optional post-processing
     val_pos_1 = moving_max(val_pos_1)
-    if is_filter_glyc:
-        val_pos_1 = filter_glyc(list_pos,val_pos_1)
+    #if is_filter_glyc:
+    #    val_pos_1 = filter_glyc(list_pos,val_pos_1)
     return val_pos_1
 
 
@@ -307,10 +307,10 @@ def predict_with_netmhc_stored(dict_netmhc,seq_frag):
             print(seq0+' not in the dictionary')
     #the score is in top x percentile
     #let's try 20 - x, and ignore negative score
-    val_pos_1 = [max(0,cut_off0-i) for i in val_pos_1]
-    print(val_pos_1)
+    #val_pos_1 = [max(0,cut_off0-i) for i in val_pos_1]
+    #print(val_pos_1)
     #scale the list
-    val_pos_1 = [i*scale0 for i in val_pos_1]
+    #val_pos_1 = [i*scale0 for i in val_pos_1]
     #print(val_pos_1[0])
     #optional post-processing
     val_pos_1 = moving_max(val_pos_1)
@@ -383,8 +383,8 @@ def main(file_name_pid,file_name0,file_out,chain0):
             x_out = list0
         else:
             x_out = np.concatenate([x_out,list0])
-    pickle.dump(x_out,open(file_out+'_x.list','w+'))
-    pickle.dump(y_out,open(file_out+'_y.list','w+'))
+    pickle.dump(x_out,open(file_out+'_x_moving_max.list','w+'))
+    pickle.dump(y_out,open(file_out+'_y_moving_max.list','w+'))
 
 
 #file_names_v = [pathig+'MCL_all_V_heavy.list',pathig+'MCL_all_V_light.list']
