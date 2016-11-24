@@ -346,10 +346,11 @@ def process_data_rnn(mhc_info,gene_info,model_rnn,pid0,chain0):
     print('Positive variable peptides recovered from MHCII='+str(len(mhc2_pos_data)))
     print('start prediction')
     val_pos = predict_with_rnn(model_rnn,seq_frag)
-    print(val_pos)
+    print(len(val_pos))
+    print(len(seq_data))
     for i in range(0,len(val_pos)):
         ighm_pred[i] = val_pos[i]
-    print(ighm_pred)
+    print(len(ighm_pred))
     n_pred = count_region(ighm_pred,0.1*scale0)
     n_reco = count_region(ighm_reco,1)
     #plot_2_lines(ighm_pred,ighm_reco,pid0+'_'+chain0.upper()+'_chain',chain0)
