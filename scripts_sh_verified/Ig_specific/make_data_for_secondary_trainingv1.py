@@ -332,8 +332,6 @@ def process_data(mhc_info,gene_info,model_rnn,pid0,chain0):
         ighm_pred[i] = val_pos[i]
     n_pred = count_region(ighm_pred,0.1*scale0)
     n_reco = count_region(ighm_reco,1)
-    ighm_pred = print_list0(list(ighm_pred),',')
-    ighm_reco = print_list0(list(ighm_reco),',')
     return [ighm_pred, ighm_reco,n_pred,n_reco]
 
 def process_data_rnn(mhc_info,gene_info,model_rnn,pid0,chain0):
@@ -369,13 +367,17 @@ def main(file_name_pid,file_name0,file_out,chain0):
     y_out = []
     x_out = np.array([])
     for pid0 in pid_list:
-        print(pid0)
         mhc_info_h = dict_mcl[pid0]['Constant']
         gene_h = dict_mcl['Constant'][chain0]
         #predict with netmhciipan
         model_net = dict_mcl[pid0]['NetMCHIIpan_dict'] #the dictionary file not rnn here
         [net_pred0,seq_reco,_,_] = process_data(mhc_info_h,gene_h, model_net,pid0,chain0)
         y_out.extend(seq_reco)
+        print(pid0)
+        print('y')
+        print(len(y_out))
+        print('x')
+        print(len(net_pred0))
         list_pep_num = [len(dict_mcl[pid0]['MHC2_frag'])]*len(seq_reco)
         #predict with rnn
         model_rnn = import_model(path_model, model_name0, weight_name0)
