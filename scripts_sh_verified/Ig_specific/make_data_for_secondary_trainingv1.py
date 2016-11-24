@@ -367,7 +367,7 @@ def main(file_name_pid,file_name0,file_out,chain0):
     dict_mcl = pickle.load(open(file_name0,'r'))
     pid_list = get_list_from_file(file_name_pid)
     y_out = []
-    x_out = numpy.array([])
+    x_out = np.array([])
     for pid0 in pid_list:
         print(pid0)
         mhc_info_h = dict_mcl[pid0]['Constant']
