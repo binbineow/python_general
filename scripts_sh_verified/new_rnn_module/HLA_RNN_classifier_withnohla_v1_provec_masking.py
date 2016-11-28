@@ -279,7 +279,7 @@ for _ in range(0,1):
     ##########################start a model
     model = Sequential()
     # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
-    model.add(Masking(mask_value=0.),input_shape=(MAXLEN, len(dict['AAA'])))
+    model.add(Masking(mask_value=0.),input_shape=(MAXLEN, len(dict_aa['AAA'])))
     #print(str(LAYERS))
     #keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
     model.add(RNN)
