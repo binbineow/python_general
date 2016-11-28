@@ -144,44 +144,7 @@ len_non_sub = sum(mask_non_sub)
 
 
 
-##########################Parameters for the model and dataset
-#TRAINING_SIZE = len(inputs)
-# Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
-    
-
-##########################start a model
-model = Sequential()
-# "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
-model.add(Masking(mask_value=0.))
-#print(str(LAYERS))
-#keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
-
-if LAYERS>1:
-    #print('1')
-    model.add(RNN(return_sequences=True))
-    
-else:
-    #print('2')
-    model.add(RNN)
-    if help_nn >0:
-        model.add(Dense(help_nn))
-        model.add(Activation('tanh'))
-if LAYERS>2:
-    for _ in xrange(LAYERS-2):
-        #print('3')
-        model.add(RNN(HIDDEN_SIZE, return_sequences=True))
-        #    #model.add(Dropout(0.5))
-if LAYERS>1:
-    #print('4')
-    model.add(RNN(HIDDEN_SIZE, return_sequences=False))
-model.add(Dense(2))
-model.add(Activation('softmax'))
-model.compile(loss=loss_function0, optimizer='adam')
-#save the model
-#json_string = model.to_json()
-#open(path_save+file_name0+'_model.json', 'w').write(json_string)
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
@@ -295,7 +258,7 @@ for _ in range(0,1):
             
             #for c in in_: char_set.add(c)
             class_set.add(out_)
-    #
+    
     
     #shuffle if indicated
     if b_shuffle:
@@ -308,6 +271,28 @@ for _ in range(0,1):
     #ctable = CharacterTable(chars, MAXLEN)
     #classtable = CharacterTable(classes, 1)
     MAXLEN = max_len #DIGITS + 1 + DIGITS
+    
+    ##########################Parameters for the model and dataset
+#TRAINING_SIZE = len(inputs)
+# Try replacing JZS1 with LSTM, GRU, or SimpleRNN
+RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+##########################start a model
+model = Sequential()
+# "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
+model.add(Masking(mask_value=0.),input_shape=(MAXLEN, len(dict['AAA'])))
+#print(str(LAYERS))
+#keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
+model.add(RNN)
+if help_nn >0:
+    model.add(Dense(help_nn))
+    model.add(Activation('tanh'))
+
+model.add(Dense(2))
+model.add(Activation('softmax'))
+model.compile(loss=loss_function0, optimizer='adam')
+#save the model
+json_string = model.to_json()
+open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
 
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)))
