@@ -36,6 +36,7 @@ encoding//scripts_sh_verified/Old_HLA_RNN/HLA_RNN_classifier_spchem_withpseudo_v
 encoding//scripts_sh_verified/new_rnn_module/HLA_RNN_classifier_withnohla_v1.py=utf-8
 encoding//scripts_sh_verified/new_rnn_module/HLA_RNN_classifier_withnohla_v1_allele.py=utf-8
 encoding//scripts_sh_verified/new_rnn_module/HLA_RNN_classifier_withnohla_v1_provec.py=utf-8
+encoding//scripts_sh_verified/new_rnn_module/HLA_RNN_classifier_withnohla_v1_provec_masking.py=utf-8
 encoding//src/RNN_classifier_v8_dict.py=utf-8
 encoding//src/RNN_classifierv4.py=utf-8
 encoding//src/RNN_classifierv7.py=utf-8
