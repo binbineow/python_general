@@ -273,26 +273,26 @@ for _ in range(0,1):
     MAXLEN = max_len #DIGITS + 1 + DIGITS
     
     ##########################Parameters for the model and dataset
-#TRAINING_SIZE = len(inputs)
-# Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
-##########################start a model
-model = Sequential()
-# "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
-model.add(Masking(mask_value=0.),input_shape=(MAXLEN, len(dict['AAA'])))
-#print(str(LAYERS))
-#keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
-model.add(RNN)
-if help_nn >0:
-    model.add(Dense(help_nn))
-    model.add(Activation('tanh'))
-
-model.add(Dense(2))
-model.add(Activation('softmax'))
-model.compile(loss=loss_function0, optimizer='adam')
-#save the model
-json_string = model.to_json()
-open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
+    #TRAINING_SIZE = len(inputs)
+    # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
+    RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+    ##########################start a model
+    model = Sequential()
+    # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
+    model.add(Masking(mask_value=0.),input_shape=(MAXLEN, len(dict['AAA'])))
+    #print(str(LAYERS))
+    #keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
+    model.add(RNN)
+    if help_nn >0:
+        model.add(Dense(help_nn))
+        model.add(Activation('tanh'))
+    
+    model.add(Dense(2))
+    model.add(Activation('softmax'))
+    model.compile(loss=loss_function0, optimizer='adam')
+    #save the model
+    json_string = model.to_json()
+    open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
 
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)))
