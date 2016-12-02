@@ -165,7 +165,7 @@ for pid0 in pid_list:
 '''
 list_pep_total = pickle.load(open(path0+'nature_Bassani_2016_mhc1.list'))
 #list_pep_total = list(set(list_pep_total))
-print('redundant set of peptide of '+mhc0+' ='+str(mhc_total))
+print('redundant set of peptide of '+mhc0+' ='+str(len(list_pep_total)))
 #make it unique
 list_pep_total = list(set(list_pep_total))
 #print(list_pep_total[0:15])
