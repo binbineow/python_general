@@ -145,7 +145,7 @@ onegenestr_ms = pickle.load(open(one_ms_path,'r'))
 len_one_ms = len(onegenestr_ms)
 #read in data
 #patient_val = ['MCL041','MCL128','MCL019']
-MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
+#MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
 #dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
 #initiate the training set
 #set_train = set()
@@ -164,7 +164,7 @@ for pid0 in pid_list:
         mhc_total += len(MCL_data[pid0][mhc0])
 '''
 list_pep_total = pickle.load(path0+'nature_Bassani_2016_mhc1.list')
-list_pep_total = list(set(list_pep_total))
+#list_pep_total = list(set(list_pep_total))
 print('redundant set of peptide of '+mhc0+' ='+str(mhc_total))
 #make it unique
 list_pep_total = list(set(list_pep_total))
