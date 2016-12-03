@@ -21,9 +21,9 @@ for line0 in open(path0+file_name):
     elif line0.split('\t')[1] == '3': 
         p_list.append(str0)
         p_val.append(str0)
-    elif line.split('\t')[1] == '0':
+    elif line0.split('\t')[1] == '0':
         n_val.append(str0)
-    elif line.split('\t')[1] == '2':
+    elif line0.split('\t')[1] == '2':
         t_list.append(str0)
 
 #p_list = random.sample(p_list,len(p_list))
