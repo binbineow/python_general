@@ -1,13 +1,16 @@
 import fileinput
 import Levenshtein
 import random
+import sys
 
 
 p_list = []
 n_list = []
 t_list = []
+path0 = sys.argv[1]
+file_name = sys.argv[2]
 #percent_validation = 10 #out of 100
-for line0 in fileinput.input():
+for line0 in open(path0+file_name):
     line0 = line0.rstrip()
     str0 = line0.split('\t')[0]
     if line0.split('\t')[1] == '1':
