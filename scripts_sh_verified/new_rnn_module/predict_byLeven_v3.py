@@ -22,9 +22,9 @@ for line0 in open(path0+file_name):
     elif line0.split('\t')[1] == '3': 
         p_list.append(str0)
         p_val.append(str0)
-    elif line0.split('\t')[1] == '0':
-        n_val.append(str0)
     elif line0.split('\t')[1] == '2':
+        n_val.append(str0)
+    elif line0.split('\t')[1] == '0':
         t_list.append(str0)
 
 #p_list = random.sample(p_list,len(p_list))
@@ -54,7 +54,7 @@ for x in t_list:
         if Levenshtein.ratio(x,y)>score0:
             score0 = Levenshtein.ratio(x,y)
     t_score.append(score0)
-print(t_score)
+print(t_score[0:250])
 best_i = 0
 best_accuracy = 0
 test_at_best_i = 0
@@ -97,4 +97,4 @@ for _ in range(0,n_iterations):
 
     print('precision='+str(precision)+'\trecall='+str(recall)+'\taccuarcy='+str(accuracy)+'\tTest_FDR='+str(recall_t))
 print('best accuracy='+str(best_accuracy)+' achieved at cut_off='+str(best_i))  
-print('best test recall at best i ='+str(test_at_best_i))      
+#print('best test recall at best i ='+str(test_at_best_i))      
