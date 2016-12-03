@@ -4,6 +4,7 @@ import random
 import sys
 import numpy as np
 import cPickle as pickle
+from sklearn.metrics import roc_auc_score
 
 
 p_list = []
@@ -100,4 +101,8 @@ for _ in range(0,n_iterations):
     print('precision='+str(precision)+'\trecall='+str(recall)+'\taccuarcy='+str(accuracy)+'\tTest_FDR='+str(recall_t))
 print('best accuracy='+str(best_accuracy)+' achieved at cut_off='+str(best_i))  
 #print('best test recall at best i ='+str(test_at_best_i))  
-pickle.dump([p_score+n_score,[1]*len(p_score)+[0]*len(n_score)],open(path0+'auc_list_from_'+file_name,'w+'))    
+list_true = [1]*len(p_score)+[0]*len(n_score)
+list_values = p_score+n_score
+pickle.dump([list_values,list_true],open(path0+'auc_list_from_'+file_name,'w+'))    
+auc_val = roc_auc_score(list_true, list_values)
+print('auc='+str(auc_val))
