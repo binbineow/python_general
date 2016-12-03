@@ -7,6 +7,8 @@ import sys
 p_list = []
 n_list = []
 t_list = []
+p_train = []
+p_val = []
 path0 = sys.argv[1]
 file_name = sys.argv[2]
 #percent_validation = 10 #out of 100
