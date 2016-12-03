@@ -145,7 +145,7 @@ out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
 t_ratio = 1
 #validation split
-split0 = 0.2 #use 20% of data as the validation
+split0 = 0.1 #use 20% of data as the validation
 #use shuffled positive peptides as negative or not
 shuffle0 = False
 #MHC group
@@ -163,6 +163,7 @@ print('redundant set of peptide of '+mhc0+' ='+str(len(list_pep_total)))
 list_pep_total = list(set(list_pep_total))
 #print(list_pep_total[0:15])
 list_pep_total = limit_length(list_pep_total,8)
+list_pep_total = limit_long(list_pep_total,13)
 print('After filtering, peptide n='+str(len(list_pep_total)))
 list_clusters = get_cluster_list(list_pep_total)
 [list_train,list_val] = split_cluster(list_clusters,len(list_pep_total),split0)

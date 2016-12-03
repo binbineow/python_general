@@ -318,6 +318,20 @@ for _ in range(0,1):
         print()
         print('-' * 50)
         print('Iteration', iteration)
+
+        
+        
+            
+            
+            
+        
+        
+        
+        
+        
+        
+        
+        
         
         model.fit(X_train, y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0, class_weight={1:1,0:1.0/ratio_t/2})      
         #####predicting training
@@ -372,5 +386,13 @@ for _ in range(0,1):
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
-   
+
+        
+#data_list is a list of lists with variable length
+data_list = []
+for long_pep in data_x:
+    data_list = ethan_magic(long_pep)
+        
+#create prediction for all elements
+update_step = 512
 
