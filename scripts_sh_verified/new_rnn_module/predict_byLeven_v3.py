@@ -2,6 +2,8 @@ import fileinput
 import Levenshtein
 import random
 import sys
+import numpy as np
+import cPickle as pickle
 
 
 p_list = []
@@ -48,7 +50,7 @@ for x in n_val:
             score0 = Levenshtein.ratio(x,y)
     n_score.append(score0)
 t_score = []
-for x in t_list:
+for x in t_list[:1000]:
     score0 = 0
     for y in p_train:
         if Levenshtein.ratio(x,y)>score0:
@@ -97,4 +99,5 @@ for _ in range(0,n_iterations):
 
     print('precision='+str(precision)+'\trecall='+str(recall)+'\taccuarcy='+str(accuracy)+'\tTest_FDR='+str(recall_t))
 print('best accuracy='+str(best_accuracy)+' achieved at cut_off='+str(best_i))  
-#print('best test recall at best i ='+str(test_at_best_i))      
+#print('best test recall at best i ='+str(test_at_best_i))  
+pickle.dump([p_score+n_score,[1]*len(p_score)+[0]*len(n_score)],open(path0+'auc_list_from_'+file_name,'w+'))    
