@@ -125,9 +125,9 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 #hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_generalv1_x_deculster_2ms'
+version0 = '_mcl_deculster_ms_random'
 #mix random peptide types or not
-mixed0 = False
+mixed0 = True
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_i_train_val'
 #note_label = 'val_note.txt'
