@@ -156,7 +156,7 @@ len_one = len(onegenestr)
 onegenestr_ms = pickle.load(open(one_ms_path,'r'))
 len_one_ms = len(onegenestr_ms)
 #read in data
-list_pep_total = pickle.load(open(path0+'nature_Bassani_2016_mhc2.list'))
+list_pep_total = pickle.load(open(path0+'nature_Bassani_2016_mhc1.list'))
 #list_pep_total = list(set(list_pep_total))
 print('redundant set of peptide of '+mhc0+' ='+str(len(list_pep_total)))
 #make it unique
