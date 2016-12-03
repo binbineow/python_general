@@ -45,7 +45,7 @@ b_size = 512
 
 
 ##functions
-def encoding_line(str0, max_len):
+def encoding_line(str0, max_len,dict0):
     #print(type(dict_aa['A']))
     #print(type(list(dict_aa['A'])))
     #print(type(max_len))
@@ -58,20 +58,20 @@ def encoding_line(str0, max_len):
     else:
         coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
         for i,char0 in enumerate(str0):
-            coded0[i,:] = dict_aa[char0] 
+            coded0[i,:] = dict0[char0] 
     #print(str0)
     #print(coded0)
     return coded0
 
-def encoding(matrix0, input0, len0):
+def encoding(matrix0, input0, len0,dict0):
     for i, sentence in enumerate(input0):
-        matrix0[i] = encoding_line(sentence, len0)
+        matrix0[i] = encoding_line(sentence, len0,dict0)
     return matrix0
 
-def encoding_data(list0,MAXLEN):
+def encoding_data(list0,MAXLEN,dict0):
     #encoding   
     X_0_m = np.zeros((len(list0), MAXLEN, len(chars)))
-    X_encoded = encoding(X_0_m,list0,MAXLEN)
+    X_encoded = encoding(X_0_m,list0,MAXLEN,dict0)
     return X_encoded
 
 
@@ -89,8 +89,8 @@ def cal_auc_from2lists(post_list,neg_list):
     return auc_val
 
 
-def predict_with_rnn(model0,list_pos_1):
-    list_pos_1 = encoding_data(list_pos_1, max0)
+def predict_with_rnn(model0,list_pos_1,dict0,max_l):
+    list_pos_1 = encoding_data(list_pos_1, max_l,dict0)
     val_pos_1 = model0.predict_proba(list_pos_1,batch_size=b_size)[:,1]
     class_pos_1 = model0.predict_classes(list_pos_1,batch_size=b_size)
     return val_pos_1,class_pos_1
@@ -113,9 +113,9 @@ def cal_sensi(list0,cut_off):
 
 
 
-def RNN_predict(list0, cut_off=0.4, path0 = path_model,model0=model_name0,weight0=weight_name0):
+def RNN_predict(list0, cut_off=0.4, path0 = path_model,model0=model_name0,weight0=weight_name0,dict0=dict_aa,max_l=max0):
     model0 = import_model(path0,model0,weight0)
-    [list_scores,list_class] = predict_with_rnn(model0,list0)
+    [list_scores,list_class] = predict_with_rnn(model0,list0,dict0,max_l)
     sensitivity_cut = cal_sensi(list_scores,cut_off)
     #dict_random = pickle.load(open('/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/random_pep_by_mhc.dict','r'))
     #list_random = dict_random['HLA-DRB1*01:01']
