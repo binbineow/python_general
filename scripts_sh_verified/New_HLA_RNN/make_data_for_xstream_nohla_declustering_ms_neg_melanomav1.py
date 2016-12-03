@@ -112,6 +112,18 @@ def limit_length(list0,len0):
     print('Peptides shorter than '+str(len0)+' ='+str(n0))
     return list_out
 
+#filter out peptide length <len0    
+def limit_long(list0,len0):
+    list_out = []
+    n0 = 0
+    for x in list0:
+        if len(x) > len0:
+            n0 += 1
+        else:
+            list_out.append(x)
+    print('Peptides shorter than '+str(len0)+' ='+str(n0))
+    return list_out
+
 #folder for the main peptide data
 path0 = '/home/stanford/rbaltman/users/bchen45/data/protein_general/'
 #folder for encoding dictionary
@@ -144,25 +156,6 @@ len_one = len(onegenestr)
 onegenestr_ms = pickle.load(open(one_ms_path,'r'))
 len_one_ms = len(onegenestr_ms)
 #read in data
-#patient_val = ['MCL041','MCL128','MCL019']
-#MCL_data = pickle.load(open(path0+'MCL_data11_18_2015v1.1.dict','r'))
-#dict_hla = pickle.load(open(path_encoding+hla_dict_file,'r'))
-#initiate the training set
-#set_train = set()
-#write training data into a txt file
-'''
-list_pep_total = []
-pid_list = MCL_data['pid']['pid']
-patient_val = []
-print(pid_list)
-#get list_pep_total 
-#contraining all unique peptide in the data
-mhc_total = 0
-for pid0 in pid_list:
-    if not pid0 in patient_val:
-        list_pep_total.extend(MCL_data[pid0][mhc0])
-        mhc_total += len(MCL_data[pid0][mhc0])
-'''
 list_pep_total = pickle.load(open(path0+'nature_Bassani_2016_mhc2.list'))
 #list_pep_total = list(set(list_pep_total))
 print('redundant set of peptide of '+mhc0+' ='+str(len(list_pep_total)))
