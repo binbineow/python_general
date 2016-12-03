@@ -56,7 +56,7 @@ def encoding_line(str0, max_len,dict0):
         else:
             coded0[1] = 1
     else:
-        coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
+        coded0 = np.zeros((max_len,len(list(dict0['A']))))
         for i,char0 in enumerate(str0):
             coded0[i,:] = dict0[char0] 
     #print(str0)
@@ -70,7 +70,7 @@ def encoding(matrix0, input0, len0,dict0):
 
 def encoding_data(list0,MAXLEN,dict0):
     #encoding   
-    X_0_m = np.zeros((len(list0), MAXLEN, len(chars)))
+    X_0_m = np.zeros((len(list0), MAXLEN, len(list(dict0['A']))))
     X_encoded = encoding(X_0_m,list0,MAXLEN,dict0)
     return X_encoded
 
