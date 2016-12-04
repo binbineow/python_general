@@ -20,7 +20,7 @@ from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score,roc_curve
 #from keras.regularizers import l1,activity_l1
 
 ######Path for data as well as performance output are read in from fileinput ###
@@ -320,5 +320,6 @@ def main():
         #print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         #output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+    pickle.dump(roc_curve(y_val_linear,test_outs),open(path_save+'roc_curve_data+'+out_name+'.list','w+'))
     
 main()
