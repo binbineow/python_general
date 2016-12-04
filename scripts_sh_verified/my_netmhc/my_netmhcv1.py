@@ -51,7 +51,7 @@ path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
-dict_name = 'Blosum50_20long.dict'
+dict_name = 'BLOSUM50_20long.dict'
 b_shuffle = True
 loss_function0 = 'categorical_crossentropy'
 vb0 = 1
