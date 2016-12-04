@@ -200,6 +200,8 @@ def select_best(x,y,track,model):
         selected_y = y[j]
     X_new.append(selected_x)
     y_new.append(selected_y)
+    #if np.isinf(best_max):
+    #    print 
     outs_new.append(best_max)
   return np.array(X_new), np.array(y_new), np.array(outs_new)
 
@@ -242,7 +244,7 @@ def main():
         in_,out_ = [x.rstrip() for x in line.split("\t")]
         if len(out_) != 1:
             raise Exception("Output should be single characer")
-        else:
+        elif len(in_) > 8:
             if out_ == '0' :
                 X_train.append(in_)
                 y_train.append([1,0])
