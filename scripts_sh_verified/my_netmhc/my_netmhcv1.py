@@ -147,6 +147,7 @@ def encode_seq(seq):
 # input: string of peptides
 # output: yield each netmhc vector encoding
 def make_windows(seq):
+  print(seq)
   first = seq[0]
   last = seq[-1]
   for i in range(0,len(seq)-9+1):
@@ -211,7 +212,7 @@ def encoding(data_x,data_y):
     for i,line in enumerate(data_x):
         # track which original datapoint each window belongs to
         begin, end = len(X), len(X)
-        for s in make_windows(data_x):
+        for s in make_windows(line):
             X.append(s)
             y.append(data_y[i])
             end += 1
