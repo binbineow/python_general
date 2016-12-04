@@ -190,6 +190,7 @@ def calf1(str1,str2):
 def select_best(x,y,track,model):
   X_new, y_new, outs_new = [], [], []
   outs = model.predict(x, batch_size=BATCH_SIZE,verbose=vb0)
+  print(outs[0:100])
   for k,vs in track.items():
     best_max = -float("inf")
     for j in range(vs[0],vs[1]):
@@ -285,13 +286,14 @@ def main():
     print("Input loaded ")
 
     #training
-    for iteration in range(1, n_iteration):
+    for iteration in range(0, n_iteration):
         #iterations.append(str(iteration))
         print()
         print('-' * 50)
         print('Iteration', iteration)
 
         X_new, y_new, outs_new = select_best(X_train, y_train, track, model)
+        print(len(X_new))
         model.fit(X_new, y_train, batch_size=BATCH_SIZE, nb_epoch=nb,verbose=vb0)
         _, y_test_select, test_outs = select_best(X_val, y_val, track_val,model)
         auc_val = roc_auc_score(y_val_linear, test_outs)
