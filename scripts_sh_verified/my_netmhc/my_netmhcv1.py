@@ -55,7 +55,7 @@ dict_name = 'BLOSUM50_20long.dict'
 b_shuffle = True
 loss_function0 = 'categorical_crossentropy'
 vb0 = 1
-nb = 3
+nb0 = 3
 n_iteration = 100
 ratio_t = 0.5
 help_nn = 60
@@ -293,7 +293,7 @@ def main():
         print('Iteration', iteration)
         X_new, y_new, outs_new = select_best(X_train, y_train_encoded, track, model)
         print(len(X_new))
-        model.fit(X_new, y_train, batch_size=BATCH_SIZE, nb_epoch=nb,verbose=vb0)
+        model.fit(X_new, y_train, batch_size=BATCH_SIZE, nb_epoch=nb0,verbose=vb0)
         _, y_test_select, test_outs = select_best(X_val, y_val_encoded, track_tes,model)
         auc_val = roc_auc_score(y_val_linear, test_outs)
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
