@@ -269,8 +269,8 @@ def main():
         
 
     #create training or validation matrix
-    X_train,_,track = encoding(X_train, y_train)
-    X_test,_,track_test = encoding(X_val, y_val)
+    X_train,y_train_encoded,track = encoding(X_train, y_train)
+    X_test,y_val_encoded,track_test = encoding(X_val, y_val)
 
     ##########################start a model
     model = Sequential()
@@ -291,10 +291,10 @@ def main():
         print()
         print('-' * 50)
         print('Iteration', iteration)
-        X_new, y_new, outs_new = select_best(X_train, y_train, track, model)
+        X_new, y_new, outs_new = select_best(X_train, y_train_encoded, track, model)
         print(len(X_new))
         model.fit(X_new, y_train, batch_size=BATCH_SIZE, nb_epoch=nb,verbose=vb0)
-        _, y_test_select, test_outs = select_best(X_val, y_val, track_val,model)
+        _, y_test_select, test_outs = select_best(X_val, y_val_encoded, track_val,model)
         auc_val = roc_auc_score(y_val_linear, test_outs)
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
