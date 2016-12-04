@@ -123,8 +123,7 @@ performance_file_name= performance_file_name +v1+out_name
 ##########################Parameters for the model and dataset
 #TRAINING_SIZE = len(inputs)
 # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-RNN = recurrent.LSTM
-HIDDEN_SIZE = node0
+
 
 BATCH_SIZE = 128
 #will play with Layers 
