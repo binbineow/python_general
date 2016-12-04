@@ -281,9 +281,6 @@ def main():
     model.compile(loss=loss_function0, optimizer='adam')
         
     print(X_train[1,:])
-    
-    X_val = np.concatenate((X_val_n,X_val_p))
-    y_val = np.concatenate((y_val_n,y_val_p))
     print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
     print("Input loaded ")
 
