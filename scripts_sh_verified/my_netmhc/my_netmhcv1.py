@@ -108,7 +108,7 @@ for line0 in fileinput.input():
 
 
 # load blossom chemical encoding dictionary
-chem = pickle.load(open(open(path_dict+dict_name,'r')))
+chem = pickle.load(open(path_dict+dict_name,'r'))
 # set '-' to all zeros
 chem['-'] = np.zeros(len(chem['A']))
 
