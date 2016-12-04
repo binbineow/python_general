@@ -131,14 +131,6 @@ BATCH_SIZE = 128
 classes = [0,1]
     
 
-##########################start a model
-model = Sequential()
-model.add(Dense(input_shape=(X_train.shape[1],), help_nn))
-model.add(Activation('relu'))
-classes = [0,1]
-model.add(Dense(len(classes)))
-model.add(Activation('softmax'))
-model.compile(loss=loss_function0, optimizer='adam')
 #save the model
 #json_string = model.to_json()
 #open(path_save+file_name0+'_model.json', 'w').write(json_string)
