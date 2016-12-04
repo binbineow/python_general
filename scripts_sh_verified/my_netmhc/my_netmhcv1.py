@@ -290,6 +290,7 @@ def main():
     print("Input loaded ")
 
     #training
+    perf0 = []
     for iteration in range(0, n_iteration):
         #iterations.append(str(iteration))
         print()
@@ -304,11 +305,12 @@ def main():
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
         print('\n')
-        print([iteration,auc_val])
+        perf0.append([iteration,auc_val])
+        print(perf0[-1])
         #print('[iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub]')
         #print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         #output_perf2([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
     pickle.dump(roc_curve(y_val_linear,test_outs),open(path_save+'roc_curve_data+'+out_name+'.list','w+'))
-    
+    pickle.dump(perf0,open(path_save+'auc_scores'+out_name+'.list','w+'))
 main()
