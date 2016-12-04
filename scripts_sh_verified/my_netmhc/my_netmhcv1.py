@@ -133,7 +133,7 @@ classes = [0,1]
 
 ##########################start a model
 model = Sequential()
-model.add(Dense(help_nn))
+model.add(Dense(input_shape=(X_train.shape[1],), help_nn))
 model.add(Activation('relu'))
 classes = [0,1]
 model.add(Dense(len(classes)))
@@ -277,8 +277,15 @@ def main():
     X_train,y_train,track = encoding(X_train_m, y_train)
     X_test,y_test,track_test = encoding(X_val, y_val)
 
-
-    
+    ##########################start a model
+    model = Sequential()
+    model.add(Dense(input_shape=(X_train.shape[1],), help_nn))
+    model.add(Activation('relu'))
+    classes = [0,1]
+    model.add(Dense(len(classes)))
+    model.add(Activation('softmax'))
+    model.compile(loss=loss_function0, optimizer='adam')
+        
     print(X_train[1,1,:])
     
     X_val = np.concatenate((X_val_n,X_val_p))
