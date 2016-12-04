@@ -187,7 +187,7 @@ def calf1(str1,str2):
 # select strongest binding core for each example
 # input: x data matrix, y data, tracking info
 # output: strongest bindings for each x datapoint, corresponding y, corresponding outputs
-def select_best(x,y,track):
+def select_best(x,y,track,model):
   X_new, y_new, outs_new = [], [], []
   outs = model.predict(x, batch_size=BATCH_SIZE,verbose=vb0)
   for k,vs in track.items():
@@ -291,9 +291,9 @@ def main():
         print('-' * 50)
         print('Iteration', iteration)
 
-        X_new, y_new, outs_new = select_best(X_train, y_train, track)
+        X_new, y_new, outs_new = select_best(X_train, y_train, track, model)
         model.fit(X_new, y_train, batch_size=BATCH_SIZE, nb_epoch=nb,verbose=vb0)
-        _, y_test_select, test_outs = select_best(X_val, y_val, track_val)
+        _, y_test_select, test_outs = select_best(X_val, y_val, track_val,model)
         auc_val = roc_auc_score(y_val_linear, test_outs)
         #print('Val_Precision='+str(float(tp0)/(tp0+fp0)))
         #print('Val_Recall='+str(float(tp0)/(tp0+fn0)))
