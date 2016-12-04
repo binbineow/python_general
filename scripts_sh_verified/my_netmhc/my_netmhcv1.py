@@ -279,7 +279,7 @@ def main():
 
     ##########################start a model
     model = Sequential()
-    model.add(Dense(input_shape=(X_train.shape[1],), help_nn))
+    model.add(Dense(help_nn, input_shape=(X_train.shape[1],)))
     model.add(Activation('relu'))
     classes = [0,1]
     model.add(Dense(len(classes)))
