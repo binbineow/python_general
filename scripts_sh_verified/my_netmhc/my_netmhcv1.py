@@ -266,7 +266,7 @@ def main():
         
 
     #create training or validation matrix
-    X_train,y_train,track = encoding(X_train_m, y_train)
+    X_train,y_train,track = encoding(X_train, y_train)
     X_test,y_test,track_test = encoding(X_val, y_val)
 
     ##########################start a model
