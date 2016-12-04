@@ -18,9 +18,11 @@ from keras.models import Sequential, Model
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
 from keras.callbacks import ModelCheckpoint
-from utilities import *
+#from utilities import *
 from keras.models import model_from_json
 from sklearn.metrics import roc_auc_score,roc_curve
+import cPickle as pickle
+import numpy as np
 #from keras.regularizers import l1,activity_l1
 
 ######Path for data as well as performance output are read in from fileinput ###
