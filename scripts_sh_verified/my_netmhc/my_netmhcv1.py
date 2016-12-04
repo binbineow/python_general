@@ -280,7 +280,7 @@ def main():
     model.add(Activation('softmax'))
     model.compile(loss=loss_function0, optimizer='adam')
         
-    print(X_train[1,1,:])
+    print(X_train[1,:])
     
     X_val = np.concatenate((X_val_n,X_val_p))
     y_val = np.concatenate((y_val_n,y_val_p))
