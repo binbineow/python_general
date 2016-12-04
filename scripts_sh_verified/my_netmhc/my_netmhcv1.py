@@ -189,8 +189,8 @@ def calf1(str1,str2):
 # output: strongest bindings for each x datapoint, corresponding y, corresponding outputs
 def select_best(x,y,track,model):
   X_new, y_new, outs_new = [], [], []
-  outs = model.predict(x, batch_size=BATCH_SIZE,verbose=vb0)[1]
-  print(outs[0:100])
+  outs = model.predict(x, batch_size=BATCH_SIZE,verbose=vb0)[:,1]
+  #print(outs[0:100])
   for k,vs in track.items():
     best_max = -float("inf")
     for j in range(vs[0],vs[1]):
@@ -291,7 +291,6 @@ def main():
         print()
         print('-' * 50)
         print('Iteration', iteration)
-
         X_new, y_new, outs_new = select_best(X_train, y_train, track, model)
         print(len(X_new))
         model.fit(X_new, y_train, batch_size=BATCH_SIZE, nb_epoch=nb,verbose=vb0)
