@@ -189,7 +189,7 @@ def calf1(str1,str2):
 # output: strongest bindings for each x datapoint, corresponding y, corresponding outputs
 def select_best(x,y,track,model):
   X_new, y_new, outs_new = [], [], []
-  outs = model.predict(x, batch_size=BATCH_SIZE,verbose=vb0)
+  outs = model.predict(x, batch_size=BATCH_SIZE,verbose=vb0)[1]
   print(outs[0:100])
   for k,vs in track.items():
     best_max = -float("inf")
