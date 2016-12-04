@@ -116,24 +116,7 @@ chem['-'] = np.zeros(len(chem['A']))
    
 ##########################construct input file name####################  
 file_name0 = data_file_name+v1+'.txt'
-note_label = 'val_note.txt'
-note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
-
-#########################construct note label############################
-list0 = []
-for line0 in open(path_data+note_file0,'r'):
-    num0 = float(line0)
-    list0.append(num0)
-#this array has 1,2,3 to distinghish three types of positive peptides 
-list_val0 = np.array(list0)
-mask_non_i = list_val0 >= 2
-# non_i includes non_sub
-len_non_i = sum(mask_non_i)
-mask_non_sub = list_val0 == 3
-len_non_sub = sum(mask_non_sub)
-
-
 
 
 
