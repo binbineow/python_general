@@ -111,6 +111,7 @@ for line0 in fileinput.input():
 chem = pickle.load(open(path_dict+dict_name,'r'))
 # set '-' to all zeros
 chem['-'] = np.zeros(len(chem['A']))
+chem['X'] = np.zeros(len(chem['A']))
 
 
    
@@ -147,7 +148,7 @@ def encode_seq(seq):
 # input: string of peptides
 # output: yield each netmhc vector encoding
 def make_windows(seq):
-  print(seq)
+  #print(seq)
   first = seq[0]
   last = seq[-1]
   for i in range(0,len(seq)-9+1):
