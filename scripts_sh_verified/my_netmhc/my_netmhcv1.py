@@ -23,6 +23,7 @@ from keras.models import model_from_json
 from sklearn.metrics import roc_auc_score,roc_curve
 import cPickle as pickle
 import numpy as np
+import fileinput
 #from keras.regularizers import l1,activity_l1
 
 ######Path for data as well as performance output are read in from fileinput ###
