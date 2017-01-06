@@ -51,7 +51,8 @@ path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
-dict_name = 'BLOSUM50_20long.dict'
+#dict_name = 'BLOSUM50_20long.dict'
+dict_name = 'aa_21_sparse_encoding.dict'
 b_shuffle = True
 loss_function0 = 'categorical_crossentropy'
 vb0 = 1
@@ -284,7 +285,8 @@ def main():
     model.add(Dense(len(classes)))
     model.add(Activation('softmax'))
     model.compile(loss=loss_function0, optimizer='adam')
-        
+    json_string = model.to_json()
+    open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
     print(X_train[1,:])
     print('Training='+str(len(X_train))+' Validation='+str(len(X_val)))
     print("Input loaded ")
