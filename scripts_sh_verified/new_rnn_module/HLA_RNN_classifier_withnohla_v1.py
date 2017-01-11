@@ -313,6 +313,7 @@ for _ in range(0,1):
     #ctable = CharacterTable(chars, MAXLEN)
     #classtable = CharacterTable(classes, 1)
     MAXLEN = max_len #DIGITS + 1 + DIGITS
+    print(MAXLEN)
 
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)))
