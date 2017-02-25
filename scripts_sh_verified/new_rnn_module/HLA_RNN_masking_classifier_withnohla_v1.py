@@ -1,3 +1,7 @@
+from __future__ import print_function
+# import theano
+# theano.config.device = 'gpu'
+# theano.config.floatX = 'float32'
 # -*- coding: utf-8 -*-
 #based on HLA_RNN_classifier_spchem_withpseudo_v3_reg
 #using no hla information
@@ -9,7 +13,6 @@
 #model.load_weights('my_model_weights.h5')
 
 #####################import#################################
-from __future__ import print_function
 from keras.models import Sequential
 from keras.layers.core import Activation, Masking, Dropout, Dense, RepeatVector
 from keras.layers import recurrent
@@ -18,6 +21,7 @@ from utilities import *
 from keras.models import model_from_json
 from keras.regularizers import l2, activity_l2
 from sklearn.metrics import roc_auc_score
+
 #from keras.regularizers import l2,activity_l2
 
 ######Path for data as well as performance output are read in from fileinput ###
@@ -45,7 +49,7 @@ path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
-dict_name = 'protvec.dict'
+dict_name = 'aa_21_sparse_encoding.dict'
 b_shuffle = True
 loss_function0 = 'categorical_crossentropy'
 vb0 = 0
@@ -58,6 +62,7 @@ l2_c = 0
 drop_out_c = 0
 HIDDEN_SIZE = 64
 BATCH_SIZE = 128
+mask0 = True
 #will play with Layers 
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 classes = [0,1]
@@ -112,17 +117,22 @@ for line0 in fileinput.input():
         drop_out_c = float(part2)
     if 'batch' in part1:
         BATCH_SIZE=int(part2)
+        print('batch='+part2)
+    if 'masking' in part1:
+        mask0 = 'rue' in part2.lower()
+        print('Masking='+str(mask0))
+    
         
  
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 ###determine the encoding size
-chars = dict_aa['AAA']
+chars = dict_aa['A']
    
 ##########################construct input file name####################  
 file_name0 = data_file_name+v1+'.txt'
 note_label = 'val_note.txt'
-note_file0 = data_file_name+v1+note_label
+#note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
 
 #########################construct note label############################
@@ -144,7 +154,47 @@ len_non_sub = sum(mask_non_sub)
 
 
 
+##########################Parameters for the model and dataset
+#TRAINING_SIZE = len(inputs)
+# Try replacing JZS1 with LSTM, GRU, or SimpleRNN
+RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 
+    
+
+##########################start a model
+model = Sequential()
+#masking
+if mask0:
+    model.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['AAA']))))
+# "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
+#model.add(Masking())
+#print(str(LAYERS))
+#keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
+
+if LAYERS>1:
+    #print('1')
+    model.add(RNN(return_sequences=True))
+    
+else:
+    #print('2')
+    model.add(RNN)
+    if help_nn >0:
+        model.add(Dense(help_nn))
+        model.add(Activation('tanh'))
+if LAYERS>2:
+    for _ in xrange(LAYERS-2):
+        #print('3')
+        model.add(RNN(HIDDEN_SIZE, return_sequences=True))
+        #    #model.add(Dropout(0.5))
+if LAYERS>1:
+    #print('4')
+    model.add(RNN(HIDDEN_SIZE, return_sequences=False))
+model.add(Dense(2))
+model.add(Activation('softmax'))
+model.compile(loss=loss_function0, optimizer='adam')
+#save the model
+json_string = model.to_json()
+open(path_save+file_name0+out_name+'_model.json', 'w+').write(json_string)
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
@@ -159,17 +209,14 @@ def encoding_line(str0, max_len):
         else:
             coded0[1] = 1
     else:
-        coded0 = np.zeros((max_len,len(list(dict_aa['AAA']))))
-        for i in range(0,len(str0)-2):
-            if str0[i:i+3] in dict_aa:
-                coded0[i,:] = dict_aa[str0[i:i+3]]
-            else:
-                print('Error for encoding, '+str0[i:i+3])
+        coded0 = np.zeros((max_len,len(list(dict_aa['A']))))
+        if 'a' in str0:
+            print(str0)
+        for i,char0 in enumerate(str0):
+            coded0[i,:] = dict_aa[char0] 
     #print(str0)
     #print(coded0)
     return coded0
-
-
 
 def encoding(matrix0, input0, len0):
     for i, sentence in enumerate(input0):
@@ -258,7 +305,9 @@ for _ in range(0,1):
             
             #for c in in_: char_set.add(c)
             class_set.add(out_)
-    
+    #
+    print('before_encoding')
+    print('Training='+str(len(X_train))+' Validation='+str(len(X_val_p)))
     
     #shuffle if indicated
     if b_shuffle:
@@ -271,28 +320,7 @@ for _ in range(0,1):
     #ctable = CharacterTable(chars, MAXLEN)
     #classtable = CharacterTable(classes, 1)
     MAXLEN = max_len #DIGITS + 1 + DIGITS
-    
-    ##########################Parameters for the model and dataset
-    #TRAINING_SIZE = len(inputs)
-    # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-    RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
-    ##########################start a model
-    model = Sequential()
-    # "Encode" the input sequence using an RNN, producing an output of HIDDEN_SIZE
-    model.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['AAA']))))
-    #print(str(LAYERS))
-    #keras.layers.core.ActivityRegularization(l2=0.0, l2=0.0)
-    model.add(RNN)
-    if help_nn >0:
-        model.add(Dense(help_nn))
-        model.add(Activation('tanh'))
-    
-    model.add(Dense(2))
-    model.add(Activation('softmax'))
-    model.compile(loss=loss_function0, optimizer='adam')
-    #save the model
-    json_string = model.to_json()
-    open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
+    print(MAXLEN)
 
     #create training or validation matrix
     X_train_m = np.zeros((len(X_train), MAXLEN, len(chars)))
@@ -350,7 +378,7 @@ for _ in range(0,1):
         ntotal0 = len(X_train_n)
         #print('Train_Postive')
         #print(model.predict_classes(X_val_p)) 
-        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0))+0.1
+        tp0 = sum(model.predict_classes(X_train_p,verbose=vb0,batch_size=BATCH_SIZE))+0.1
         #print('Train_Negative')
         #print(model.predict_classes(X_val_n)) 
         fp0 = sum(model.predict_classes(X_train_n,verbose=vb0,batch_size=BATCH_SIZE))
@@ -394,7 +422,7 @@ for _ in range(0,1):
         auc_val = roc_auc_score(list_true, list_values)
         #print([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,recall_non_i,recall_non_sub])
         output_perf2(round_list([iteration,train_pre,train_recall,train_f1,val_pre,val_recall,val_f1,auc_val],4))
-        model.save_weights(path_save+file_name0+out_name+'_weight.h5',overwrite=True)
+        model.save_weights(path_save+data_file_name+out_name+'_weight.h5',overwrite=True)
     #save weights and performance info
     #output_perf(file_out,file_name0,iterations,training_n, train_pre,train_recall,val_pre,val_recall)
     #model.save_weights(path_save+file_name0+v1+'_weight.h5',overwrite=True)
