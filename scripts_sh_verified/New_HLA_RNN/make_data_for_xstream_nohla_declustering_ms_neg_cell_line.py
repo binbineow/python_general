@@ -136,7 +136,7 @@ mixed0 = True
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
-t_ratio = 993
+t_ratio = 49
 #validation split
 split0 = 0.1 #use 20% of data as the validation
 #use shuffled positive peptides as negative or not
