@@ -125,13 +125,13 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 #hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_mcl_deculster_ms_random90_cell_line'
+version0 = '_mcl_deculster_ms_random90_cell_line99n'
 #mix random peptide types or not
 mixed0 = True
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
-t_ratio = 1
+t_ratio = 99
 #validation split
 split0 = 0.1 #use 20% of data as the validation
 #use shuffled positive peptides as negative or not
