@@ -67,7 +67,7 @@ def write_data_with_neg(list0,path_save,file_name0,neg_int,shuffle0):
     #touch_file is in utilities
     touch_file(path_save+out_file_name+version0+'.txt')
     file_out = open(path_save+out_file_name+version0+'.txt','a')
-    for pos0 in list0:
+    for pos0 in list0 and (len(pos0)<max_len0):
         #output sequence and classes
         if (not 'X' in pos0) and (not '<' in pos0):
             file_out.write(pos0+'\t'+str(neg_int+1)+'\n')
@@ -130,9 +130,11 @@ path_save = '/home/stanford/rbaltman/users/bchen45/data/HLA_pred_data/'
 #RNASeq file if needed
 #dictRNA_file = path0+'MCLRNASeq_ave.dict'
 #hla_dict_file = 'DRB1_pseudo_seq.dict'
-version0 = '_mcl_deculster_ms_random90_cell_line99n'
+version0 = '_mcl_deculster_ms_random90_cell_line99n_23'
 #mix random peptide types or not
 mixed0 = True
+#max length
+max_len0 = 24
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
