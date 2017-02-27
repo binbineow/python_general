@@ -67,9 +67,9 @@ def write_data_with_neg(list0,path_save,file_name0,neg_int,shuffle0):
     #touch_file is in utilities
     touch_file(path_save+out_file_name+version0+'.txt')
     file_out = open(path_save+out_file_name+version0+'.txt','a')
-    for pos0 in list0 and (len(pos0)<max_len0):
+    for pos0 in list0 :
         #output sequence and classes
-        if (not 'X' in pos0) and (not '<' in pos0):
+        if (not 'X' in pos0) and (not '<' in pos0) and (len(pos0)<max_len0) :
             file_out.write(pos0+'\t'+str(neg_int+1)+'\n')
             if shuffle0:
                 for i in range(0,t_ratio):
