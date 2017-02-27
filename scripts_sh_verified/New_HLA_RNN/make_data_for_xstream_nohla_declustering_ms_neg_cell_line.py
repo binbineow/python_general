@@ -69,32 +69,37 @@ def write_data_with_neg(list0,path_save,file_name0,neg_int,shuffle0):
     file_out = open(path_save+out_file_name+version0+'.txt','a')
     for pos0 in list0:
         #output sequence and classes
-        if not 'X' in pos0:
+        if (not 'X' in pos0) and (not '<' in pos0):
             file_out.write(pos0+'\t'+str(neg_int+1)+'\n')
             if shuffle0:
                 for i in range(0,t_ratio):
                     rand0 = random.randint(0,len_one_ms)
                     neg0 = onegenestr_ms[rand0:rand0+len(pos0)]
                     neg0 = neg0.upper()
-                    file_out.write(neg0+'\t'+str(neg_int)+'\n')
+                    if len(neg0) == len(pos0):
+                        file_out.write(neg0+'\t'+str(neg_int)+'\n')
                     neg0 = ''.join(random.sample(pos0,len(pos0)))
-                    file_out.write(neg0+'\t'+str(neg_int)+'\n')
+                    if len(neg0) == len(pos0):
+                        file_out.write(neg0+'\t'+str(neg_int)+'\n')
             elif not mixed0:
                 for i in range(0,t_ratio*2):
                     rand0 = random.randint(0,len_one_ms)
                     neg0 = onegenestr_ms[rand0:rand0+len(pos0)]
                     neg0 = neg0.upper()
-                    file_out.write(neg0+'\t'+str(neg_int)+'\n')
+                    if len(neg0) == len(pos0):
+                        file_out.write(neg0+'\t'+str(neg_int)+'\n')
             else:
                 for i in range(0,t_ratio):
                     rand0 = random.randint(0,len_one_ms)
                     neg0 = onegenestr_ms[rand0:rand0+len(pos0)]
                     neg0 = neg0.upper()
-                    file_out.write(neg0+'\t'+str(neg_int)+'\n')
+                    if len(neg0) == len(pos0):
+                        file_out.write(neg0+'\t'+str(neg_int)+'\n')
                     rand0 = random.randint(0,len_one)
                     neg0 = onegenestr[rand0:rand0+len(pos0)]
                     neg0 = neg0.upper()
-                    file_out.write(neg0+'\t'+str(neg_int)+'\n')
+                    if len(neg0) == len(pos0):
+                        file_out.write(neg0+'\t'+str(neg_int)+'\n')
 
                 
             #output label in order
@@ -131,7 +136,7 @@ mixed0 = True
 #v2 contains training examples with both allele 1,2 and allele 2,1
 out_file_name = 'hla_ii_train_val'
 #note_label = 'val_note.txt'
-t_ratio = 99
+t_ratio = 993
 #validation split
 split0 = 0.1 #use 20% of data as the validation
 #use shuffled positive peptides as negative or not
