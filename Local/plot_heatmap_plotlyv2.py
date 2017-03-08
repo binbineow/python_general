@@ -1,16 +1,18 @@
 import cPickle as pickle
 import plotly.plotly as py
 import plotly.graph_objs as go
+import numpy as np
 path0 = '/Users/binbineow2/Documents/Machine_Learning/HLA_prediction/Figure_MCL/heatmap/'
-pid_list = pickle.load(open(path0+'heatmap_pid.list','r'))
-z = pickle.load(open(path0+'heatmap_mhc2_J.mat','r'))
+pid_list = pickle.load(open(path0+'mcl_patient2.list','r'))
+z = pickle.load(open(path0+'normal_j_matrixv2.np','r'))
 #z = pickle.load(open(path0+'heatmap_drb.mat','r'))
-for n0 in range(0,len(z)):
-    z[n0] = list(reversed(z[n0]))
-    
+#for n0 in range(0,len(z)):
+#    #z[n0,n0] = 0
+#    z[n0] = list(reversed(z[n0]))
+z = np.flipud(z)
 x = pid_list
-x = list(reversed(pid_list))
-y = pid_list
+#x = list(reversed(pid_list))
+y = list(reversed(pid_list))
 
 annotations = []
 for n, row in enumerate(z):
@@ -26,12 +28,12 @@ for n, row in enumerate(z):
                 showarrow=False)
             )
 
-colorscale = [[0, '#CCE5FF'], [1, '#003366']]  # custom colorscale
+colorscale = [[0, '#FFFFFF'], [0.5, '#003366'],[1, '#003366']]  # custom colorscale
 #trace = go.Heatmap(x=x, y=y, z=z, colorscale=colorscale, showscale=False)
 trace = go.Heatmap(x=x, y=y, z=z, colorscale=colorscale)
 fig = go.Figure(data=[trace])
 fig['layout'].update(
-    title="Overlapping of peptides between patients (Jaccard Index)",
+    title="Overlapping of peptides between patients (Standard Jaccard Index)",
     #title="HLA-DRB1 Sequence similarity between patients (Levenshtein Ratio)",
     #annotations=annotations,
     xaxis=dict(ticks='', side='top'),
@@ -42,4 +44,4 @@ fig['layout'].update(
     autosize=True
 )
 
-url = py.plot(fig, filename='Peptide overlap Heatmap', height=1000)
+url = py.plot(fig, filename='Boostrapped Peptide Overlap Heatmap', height=1000)
