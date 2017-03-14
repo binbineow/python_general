@@ -25,7 +25,7 @@ path_dict = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_
 #Blosum50_sparse.dict
 #Blosum50_only.dict
 #Sparse_only.dict
-dict_name = 'aa_21_sparse_encoding.dict'
+dict_name = 'Blosum50_only.dict'
 b_shuffle = True
 loss_function0 = 'mse'
 vb0 = 0
@@ -37,6 +37,7 @@ help_nn = 0
 act_fun = 'tanh'
 help_layer0 = 1
 input_info = ''
+
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
     input_info = input_info + line0
@@ -96,12 +97,15 @@ for line0 in fileinput.input():
 
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
-dict_aa['-'] = np.zeros(21)
-###determine the encoding size
 chars = dict_aa['A']
+dict_aa['-'] = np.zeros(len(chars))
+###determine the encoding size
+
    
 ##########################construct input file name################ 
-file_name0 = train_file0+v1+'.txt'
+##training and validation file name
+print(train_file0)
+print(val_file0)
 #note_label = 'val_note.txt'
 #note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
@@ -220,32 +224,12 @@ def split_x(x0,n0):
     
 
 def main():
-    MAXLEN = 0
-    [X_train, y_train,maxlen0] = read_data(path_data+train_file0)
-    
-    y_train =np.array(y_train)#.reshape((len(y_train),1))
-    
-    MAXLEN = max(MAXLEN,maxlen0)
-        #shuffle if indicated
-    if b_shuffle:
-        [X_train,y_train] = shuffle_train(X_train, y_train)
-        print('after shuffling, len(x)='+str(len(X_train))) 
-    else:
-        print('without shuffling, len(x)='+str(len(X_train)))
-    [X_val, y_val,maxlen0] = read_data(path_data+val_file0)
-    
-    y_val = np.array(y_val)
-    MAXLEN = max(MAXLEN,maxlen0)
-    
+    MAXLEN = 26
+    [X_train_fixed,train_seq,y_train] = pickle.load(open(path_data+train_file0,'r'))
+    [X_val_fixed,val_seq,y_val] = pickle.load(open(path_data+tval_file0,'r'))
     ########encoding
-    X_train = encoding_data(X_train,MAXLEN)
-    #print(X_train)
-    X_val = encoding_data(X_val,MAXLEN)
-    y_train = np.array(y_train)
-    ##separate input into two parts
-    [X_train_fixed,X_train_variable] = split_x(X_train,len0_hla)
-    [X_val_fixed,X_val_variable] = split_x(X_val,len0_hla)
-    
+    X_train_variable = encoding_data(train_seq,MAXLEN)
+    X_val_variable = encoding_data(val_seq,MAXLEN)
     r_best = 0
     output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
     print('start training')
