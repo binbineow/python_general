@@ -227,7 +227,7 @@ def split_x(x0,n0):
 def main():
     MAXLEN = 26
     [X_train_fixed,train_seq,y_train] = pickle.load(open(path_data+train_file0,'r'))
-    [X_val_fixed,val_seq,y_val] = pickle.load(open(path_data+tval_file0,'r'))
+    [X_val_fixed,val_seq,y_val] = pickle.load(open(path_data+val_file0,'r'))
     ########encoding
     X_train_variable = encoding_data(train_seq,MAXLEN)
     X_val_variable = encoding_data(val_seq,MAXLEN)
