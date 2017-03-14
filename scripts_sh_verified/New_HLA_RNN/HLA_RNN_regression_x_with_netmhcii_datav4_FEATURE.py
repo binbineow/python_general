@@ -137,6 +137,7 @@ merged = Merge([model_fixed, model_r],mode='concat')
 ###final
 final_model = Sequential()
 final_model.add(merged)
+file_name0 = train_file0+v1
 for _ in range(0,help_layer0):
     final_model.add(Dense(help_nn))
     final_model.add(Activation(act_fun))
