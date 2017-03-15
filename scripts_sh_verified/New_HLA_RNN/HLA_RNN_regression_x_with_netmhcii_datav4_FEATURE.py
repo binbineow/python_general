@@ -98,6 +98,7 @@ for line0 in fileinput.input():
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 chars = dict_aa['A']
+len_feature = 655
 dict_aa['-'] = np.zeros(len(chars))
 ###determine the encoding size
 
@@ -116,7 +117,7 @@ performance_file_name= performance_file_name +v1+out_name
 HIDDEN_SIZE = node0
 BATCH_SIZE = 1024
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
-len0_hla = 34
+#len0_hla = 34
 
 #ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
@@ -126,7 +127,7 @@ len0_hla = 34
 ##########################start a model##########################
 ##########fixed part
 model_fixed = Sequential()
-model_fixed.add(Dense(help_nn,input_dim=len0_hla*len(chars),activation=act_fun))
+model_fixed.add(Dense(help_nn,input_dim=len_feature,activation=act_fun))
 
 ##########recurrent part
 model_r = Sequential()
