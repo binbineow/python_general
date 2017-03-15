@@ -97,13 +97,15 @@ for line0 in fileinput.input():
         BATCH_SIZE=int(part2)
     if 'masking' in part1:
         mask0 = 'rue' in part2.lower()
-        print('Masking='+str(mask0))        
+        print('Masking='+str(mask0)) 
+    if 'feature_dict' in part1:
+        feature_dict0 = part2   
         
 
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 chars = dict_aa['A']
-len_feature = 655
+len_feature = 181
 dict_aa['-'] = np.zeros(len(chars))
 ###determine the encoding size
 
