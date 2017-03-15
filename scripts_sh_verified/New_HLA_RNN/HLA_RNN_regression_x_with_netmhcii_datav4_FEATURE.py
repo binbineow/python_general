@@ -38,6 +38,8 @@ act_fun = 'tanh'
 help_layer0 = 1
 input_info = ''
 mask0 = True
+#maximum length of peptide 
+MAXLEN = 26
 
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
@@ -232,7 +234,7 @@ def split_x(x0,n0):
     
 
 def main():
-    MAXLEN = 26
+
     [X_train_fixed,train_seq,y_train] = pickle.load(open(path_data+train_file0,'r'))
     [X_val_fixed,val_seq,y_val] = pickle.load(open(path_data+val_file0,'r'))
     ########encoding
