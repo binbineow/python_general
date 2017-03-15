@@ -37,6 +37,7 @@ help_nn = 0
 act_fun = 'tanh'
 help_layer0 = 1
 input_info = ''
+mask0 = True
 
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
@@ -92,6 +93,9 @@ for line0 in fileinput.input():
         help_layer0 = int(part2)
     if 'batch' in part1:
         BATCH_SIZE=int(part2)
+    if 'masking' in part1:
+        mask0 = 'rue' in part2.lower()
+        print('Masking='+str(mask0))
         
         
 
@@ -118,7 +122,8 @@ HIDDEN_SIZE = node0
 BATCH_SIZE = 1024
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 #len0_hla = 34
-
+if mask0:
+    RNN.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['A']))))
 #ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 #classes = [0,1]
