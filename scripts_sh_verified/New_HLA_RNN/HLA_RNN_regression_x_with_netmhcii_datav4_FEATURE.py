@@ -97,8 +97,7 @@ for line0 in fileinput.input():
         BATCH_SIZE=int(part2)
     if 'masking' in part1:
         mask0 = 'rue' in part2.lower()
-        print('Masking='+str(mask0))
-        
+        print('Masking='+str(mask0))        
         
 
 
@@ -137,9 +136,10 @@ model_fixed.add(Dense(help_nn,input_dim=len_feature,activation=act_fun))
 
 ##########recurrent part
 model_r = Sequential()
-model_r.add(RNN)
 if mask0:
     model_r.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['A']))))
+model_r.add(RNN)
+
       
 ####merge
 merged = Merge([model_fixed, model_r],mode='concat') 
