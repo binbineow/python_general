@@ -122,8 +122,7 @@ HIDDEN_SIZE = node0
 BATCH_SIZE = 1024
 RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
 #len0_hla = 34
-if mask0:
-    RNN.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['A']))))
+
 #ratio_t = 1
 ###class number = binder or non-binder (1 = binder, 0 = non-binder)
 #classes = [0,1]
@@ -137,6 +136,8 @@ model_fixed.add(Dense(help_nn,input_dim=len_feature,activation=act_fun))
 ##########recurrent part
 model_r = Sequential()
 model_r.add(RNN)
+if mask0:
+    model_r.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['A']))))
       
 ####merge
 merged = Merge([model_fixed, model_r],mode='concat') 
