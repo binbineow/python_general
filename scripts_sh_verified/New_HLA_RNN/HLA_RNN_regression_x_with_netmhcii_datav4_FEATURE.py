@@ -231,6 +231,8 @@ def main():
     ########encoding
     X_train_variable = encoding_data(train_seq,MAXLEN)
     X_val_variable = encoding_data(val_seq,MAXLEN)
+    print(X_train_fixed[0])
+    print(X_train_variable[0])
     r_best = 0
     output_perf2(['Iteration','Training PCC','Training p-val','Val PCC','Val p-val'])
     print('start training')
