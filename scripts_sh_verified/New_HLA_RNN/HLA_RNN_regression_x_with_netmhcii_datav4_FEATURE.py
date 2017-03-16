@@ -40,6 +40,7 @@ input_info = ''
 mask0 = True
 #maximum length of peptide 
 MAXLEN = 26
+BATCH_SIZE = 1024
 
 #input file path and parameters from the setting file
 for line0 in fileinput.input():
@@ -117,12 +118,13 @@ print(val_file0)
 #note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
 
+
+
 def make_model(len_feature):
     ##########################Parameters for the model and dataset
     #TRAINING_SIZE = len(inputs)
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     HIDDEN_SIZE = node0
-    BATCH_SIZE = 1024
     RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
     #len0_hla = 34
     
