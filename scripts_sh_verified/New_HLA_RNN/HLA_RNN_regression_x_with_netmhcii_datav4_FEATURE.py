@@ -105,7 +105,6 @@ for line0 in fileinput.input():
 
 dict_aa = pickle.load(open(path_dict+dict_name,'r'))
 chars = dict_aa['A']
-len_feature = 181
 dict_aa['-'] = np.zeros(len(chars))
 ###determine the encoding size
 
@@ -118,45 +117,46 @@ print(val_file0)
 #note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
 
-##########################Parameters for the model and dataset
-#TRAINING_SIZE = len(inputs)
-# Try replacing JZS1 with LSTM, GRU, or SimpleRNN
-HIDDEN_SIZE = node0
-BATCH_SIZE = 1024
-RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
-#len0_hla = 34
-
-#ratio_t = 1
-###class number = binder or non-binder (1 = binder, 0 = non-binder)
-#classes = [0,1]
-
-
-##########################start a model##########################
-##########fixed part
-model_fixed = Sequential()
-model_fixed.add(Dense(help_nn,input_dim=len_feature,activation=act_fun))
-
-##########recurrent part
-model_r = Sequential()
-if mask0:
-    model_r.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['A']))))
-model_r.add(RNN)
-
-      
-####merge
-merged = Merge([model_fixed, model_r],mode='concat') 
-###final
-final_model = Sequential()
-final_model.add(merged)
-file_name0 = train_file0+v1
-for _ in range(0,help_layer0):
-    final_model.add(Dense(help_nn))
-    final_model.add(Activation(act_fun))
-final_model.add(Dense(1))
-final_model.compile(loss=loss_function0, optimizer="adam")
-model = final_model
-json_string = model.to_json()
-open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
+def make_model(len_feature):
+    ##########################Parameters for the model and dataset
+    #TRAINING_SIZE = len(inputs)
+    # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
+    HIDDEN_SIZE = node0
+    BATCH_SIZE = 1024
+    RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+    #len0_hla = 34
+    
+    #ratio_t = 1
+    ###class number = binder or non-binder (1 = binder, 0 = non-binder)
+    #classes = [0,1]
+    
+    
+    ##########################start a model##########################
+    ##########fixed part
+    model_fixed = Sequential()
+    model_fixed.add(Dense(help_nn,input_dim=len_feature,activation=act_fun))
+    
+    ##########recurrent part
+    model_r = Sequential()
+    if mask0:
+        model_r.add(Masking(mask_value=0., input_shape=(MAXLEN, len(dict_aa['A']))))
+    model_r.add(RNN)
+    
+    ####merge
+    merged = Merge([model_fixed, model_r],mode='concat') 
+    ###final
+    final_model = Sequential()
+    final_model.add(merged)
+    file_name0 = train_file0+v1
+    for _ in range(0,help_layer0):
+        final_model.add(Dense(help_nn))
+        final_model.add(Activation(act_fun))
+    final_model.add(Dense(1))
+    final_model.compile(loss=loss_function0, optimizer="adam")
+    model = final_model
+    json_string = model.to_json()
+    open(path_save+file_name0+out_name+'_model.json', 'w').write(json_string)
+    return model
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
@@ -240,6 +240,8 @@ def main():
     [X_train_fixed,train_seq,y_train] = pickle.load(open(path_data+train_file0,'r'))
     [X_val_fixed,val_seq,y_val] = pickle.load(open(path_data+val_file0,'r'))
     ########encoding
+    len_feature = len(X_train_fixed[0])
+    model = make_model(len_feature)
     X_train_variable = encoding_data(train_seq,MAXLEN)
     X_val_variable = encoding_data(val_seq,MAXLEN)
     print(X_train_fixed[0])
