@@ -117,7 +117,7 @@ print(val_file0)
 #note_label = 'val_note.txt'
 #note_file0 = data_file_name+v1+note_label
 performance_file_name= performance_file_name +v1+out_name
-
+file_name0 = train_file0+v1
 
 
 def make_model(len_feature):
@@ -149,7 +149,6 @@ def make_model(len_feature):
     ###final
     final_model = Sequential()
     final_model.add(merged)
-    file_name0 = train_file0+v1
     for _ in range(0,help_layer0):
         final_model.add(Dense(help_nn))
         final_model.add(Activation(act_fun))
