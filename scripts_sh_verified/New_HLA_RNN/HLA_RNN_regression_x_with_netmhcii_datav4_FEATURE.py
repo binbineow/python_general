@@ -137,6 +137,7 @@ def make_model(len_feature):
     ##########fixed part
     model_fixed = Sequential()
     model_fixed.add(Dense(help_nn,input_dim=len_feature,activation=act_fun))
+    model_fixed.add(Dropout(drop_out_c))
     
     ##########recurrent part
     model_r = Sequential()
@@ -152,6 +153,7 @@ def make_model(len_feature):
     for _ in range(0,help_layer0):
         final_model.add(Dense(help_nn))
         final_model.add(Activation(act_fun))
+        final_model.add(Dropout(drop_out_c))
     final_model.add(Dense(1))
     final_model.compile(loss=loss_function0, optimizer="adam")
     model = final_model
