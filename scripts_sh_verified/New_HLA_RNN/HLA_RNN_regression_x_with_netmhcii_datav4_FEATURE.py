@@ -14,6 +14,7 @@ from keras.callbacks import ModelCheckpoint
 from utilities import *
 from keras.models import model_from_json
 from scipy.stats import pearsonr
+from keras.constraints import maxnorm
 from keras.regularizers import l2, activity_l2
 #from keras.regularizers import l2,activity_l2
 
