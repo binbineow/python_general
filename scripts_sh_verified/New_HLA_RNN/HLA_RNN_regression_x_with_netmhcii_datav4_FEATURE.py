@@ -131,7 +131,7 @@ def make_model(len_feature):
     RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)),
                           return_sequences=False,W_regularizer=l2(l2_c),
                           b_regularizer=l2(l2_c),dropout_W=drop_out_c,
-                          dropout_U=drop_out_c,kernel_constraint=max_norm(constrain_max))
+                          dropout_U=drop_out_c,kernel_constraint=maxnorm(constrain_max))
     #len0_hla = 34
     
     #ratio_t = 1
@@ -143,7 +143,7 @@ def make_model(len_feature):
     ##########fixed part
     model_fixed = Sequential()
     model_fixed.add(Dense(help_nn,input_dim=len_feature,
-                          activation=act_fun, kernel_constraint=max_norm(constrain_max)))
+                          activation=act_fun, kernel_constraint=maxnorm(constrain_max)))
     model_fixed.add(Dropout(drop_out_c))
     
     ##########recurrent part
