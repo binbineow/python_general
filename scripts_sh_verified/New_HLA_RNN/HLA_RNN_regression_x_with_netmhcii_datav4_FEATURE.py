@@ -101,6 +101,8 @@ for line0 in fileinput.input():
         print('Masking='+str(mask0)) 
     if 'feature_dict' in part1:
         feature_dict0 = part2   
+    if 'max_norm' in part1:
+        constrain_max = float(part2)
         
 
 
@@ -125,7 +127,10 @@ def make_model(len_feature):
     #TRAINING_SIZE = len(inputs)
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     HIDDEN_SIZE = node0
-    RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)), return_sequences=False,W_regularizer=l2(l2_c),b_regularizer=l2(l2_c),dropout_W=drop_out_c,dropout_U=drop_out_c)
+    RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)),
+                          return_sequences=False,W_regularizer=l2(l2_c),
+                          b_regularizer=l2(l2_c),dropout_W=drop_out_c,
+                          dropout_U=drop_out_c, kernel_constrain=constrain_max)
     #len0_hla = 34
     
     #ratio_t = 1
@@ -136,7 +141,8 @@ def make_model(len_feature):
     ##########################start a model##########################
     ##########fixed part
     model_fixed = Sequential()
-    model_fixed.add(Dense(help_nn,input_dim=len_feature,activation=act_fun))
+    model_fixed.add(Dense(help_nn,input_dim=len_feature,
+                          activation=act_fun, kernel_constrain=constrain_max))
     model_fixed.add(Dropout(drop_out_c))
     
     ##########recurrent part
@@ -151,7 +157,7 @@ def make_model(len_feature):
     final_model = Sequential()
     final_model.add(merged)
     for _ in range(0,help_layer0):
-        final_model.add(Dense(help_nn))
+        final_model.add(Dense(help_nn, kernel_constrain=constrain_max))
         final_model.add(Activation(act_fun))
         final_model.add(Dropout(drop_out_c))
     final_model.add(Dense(1))
