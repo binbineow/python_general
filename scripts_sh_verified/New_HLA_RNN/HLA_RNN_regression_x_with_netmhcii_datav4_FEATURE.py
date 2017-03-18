@@ -131,7 +131,7 @@ def make_model(len_feature):
     RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)),
                           return_sequences=False,W_regularizer=l2(l2_c),
                           b_regularizer=l2(l2_c),dropout_W=drop_out_c,
-                          dropout_U=drop_out_c,kernel_constraint=maxnorm(constrain_max))
+                          dropout_U=drop_out_c)
     #len0_hla = 34
     
     #ratio_t = 1
