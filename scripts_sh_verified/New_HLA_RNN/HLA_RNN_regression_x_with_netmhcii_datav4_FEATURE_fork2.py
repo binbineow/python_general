@@ -130,9 +130,9 @@ def make_model(len_feature):
     # Try replacing JZS1 with LSTM, GRU, or SimpleRNN
     HIDDEN_SIZE = node0
     RNN = recurrent.LSTM(HIDDEN_SIZE, input_shape=(None, len(chars)),
-                          return_sequences=False,W_regularizer=l2(l2_c),
-                          b_regularizer=l2(l2_c),dropout_W=drop_out_c,
-                          dropout_U=drop_out_c)
+                          return_sequences=False,kernel_regularizer=l2(l2_c),
+                          bias_regularizer=l2(l2_c),recurrent_droupout=drop_out_c,
+                          dropout=drop_out_c)
     #len0_hla = 34
     
     #ratio_t = 1
@@ -159,7 +159,7 @@ def make_model(len_feature):
     final_model = Sequential()
     final_model.add(merged)
     for _ in range(0,help_layer0):
-        final_model.add(Dense(help_nn, kernel_constraint=max_norm(constrain_max)))
+        final_model.add(Dense(help_nn, kernel_constraint=maxnorm(constrain_max)))
         final_model.add(Activation(act_fun))
         final_model.add(Dropout(drop_out_c))
     final_model.add(Dense(1))
