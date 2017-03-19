@@ -144,7 +144,7 @@ def make_model(len_feature):
     ##########fixed part
     model_fixed = Sequential()
     model_fixed.add(Dense(help_nn,input_dim=len_feature,
-                          activation=act_fun, kernel_constraint=maxnorm(constrain_max)))
+                          activation=act_fun,kernel_regularizer=l2(l2_c),bias_regularizer=l2(l2_c)))
     model_fixed.add(Dropout(drop_out_c))
     
     ##########recurrent part
@@ -158,8 +158,9 @@ def make_model(len_feature):
     ###final
     final_model = Sequential()
     final_model.add(merged)
+    #, kernel_constraint=maxnorm(constrain_max)
     for _ in range(0,help_layer0):
-        final_model.add(Dense(help_nn, kernel_constraint=maxnorm(constrain_max)))
+        final_model.add(Dense(help_nn,skernel_regularizer=l2(l2_c),bias_regularizer=l2(l2_c)))
         final_model.add(Activation(act_fun))
         final_model.add(Dropout(drop_out_c))
     final_model.add(Dense(1))
@@ -263,7 +264,7 @@ def main():
     for n0 in range(0,n_iteration+1):
         #fit    
         #print(y_train)
-        model.fit([X_train_fixed,X_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, nb_epoch=nb0)      
+        model.fit([X_train_fixed,X_train_variable], y_train, batch_size=BATCH_SIZE, verbose=vb0, epochs=nb0)      
         #calculate the performance
         #calculate Pearson Correltion Coeficient 
         y_train_pred = model.predict([X_train_fixed,X_train_variable],batch_size=BATCH_SIZE)
