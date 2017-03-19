@@ -160,7 +160,7 @@ def make_model(len_feature):
     final_model.add(merged)
     #, kernel_constraint=maxnorm(constrain_max)
     for _ in range(0,help_layer0):
-        final_model.add(Dense(help_nn,skernel_regularizer=l2(l2_c),bias_regularizer=l2(l2_c)))
+        final_model.add(Dense(help_nn,kernel_regularizer=l2(l2_c),bias_regularizer=l2(l2_c)))
         final_model.add(Activation(act_fun))
         final_model.add(Dropout(drop_out_c))
     final_model.add(Dense(1))
