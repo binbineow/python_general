@@ -25,7 +25,7 @@ def MS_clean(frag_list,gene_list):
     return [frag_list,gene_list]
 
 def is_human(gene0):
-    if '|SPA|' in gene0 or len(gene0) < 6:
+    if '|SPA|' in gene0 or len(gene0) < 7:
         return False
     else:
         return True
@@ -56,10 +56,11 @@ def get_list_from_ms(file0):
     i = 0
     for line0 in open(file0,'r'):
         if i > 0:
-            if is_human(line0):
+            line_ori = line0
+            line0 = line0.rstrip().split(',')
+            if is_human(line0[2]):
                 if 'GN=' in line0:
-                    list_gn.append(line0.split('GN=')[1].split(' ')[0])
-                line0 = line0.rstrip().split(',')
+                    list_gn.append(line_ori.split('GN=')[1].split(' ')[0])
                 list_gene.append(line0[2])
                 list_pep.append(line0[0])
         else:
