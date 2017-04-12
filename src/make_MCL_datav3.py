@@ -56,7 +56,7 @@ def get_list_from_ms(file0):
     i = 0
     for line0 in open(file0,'r'):
         if i > 0:
-            if MS_clean(line0):
+            if is_clean(line0):
                 if 'GN=' in line0:
                     list_gn.append(line0.split('GN=')[1].split(' ')[0])
                 line0 = line0.rstrip().split(',')
