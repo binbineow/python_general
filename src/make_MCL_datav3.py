@@ -101,8 +101,8 @@ def get_gene_from_msv2(list0,list_gn):
             list_gn_v2.append(gn_backup)
         else:
             list_gn_v2.append(name_gn)
-    print name0
-    print list_sp
+    #print name0
+    #print list_sp
     return list_sp, list_gn_v2
 
                       
@@ -153,7 +153,7 @@ for line0 in fileinput.input():
             #ms_gene_list = read_col(filename0,',',2,True)
             #[ms_frag_list,ms_gene_list] = MS_clean(ms_frag_list,ms_gene_list)
             ms_gene_list,ms_gn_list = get_gene_from_msv2(ms_gene_list,ms_gn_list)
-            #print(len(ms_gene_list))
+            print(len(ms_gene_list))
             data_MCL[pid][type0+'_frag'] = ms_frag_list
             data_MCL[pid][type0+'_gene'] = ms_gene_list
             data_MCL[pid][type0+'_gn'] = ms_gn_list
