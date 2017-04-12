@@ -61,6 +61,8 @@ def get_list_from_ms(file0):
             if is_human(line0[2]):
                 if 'GN=' in line0:
                     list_gn.append(line_ori.split('GN=')[1].split(' ')[0])
+                else:
+                    list_gn.append('')
                 list_gene.append(line0[2])
                 list_pep.append(line0[0])
         else:
