@@ -54,7 +54,7 @@ def get_list_from_ms(file0):
     list_gene = []
     list_gn = []
     i = 0
-    for line0 in open(file0,'r'):
+    for line0 in open(file0,'rU'):
         if i > 0:
             line_ori = line0
             line0 = line0.rstrip().split(',')
@@ -144,10 +144,12 @@ for line0 in fileinput.input():
         for type0 in ['MHC1','MHC2']:
             filename0 = path_MS+pid+'_'+type0+'_20151109_SQLPowerTool.csv'
             ms_frag_list, ms_gene_list, ms_gn_list = get_list_from_ms(filename0)
+            print(len(ms_gene_list))
             #ms_frag_list = read_col(filename0,',',0,True)
             #ms_gene_list = read_col(filename0,',',2,True)
             #[ms_frag_list,ms_gene_list] = MS_clean(ms_frag_list,ms_gene_list)
             ms_gene_list,ms_gn_list = get_gene_from_msv2(ms_gene_list,ms_gn_list)
+            print(len(ms_gene_list))
             data_MCL[pid][type0+'_frag'] = ms_frag_list
             data_MCL[pid][type0+'_gene'] = ms_gene_list
             data_MCL[pid][type0+'_gn'] = ms_gn_list
