@@ -99,6 +99,8 @@ def get_gene_from_msv2(list0,list_gn):
             list_gn_v2.append(gn_backup)
         else:
             list_gn_v2.append(name_gn)
+    print name0
+    print list_sp
     return list_sp, list_gn_v2
 
                       
