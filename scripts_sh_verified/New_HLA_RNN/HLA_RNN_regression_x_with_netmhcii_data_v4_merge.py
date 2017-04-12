@@ -232,7 +232,7 @@ def main():
         print('after shuffling, len(x)='+str(len(X_train))) 
     else:
         print('without shuffling, len(x)='+str(len(X_train)))
-    [X_val, y_val,maxlen0] = read_data(path_data+val_file0)
+    [X_val, y_val,maxlen0] = read_data(path_data+ccccccval_file0)
     
     y_val = np.array(y_val)
     MAXLEN = max(MAXLEN,maxlen0)
@@ -242,7 +242,7 @@ def main():
     #print(X_train)
     X_val = encoding_data(X_val,MAXLEN)
     y_train = np.array(y_train)
-    ##separate input into two parts
+    ##separate input into two partssp
     [X_train_fixed,X_train_variable] = split_x(X_train,len0_hla)
     [X_val_fixed,X_val_variable] = split_x(X_val,len0_hla)
     

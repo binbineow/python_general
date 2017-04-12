@@ -161,7 +161,8 @@ def make_training(path_save,hla_name0,list_len,cluster_list,version0,t_ratio,v_r
             file_out.write(neg0+'\t'+'0\n')
     file_out.close()
         
-#this process merge patient MHC2_frag into the first patient scanned and delete the redundant pid
+#this process merge patient MHC2_frag into the first patient scanned and delete the
+# redundant pid
 def del_sameHLA(MCL_data0):
     pid = MCL_data0['pid']['pid']
     to_del0 = set()

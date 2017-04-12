@@ -144,7 +144,7 @@ def make_model(len_feature):
     ##########fixed part
     model_fixed = Sequential()
     model_fixed.add(Dense(help_nn,input_dim=len_feature,
-                          activation=act_fun, kernel_constraint=maxnorm(constrain_max)))
+                          activation=act_fun))
     model_fixed.add(Dropout(drop_out_c))
     
     ##########recurrent part

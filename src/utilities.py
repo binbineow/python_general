@@ -92,6 +92,9 @@ def get_gene_from_fasta(x,dict0):
         list_return=('No_gene')
     return list_return
 
+
+
+
 def get_gene_from_ms(list0,dict0,pid=''):
     list_return = []
     for x in list0:
