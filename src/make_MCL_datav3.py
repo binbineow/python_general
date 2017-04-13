@@ -59,7 +59,7 @@ def get_list_from_ms(file0):
             line_ori = line0
             line0 = line0.rstrip().split(',')
             if is_human(line0[2]):
-                if 'GN=' in line0:
+                if 'GN=' in line_ori:
                     list_gn.append(line_ori.split('GN=')[1].split(' ')[0])
                 else:
                     list_gn.append('')
