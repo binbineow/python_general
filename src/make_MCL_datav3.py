@@ -93,8 +93,10 @@ def get_gene_from_msv2(list0,list_gn):
             gn_backup = name0[1]
         elif len(name0) == 2:
             gene0 = name0[0]
+            gn_backup = name0[1]
         else:
             gene0 = name0[0]
+            gn_backup = 'NULL'
             print(gene0)
         list_sp.append(gene0)
         if name_gn == '':
