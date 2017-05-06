@@ -254,11 +254,11 @@ neg_weight = len(x_train_pos0[0])/float(len(x_train_neg[1]))*1.5
 weight_name = 'rnn_wtpretrain_weightv1.h5'
 record_file = path_save + 'record_trainingv1.txt'
 #parameters
-n_iteration = 1
+n_iteration = 20
 nb0 = 1
-vb0 = 1
-auc_best = 0.7
-batch0 = 1024*4
+vb0 = 0
+auc_best = 0.72
+batch0 = 128
 for i in range(0,n_iteration):
     file_write = open(record_file,'a')
     file_write.write(str(i)+'\n')
