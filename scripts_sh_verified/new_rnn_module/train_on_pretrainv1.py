@@ -23,9 +23,9 @@ from keras.constraints import maxnorm
 from keras.regularizers import l2
 import keras
 print(keras.__version__)
-%matplotlib inline
-import matplotlib
-import matplotlib.pyplot as plt
+# %matplotlib inline
+# import matplotlib
+# import matplotlib.pyplot as plt
 
 #encoding will take a string or char, string=sequence and to return a matrix of encoded peptide sequence
 #char = class, '0' = non-binding (0,1), '1' = binding (1,0)
