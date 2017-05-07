@@ -254,8 +254,8 @@ def get_pos_for_fit(model_merge,x_train_pos0,x_train_pos1,batch0= 1024):
 #ratio = 0.108
 neg_weight = len(x_train_pos0[0])/float(len(x_train_neg[1]))*1.5
 #to save records
-weight_name = 'rnn_wtpretrain_weightv1.submit.h5'
-record_file = path_save + 'record_trainingv1.submit.txt'
+weight_name = 'rnn_wtpretrain_weightv1.submit2.h5'
+record_file = path_save + 'record_trainingv1.submit2.txt'
 #parameters
 n_iteration = 100
 nb0 = 1
