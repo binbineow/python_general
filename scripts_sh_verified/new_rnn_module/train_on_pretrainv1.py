@@ -257,7 +257,7 @@ neg_weight = len(x_train_pos0[0])/float(len(x_train_neg[1]))*1.5
 weight_name = 'rnn_wtpretrain_weightv1.submit.h5'
 record_file = path_save + 'record_trainingv1.submit.txt'
 #parameters
-n_iteration = 50
+n_iteration = 100
 nb0 = 1
 vb0 = 0
 auc_best = 0.83
