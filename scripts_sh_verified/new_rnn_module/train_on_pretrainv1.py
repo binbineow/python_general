@@ -170,7 +170,7 @@ def import_model(path_model, model_name0,weight_name0):
     model_name0 = path_model+ model_name0
     weight_name0 = path_model + weight_name0
     model0 = model_from_json(open(model_name0).read())
-    model0.load_weights(weight_name0)
+    #model0.load_weights(weight_name0)
     return model0
 #this model has training AUC 0.95 and validation AUC 0.85
 #model1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n64_f64_h64_d0.43_l20_layer2_sparse_masking_model.json'
@@ -254,8 +254,8 @@ def get_pos_for_fit(model_merge,x_train_pos0,x_train_pos1,batch0= 1024):
 #ratio = 0.108
 neg_weight = len(x_train_pos0[0])/float(len(x_train_neg[1]))*1.5
 #to save records
-weight_name = 'rnn_wtpretrain_weightv1.submit2.h5'
-record_file = path_save + 'record_trainingv1.submit2.txt'
+weight_name = 'rnn_wopretrain_weightv1.submit3.h5'
+record_file = path_save + 'record_trainingv1.submit3.txt'
 #parameters
 n_iteration = 100
 nb0 = 1
