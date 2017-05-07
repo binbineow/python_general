@@ -178,10 +178,13 @@ def import_model(path_model, model_name0,weight_name0):
 
 #acutally all neuron numbers = 64 the same neuron connections with dropout = .4 and AUC 0.837 on validation
 model1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n128_f128_h128_d0.3_l20.1_layer2_sparse_masking_v1_model.json'
-weight1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n128_f128_h128_d0.3_l20.1_layer2_sparse_masking_v1lstm_0.837_weight.h5'
+#weight1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n128_f128_h128_d0.3_l20.1_layer2_sparse_masking_v1lstm_0.837_weight.h5'
+weight1 = 'rnn_wtpretrain_weightv1.h5'
 
 model_merge = import_model(path_save,model1,weight1)
-model_merge.compile(loss='categorical_crossentropy', optimizer="RMSprop")
+rmsprop = keras.optimizers.RMSprop(lr=0.0002)
+model_merge.compile(loss='categorical_crossentropy', optimizer=rmsprop)
+#model_merge.summary()
 
 #supporting funcitons
 #for merge model
@@ -251,13 +254,13 @@ def get_pos_for_fit(model_merge,x_train_pos0,x_train_pos1,batch0= 1024):
 #ratio = 0.108
 neg_weight = len(x_train_pos0[0])/float(len(x_train_neg[1]))*1.5
 #to save records
-weight_name = 'rnn_wtpretrain_weightv1.h5'
-record_file = path_save + 'record_trainingv1.txt'
+weight_name = 'rnn_wtpretrain_weightv1.submit.h5'
+record_file = path_save + 'record_trainingv1.submit.txt'
 #parameters
 n_iteration = 20
 nb0 = 1
 vb0 = 0
-auc_best = 0.72
+auc_best = 0.83
 batch0 = 128
 for i in range(0,n_iteration):
     file_write = open(record_file,'a')
@@ -279,11 +282,11 @@ for i in range(0,n_iteration):
     
     #calculate performance on training
     file_write.write('Training: ')
-    auc_train = check_model(model_merge, x_train_pos0,x_train_pos1,x_train_neg,batch0 = 1024,record_file=file_write)
+    auc_train = check_model(model_merge, x_train_pos0,x_train_pos1,x_train_neg,batch0 = 1024*8,record_file=file_write)
     file_write.write('AUC='+str(auc_train)+'\n')
     #calculate performance on validation
     file_write.write('Validation: ')
-    auc_val = check_model(model_merge, x_val_pos0,x_val_pos1,x_val_neg,batch0 = 1024,record_file=file_write)
+    auc_val = check_model(model_merge, x_val_pos0,x_val_pos1,x_val_neg,batch0 = 1024*8,record_file=file_write)
     file_write.write('AUC='+str(auc_val)+'\n')
     file_write.close()
     #save if better
