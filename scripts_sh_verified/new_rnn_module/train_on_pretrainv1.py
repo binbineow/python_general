@@ -179,7 +179,7 @@ def import_model(path_model, model_name0,weight_name0):
 #acutally all neuron numbers = 64 the same neuron connections with dropout = .4 and AUC 0.837 on validation
 model1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n128_f128_h128_d0.3_l20.1_layer2_sparse_masking_v1_model.json'
 #weight1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n128_f128_h128_d0.3_l20.1_layer2_sparse_masking_v1lstm_0.837_weight.h5'
-weight1 = 'rnn_wopretrain_weightv1.submit3.h5''
+weight1 = 'rnn_wopretrain_weightv1.submit3.h5'
 
 model_merge = import_model(path_save,model1,weight1)
 rmsprop = keras.optimizers.RMSprop(lr=0.0003)
