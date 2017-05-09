@@ -278,13 +278,13 @@ print(weight_list[0])
 print(weight_list[-1])
 #to save records
 weight_name = 'rnn_combine_train_modelv1.weight2.2_d0.2'
-record_file = path_save + 'record_trainingv2_d0.2.txt'
+record_file = path_save + 'record_trainingv2_d0.2_batch32.txt'
 #parameters
 n_iteration = 100
 nb0 = 1
 vb0 = 0
 auc_best = 0.80
-batch0 = 128*2
+batch0 = 32
 for i in range(0,n_iteration):
     if isfile(record_file):
         file_write = open(record_file,'a')
