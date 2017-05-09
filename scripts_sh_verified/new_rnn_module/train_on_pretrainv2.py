@@ -277,10 +277,10 @@ weight_list = make_w_list([80000,100000,800000],[x_train_pos0[0],x_train_neg[0],
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
-weight_name = 'rnn_wopretrain_weightv2_d0.3.h5'
-record_file = path_save + 'record_trainingv2_d0.3.txt'
+weight_name = 'rnn_combine_train_modelv1.weight2.2_d0.2'
+record_file = path_save + 'record_trainingv2_d0.2.txt'
 #parameters
-n_iteration = 50
+n_iteration = 100
 nb0 = 1
 vb0 = 0
 #auc_best = 0.80
@@ -289,7 +289,7 @@ for i in range(0,n_iteration):
     if isfile(record_file):
         file_write = open(record_file,'a')
     else:
-        file_write = open(record_file,'a')
+        file_write = open(record_file,'w+')
     file_write.write(str(i)+'\n')
     #perparing data
     x_pos_cycle = get_pos_for_fit(model_merge,x_train_pos0,x_train_pos1)
