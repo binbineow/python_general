@@ -274,7 +274,7 @@ def make_w_list(w_rati0,list_list):
 
 path_save = '/cstor/stanford/rbaltman/users/bchen45/mcl_data/model_weight/'
 
-weight_list = make_w_list([80000,100000,800000],[x_train_pos0[0],x_train_neg[0],x_train_iedb[0]])
+weight_list = make_w_list([80000,100000,80000],[x_train_pos0[0],x_train_neg[0],x_train_iedb[0]])
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
