@@ -187,7 +187,7 @@ def import_model(path_model, model_name0,weight_name0):
 
 #acutally all neuron numbers = 64 the same neuron connections with dropout = .4 and AUC 0.837 on validation
 model1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n128_f128_h128_d0.3_l20.1_layer2_sparse_masking_v1_model.json'
-model1 = 'rnn_combine_train_modelv2.2_d0.05_n64.json'
+model1 = 'rnn_combine_train_modelv2.2_d0.2.json'
 #weight1 = 'mhc2_iedb_binding_training.list_iedb_pretrain_v1n128_f128_h128_d0.3_l20.1_layer2_sparse_masking_v1lstm_0.837_weight.h5'
 weight1 = 'rnn_combine_train_modelv1.weight2.2_does not matter'
 
@@ -274,18 +274,18 @@ def make_w_list(w_rati0,list_list):
 
 path_save = '/cstor/stanford/rbaltman/users/bchen45/mcl_data/model_weight/'
 
-weight_list = make_w_list([80000,100000,80000],[x_train_pos0[0],x_train_neg[0],x_train_iedb[0]])
+weight_list = make_w_list([80000,120000,100000],[x_train_pos0[0],x_train_neg[0],x_train_iedb[0]])
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
-weight_name = 'rnn_combine_train_modelv1.weight2.2_d0.05_batch1024'
-record_file = path_save + 'record_trainingv2_d0.05_batch1024.txt'
+weight_name = 'rnn_combine_train_modelv1.weight2.2_d0.2_batch512_moreiedb'
+record_file = path_save + 'record_trainingv2_d0.2_batch512_moreiedb.txt'
 #parameters
-n_iteration = 200
+n_iteration = 120
 nb0 = 1
 vb0 = 0
 auc_best = 0.80
-batch0 = 1024
+batch0 = 512
 for i in range(0,n_iteration):
     if isfile(record_file):
         file_write = open(record_file,'a')

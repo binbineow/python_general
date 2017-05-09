@@ -260,8 +260,8 @@ record_file = path_save + 'record_trainingv1.submit3.txt'
 n_iteration = 100
 nb0 = 1
 vb0 = 0
-auc_best = 0.85
-batch0 = 1024*2
+auc_best = 0.84
+batch0 = 512
 for i in range(0,n_iteration):
     file_write = open(record_file,'a')
     file_write.write(str(i)+'\n')
@@ -295,5 +295,6 @@ for i in range(0,n_iteration):
         model_merge.save_weights(path_save+ weight_name,
                          overwrite=True)
         print('best AUC='+str(auc_best))
+
 
 
