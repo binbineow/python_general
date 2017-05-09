@@ -274,12 +274,12 @@ def make_w_list(w_rati0,list_list):
 
 path_save = '/cstor/stanford/rbaltman/users/bchen45/mcl_data/model_weight/'
 
-weight_list = make_w_list([80000,120000,100000],[x_train_pos0[0],x_train_neg[0],x_train_iedb[0]])
+weight_list = make_w_list([80000,120000,120000],[x_train_pos0[0],x_train_neg[0],x_train_iedb[0]])
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
-weight_name = 'rnn_combine_train_modelv1.weight2.2_d0.2_batch512_moreiedb'
-record_file = path_save + 'record_trainingv2_d0.2_batch512_moreiedb.txt'
+weight_name = 'rnn_combine_train_modelv1.weight3.1_d0.2_batch512_8_12_12'
+record_file = path_save + 'record_trainingv3_d0.2_batch512_8_12_12.txt'
 #parameters
 n_iteration = 120
 nb0 = 1
