@@ -278,14 +278,14 @@ weight_list = make_w_list([80000,100000,800000],[x_train_pos0[0],x_train_neg[0],
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
-weight_name = 'rnn_combine_train_modelv1.weight2.2_d0.2'
-record_file = path_save + 'record_trainingv2_d0.2_batch32.txt'
+weight_name = 'rnn_combine_train_modelv1.weight2.2_d0.2_batch512'
+record_file = path_save + 'record_trainingv2_d0.2_batch512.txt'
 #parameters
 n_iteration = 100
 nb0 = 1
 vb0 = 0
 auc_best = 0.80
-batch0 = 32
+batch0 = 512
 for i in range(0,n_iteration):
     if isfile(record_file):
         file_write = open(record_file,'a')
