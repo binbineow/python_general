@@ -22,6 +22,7 @@ from scipy.stats import pearsonr
 from keras.constraints import maxnorm
 from keras.regularizers import l2
 import keras
+from os.path import isfile
 print(keras.__version__)
 # %matplotlib inline
 # import matplotlib
