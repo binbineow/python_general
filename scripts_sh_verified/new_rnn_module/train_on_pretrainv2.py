@@ -164,11 +164,11 @@ x_val_neg = encode_apair(val_neg,dict_aa,len_mhc,MAXLEN,len_char)
 
 
 #encoding other lists
-x_list_random = encode_apair(list_random,dict_aa,len_mhc,MAXLEN,len_char)
-x_list_ms_random = encode_apair(list_ms_random,dict_aa,len_mhc,MAXLEN,len_char)
-x_list_shuffle_random = encode_apair(list_shuffle_random,dict_aa,len_mhc,MAXLEN,len_char)
-x_list_anti_patient_train = encode_apair(list_anti_patient_train,dict_aa,len_mhc,MAXLEN,len_char)
-x_list_anti_patient_val = encode_apair(list_anti_patient_val,dict_aa,len_mhc,MAXLEN,len_char)
+#x_list_random = encode_apair(list_random,dict_aa,len_mhc,MAXLEN,len_char)
+#x_list_ms_random = encode_apair(list_ms_random,dict_aa,len_mhc,MAXLEN,len_char)
+#x_list_shuffle_random = encode_apair(list_shuffle_random,dict_aa,len_mhc,MAXLEN,len_char)
+#x_list_anti_patient_train = encode_apair(list_anti_patient_train,dict_aa,len_mhc,MAXLEN,len_char)
+#x_list_anti_patient_val = encode_apair(list_anti_patient_val,dict_aa,len_mhc,MAXLEN,len_char)
 
 ############get model
 
