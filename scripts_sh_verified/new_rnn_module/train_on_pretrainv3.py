@@ -307,7 +307,7 @@ rnn_master = RNN_master()
 rnn_master.get_input(path_para+para_file)
 rnn_master.create_out_file_names()
 rnn_master.mask0
-rnn_master.drop_out_c = 0.35
+rnn_master.drop_out_c = 0.4
 # [mhc_train,seq_train,label_train] = pickle.load(open(rnn_master.path_data+rnn_master.train_file0,'r'))
 # [mhc_val,seq_val,label_val] = pickle.load(open(rnn_master.path_data+rnn_master.val_file0,'r'))
 # #get max length
@@ -491,13 +491,13 @@ path_save = '/cstor/stanford/rbaltman/users/bchen45/mcl_data/model_weight/'
 rmsprop = keras.optimizers.RMSprop(lr=0.001)
 model_merge.compile(loss='categorical_crossentropy', optimizer=rmsprop)
 
-weight_list = make_w_list([80000,120000,50000],[x_train_pos[0],x_train_neg[0],x_train_iedb[0]])
+weight_list = make_w_list([80000,120000,80000],[x_train_pos[0],x_train_neg[0],x_train_iedb[0]])
 #weight_list = make_w_list([80000,100000],[x_train_pos[0],x_train_neg[0]])
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
-weight_name = 'rnn_wopretrain_weightv5_d0.35.h5_8_12_5'
-record_file = path_save + 'record_trainingv5_d0.35.txt8_12_5'
+weight_name = 'rnn_wopretrain_weightv5_d0.4.h5_8_12_8'
+record_file = path_save + 'record_trainingv5_d0.4.txt8_12_8'
 #parameters
 n_iteration = 20
 nb0 = 1
