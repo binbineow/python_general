@@ -332,6 +332,11 @@ rnn_master.MAXLEN = 26
 rnn_master.self_node = 64
 model_merge = rnn_master.make_model('class2')
 
+##load weight
+model_merge.load_weights(path_save+ 'rnn_wopretrain_weightv5_d0.4.h5_8_12_8')
+rmsprop = keras.optimizers.RMSprop(lr=0.001)
+model_merge.compile(loss='categorical_crossentropy', optimizer=rmsprop)
+
 
 ###########get data from my MCL patient package
 #get data
@@ -499,10 +504,10 @@ print(weight_list[-1])
 weight_name = 'rnn_wopretrain_weightv5_d0.4.h5_8_12_8'
 record_file = path_save + 'record_trainingv5_d0.4.txt8_12_8'
 #parameters
-n_iteration = 20
+n_iteration = 100
 nb0 = 1
 vb0 = 1
-auc_best = 0.81
+auc_best = 0.82
 batch0 = 128*4
 x_train = [[],[]]
 x_train[0] = list(x_train_pos[0]) + list(x_train_neg[0]) + list(x_train_iedb[0])
