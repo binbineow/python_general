@@ -333,37 +333,66 @@ rnn_master.self_node = 64
 model_merge = rnn_master.make_model('class2')
 
 
-#testing
-path_para = '/home/stanford/rbaltman/users/bchen45/code/slurm/'
-para_file = 'run_now_merge_class.txt'
-rnn_master = RNN_master()
-rnn_master.get_input(path_para+para_file)
-rnn_master.create_out_file_names()
-rnn_master.mask0
-rnn_master.drop_out_c = 0.35
-# [mhc_train,seq_train,label_train] = pickle.load(open(rnn_master.path_data+rnn_master.train_file0,'r'))
-# [mhc_val,seq_val,label_val] = pickle.load(open(rnn_master.path_data+rnn_master.val_file0,'r'))
-# #get max length
-# rnn_master.MAXLEN = max([len(seq0) for seq0 in seq_train]+[len(seq0) for seq0 in seq_val])
-# print(rnn_master.MAXLEN)
-# #encode x 
-# len_hla = len(mhc_train[0])
-# x_mhc_train = encoding_fixed(mhc_train,len_hla,rnn_master.dict_aa,len(rnn_master.chars),add_placeh=3)
-# x_seq_train = encoding_data(seq_train,rnn_master.MAXLEN,rnn_master.dict_aa,len(rnn_master.chars))
-# x_mhc_val = encoding_fixed(mhc_val,len_hla,rnn_master.dict_aa,len(rnn_master.chars),add_placeh=3)
-# x_seq_val = encoding_data(seq_val,rnn_master.MAXLEN,rnn_master.dict_aa,len(rnn_master.chars))
-# #process y
-# y_train_iedb = encoding_y(label_train)
-# y_val_iedb = encoding_y(label_val)
-# label_train = np.array([int(y0) for y0 in label_train])
-# label_val = np.array([int(y0) for y0 in label_val])
-# #generate model
-# fix_len = len(x_mhc_train[0])
-# rnn_master.fix_len = fix_len
-rnn_master.fix_len = 801
-rnn_master.MAXLEN = 26
-rnn_master.self_node = 64
-model_merge = rnn_master.make_model('class2')
+###########get data from my MCL patient package
+#get data
+path_store = '/cstor/stanford/rbaltman/users/bchen45/mcl_data/'
+file_store = 'mcl_patient_mhc2.training_list1_v5'
+path_encoding = '/home/stanford/rbaltman/users/bchen45/code/python_general/encoding_dict/'
+dict_name = 'aa_21_sparse_encoding.dict'
+path_save = '/cstor/stanford/rbaltman/users/bchen45/mcl_data/model_weight/'
+MAXLEN = 26
+dict_aa = pickle.load(open(path_encoding+dict_name,'r'))
+[train_pos0,train_pos1,val_pos0,val_pos1,train_neg,val_neg, 
+  list_random,list_ms_random,list_shuffle_random,
+  list_anti_patient_train,list_anti_patient_val, iedb_train ,
+  iedb_train_y ,iedb_val ,iedb_val_y] = pickle.load(open(path_store+file_store,'r'))
+
+#get mhc length and dictionary length
+len_mhc = len(train_pos0[0][0])
+len_char = len(dict_aa['A'])
+
+#make train_pos
+train_pos = [[],[]]
+train_pos[0] = train_pos0[0] + train_pos1[0]
+train_pos[1] = train_pos1[1] + train_pos1[1]
+#make val_pos
+val_pos = [[],[]]
+val_pos[0] = val_pos0[0] + val_pos1[0]
+val_pos[1] = val_pos1[1] + val_pos1[1]
+
+#including 04:01 data
+iedb_train[0] = iedb_train[0] + iedb_val[0]
+iedb_train[1] = iedb_train[1] + iedb_val[1]
+iedb_train_y = iedb_train_y + iedb_val_y
+
+#encoding training data
+y_train_neg = make_and_encode_label(len(train_neg[0]),0)
+y_train_pos = make_and_encode_label(len(train_pos[0]),1)
+y_train_iedb = list(encoding_y(iedb_train_y))
+y_train = y_train_pos + y_train_neg + y_train_iedb
+x_train_pos = encode_apair(train_pos,dict_aa,len_mhc,MAXLEN,len_char)
+#x_train_pos1 = encode_apair(train_pos1,dict_aa,len_mhc,MAXLEN,len_char)
+x_train_neg = encode_apair(train_neg,dict_aa,len_mhc,MAXLEN,len_char)
+x_train_iedb = encode_apair(iedb_train,dict_aa,len_mhc,MAXLEN,len_char)
+
+#encoding validation data
+y_val_neg = make_and_encode_label(len(val_neg),0)
+y_val_pos = make_and_encode_label(len(val_pos),1)
+#y_val = y_val_pos + y_val_neg
+x_val_pos = encode_apair(val_pos,dict_aa,len_mhc,MAXLEN,len_char)
+#x_val_pos1 = encode_apair(val_pos1,dict_aa,len_mhc,MAXLEN,len_char)
+x_val_neg = encode_apair(val_neg,dict_aa,len_mhc,MAXLEN,len_char)
+x_val_iedb = encode_apair(iedb_val,dict_aa,len_mhc,MAXLEN,len_char)
+
+#x_val_iedb = encode_apair(iedb_val,dict_aa,len_mhc,MAXLEN,len_char
+
+
+#encoding other lists
+x_list_random = encode_apair(list_random,dict_aa,len_mhc,MAXLEN,len_char)
+x_list_ms_random = encode_apair(list_ms_random,dict_aa,len_mhc,MAXLEN,len_char)
+x_list_shuffle_random = encode_apair(list_shuffle_random,dict_aa,len_mhc,MAXLEN,len_char)
+x_list_anti_patient_train = encode_apair(list_anti_patient_train,dict_aa,len_mhc,MAXLEN,len_char)
+x_list_anti_patient_val = encode_apair(list_anti_patient_val,dict_aa,len_mhc,MAXLEN,len_char)
 
 
 #supporting funcitons
