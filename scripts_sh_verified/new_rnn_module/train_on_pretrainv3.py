@@ -307,7 +307,7 @@ rnn_master = RNN_master()
 rnn_master.get_input(path_para+para_file)
 rnn_master.create_out_file_names()
 rnn_master.mask0
-rnn_master.drop_out_c = 0.4
+rnn_master.drop_out_c = 0.45
 # [mhc_train,seq_train,label_train] = pickle.load(open(rnn_master.path_data+rnn_master.train_file0,'r'))
 # [mhc_val,seq_val,label_val] = pickle.load(open(rnn_master.path_data+rnn_master.val_file0,'r'))
 # #get max length
@@ -501,13 +501,13 @@ weight_list = make_w_list([100000,160000,80000],[x_train_pos[0],x_train_neg[0],x
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
-weight_name = 'rnn_wopretrain_weightv5_d0.4.h5.10_16_8'
-record_file = path_save + 'record_trainingv5_d0.4.10_16_8.txt'
+weight_name = 'rnn_wopretrain_weightv5_d0.45.h5.10_16_8'
+record_file = path_save + 'record_trainingv5_d0.45.10_16_8.txt'
 #parameters
 n_iteration = 100
 nb0 = 1
 vb0 = 1
-auc_best = 0.82
+auc_best = 0.84
 batch0 = 128*4
 x_train = [[],[]]
 x_train[0] = list(x_train_pos[0]) + list(x_train_neg[0]) + list(x_train_iedb[0])
