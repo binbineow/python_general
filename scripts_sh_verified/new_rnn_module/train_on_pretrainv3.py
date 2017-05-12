@@ -496,13 +496,13 @@ path_save = '/cstor/stanford/rbaltman/users/bchen45/mcl_data/model_weight/'
 rmsprop = keras.optimizers.RMSprop(lr=0.001)
 model_merge.compile(loss='categorical_crossentropy', optimizer=rmsprop)
 
-weight_list = make_w_list([100000,160000,80000],[x_train_pos[0],x_train_neg[0],x_train_iedb[0]])
+weight_list = make_w_list([100000,500000,100000],[x_train_pos[0],x_train_neg[0],x_train_iedb[0]])
 #weight_list = make_w_list([80000,100000],[x_train_pos[0],x_train_neg[0]])
 print(weight_list[0])
 print(weight_list[-1])
 #to save records
-weight_name = 'rnn_wopretrain_weightv5_d0.45.h5.10_16_8'
-record_file = path_save + 'record_trainingv5_d0.45.10_16_8.txt'
+weight_name = 'rnn_wopretrain_weightv5_d0.45.h5.1_5_1'
+record_file = path_save + 'record_trainingv5_d0.45.1_5_1.txt'
 #parameters
 n_iteration = 100
 nb0 = 1
